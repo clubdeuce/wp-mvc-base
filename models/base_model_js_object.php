@@ -193,7 +193,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 			
 			wp_enqueue_script( $this->handle, $this->src, $this->deps, $this->version, $this->in_footer );
 			if( isset( $this->localization_var ) && isset( $this->localization_args ) )
-				$localize = $this->_localize();
+				$this->localize();
 		}
 		
 		/**
