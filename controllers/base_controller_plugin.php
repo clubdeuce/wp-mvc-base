@@ -184,7 +184,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin css files
 		 *
-		 * An array containing css used by the controller
+		 * An array containing css used by the controller.
 		 *
 		 * @package WP Base\Controllers
 		 * @var array
@@ -195,7 +195,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin admin css files
 		 *
-		 * An array containing css used by the controller on admin pages
+		 * An array containing css used by the controller on admin pages.
 		 *
 		 * @package WP Base\Controllers
 		 * @var array
@@ -206,7 +206,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The controller javascript files
 		 *
-		 * An array containing javascript used by the controller
+		 * An array containing javascripts used by the controller.
 		 *
 		 * @package WP Base\Controllers
 		 * @var array
@@ -217,7 +217,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The controller admin javascript files
 		 *
-		 * An array containing css used by the controller
+		 * An array containing javascripts used by the controller on admin pages.
 		 *
 		 * @package WP Base\Controllers
 		 * @var array
@@ -306,26 +306,26 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 	 */
 		public function __construct( $slug, $version, $path, $file, $uri, $txtdomain )
 	 	{
-	 		$this->slug = 					$slug;
-	 		$this->version = 				$version;
-	 		$this->main_plugin_file = 		$file;
-	 		$this->path = 					trailingslashit( $path );
-	 		$this->app_path = 				$this->path . 'app/';
+	 		$this->slug = 			$slug;
+	 		$this->version = 		$version;
+	 		$this->main_plugin_file = 	$file;
+	 		$this->path = 			trailingslashit( $path );
+	 		$this->app_path = 		$this->path . 'app/';
 	 		$this->app_controllers_path = 	$this->app_path . 'controllers/';
-	 		$this->app_models_path = 		$this->app_path . 'models/';
-	 		$this->app_views_path = 		$this->app_path . 'views/';
-	 		$this->base_path = 			 	trailingslashit( dirname( dirname( __FILE__ ) ) );
+	 		$this->app_models_path = 	$this->app_path . 'models/';
+	 		$this->app_views_path = 	$this->app_path . 'views/';
+	 		$this->base_path = 		trailingslashit( dirname( dirname( __FILE__ ) ) );
 	 		$this->base_controllers_path = 	$this->base_path . 'controllers/';
-	 		$this->base_models_path = 		$this->base_path . 'models/';
-	 		$this->base_views_path = 		$this->base_path . 'views/';
-	 		$this->uri = 					trailingslashit( $uri );
-	 		$this->js_uri = 				$this->uri . 'js/';
-	 		$this->css_uri = 				$this->uri . 'css/';
-	 		$this->txtdomain = 				$txtdomain;
+	 		$this->base_models_path = 	$this->base_path . 'models/';
+	 		$this->base_views_path = 	$this->base_path . 'views/';
+	 		$this->uri = 			trailingslashit( $uri );
+	 		$this->js_uri = 		$this->uri . 'js/';
+	 		$this->css_uri = 		$this->uri . 'css/';
+	 		$this->txtdomain = 		$txtdomain;
 	 		$this->init();
 	 		
 	 		//add default WP action callbacks
-	 		add_action( 'init',			array( &$this, 'wp_init' ) );
+	 		add_action( 'init',		array( &$this, 'wp_init' ) );
 	 		add_action( 'admin_menu', 	array( &$this, 'admin_menu' ) );
 	 		add_action( 'admin_init', 	array( &$this, 'admin_init' ) );
 	 		add_action( 'admin_notices',	array( &$this, 'admin_notice' ) );
@@ -334,12 +334,12 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		add_action( 'post_updated_messages', 	array( &$this, 'post_updated_messages' ), 5 );
 	 		
 	 		//load the plugin text domain
-	 		add_action( 'plugins_loaded', 			array( &$this, 'plugins_loaded' ) );
-	 		add_action( 'add_meta_boxes', 			array( &$this, 'add_meta_boxes' ) );
+	 		add_action( 'plugins_loaded', 	array( &$this, 'plugins_loaded' ) );
+	 		add_action( 'add_meta_boxes', 	array( &$this, 'add_meta_boxes' ) );
 	 		
 	 		//enqueue scripts and css
-	 		add_action( 'admin_enqueue_scripts', 	array( &$this, 'admin_enqueue_scripts' ) );
-	 		add_action( 'wp_enqueue_scripts',		array( &$this, 'wp_enqueue_scripts' ) );
+	 		add_action( 'admin_enqueue_scripts',	array( &$this, 'admin_enqueue_scripts' ) );
+	 		add_action( 'wp_enqueue_scripts',	array( &$this, 'wp_enqueue_scripts' ) );
 	 		
 	 		//post actions
 	 		add_action( 'the_post',			array( &$this, 'callback_the_post' ) );
@@ -350,9 +350,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		add_action( "load-{$GLOBALS['pagenow']}", array( $this, 'load_admin_page' ), 10, 3 );
 	 		
 	 		//register our plugin activation/deactivation/delete callbacks
-	 		register_activation_hook( $this->main_plugin_file, array( &$this, 'activate_plugin' ) );
-	 		register_deactivation_hook( $this->main_plugin_file, array( &$this, 'deactivate_plugin' ) );
-	 		register_uninstall_hook( $this->main_plugin_file, array( 'Base_Controller_Plugin', 'delete_plugin' ) );
+	 		register_activation_hook( $this->main_plugin_file,	array( &$this, 'activate_plugin' ) );
+	 		register_deactivation_hook( $this->main_plugin_file,	array( &$this, 'deactivate_plugin' ) );
+	 		register_uninstall_hook( $this->main_plugin_file,	array( 'Base_Controller_Plugin', 'delete_plugin' ) );
 	 	}
 		
 		/**
