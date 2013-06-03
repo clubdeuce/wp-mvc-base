@@ -1165,9 +1165,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			if( is_array( $options ) ):
 				foreach( $options as $key => $val ):
 					$html .= sprintf ( '<option value="%1$s" %2$s>%3$s</option>', 
-						$val,
-						$current_value == $val ? 'selected' : '',
-						$key
+						$key,
+						$current_value == $key ? 'selected' : '',
+						$val
 					);
 				endforeach;
 			endif;
