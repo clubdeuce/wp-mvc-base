@@ -939,7 +939,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 					if ( is_null( $field['callback'] ) )
 						$field['callback'] = array( &$this, 'render_settings_field' );
 						
-					add_settings_field( $key, $field['title'], $field['callback'], $field['page'], $field['section'], $field['args'] );
+					$field = apply_filters( 'ah_filter_settings_field-' . $key, $field );
+					
+					if ( ! is_null( $field ) )
+						add_settings_field( $key, $field['title'], $field['callback'], $field['page'], $field['section'], $field['args'] );
 				endforeach;
 			endif;
 		}
