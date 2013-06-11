@@ -1,4 +1,4 @@
-wp-mvc-base
+WP MVC Base
 ===========
 
 The purpose of this project is to create a base, mvc-style framework for rapid WordPress plugin development. To that end, this framework includes models for custom post types, metaboxes, screen help tabs, etc.
