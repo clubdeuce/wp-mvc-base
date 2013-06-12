@@ -306,53 +306,53 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 	 */
 		public function __construct( $slug, $version, $path, $file, $uri, $txtdomain )
 	 	{
-	 		$this->slug = 			$slug;
-	 		$this->version = 		$version;
-	 		$this->main_plugin_file = 	$file;
-	 		$this->path = 			trailingslashit( $path );
-	 		$this->app_path = 		$this->path . 'app/';
+	 		$this->slug = 					$slug;
+	 		$this->version = 				$version;
+	 		$this->main_plugin_file = 		$file;
+	 		$this->path = 					trailingslashit( $path );
+	 		$this->app_path = 				$this->path . 'app/';
 	 		$this->app_controllers_path = 	$this->app_path . 'controllers/';
-	 		$this->app_models_path = 	$this->app_path . 'models/';
-	 		$this->app_views_path = 	$this->app_path . 'views/';
-	 		$this->base_path = 		trailingslashit( dirname( dirname( __FILE__ ) ) );
+	 		$this->app_models_path = 		$this->app_path . 'models/';
+	 		$this->app_views_path = 		$this->app_path . 'views/';
+	 		$this->base_path = 				trailingslashit( dirname( dirname( __FILE__ ) ) );
 	 		$this->base_controllers_path = 	$this->base_path . 'controllers/';
-	 		$this->base_models_path = 	$this->base_path . 'models/';
-	 		$this->base_views_path = 	$this->base_path . 'views/';
-	 		$this->uri = 			trailingslashit( $uri );
-	 		$this->js_uri = 		$this->uri . 'js/';
-	 		$this->css_uri = 		$this->uri . 'css/';
-	 		$this->txtdomain = 		$txtdomain;
+	 		$this->base_models_path =		$this->base_path . 'models/';
+	 		$this->base_views_path =		$this->base_path . 'views/';
+	 		$this->uri =					trailingslashit( $uri );
+	 		$this->js_uri =					$this->uri . 'js/';
+	 		$this->css_uri =				$this->uri . 'css/';
+	 		$this->txtdomain =				$txtdomain;
 	 		$this->init();
 	 		
 	 		//add default WP action callbacks
-	 		add_action( 'init',		array( &$this, 'wp_init' ) );
-	 		add_action( 'admin_menu', 	array( &$this, 'admin_menu' ) );
-	 		add_action( 'admin_init', 	array( &$this, 'admin_init' ) );
-	 		add_action( 'admin_notices',	array( &$this, 'admin_notice' ) );
+	 		add_action( 'init',						array( &$this, 'wp_init' ) );
+	 		add_action( 'admin_menu',				array( &$this, 'admin_menu' ) );
+	 		add_action( 'admin_init',				array( &$this, 'admin_init' ) );
+	 		add_action( 'admin_notices',			array( &$this, 'admin_notice' ) );
 	 		
 	 		//register our post updated messages
 	 		add_action( 'post_updated_messages', 	array( &$this, 'post_updated_messages' ), 5 );
 	 		
 	 		//load the plugin text domain
-	 		add_action( 'plugins_loaded', 	array( &$this, 'plugins_loaded' ) );
-	 		add_action( 'add_meta_boxes', 	array( &$this, 'add_meta_boxes' ) );
+	 		add_action( 'plugins_loaded',			array( &$this, 'plugins_loaded' ) );
+	 		add_action( 'add_meta_boxes',			array( &$this, 'add_meta_boxes' ) );
 	 		
 	 		//enqueue scripts and css
 	 		add_action( 'admin_enqueue_scripts',	array( &$this, 'admin_enqueue_scripts' ) );
-	 		add_action( 'wp_enqueue_scripts',	array( &$this, 'wp_enqueue_scripts' ) );
+	 		add_action( 'wp_enqueue_scripts',		array( &$this, 'wp_enqueue_scripts' ) );
 	 		
 	 		//post actions
-	 		add_action( 'the_post',			array( &$this, 'callback_the_post' ) );
-	 		add_action( 'save_post', 		array( &$this, 'callback_save_post' ) );
-	 		add_action( 'delete_post', 		array( &$this, 'callback_delete_post' ) );
+	 		add_action( 'the_post',					array( &$this, 'callback_the_post' ) );
+	 		add_action( 'save_post',				array( &$this, 'callback_save_post' ) );
+	 		add_action( 'delete_post',				array( &$this, 'callback_delete_post' ) );
 	 		
 	 		//register the page load callback
 	 		add_action( "load-{$GLOBALS['pagenow']}", array( $this, 'load_admin_page' ), 10, 3 );
 	 		
 	 		//register our plugin activation/deactivation/delete callbacks
-	 		register_activation_hook( $this->main_plugin_file,	array( &$this, 'activate_plugin' ) );
+	 		register_activation_hook( $this->main_plugin_file,		array( &$this, 'activate_plugin' ) );
 	 		register_deactivation_hook( $this->main_plugin_file,	array( &$this, 'deactivate_plugin' ) );
-	 		register_uninstall_hook( $this->main_plugin_file,	array( 'Base_Controller_Plugin', 'delete_plugin' ) );
+	 		register_uninstall_hook( $this->main_plugin_file,		array( 'Base_Controller_Plugin', 'delete_plugin' ) );
 	 	}
 		
 		/**
@@ -568,6 +568,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @uses Base_Model_CPT::get_admin_css() to retrieve the CPT admin css.
 		 * @uses Base_Model_CPT::get_admin_scripts() to retrieve the CPT admin scripts.
 		 * @since 0.1
+		 * @todo modify this function to enqueue scripts based on wp_screen object
 		 */
 		public function admin_enqueue_scripts( $hook )
 		{
@@ -981,16 +982,18 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 						$this->help_tabs[$page['hook_suffix']] = $page['help_screen'];
 						add_action( "load-{$page['hook_suffix']}", array( &$this, 'load_admin_page' ) );
 						
-					//add necessary js
+					//set up javascripts for this page
 					if ( isset( $page['js'] ) && is_array( $page['js'] ) )
 						$this->admin_js[$page['hook_suffix']] = $page['js'];
 						add_action( "load-{$page['hook_suffix']}", array( &$this, 'load_admin_page' ) );
 					
-					//add css
+					//set up  css for this page
 					if ( isset( $page['css'] ) && is_array( $page['css'] ) )
 						$this->admin_css[$page['hook_suffix']] = $page['css'];
 						add_action( "load-{$page['hook_suffix']}", array( &$this, 'load_admin_page' ) );
-							
+					
+					
+					//set up admin notices for this page
 					if ( isset( $page['admin_notices'] ) && is_array( $page['admin_notices'] ) )
 						$this->admin_notices[$page['hook_suffix']] = $page['admin_notices'];
 						add_action( "admin_notices", array( &$this, 'admin_notice' ) );
@@ -1001,7 +1004,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Render an options page.
 		 *
-		 * Thuis function can be used as a generic callback for the WP add_x_page() function.
+		 * This function can be used as a generic callback for the WP add_x_page() function. It will render
+		 * the options page template defined in the page object if it exists, otherwise it will use a generic
+		 * template included in this package (views/base_options_page.php).
+		 *
 		 * @package WP Base\Controllers
 		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
 		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
@@ -1010,8 +1016,11 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 */
 		public function render_options_page()
 		{
+			//get the pages as set up in the settings model
 			$pages = $this->settings_model->get_pages();
+			//get the page being requested
 			$page = $pages[$_REQUEST['page']];
+			
 			$options = $this->settings_model->get_options();
 			
 			if ( isset( $page['view'] ) && file_exists( trailingslashit( $this->app_views_path ) . $page['view'] ) ):
@@ -1032,6 +1041,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @param object $section The section object.
 		 * @link http://codex.wordpress.org/Function_Reference/add_settings_section
 		 * @since 0.1
+		 * @todo modify to work like add_menu_pages with a view property
 		 */
 		public function render_settings_section( $section )
 		{
@@ -1072,9 +1082,6 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 				case 'textarea':
 					$this->render_input_textarea( $args );
 					break;
-				case 'hidden':
-					$this->render_input_hidden( $args );
-					break;
 			}
 		}
 		
@@ -1084,6 +1091,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @package WP Base\Controllers
 		 * @param array $args The field arguments.
 		 * @since 0.1
+		 * @todo move into a helper library?
 		 */
 		private function render_input_checkbox( $args )
 		{
@@ -1121,27 +1129,12 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		}
 		
 		/**
-		 * Render a hidden input field.
-		 *
-		 * @package WP Base\Controllers
-		 * @param array $args The field arguments.
-		 * @since 0.1
-		 */
-		private function render_input_hidden( $args )
-		{
-			printf( '<input type="hidden" id="%1$s" name="%2$s" value="%3$s" />',
-				$args['id'],
-				$args['name'],
-				$args['value']
-			);
-		}
-		
-		/**
 		 * Render a select input field.
 		 *
 		 * @package WP Base\Controllers
 		 * @param array $args The field arguments.
 		 * @since 0.1
+		 * @todo move into a helper library?
 		 */
 		private function render_input_select( $args )
 		{
@@ -1159,6 +1152,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @param array $options A key/value pair of values and option display strings.
 		 * @param string $current_value The current value for this option field.
 		 * @since 0.1
+		 * @todo move into a helper library?
 		 */
 		private function render_input_select_options( $options, $current_value )
 		{	
@@ -1200,6 +1194,17 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		public function get_version()
 		{
 			return $this->version;
+		}
+		
+		/**
+		 * Get the plugin slug
+		 *
+		 * @package WP Base\Controllers
+		 * @since 0.1
+		 */
+		public function get_slug()
+		{
+			return $this->slug;
 		}
 	}
 endif;
