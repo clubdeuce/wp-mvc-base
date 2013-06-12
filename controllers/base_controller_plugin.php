@@ -369,6 +369,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * The plugins loaded action callback.
 		 *
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		public function plugins_loaded()
@@ -382,6 +383,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * @package WP Base\Controllers
 		 * @uses Base_Controller_Plugin::add_shortcodes()
+		 * @internal
 		 * @since 0.1
 		 */
 		public function wp_init()
@@ -406,6 +408,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * This callback is used to register the menu pages.
 		 *
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		public function admin_menu()
@@ -420,6 +423,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * Render admin notices for this screen.
 		 *
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		public function admin_notice()
@@ -439,6 +443,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * This function registers the options, settings sections, and settings fields.
 		 (
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		public function admin_init()
@@ -455,6 +460,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * The WP load-{$page} action callback
 		 *
 		 * @package WP Models
+		 * @internal
 		 * @since 0.1
 		 */
 		public function load_admin_page()
@@ -487,6 +493,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * Add meta boxes required by this plugin for the currently active post type
 		 *
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		public function add_meta_boxes()
@@ -520,6 +527,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @package WP Base\Controllers
 		 * @param object $post The WP post object.
 		 * @param object $metabox The WP_Metabox object to be rendered.
+		 * @internal
 		 * @todo move the filter into the add function
 		 * @since 0.1
 		 */
@@ -547,6 +555,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @package WP Base\Controllers
 		 * @param array $messages The existing messages array.
 		 * @return array $messages The updated messages array.
+		 * @internal
 		 * @since 0.1
 		 */
 		public function post_updated_messages( $messages )
@@ -571,6 +580,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @uses Helper_Functions::enqueue_scripts() to enqueue the scripts.
 		 * @uses Base_Model_CPT::get_admin_css() to retrieve the CPT admin css.
 		 * @uses Base_Model_CPT::get_admin_scripts() to retrieve the CPT admin scripts.
+		 * @internal
 		 * @since 0.1
 		 * @todo modify this function to enqueue scripts based on wp_screen object
 		 */
@@ -620,6 +630,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @uses Helper_Functions::enqueue_scripts()
 		 * @uses Base_Model_CPT::get_css()
 		 * @uses Base_Model_CPT::get_scripts()
+		 * @internal
 		 * @since 0.1
 		 */
 		public function wp_enqueue_scripts()
@@ -660,6 +671,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @package WP Models
 		 * @param object $post The WP post object.
 		 * @return object $post The modified post object.
+		 * @internal
 		 * @since 0.1
 		 */
 		public function callback_the_post( $post )
@@ -696,6 +708,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * @package WP Base\Controllers
 		 * @param string $post_id
+		 * @internal
 		 * @since 0.1
 		 */
 		public function callback_save_post( $post_id )
@@ -754,6 +767,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * @package WP Base\Controllers
 		 * @param string $post_id
+		 * @internal
 		 * @since 0.1
 		 */
 		public function callback_delete_post( $post_id )
@@ -800,6 +814,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * It currently initiiates a permalinks update. If you have additional activities, add the function activate() to your child class.
 		 *
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		public function activate_plugin()
@@ -829,6 +844,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * Use this function to perform tasks at plugin deactivation. If you have additional activities, add the function deactivate() to your child class.
 		 *
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		public function deactivate_plugin()
@@ -851,6 +867,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * @package WP Base\Controllers
 		 * @param array $shortcodes
+		 * @internal
 		 * @since 0.1
 		 */
 		private function add_shortcodes( $shortcodes )
@@ -866,6 +883,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * Register options.
 		 *
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		protected function register_options()
@@ -886,6 +904,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * Add the settings sections.
 		 *
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		protected function add_settings_sections()
@@ -908,6 +927,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * Add the settings fields.
 		 *
 		 * @package WP Base\Controllers
+		 * @internal
 		 * @since 0.1
 		 */
 		protected function add_settings_fields()
@@ -933,6 +953,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @package WP Base\Controllers
 		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
 		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
+		 * @internal
 		 * @since 0.1
 		 */		
 		protected function add_menu_pages()
@@ -991,6 +1012,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
 		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
 		 * @link http://codex.wordpress.org/Function_Reference/add_options_page
+		 * @internal
 		 * @since 0.1
 		 */
 		public function render_options_page()
@@ -1019,6 +1041,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @package WP Base\Controllers
 		 * @param object $section The section object.
 		 * @link http://codex.wordpress.org/Function_Reference/add_settings_section
+		 * @internal
 		 * @since 0.1
 		 * @todo modify to work like add_menu_pages with a view property
 		 */
@@ -1050,16 +1073,16 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			switch( $args['type'] )
 			{
 				case 'checkbox':
-					$this->render_input_checkbox( $args );
+					$this->_render_input_checkbox( $args );
 					break;
 				case 'select':
-					$this->render_input_select( $args );
+					$this->_render_input_select( $args );
 					break;
 				case 'text':
-					$this->render_input_text( $args );
+					$this->_render_input_text( $args );
 					break;
 				case 'textarea':
-					$this->render_input_textarea( $args );
+					$this->_render_input_textarea( $args );
 					break;
 			}
 		}
@@ -1072,7 +1095,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @since 0.1
 		 * @todo move into a helper library?
 		 */
-		private function render_input_checkbox( $args )
+		private function _render_input_checkbox( $args )
 		{
 			printf( '<input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s/>',
 				$args['id'],
@@ -1088,7 +1111,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @param array $args The field arguments.
 		 * @since 0.1
 		 */
-		private function render_input_text( $args )
+		private function _render_input_text( $args )
 		{
 			$txtdomain = $this->txtdomain;
 			
@@ -1115,12 +1138,12 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @since 0.1
 		 * @todo move into a helper library?
 		 */
-		private function render_input_select( $args )
+		private function _render_input_select( $args )
 		{
 			printf( '<select id="%1$s" name="%2$s">%3$s</select>',
 				$args['id'],
 				$args['name'],
-				$this->render_input_select_options( $args['options'], $args['value'] )
+				$this->_render_input_select_options( $args['options'], $args['value'] )
 			);
 		}
 		
@@ -1133,7 +1156,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @since 0.1
 		 * @todo move into a helper library?
 		 */
-		private function render_input_select_options( $options, $current_value )
+		private function _render_input_select_options( $options, $current_value )
 		{	
 			$html = sprintf( '<option value="">Select…</option>',
 				_x( 'Select…', 'Select an option', $this->txtdomain ) );
@@ -1186,6 +1209,14 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			return $this->slug;
 		}
 		
+		
+		/**
+		 * Get the plugin text domain
+		 *
+		 * @package WP Base\Controllers
+		 * @return string $txtdomain
+		 * @since 0.1
+		 */
 		public function get_textdomain()
 		{
 			return $this->txtdomain;
