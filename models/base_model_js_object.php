@@ -3,7 +3,7 @@
  * The base javascript object model.
  *
  * @package WP Base\Models
- * @author authtoken
+ * @author Daryl Lozupone <daryl@actionhook.com>
  * @version 0.1
  * @since WP Base 0.1
  */
@@ -83,7 +83,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * The script dependencies.
 		 *
-		 * Array of the handles of all the registered scripts that this script depends on, that is the scripts that must be 
+		 * Array of the handles of all the registered scripts upon which this script depends, that is the scripts that must be 
 		 * loaded before this script. Set false if there are no dependencies.
 		 *
 		 * @package WP Base\Models
@@ -167,7 +167,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		
 		
 		/**
-		 * Register the script globally.
+		 * Register the script.
 		 *
 		 * @package WP Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/wp_register_script

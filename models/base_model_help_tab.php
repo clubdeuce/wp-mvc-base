@@ -90,6 +90,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * Add this help tab to the current screen.
 		 *
 		 * @package WP Base\Models
+		 * @link http://codex.wordpress.org/Function_Reference/add_help_tab
 		 * @since 0.1
 		 */
 		public function add()
@@ -105,7 +106,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * Get the help tab title.
 		 *
-		 * @package pkgtoken
+		 * @package WP Base\Models
 		 * @since 0.1
 		 */
 		public function get_title()
@@ -116,7 +117,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * Get the help tab id.
 		 *
-		 * @package pkgtoken
+		 * @package WP Base\Models
 		 * @since 0.1
 		 */
 		public function get_id()

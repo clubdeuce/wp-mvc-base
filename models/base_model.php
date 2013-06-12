@@ -70,7 +70,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * The model javascript files
 		 *
-		 * An array containing javascript used by the model on the frontend.
+		 * An array containing a collection of javascript objects used by the model on the frontend.
 		 *
 		 * @package WP Base\Models
 		 * @see WP Base\Models\Base Model JS Object
@@ -82,7 +82,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * The model admin javascript files
 		 *
-		 * An array containing javascript used by the model on admin pages.
+		 * An array containing a collection of javascript objects used by the model on admin pages.
 		 *
 		 * @package WP Base\Models
 		 * @var array
