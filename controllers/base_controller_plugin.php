@@ -1211,6 +1211,11 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		{
 			return $this->slug;
 		}
+		
+		public function get_textdomain()
+		{
+			return $this->txtdomain;
+		}
 	}
 endif;
 ?>
