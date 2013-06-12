@@ -3,7 +3,7 @@
  * The base model.
  *
  * @package WP Base\Models
- * @author authtoken
+ * @author Daryl Lozupone <daryl@actionhook.com>
  * @since WP Base 0.1
  */
  
@@ -27,7 +27,11 @@ if( ! class_exists( 'Base_Model' ) ):
 	/**
 	 * The base model.
 	 *
+	 * This class serves as the base for other models provided by the framework. It contains the properties and
+	 * and methods required by other models.
+	 *
 	 * @package WP Base\Models
+	 * @internal
 	 * @since WP Base 0.1
 	 */
 	abstract class Base_Model
@@ -44,7 +48,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * The plugin css files
 		 *
-		 * An array containing css used by the model
+		 * An array containing css used by the model. 
 		 *
 		 * @package WP Base\Models
 		 * @var array
@@ -53,7 +57,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		protected $css;
 		
 		/**
-		 * The plugin admin css files
+		 * The plugin admin css files.
 		 *
 		 * An array containing css used by the model on admin pages
 		 *
@@ -66,9 +70,10 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * The model javascript files
 		 *
-		 * An array containing javascript used by the model
+		 * An array containing javascript used by the model on the frontend.
 		 *
 		 * @package WP Base\Models
+		 * @see WP Base\Models\Base Model JS Object
 		 * @var array
 		 * @since 0.1
 		 */
@@ -77,7 +82,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * The model admin javascript files
 		 *
-		 * An array containing css used by the model
+		 * An array containing javascript used by the model on admin pages.
 		 *
 		 * @package WP Base\Models
 		 * @var array
@@ -90,6 +95,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 *
 		 * @package WP Base\Models
 		 * @var array Contains an array of WP_Base_Metabox objects
+		 * @see WP Base\Models\Base_Metabox_Model
 		 * @since 0.1
 		 */
 		protected $metaboxes;
@@ -98,7 +104,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * Get the frontend CSS.
 		 *
 		 * @package WP Base\Models
-		 * @param string $uri The plugin js uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
+		 * @param string $uri The plugin css uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
 		 * @return array $admin_css
 		 * @since 0.1
 		 */
@@ -114,7 +120,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * Get the admin CSS.
 		 *
 		 * @package WP Base\Models
-		 * @param string $uri The plugin js uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
+		 * @param string $uri The plugin css uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
 		 * @return array $admin_css Collection of admin css objects.
 		 * @since 0.1
 		 */
