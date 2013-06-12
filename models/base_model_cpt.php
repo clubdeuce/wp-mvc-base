@@ -71,7 +71,6 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * </code>
 		 *
 		 * @package WP Base\Models
-		 * @subpackage subtoken
 		 * @var array
 		 * @since 0.1
 		 */
