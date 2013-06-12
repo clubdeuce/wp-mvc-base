@@ -11,7 +11,7 @@
 
 if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 	/**
-	 * The base help tab model.
+	 * The help tab model.
 	 *
 	 * @package WP Base\Models
 	 * @since 0.1
@@ -56,7 +56,9 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		private $_callback;
 		
 		/**
-		 * The help tab view. This must be an absolute path to the view file.
+		 * The help tab view file. 
+		 *
+		 * This must be an absolute path to the view file.
 		 *
 		 * @package WP Base\Models
 		 * @var string
@@ -85,7 +87,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		}
 		
 		/**
-		 * Add the help tab to the current screen.
+		 * Add this help tab to the current screen.
 		 *
 		 * @package WP Base\Models
 		 * @since 0.1
