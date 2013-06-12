@@ -101,6 +101,28 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		}
 		
 		/**
+		 * Get the help tab title.
+		 *
+		 * @package pkgtoken
+		 * @since 0.1
+		 */
+		public function get_title()
+		{
+			return $this->title;
+		}
+		
+		/**
+		 * Get the help tab id.
+		 *
+		 * @package pkgtoken
+		 * @since 0.1
+		 */
+		public function get_id()
+		{
+			return $this->_id;
+		}
+		
+		/**
 		 * Set the help tab callback.
 		 *
 		 * @package WP Base\Models
