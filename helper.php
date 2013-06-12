@@ -13,8 +13,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 	/**
 	 * Helper functions class
 	 *
-	 * @package WP Base
-	 * @subpackage Helper Functions
+	 * @package WP Base\Helper Functions
 	 * @version 0.1
 	 * @since WP Base 0.1
 	 */
@@ -24,14 +23,14 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		/**
 		 * Process files uploaded via plupload
 		 *
-		 * @package WP Base
-		 * @subpackage Helper Functions
+		 * @package WP Base\Helper Functions
 		 * @param array $post The $_POST object.
 		 * @param array $files The $_FILES object.
 		 * @param string $target The upload target absolute path.
 		 * @param bool $log Log the request. Default is false.
 		 * @since 0.1
 		 * @todo How does this handle mutliple files in the upload?
+		 * @todo Move this into a separate plupload helper
 		 */
 		public static function plupload( $post, $files, $target, $log = false )
 		{	
@@ -79,8 +78,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 * It exposes a filter ( ah_base_filter_styles-$style_handle ) that can be used to alter
 		 * the style object properties.
 		 *
-		 * @package WP Base
-		 * @subpackage Helper Functions
+		 * @package WP Base\Helper Functions
 		 * @param array $styles The collection of style objects to be enqueued.
 		 * @since 0.1
 		 */
@@ -107,8 +105,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 * It exposes a filter ( ah_base_filter_scripts-$style_handle ) that can be used to alter
 		 * the script object properties.
 		 *
-		 * @package WP Base
-		 * @subpackage Helper Functions
+		 * @package WP Base\Helper Functions
 		 * @param array $scripts The collection of script objects to be enqueued.
 		 * @todo Update filter to include all script elements.
 		 * @since 0.1
@@ -126,8 +123,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 * This function will create the directory specified in $target if it does not already exist.
 		 * It will also add an index.php file if $index is set to TRUE.
 		 *
-		 * @package WP Base
-		 * @subpackage Helper Functions
+		 * @package WP Base\Helper Functions
 		 * @param string $target The directory absolute path.
 		 * @param bool $index Create an index.php in the directory (default true).
 		 * @param octal $permissions The directory permissions (default 0755 ).
@@ -146,6 +142,14 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 			endif;
 		}
 		
+		/**
+		 * Get the contents of a local filesystem directory.
+		 *
+		 * @package WP Base
+		 * @oaram string $directory The absolute path to the directory.
+		 * @returns array|bool array An array containg the directory contents on success, NULL on failure.
+		 * @since 0.1
+		 */
 		public static function get_local_directory_contents( $directory )
 		{
 			if ( is_dir( $directory ) ):
@@ -170,7 +174,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		/**
 		 * Remove a directory and all contents from the local filesystem
 		 *
-		 * @package pkgtoken
+		 * @package WP Base
 		 * @subpackage subtoken
 		 * @param string $dirname The absokute path to the directory to be deleted.
 		 * @param bool $force Delete all folder contents recursively (true). Default FALSE.
@@ -203,8 +207,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		/**
 		 * Delete a file on the local filesystem.
 		 *
-		 * @package WP Base
-		 * @subpackage Helper Functions
+		 * @package WP Base\Helper Functions
 		 * @param string $file The absolute path to the file.
 		 * @return TRUE on success, FALSE on failure.
 		 * @since 0.1
@@ -218,8 +221,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		/**
 		 * Sanitize an array with sanitize_text_field
 		 *
-		 * @package WP Base
-		 * @subpackage Helper Functions
+		 * @package WP Base\Helper Functions
 		 * @param array $array Contains the elements to be sanitized
 		 * @return array The sanitized array
 		 * @since 0.1
