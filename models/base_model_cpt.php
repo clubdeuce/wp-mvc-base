@@ -29,7 +29,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @since 0.1
 		 * @var string
 		 */
-		protected static $slug = 'my_cpt_slug';
+		protected $slug = 'my_cpt_slug';
 		
 		/**
 		 * the cpt metakey 
@@ -39,7 +39,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @var array
 		 * @since 0.1
 		 */
-		protected static $metakey = '_my_metakey';
+		protected $metakey = '_my_metakey';
 		
 		/**
 		 * The arguments passed to register_post_type.
@@ -236,9 +236,9 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		 * @return string $slug
 		 * @since 0.1
 		 */
-		public static function get_slug()
+		public function get_slug()
 		{
-			return static::$slug;
+			return $this->slug;
 		}
 		
 		/**
@@ -304,7 +304,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 			if ( ! isset( $this->args ) )
 				$this->init_args( $uri, $txtdomain );
 			
-			register_post_type( static::$slug, $this->args );
+			register_post_type( $this->slug, $this->args );
 		}
 		
 		/**
@@ -316,7 +316,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		 */
 		public static function get_metakey()
 		{
-			return satic::$metakey;
+			return $this->metakey;
 		}
 				
 		/**
