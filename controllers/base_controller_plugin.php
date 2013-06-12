@@ -460,15 +460,17 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 */
 		public function load_admin_page()
 		{
-			//determine the type of page we are on and if there are any help tabs defined for this page
+			//determine the page we are on
 			$screen = get_current_screen();
-
+			
+			//are there help tabs for this screen?
 			if ( isset( $this->help_tabs[$screen->id] ) ):
 				foreach( $this->help_tabs[$screen->id] as $tab ):
 					$tab->add();
 				endforeach;
 			endif;
 			
+			//are there javascripts registered for this screen?
 			if ( isset( $this->admin_js[$screen->id] ) ):
 				foreach( $this->admin_js[$screen->id] as $script ):
 					$script->enqueue();
@@ -476,6 +478,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 				endforeach;
 			endif;
 			
+			//are there styles registered for this screen?
 			if ( isset( $this->admin_css[$screen->id] ) ):
 				Helper_Functions::enqueue_styles( $this->admin_css[$screen->id] );
 			endif;
@@ -532,6 +535,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			//generate a nonce
 			$nonce = wp_nonce_field( $this->nonce_action, $this->nonce_name, true, false );
 			
+			//set up variables required for the view
 			$txtdomain = $this->txtdomain;
 			
 			//require the appropriate view for this metabox
