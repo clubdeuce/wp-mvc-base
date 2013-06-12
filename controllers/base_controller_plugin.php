@@ -472,6 +472,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			if ( isset( $this->admin_js[$screen->id] ) ):
 				foreach( $this->admin_js[$screen->id] as $script ):
 					$script->enqueue();
+					$script->localize();
 				endforeach;
 			endif;
 			
