@@ -349,10 +349,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		//register the page load callback
 	 		add_action( "load-{$GLOBALS['pagenow']}", array( $this, 'load_admin_page' ), 10, 3 );
 	 		
-	 		//register our plugin activation/deactivation/delete callbacks
+	 		//register our plugin activation/deactivation callbacks
 	 		register_activation_hook( $this->main_plugin_file,		array( &$this, 'activate_plugin' ) );
 	 		register_deactivation_hook( $this->main_plugin_file,	array( &$this, 'deactivate_plugin' ) );
-	 		register_uninstall_hook( $this->main_plugin_file,		array( 'Base_Controller_Plugin', 'delete_plugin' ) );
 	 	}
 		
 		/**
@@ -817,11 +816,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			endif;
 			
 			
-			if ( function_exists( 'get_called_class' ) ):
-				$called_class = get_called_class();
-				if ( method_exists( $called_class, 'activate' ) )
-					$called_class::activate();
-			endif;
+			if ( method_exists( $this, 'activate' ) )
+					$this->activate();
 			
 			if( isset( $this->settings_model ) && method_exists( $this->settings_model, 'activate' ) )
 				$this->settings_model->activate();
@@ -844,34 +840,12 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 				endforeach;
 			endif;
 			
-			if ( function_exists( 'get_called_class' ) ):
-				$called_class = get_called_class();
-				if ( method_exists( $called_class, 'deactivate' ) )
-					$called_class->deactivate();
-			endif;
+			if ( method_exists( $this, 'deactivate' ) )
+				$this->deactivate();
 			
 			flush_rewrite_rules();
 		}
-		
-		/**
-		 * The plugin deletion callback.
-		 *
-		 * Use this function to perform tasks at plugin deletion, such as drop tables, remove settings, etc.
-		 * If you have additional activities, add the function delete() to your child class.
-		 *
-		 *
-		 * @package WP Base\Controllers
-		 * @since 0.1
-		 */
-		public static function delete_plugin()
-		{	
-			if ( function_exists( get_called_class ) ):
-				$called_class = get_called_class();
-				if ( method_exists( $called_class, 'delete' ) )
-					$called_class::delete();
-			endif;
-		}
-		
+				
 		/**
 		 * Register shortcodes.
 		 *
