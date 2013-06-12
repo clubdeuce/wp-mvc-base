@@ -146,7 +146,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 * Get the contents of a local filesystem directory.
 		 *
 		 * @package WP Base
-		 * @oaram string $directory The absolute path to the directory.
+		 * @param string $directory The absolute path to the directory.
 		 * @returns array|bool array An array containg the directory contents on success, NULL on failure.
 		 * @since 0.1
 		 */
