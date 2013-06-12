@@ -374,10 +374,11 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function sanitize_input( $input )
 		{
-		
-			foreach( $input as $key => $value ):
-				$input[$key] = sanitize_text_field( $value );
-			endforeach;
+			if( is_array( $input ) ):
+				foreach( $input as $key => $value ):
+					$input[$key] = sanitize_text_field( $value );
+				endforeach;
+			endif;
 			
 			return $input;
 		}
