@@ -34,6 +34,6 @@ script:
 notifications:
     email:
         recipients:
-          - plugins@actionhook.com
+          - daryl@actionhook.com
         on_success: change
         on_failure: always
