@@ -2,10 +2,10 @@
 /**
  * The base javascript object model.
  *
- * @package WP Base\Models
+ * @package WP MVC Base\Models
  * @author Daryl Lozupone <daryl@actionhook.com>
  * @version 0.1
- * @since WP Base 0.1
+ * @since WP MVC Base 0.1
  */
 if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 	/**
@@ -46,8 +46,8 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 	 * 
 	 * If using a script already registered by WordPress, you need only specify the handle.
 	 *
-	 * @package WP Base\Models
-	 * @since WP Base 0.1
+	 * @package WP MVC Base\Models
+	 * @since WP MVC Base 0.1
 	 * @link http://codex.wordpress.org/Function_Reference/wp_enqueue_script
 	 */
 	class Base_Model_JS_Object
@@ -59,7 +59,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * the preceding part of the string refers to the registered handle, and the succeeding part is 
 		 * appended to the URL as a query string.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -74,7 +74,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * URL, e.g. //otherdomain.com/js/their-script.js. This parameter is only required when the script with the given 
 		 * $handle has not been already registered using wp_register_script().
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -86,7 +86,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Array of the handles of all the registered scripts upon which this script depends, that is the scripts that must be 
 		 * loaded before this script. Set false if there are no dependencies.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * of WordPress you are running. If set to null no version is added. This parameter is used to ensure that the correct version 
 		 * is sent to the client regardless of caching, and so should be included if a version number is available and makes sense for the script.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string|bool
 		 * @since 0.1
 		 */
@@ -111,7 +111,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 *
 		 * Normally, scripts are placed in <head> of the HTML document. If this parameter is true, the script is placed before the </body> end tag.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var bool
 		 * @since 0.1
 		 */
@@ -123,7 +123,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * String specifying the localization variable name to be used in the wp_localize_script() function. If set, the $localization_args property
 		 * is required and this class will attempt to localize the script immediately after enqueuing the script. 
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -135,7 +135,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * An array of key/value pairs containing the argument name(s) and value(s).
 		 * If the $localization_var property is set, this will be used as the $args parameter of the wp_localize_script function.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
@@ -144,7 +144,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * The class constructor
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $handle
 		 * @param string $src
 		 * @param array $deps
@@ -169,7 +169,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * Register the script.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/wp_register_script
 		 * @since 0.1
 		 */
@@ -181,7 +181,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * Enqueue the script.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/wp_enqueue_script
 		 * @since 0.1
 		 */
@@ -199,7 +199,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * Localize the script
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/wp_localize_script
 		 * @since 0.1
 		 */
@@ -215,7 +215,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * Dequeue the script.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/wp_dequeue_script
 		 * @since 0.1
 		 */

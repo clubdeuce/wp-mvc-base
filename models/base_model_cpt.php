@@ -3,7 +3,7 @@
 /**
  * the base CPT class model
  *
- * @package WP Base\Models
+ * @package WP MVC Base\Models
  * @author Daryl Lozupone <daryl@actionhook.com>
  * @since 0.1
  */
@@ -14,7 +14,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	/**
 	 * The base CPT object model.
 	 *
-	 * @package WP Base\Models
+	 * @package WP MVC Base\Models
 	 * @version 0.1
 	 * @abstract
 	 * @since 0.1
@@ -24,7 +24,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	 	/**
 		 * the cpt slug
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @static
 		 * @since 0.1
 		 * @var string
@@ -34,7 +34,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * the cpt metakey 
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @static
 		 * @var array
 		 * @since 0.1
@@ -44,7 +44,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * The arguments passed to register_post_type.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 * @link http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * The CPT post updated/deleted/etc messages.
 		 * 
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 * @link http://codex.wordpress.org/Function_Reference/register_post_type
@@ -70,7 +70,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * $this->shortcodes = array( 'myshortcode' => 'myshortcode_callback_function );
 		 * </code>
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
@@ -84,7 +84,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * <code>
 		 * $help_screen = array(  'title' => __( 'My Help Screen', 'my_text_domain' ), 'id' => 'demo-help', 'call' => 'my_callback_function' );
 		 * </code>
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @since 0.1
 		 */
 		public $help_screen;
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 *
 		 * Use this function to initialize class variables, require necessary files, etc.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $uri The plugin uri.
 		 * @param string $txtdomain The plugin text domain.
 		 * @abstract
@@ -120,7 +120,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * initialize the CPT arguments for register_post_type
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $txtdomain
 		 * @see http://codex.wordpress.org/Function_Reference/register_post_type
 		 * @since 0.1
@@ -177,7 +177,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * initialize the CPT meta boxes
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 *
 		 * @param string $post_id
 		 * @param string $txtdomain The text domain to use for the label translations.
@@ -201,7 +201,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the CPT messages
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param object $post The WP post object.
 		 * @param string $txtdomain The text domain to use for localization.
 		 * @return array $messages The messages array.
@@ -232,7 +232,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * get the cpt slug
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return string $slug
 		 * @since 0.1
 		 */
@@ -244,7 +244,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the cpt arguments.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $uri The base plugin uri.
 		 * @param string $txtdomain The plugin text domain.
 		 * @return array $args
@@ -261,7 +261,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the cpt shortcodes.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return array $shortcodes
 		 
 		 * @since 0.1
@@ -277,7 +277,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the cpt help screen tabs.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $path The plugin app views path.
 		 * @param string $txtdomain The plugin text domain.
 		 * @return array $help_screen Contains the help screen tab objects.
@@ -294,7 +294,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Register this post type.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $uri The plugin uri.
 		 * @param string $txtdomain The plugin text domain.
 		 * @since 0.1
@@ -310,7 +310,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the cpt meta key.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return string $metakey
 		 * @since 0.1
 		 */
@@ -322,7 +322,7 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Save the cpt.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param array $post_data the POSTed data
 		 * @abstract
 		 * @since 0.1

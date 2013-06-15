@@ -3,8 +3,8 @@
 /**
  * The metabox object model.
  * 
- * @package WP Base\Models
- * @since WP Base 0.1
+ * @package WP MVC Base\Models
+ * @since WP MVC Base 0.1
  * @author Daryl Lozupone <daryl@actionhook.com>
  *
  */
@@ -26,9 +26,9 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 	 * $sample_metabox->add();
 	 * </code> 
 	 *
-	 * @package WP Base\Models
+	 * @package WP MVC Base\Models
 	 * @version 0.1
-	 * @since WP Base 0.1
+	 * @since WP MVC Base 0.1
 	 */
 	class Base_Model_Metabox
 	{
@@ -37,7 +37,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * 
 		 * HTML 'id' attribute of the edit screen section
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0,1
 		 */
@@ -48,7 +48,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 *
 		 * Title of the edit screen section, visible to user
 		 * 
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -59,7 +59,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 *
 		 * Function that prints out the HTML for the edit screen section. The function name as a string, or, within a class, an array to call one of the class's methods.
 		 * The callback function will recieve up to two parameters, the post object and the Base_Model_Metabox->callback_args.
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -69,7 +69,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * the post type to which this metabox applies
 		 *
 		 * The type of Write screen on which to show the edit screen section ('post', 'page', 'link', 'attachment' or 'custom_post_type' where custom_post_type is the custom post type slug)
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -81,7 +81,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * The part of the page where the edit screen section should be shown. 
 		 * Valid values are 'normal', 'advanced', or 'side'.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -93,7 +93,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * The priority within the context where the boxes should be shown.
 		 * Valid values are 'high', 'core', 'default', or 'low'.
 		 * 
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -126,7 +126,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * }
 		 * </code>
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
@@ -135,7 +135,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * the class constructor
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $id
 		 * @param string $title
 		 * @param string $callback
@@ -159,7 +159,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * Add the metabox
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @since 0.1
 		 */
 		public function add()
@@ -178,7 +178,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * remove the metabox
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @since 0.1
 		 */
 		public function remove()
@@ -189,7 +189,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the id
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $id
 		 * @since 0.1
 		 */
@@ -201,7 +201,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the title
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $title
 		 * @since 0.1
 		 */
@@ -213,7 +213,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the callback function
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $callback
 		 * @since 0.1
 		 */
@@ -225,7 +225,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the title
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $post_type
 		 * @since 0.1
 		 */
@@ -237,7 +237,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the context
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $context
 		 * @since 0.1
 		 */
@@ -250,7 +250,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the priority
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $priority
 		 * @since 0.1
 		 */
@@ -262,7 +262,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the callback_args
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param array $callback_args
 		 * @since 0.1
 		 */
@@ -274,7 +274,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * get the metabox id
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return string $id
 		 * @since 
 		 */
@@ -286,7 +286,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * get the metabox title
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return string $id
 		 * @since 
 		 */
@@ -298,7 +298,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * get the metabox callback
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return string $callback
 		 * @since 
 		 */
@@ -310,7 +310,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * get the metabox post_type
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return string $post_type
 		 * @since 
 		 */
@@ -322,7 +322,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * get the metabox context
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return string $context
 		 * @since 
 		 */
@@ -334,7 +334,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * get the metabox priority
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return string $priority
 		 * @since 
 		 */
@@ -346,7 +346,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * get the metabox callback_args
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return array $callback_args
 		 * @since 
 		 */

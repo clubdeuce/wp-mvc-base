@@ -2,9 +2,9 @@
 /**
  * The base model.
  *
- * @package WP Base\Models
+ * @package WP MVC Base\Models
  * @author Daryl Lozupone <daryl@actionhook.com>
- * @since WP Base 0.1
+ * @since WP MVC Base 0.1
  */
  
 /*
@@ -30,16 +30,16 @@ if( ! class_exists( 'Base_Model' ) ):
 	 * This class serves as the base for other models provided by the framework. It contains the properties and
 	 * and methods required by other models.
 	 *
-	 * @package WP Base\Models
+	 * @package WP MVC Base\Models
 	 * @internal
-	 * @since WP Base 0.1
+	 * @since WP MVC Base 0.1
 	 */
 	abstract class Base_Model
 	{
 		/**
 		 * The class version
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -50,7 +50,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 *
 		 * An array containing css used by the model. 
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
@@ -61,7 +61,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 *
 		 * An array containing css used by the model on admin pages
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
@@ -72,8 +72,8 @@ if( ! class_exists( 'Base_Model' ) ):
 		 *
 		 * An array containing a collection of javascript objects used by the model on the frontend.
 		 *
-		 * @package WP Base\Models
-		 * @see WP Base\Models\Base Model JS Object
+		 * @package WP MVC Base\Models
+		 * @see WP MVC Base\Models\Base Model JS Object
 		 * @var array
 		 * @since 0.1
 		 */
@@ -84,7 +84,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 *
 		 * An array containing a collection of javascript objects used by the model on admin pages.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
@@ -93,9 +93,9 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * Metaboxes required by this model.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array Contains an array of WP_Base_Metabox objects
-		 * @see WP Base\Models\Base_Metabox_Model
+		 * @see WP MVC Base\Models\Base_Metabox_Model
 		 * @since 0.1
 		 */
 		protected $metaboxes;
@@ -103,7 +103,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * Get the frontend CSS.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $uri The plugin css uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
 		 * @return array $admin_css
 		 * @since 0.1
@@ -119,7 +119,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * Get the admin CSS.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $uri The plugin css uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
 		 * @return array $admin_css Collection of admin css objects.
 		 * @since 0.1
@@ -142,7 +142,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * Get the front end javascripts.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param object $post The WP Post object
 		 * @param string $txtdomain The plugin text domain.
 		 * @param string $uri The plugin js uri ( e.g. http://example.com/wp-content/plugins/myplugin/js )
@@ -160,7 +160,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		/**
 		 * Get the admin javascripts.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param object $post The WP Post object
 		 * @param string $txtdomain The plugin text domain.
 		 * @param string $uri The plugin js uri ( e.g. http://example.com/wp-content/plugins/myplugin/js )
@@ -182,7 +182,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * is used so that this function may return the values stored for 
 		 * the corresponding custom fields in the callback arguments.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $post_id
 		 * @param string $txtdomain the text domain to use for translations
 		 * @return array $metaboxes an array of WP_Metabox objects

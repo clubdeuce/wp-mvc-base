@@ -2,25 +2,25 @@
 /**
  * The base settings model
  *
- * @package WP Base\Models
+ * @package WP MVC Base\Models
  * @author authtoken
- * @since WP Base 0.1
+ * @since WP MVC Base 0.1
  */
  
 if ( ! class_exists( 'Base_Model_Settings' ) ):
 	/**
 	 * The base settings model.
 	 *
-	 * @package WP Base\Models
+	 * @package WP MVC Base\Models
 	 * @version 0.1
-	 * @since WP Base 0.1
+	 * @since WP MVC Base 0.1
 	 */
 	abstract class Base_Model_Settings
 	{
 		/**
 		 * The class version
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * );
 		 * </code>
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * If the parent_slug property is specified, the page will be added using the WP add_submenu_page function. 
 		 * Otherwise add_menu_page will be used, thus creating a top-level menu page.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
@@ -109,7 +109,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * MVC principles, as this forces the model to break encapsulation. 
 		 * This is necessary given the WP Settings API procedural nature.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 * @link http://codex.wordpress.org/Function_Reference/add_settings_section
@@ -145,7 +145,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * If set to any other value, the named function will be used. This method goes against strict MVC principles, as this forces the model
 		 * to break encapsulation. This is necessary given the WP Settings API procedural nature.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 * @link http://codex.wordpress.org/Function_Reference/add_settings_field
@@ -157,7 +157,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 *
 		 * This property contains key/value pairs of the plugin options and their current values.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
@@ -166,7 +166,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * The class constructor.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $uri The plugin base uri.
 		 * @param string $path The plugin absoulte path.
 		 * @param string $txtdomain The plugin text domain. Used to localize section/field headings, titles, etc.
@@ -181,7 +181,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Initialize all class properties.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $uri The plugin base uri.
 		 * @param string $path The plugin absoulte path.
 		 * @param string $txtdomain The plugin text domain. Used to localize section/field headings, titles, etc.
@@ -194,7 +194,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 *
 		 * This function loads all existing settings from the wp_options table for the options specified in the $options property.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @since 0.1
 		 */
 		protected function init_settings()
@@ -210,7 +210,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Get the options.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return array $options
 		 * @since 0.1
 		 */
@@ -222,7 +222,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Get the menu pages.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return array $menu_pages
 		 * @since 0.1
 		 */
@@ -234,7 +234,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Get the settings sections.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $key The setting section key. If specfied, the function will return that one section. 
 		 * @return array|bool The settings section(s) on success, FALSE on non-existence of the section.
 		 * @since 0.1
@@ -255,7 +255,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Get the settings fields.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @return array $settings_fields
 		 * @since 0.1
 		 */
@@ -267,7 +267,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Set a page's properties
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $key The page key.
 		 * @param array $args The page elements.
 		 * @return bool TRUE if page key exists, FALSE otherwise.
@@ -285,7 +285,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Set a section's properties
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $key The settings section key.
 		 * @param array $args The section elements.
 		 * @return bool TRUE if section key exists, FALSE otherwise.
@@ -303,7 +303,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Get the plugin settings.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param string $option_name The option name. Required if $option is specified. Default NULL.
 		 * @param string $option_element The option element name. Default NULL.
 		 * @return array|string|bool Array containing setting(s), the option value (or default) if an element is specified (but does not exist), FALSE on non-existence of setting default.
@@ -341,7 +341,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Add a settings section.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param array $section The section to be added.
 		 * @since 0.1
 		 */
@@ -353,7 +353,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Add a settings field.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param array $settings The fields to be added.
 		 * @since 0.1
 		 */
@@ -368,7 +368,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * Assumes all values are text strings. You can overwrite this function by including a function
 		 * using the same name in the child class.
 		 *
-		 * @package WP Base\Models
+		 * @package WP MVC Base\Models
 		 * @param array $input The POSTed data.
 		 * @since 0.1
 		 */
