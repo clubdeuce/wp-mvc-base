@@ -2,6 +2,14 @@
 
 require_once( dirname( __FILE__ ) . '../../../models/base_model_js_object.php' );
 
+/**
+ * The test controller for Base_Model_JS_Object.
+ *
+ * @package WPMVCBase_Testing\Unit_Tests
+ * @since WPMVCBase 0.1
+ * @internal
+ */
+ 
 class TestBaseModelJsObject extends WP_UnitTestCase
 {
 	private $_script;

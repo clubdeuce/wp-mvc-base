@@ -2,10 +2,9 @@
 /**
  * The base javascript object model.
  *
- * @package WP MVC Base\Models
  * @author Daryl Lozupone <daryl@actionhook.com>
  * @version 0.1
- * @since WP MVC Base 0.1
+ * @since WPMVCBase 0.1
  */
 if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 	/**
@@ -46,9 +45,8 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 	 * 
 	 * If using a script already registered by WordPress, you need only specify the handle.
 	 *
-	 * @package WP MVC Base\Models
-	 * @since WP MVC Base 0.1
-	 * @link http://codex.wordpress.org/Function_Reference/wp_enqueue_script
+	 * @package WPMVCBase\Models
+	 * @since WPMVCBase 0.1
 	 */
 	class Base_Model_JS_Object
 	{
@@ -59,11 +57,10 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * the preceding part of the string refers to the registered handle, and the succeeding part is 
 		 * appended to the URL as a query string.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
-		private $handle;
+		private $_handle;
 		
 		/**
 		 * The script source uri.
@@ -74,11 +71,10 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * URL, e.g. //otherdomain.com/js/their-script.js. This parameter is only required when the script with the given 
 		 * $handle has not been already registered using wp_register_script().
 		 *
-		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
-		private $src;
+		private $_src;
 		
 		/**
 		 * The script dependencies.
@@ -86,11 +82,10 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Array of the handles of all the registered scripts upon which this script depends, that is the scripts that must be 
 		 * loaded before this script. Set false if there are no dependencies.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
-		private $deps;
+		private $_deps;
 		
 		/**
 		 * The script version number.
@@ -100,22 +95,20 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * of WordPress you are running. If set to null no version is added. This parameter is used to ensure that the correct version 
 		 * is sent to the client regardless of caching, and so should be included if a version number is available and makes sense for the script.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var string|bool
 		 * @since 0.1
 		 */
-		private $version;
+		private $_version;
 		
 		/**
 		 * Script placement.
 		 *
 		 * Normally, scripts are placed in <head> of the HTML document. If this parameter is true, the script is placed before the </body> end tag.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var bool
 		 * @since 0.1
 		 */
-		private $in_footer;
+		private $_in_footer;
 		
 		/**
 		 * The localization variable name.
@@ -123,11 +116,10 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * String specifying the localization variable name to be used in the wp_localize_script() function. If set, the $localization_args property
 		 * is required and this class will attempt to localize the script immediately after enqueuing the script. 
 		 *
-		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
-		private $localization_var;
+		private $_localization_var;
 		
 		/**
 		 * The localization arguments.
@@ -135,16 +127,14 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * An array of key/value pairs containing the argument name(s) and value(s).
 		 * If the $localization_var property is set, this will be used as the $args parameter of the wp_localize_script function.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var array
 		 * @since 0.1
 		 */
-		private $localization_args;
+		private $_localization_args;
 		
 		/**
 		 * The class constructor
 		 *
-		 * @package WP MVC Base\Models
 		 * @param string $handle
 		 * @param string $src
 		 * @param array $deps
@@ -156,57 +146,57 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		public function __construct( $handle, $src = false, $deps = array(), $version = false, $in_footer = false, $localization_var = null, $localization_args = null )
 		{
-			$this->handle				= $handle;
-			$this->src					= $src;
-			$this->deps					= $deps;
-			$this->version				= $version;
-			$this->in_footer			= $in_footer;
-			$this->localization_var		= $localization_var; 
-			$this->localization_args	= $localization_args;
+			$this->_handle            = $handle;
+			$this->_src               = $src;
+			$this->_deps              = $deps;
+			$this->_version           = $version;
+			$this->_in_footer         = $in_footer;
+			$this->_localization_var  = $localization_var; 
+			$this->_localization_args = $localization_args;
 		}
 		
 		
 		/**
 		 * Register the script.
 		 *
-		 * @package WP MVC Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/wp_register_script
+		 * @return void
 		 * @since 0.1
 		 */
 		public function register()
 		{	
-			wp_register_script( $this->handle, $this->src, $this->deps, $this->version, $this->in_footer );
+			wp_register_script( $this->_handle, $this->_src, $this->_deps, $this->_version, $this->_in_footer );
 		}
 		
 		/**
 		 * Enqueue the script.
 		 *
-		 * @package WP MVC Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/wp_enqueue_script
+		 * @return void
 		 * @since 0.1
 		 */
 		public function enqueue()
 		{
 			//apply filters
-			$this->src = apply_filters( 'ah_base_filter_script_src-' . $this->handle, $this->src );
-			$this->localization_args = apply_filters( 'ah_base_filter_script_localization_args-' . $this->handle, $this->localization_args );
+			$this->_src = apply_filters( 'ah_base_filter_script_src-' . $this->_handle, $this->_src );
+			$this->_localization_args = apply_filters( 'ah_base_filter_script_localization_args-' . $this->_handle, $this->_localization_args );
 			
-			wp_enqueue_script( $this->handle, $this->src, $this->deps, $this->version, $this->in_footer );
-			if( isset( $this->localization_var ) && isset( $this->localization_args ) )
-				$this->localize();
+			wp_enqueue_script( $this->_handle, $this->_src, $this->_deps, $this->_version, $this->_in_footer );
+			if( isset( $this->_localization_var ) && isset( $this->_localization_args ) )
+				$this->_localize();
 		}
 		
 		/**
 		 * Localize the script
 		 *
-		 * @package WP MVC Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/wp_localize_script
+		 * @return bool TRUE on success, FALSE on failure
 		 * @since 0.1
 		 */
 		public function localize()
 		{
-			if ( isset( $this->localization_var ) && isset( $this->localization_args ) ):
-				return wp_localize_script( $this->handle, $this->localization_var, $this->localization_args );
+			if ( isset( $this->_localization_var ) && isset( $this->_localization_args ) ):
+				return wp_localize_script( $this->_handle, $this->_localization_var, $this->_localization_args );
 			else:
 				return false;
 			endif;
@@ -215,13 +205,13 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * Dequeue the script.
 		 *
-		 * @package WP MVC Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/wp_dequeue_script
+		 * @return void
 		 * @since 0.1
 		 */
 		public function dequeue()
 		{
-			wp_dequeue_script( $this->handle );
+			wp_dequeue_script( $this->_handle );
 		}
 	}
 endif;

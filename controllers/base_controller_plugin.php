@@ -2,9 +2,8 @@
 /**
  * The base plugin controller.
  *
- * @package WP MVC Base\Controllers
  * @author Daryl Lozupone <daryl@actionhook.com>
- * @since WP MVC Base 0.1
+ * @since WPMVCBase 0.1
  */
 
 /*
@@ -27,7 +26,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	/**
 	 * The base plugin controller.
 	 *
-	 * @package WP MVC Base\Controllers
+	 * @package WPMVCBase\Controllers
 	 * @abstract
 	 * @version 0.1
 	 * @since WP_Base 0.1
@@ -36,9 +35,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	{
 		/**
 		 * The plugin slug.
-		 *
-		 * @package WP MVC Base\Controllers
-		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $slug;
@@ -46,8 +43,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin version.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $version;
@@ -57,8 +54,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * This is the base directory for the plugin ( e.g. /home/user/public_html/wp-content/plugins/my-plugin ).
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $path;
@@ -66,8 +63,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin app path.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $app_path;
@@ -75,8 +72,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin controllers path.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $app_controllers_path;
@@ -84,8 +81,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin models path.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $app_models_path;
@@ -93,8 +90,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin views path
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $app_views_path;
@@ -102,8 +99,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The base directory path.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $base_path;
@@ -112,8 +109,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * The base controllers path.
 		 *
 		 * This is the absolute path to the base classes (e.g. /home/user/public_html/wp-content/plugins/my-plugin/base )
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $base_controllers_path;
@@ -121,8 +118,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The base models path.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $base_models_path;
@@ -130,8 +127,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The base views path.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $base_views_path;
@@ -139,8 +136,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The absoulte path to the main plugin file.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $main_plugin_file;
@@ -148,8 +145,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		  * The plugin uri.
 		  *
-		  * @package WP MVC Base\Controllers
+		  * @category Controllers
+	 	 * @package WPMVCBase
 		  * @var string
+		  * @access protected
 		  * @since 0.1
 		  */
 		protected $uri;
@@ -157,8 +156,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The uri to the js assets.
 		 * 
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $js_uri;
@@ -166,8 +165,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The uri to the css assets.
 		 * 
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $css_uri;
@@ -175,8 +174,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin text domain
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $txtdomain;
@@ -186,8 +185,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * An array containing css used by the controller.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var array
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $css;
@@ -197,8 +196,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * An array containing css used by the controller on admin pages.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var array
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $admin_css;
@@ -208,8 +207,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * An array containing javascripts used by the controller.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var array
+		 * @access protected
+		 * @see Base_Model_JS_Object
 		 * @since 0.1
 		 */
 		protected $scripts;
@@ -219,8 +219,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * An array containing javascripts used by the controller on admin pages.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var array
+		 * @access protected
+		 * @see Base_Model_JS_Object
 		 * @since 0.1
 		 */
 		protected $admin_scripts;
@@ -228,8 +229,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Metaboxes required by the controller.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var array Contains an array of WP_Base_Metabox objects
+		 * @access protected
+		 * @see Base_Model_Metabox
 		 * @since 0.1
 		 */
 		protected $metaboxes;
@@ -237,8 +239,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin custom post types.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var array Contains an array of cpt model objects
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $cpts;
@@ -246,8 +248,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin settings model.
 		 * 
-		 * @package WP MVC Base\Controllers
 		 * @var object
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $settings_model;
@@ -255,8 +257,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugin help tabs.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var array
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $help_tabs = array();
@@ -264,8 +266,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The nonce name to be used for plugin form submissions.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $nonce_name;
@@ -273,8 +275,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The nonce action to be used for plugin form submissions.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @var string
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $nonce_action;
@@ -294,7 +296,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * }
 		 * </code>
 		 *
-	 	 * @package WP MVC Base\Controllers
+	 	 * @category Controllers
+	 	 * @package WPMVCBase
 	 	 *
 	 	 * @param string $slug The plugin slug.
 	 	 * @param string $version The plugin version.
@@ -302,6 +305,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @param string $file The main plugin file absolute path.
 		 * @param string $uri The plugin directory uri.
 		 * @param string $txtdomain The plugin text domain.
+		 * @access public
 	 	 * @since 0.1
 	 	 */
 		public function __construct( $slug, $version, $path, $file, $uri, $txtdomain )
@@ -359,8 +363,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * Use this function to require files, add actions and filters, etc. that are specific to this plugin.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @abstract
+		 * @access public
 		 * @since 0.1
 		 */
 		abstract public function init();
@@ -368,8 +372,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The plugins loaded action callback.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function plugins_loaded()
@@ -381,9 +385,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * The WP init callback
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @uses Base_Controller_Plugin::add_shortcodes()
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function wp_init()
@@ -407,8 +411,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * This callback is used to register the menu pages.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function admin_menu()
@@ -422,8 +426,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Render admin notices for this screen.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function admin_notice()
@@ -442,8 +446,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * This function registers the options, settings sections, and settings fields.
 		 (
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function admin_init()
@@ -461,6 +465,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * @package WP Models
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function load_admin_page()
@@ -469,31 +474,31 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			$screen = get_current_screen();
 			
 			//are there help tabs for this screen?
-			if ( isset( $this->help_tabs[$screen->id] ) ):
-				foreach( $this->help_tabs[$screen->id] as $tab ):
+			if ( isset( $this->help_tabs[ $screen->id ] ) ):
+				foreach( $this->help_tabs[ $screen->id ] as $tab ):
 					$tab->add();
 				endforeach;
 			endif;
 			
 			//are there javascripts registered for this screen?
-			if ( isset( $this->admin_js[$screen->id] ) ):
-				foreach( $this->admin_js[$screen->id] as $script ):
+			if ( isset( $this->admin_js[ $screen->id ] ) ):
+				foreach( $this->admin_js[ $screen->id ] as $script ):
 					$script->enqueue();
 					$script->localize();
 				endforeach;
 			endif;
 			
 			//are there styles registered for this screen?
-			if ( isset( $this->admin_css[$screen->id] ) ):
-				Helper_Functions::enqueue_styles( $this->admin_css[$screen->id] );
+			if ( isset( $this->admin_css[ $screen->id ] ) ):
+				Helper_Functions::enqueue_styles( $this->admin_css[ $screen->id ] );
 			endif;
 		}
 		
 		/**
 		 * Add meta boxes required by this plugin for the currently active post type
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function add_meta_boxes()
@@ -507,8 +512,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			endif;
 			
 			//register the cpt metaboxes
-			if ( isset( $this->cpts[$post->post_type] ) ):
-				$metaboxes = $this->cpts[$post->post_type]->get_metaboxes( $post->ID, $this->txtdomain );
+			if ( isset( $this->cpts[ $post->post_type ] ) ):
+				$metaboxes = $this->cpts[ $post->post_type ]->get_metaboxes( $post->ID, $this->txtdomain );
 				if ( is_array( $metaboxes ) ):
 					foreach( $metaboxes as $metabox ):
 						if( is_null( $metabox->get_callback() ) )
@@ -524,10 +529,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * This function serves as the callback for a metabox.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param object $post The WP post object.
 		 * @param object $metabox The WP_Metabox object to be rendered.
 		 * @internal
+		 * @access public
 		 * @todo move the filter into the add function
 		 * @since 0.1
 		 */
@@ -552,10 +557,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Filter to ensure the CPT label is displayed when user updates the CPT
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param array $messages The existing messages array.
 		 * @return array $messages The updated messages array.
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function post_updated_messages( $messages )
@@ -574,13 +579,13 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Enqueue scripts and styles for admin pages
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param string $hook The WP page hook.
 		 * @uses globalHelper_Functions::enqueue_styles() to enqueue the styles.
 		 * @uses Helper_Functions::enqueue_scripts() to enqueue the scripts.
 		 * @uses Base_Model_CPT::get_admin_css() to retrieve the CPT admin css.
 		 * @uses Base_Model_CPT::get_admin_scripts() to retrieve the CPT admin scripts.
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 * @todo modify this function to enqueue scripts based on wp_screen object
 		 */
@@ -625,12 +630,12 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Enqueue scripts and styles for frontend pages
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @uses Helper_Functions::enqueue_styles()
 		 * @uses Helper_Functions::enqueue_scripts()
 		 * @uses Base_Model_CPT::get_css()
 		 * @uses Base_Model_CPT::get_scripts()
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function wp_enqueue_scripts()
@@ -672,6 +677,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @param object $post The WP post object.
 		 * @return object $post The modified post object.
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function callback_the_post( $post )
@@ -706,9 +712,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * WP save_post action hook callback
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param string $post_id
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function callback_save_post( $post_id )
@@ -765,9 +771,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * WP delete_post action hook callback
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param string $post_id
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function callback_delete_post( $post_id )
@@ -813,8 +819,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * This function performs tasks at plugin activation such as table creation, settings initialization, permalinks updates, etc.
 		 * It currently initiiates a permalinks update. If you have additional activities, add the function activate() to your child class.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function activate_plugin()
@@ -843,8 +849,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * Use this function to perform tasks at plugin deactivation. If you have additional activities, add the function deactivate() to your child class.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function deactivate_plugin()
@@ -865,9 +871,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Register shortcodes.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param array $shortcodes
 		 * @internal
+		 * @access private
 		 * @since 0.1
 		 */
 		private function add_shortcodes( $shortcodes )
@@ -882,8 +888,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Register options.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected function register_options()
@@ -903,8 +909,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Add the settings sections.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected function add_settings_sections()
@@ -926,8 +932,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Add the settings fields.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @internal
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected function add_settings_fields()
@@ -950,10 +956,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Add the options pages.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
 		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
 		 * @internal
+		 * @access protected
 		 * @since 0.1
 		 */		
 		protected function add_menu_pages()
@@ -1008,11 +1014,11 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * the options page template defined in the page object if it exists, otherwise it will use a generic
 		 * template included in this package (views/base_options_page.php).
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
 		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
 		 * @link http://codex.wordpress.org/Function_Reference/add_options_page
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 */
 		public function render_options_page()
@@ -1038,10 +1044,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * This function can be used as a generic callback for add_settings_sections().
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param object $section The section object.
 		 * @link http://codex.wordpress.org/Function_Reference/add_settings_section
 		 * @internal
+		 * @access public
 		 * @since 0.1
 		 * @todo modify to work like add_menu_pages with a view property
 		 */
@@ -1064,10 +1070,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * A generic add_settings_field() callback function.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param array $args The settings field arguments.
 		 * @param string $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
 		 * @return void|string void on ECHO, HTML string on any other $echo value.
+		 * @access public
 		 * @since 0.1
 		 */
 		public function render_settings_field( $args, $echo = 'echo' )
@@ -1092,10 +1098,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Render a checkbox input field.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param array $args The field arguments.
 		 * @param string $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
 		 * @return void|string void on ECHO, HTML string on any other $echo value.
+		 * @access private
 		 * @since 0.1
 		 * @todo move into a helper library?
 		 */
@@ -1117,10 +1123,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Render a text input field.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param array $args The field arguments.
 		 * @param string $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
 		 * @return void|string void on ECHO, HTML string on any other $echo value.
+		 * @access private
 		 * @since 0.1
 		 */
 		private function _render_input_text( $args, $echo )
@@ -1151,10 +1157,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Render a select input field.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param array $args The field arguments.
 		 * @param string $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
 		 * @return void|string void on ECHO, HTML string on any other $echo value.
+		 * @access private
 		 * @since 0.1
 		 * @todo move into a helper library?
 		 */
@@ -1176,9 +1182,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Render a select input field options block.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @param array $options A key/value pair of values and option display strings.
 		 * @param string $current_value The current value for this option field.
+		 * @access private
 		 * @since 0.1
 		 * @todo move into a helper library?
 		 */
@@ -1203,8 +1209,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Get the main plugin file.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @return string The absolute path to the main plugin file.
+		 * @access public
 		 * @since 0.1
 		 */
 		public function main_plugin_file()
@@ -1215,8 +1221,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Get the plugin version.
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @return string The plugin version.
+		 * @access public
 		 * @since 0.1
 		 */
 		public function get_version()
@@ -1225,9 +1231,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		}
 		
 		/**
-		 * Get the plugin slug
+		 * Get the plugin slug.
 		 *
-		 * @package WP MVC Base\Controllers
+		 * @return string $slug
+		 * @access public
 		 * @since 0.1
 		 */
 		public function get_slug()
@@ -1239,8 +1246,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		/**
 		 * Get the plugin text domain
 		 *
-		 * @package WP MVC Base\Controllers
 		 * @return string $txtdomain
+		 * @access public
 		 * @since 0.1
 		 */
 		public function get_textdomain()

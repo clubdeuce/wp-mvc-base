@@ -3,9 +3,7 @@
 /**
  * the base CPT class model
  *
- * @package WP MVC Base\Models
  * @author Daryl Lozupone <daryl@actionhook.com>
- * @since 0.1
  */
 
 require_once( 'base_model.php' );
@@ -14,29 +12,27 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	/**
 	 * The base CPT object model.
 	 *
-	 * @package WP MVC Base\Models
+	 * @package WPMVCBase\Models
 	 * @version 0.1
 	 * @abstract
-	 * @since 0.1
+	 * @since WPMVCBase 0.1
 	 */
 	 abstract class Base_Model_CPT extends Base_Model
 	 {
 	 	/**
 		 * the cpt slug
 		 *
-		 * @package WP MVC Base\Models
-		 * @static
-		 * @since 0.1
 		 * @var string
+		 * @access protected
+		 * @since 0.1
 		 */
 		protected $slug = 'my_cpt_slug';
 		
 		/**
 		 * the cpt metakey 
 		 *
-		 * @package WP MVC Base\Models
-		 * @static
 		 * @var array
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $metakey = '_my_metakey';
@@ -44,8 +40,8 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * The arguments passed to register_post_type.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var array
+		 * @access protected
 		 * @since 0.1
 		 * @link http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
 		 */
@@ -54,8 +50,8 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * The CPT post updated/deleted/etc messages.
 		 * 
-		 * @package WP MVC Base\Models
 		 * @var array
+		 * @access protected
 		 * @since 0.1
 		 * @link http://codex.wordpress.org/Function_Reference/register_post_type
 		 */
@@ -70,8 +66,8 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * $this->shortcodes = array( 'myshortcode' => 'myshortcode_callback_function );
 		 * </code>
 		 *
-		 * @package WP MVC Base\Models
 		 * @var array
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected $shortcodes;
@@ -84,7 +80,8 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * <code>
 		 * $help_screen = array(  'title' => __( 'My Help Screen', 'my_text_domain' ), 'id' => 'demo-help', 'call' => 'my_callback_function' );
 		 * </code>
-		 * @package WP MVC Base\Models
+		 * @var array
+		 * @access protected
 		 * @since 0.1
 		 */
 		public $help_screen;
@@ -94,10 +91,10 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 *
 		 * Use this function to initialize class variables, require necessary files, etc.
 		 *
-		 * @package WP MVC Base\Models
 		 * @param string $uri The plugin uri.
 		 * @param string $txtdomain The plugin text domain.
-		 * @abstract
+		 * @return void
+		 * @access public
 		 * @since 0.1
 		 */
 		public function __construct( $uri, $txtdomain )
@@ -110,19 +107,15 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			
 			if ( method_exists( $this, 'init_shortcodes' ) )
 	 			$this->init_shortcodes();
-	 			
-	 		/*
-if ( method_exists( $this, 'init_help_screens' ) )
-	 			$this->init_help_screens( $txtdomain );
-*/
 		}
 		
 		/**
 		 * initialize the CPT arguments for register_post_type
 		 *
-		 * @package WP MVC Base\Models
 		 * @param string $txtdomain
 		 * @see http://codex.wordpress.org/Function_Reference/register_post_type
+		 * @return void
+		 * @access protected
 		 * @since 0.1
 		 */
 		protected function init_args( $txtdomain )
@@ -177,10 +170,11 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * initialize the CPT meta boxes
 		 *
-		 * @package WP MVC Base\Models
 		 *
 		 * @param string $post_id
 		 * @param string $txtdomain The text domain to use for the label translations.
+		 * @return void
+		 * @access protected
 		 * @since 0.1
 		 * @see http://codex.wordpress.org/Function_Reference/add_meta_boxes
 		 */
@@ -201,10 +195,10 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the CPT messages
 		 *
-		 * @package WP MVC Base\Models
 		 * @param object $post The WP post object.
 		 * @param string $txtdomain The text domain to use for localization.
 		 * @return array $messages The messages array.
+		 * @access public
 		 * @since 0.1
 		 */
 		public function get_post_updated_messages( $post, $txtdomain ) 
@@ -232,8 +226,8 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * get the cpt slug
 		 *
-		 * @package WP MVC Base\Models
 		 * @return string $slug
+		 * @access public
 		 * @since 0.1
 		 */
 		public function get_slug()
@@ -244,10 +238,10 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the cpt arguments.
 		 *
-		 * @package WP MVC Base\Models
 		 * @param string $uri The base plugin uri.
 		 * @param string $txtdomain The plugin text domain.
 		 * @return array $args
+		 * @access public
 		 * @since 0.1
 		 */
 		public function get_args( $uri, $txtdomain )
@@ -261,9 +255,8 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the cpt shortcodes.
 		 *
-		 * @package WP MVC Base\Models
 		 * @return array $shortcodes
-		 
+		 * @access public
 		 * @since 0.1
 		 */
 		public function get_shortcodes()
@@ -277,10 +270,10 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the cpt help screen tabs.
 		 *
-		 * @package WP MVC Base\Models
 		 * @param string $path The plugin app views path.
 		 * @param string $txtdomain The plugin text domain.
 		 * @return array $help_screen Contains the help screen tab objects.
+		 * @access public
 		 * @since 0.1
 		 */
 		public function get_help_screen( $path, $txtdomain )
@@ -294,9 +287,10 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Register this post type.
 		 *
-		 * @package WP MVC Base\Models
 		 * @param string $uri The plugin uri.
 		 * @param string $txtdomain The plugin text domain.
+		 * @return void
+		 * @access public
 		 * @since 0.1
 		 */
 		public function register( $uri, $txtdomain )
@@ -310,8 +304,10 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Get the cpt meta key.
 		 *
-		 * @package WP MVC Base\Models
 		 * @return string $metakey
+		 * @return void
+		 * @static
+		 * @access public
 		 * @since 0.1
 		 */
 		public static function get_metakey()
@@ -322,7 +318,6 @@ if ( method_exists( $this, 'init_help_screens' ) )
 		/**
 		 * Save the cpt.
 		 *
-		 * @package WP MVC Base\Models
 		 * @param array $post_data the POSTed data
 		 * @abstract
 		 * @since 0.1

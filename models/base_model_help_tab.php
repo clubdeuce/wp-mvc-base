@@ -2,18 +2,17 @@
 /**
  * The base help tab model
  *
- * @package WP MVC Base\Models
- * @author authtoken
+ * @author Daryl Lozupone <daryl@actionhook.com>
  * @copyright 2013
  * @version 0.1
- * @since WP MVC Base 0.1
+ * @since WPMVCBase 0.1
  */
 
 if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 	/**
 	 * The help tab model.
 	 *
-	 * @package WP MVC Base\Models
+	 * @package WPMVCBase\Models
 	 * @since 0.1
 	 */
 	class Base_Model_Help_Tab
@@ -21,7 +20,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * The help tab id.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var string
 		 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
 		 * @since 0.1
@@ -31,7 +29,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * The help tab title.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -40,7 +37,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * The help tab content.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -49,7 +45,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * The help tab callback function.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var string|array
 		 * @since 0.1
 		 */
@@ -60,7 +55,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 *
 		 * This must be an absolute path to the view file.
 		 *
-		 * @package WP MVC Base\Models
 		 * @var string
 		 * @since 0.1
 		 */
@@ -69,7 +63,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * The class constructor.
 		 *
-		 * @package WP MVC Base\Models
 		 * @param string $title The help tab title.
 		 * @param string $id The help tab id.
 		 * @param string $content The help tab content. If null, the callback will be used to populate the content.
@@ -89,7 +82,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * Add this help tab to the current screen.
 		 *
-		 * @package WP MVC Base\Models
 		 * @link http://codex.wordpress.org/Function_Reference/add_help_tab
 		 * @since 0.1
 		 */
@@ -106,7 +98,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * Get the help tab title.
 		 *
-		 * @package WP MVC Base\Models
 		 * @since 0.1
 		 */
 		public function get_title()
@@ -117,7 +108,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * Get the help tab id.
 		 *
-		 * @package WP MVC Base\Models
 		 * @since 0.1
 		 */
 		public function get_id()
@@ -128,7 +118,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * Set the help tab callback.
 		 *
-		 * @package WP MVC Base\Models
 		 * @param string|array $callback The help tab callback.
 		 * @since 0.1
 		 */
@@ -140,7 +129,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * Set the help tab content.
 		 *
-		 * @package WP MVC Base\Models
 		 * @param string $content The help tab content.
 		 * @since 0.1
 		 */

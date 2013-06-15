@@ -2,6 +2,13 @@
 
 require_once( dirname( __FILE__ ) . '../../../controllers/base_controller_plugin.php' );
 
+/**
+ * The stub controller for phpUnit tests.
+ *
+ * @package WPMVCBase_Testing\Unit_Tests
+ * @since WPMVCBase 0.1
+ * @internal
+ */
 class WPMVCB_Controller extends Base_Controller_Plugin{
 	public function init()
 	{
@@ -9,6 +16,13 @@ class WPMVCB_Controller extends Base_Controller_Plugin{
 	}
 }
 
+/**
+ * The test controller for Base_Controller_Plugin.
+ *
+ * @package WPMVCBase_Testing\Unit_Tests
+ * @since WPMVCBase 0.1
+ * @internal
+ */
 class TestBaseControllerPlugin extends WP_UnitTestCase
 {
 	private $_controller;
