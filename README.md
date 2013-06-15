@@ -12,6 +12,7 @@ Anyone is welcome to contribute to this project.
 There are various ways you can contribute to the project:
 
 1. Raise an [Issue] (https://github.com/dlozupone/wp-mvc-base/issues) on GitHub
-2. Send us a bug fix, enhancement, documentation addition, or feature implementation via a Pull Request
+2. Send us a bug fix, enhancement, or feature implementation via Pull Request
+3. Send us documentation updates via Pull Request
 3. Translate WP MVC Base into other languages
 4. Provide feedback and suggestions for [enhancements](https://github.com/dlozupone/wp-mvc-base/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)
