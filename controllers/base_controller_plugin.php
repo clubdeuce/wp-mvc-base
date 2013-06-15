@@ -1068,21 +1068,21 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @param array $args The settings field arguments.
 		 * @since 0.1
 		 */
-		public function render_settings_field( $args )
+		public function render_settings_field( $args, $echo = 'echo' )
 		{
 			switch( $args['type'] )
 			{
 				case 'checkbox':
-					$this->_render_input_checkbox( $args );
+					return $this->_render_input_checkbox( $args, $echo );
 					break;
 				case 'select':
-					$this->_render_input_select( $args );
+					return $this->_render_input_select( $args, $echo );
 					break;
 				case 'text':
-					$this->_render_input_text( $args );
+					return $this->_render_input_text( $args, $echo );
 					break;
 				case 'textarea':
-					$this->_render_input_textarea( $args );
+					return $this->_render_input_textarea( $args, $echo );
 					break;
 			}
 		}
@@ -1095,13 +1095,19 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @since 0.1
 		 * @todo move into a helper library?
 		 */
-		private function _render_input_checkbox( $args )
+		private function _render_input_checkbox( $args, $echo )
 		{
-			printf( '<input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s/>',
+			$html = sprintf( '<input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s/>',
 				$args['id'],
 				$args['name'],
 				true == $args['value'] ? 'checked ' : ''
 			);
+			
+			if ( 'echo' === $echo ):
+				echo $html;
+			else:
+				return $html;
+			endif;
 		}
 		
 		/**
@@ -1111,7 +1117,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @param array $args The field arguments.
 		 * @since 0.1
 		 */
-		private function _render_input_text( $args )
+		private function _render_input_text( $args, $echo )
 		{
 			$txtdomain = $this->txtdomain;
 			
@@ -1121,13 +1127,19 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 				$args['after'] = ob_get_clean();
 			endif;
 			
-			printf( '<input type="text" id="%1$s" name="%2$s" value="%3$s" %4$s />%5$s',
+			$html = sprintf( '<input type="text" id="%1$s" name="%2$s" value="%3$s" %4$s />%5$s',
 				$args['id'],
 				$args['name'],
 				$args['value'],
-				isset( $args['placeholder'] ) ? "placeholder='{$args['placeholder']}'" : '',
+				isset( $args['placeholder'] ) ? sprintf( 'placeholder="%s"', $args['placeholder'] ) : '',
 				isset( $args['after'] ) ? $args['after'] : ''
 			);
+			
+			if ( 'echo' === $echo ):
+				echo $html;
+			else:
+				return $html;
+			endif;
 		}
 		
 		/**
@@ -1138,13 +1150,19 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 * @since 0.1
 		 * @todo move into a helper library?
 		 */
-		private function _render_input_select( $args )
+		private function _render_input_select( $args, $echo )
 		{
-			printf( '<select id="%1$s" name="%2$s">%3$s</select>',
+			$html = sprintf( '<select id="%1$s" name="%2$s">%3$s</select>',
 				$args['id'],
 				$args['name'],
 				$this->_render_input_select_options( $args['options'], $args['value'] )
 			);
+			
+			if ( 'echo' === $echo ):
+				echo $html;
+			else:
+				return $html;
+			endif;
 		}
 		
 		/**
