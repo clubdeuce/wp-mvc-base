@@ -149,6 +149,13 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 			$this->context = $context;
 			$this->priority = $priority;
 			$this->callback_args = $callback_args;
+			
+			//check for valid values
+			if ( ! in_array( $context, array( 'normal', 'advanced', 'side' ) ) )
+				$this->context = 'normal';
+			
+			if ( ! in_array( $priority, array( 'high', 'core', 'default', 'low' ) ) )
+				$this->priority = 'default';
 		}
 		
 		/**
