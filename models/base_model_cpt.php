@@ -310,7 +310,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @access public
 		 * @since 0.1
 		 */
-		public static function get_metakey()
+		public function get_metakey()
 		{
 			return $this->metakey;
 		}
