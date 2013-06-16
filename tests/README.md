@@ -19,27 +19,29 @@ Quick Start (For Local Testing)
 	# Clone the WP MVC Base repository
     git clone git://github.com/dlozupone/wp-mvc-base.git
 
-    # Checkout the WordPress unit test suite to a directory of your choice (let us assume `/home/foo/wp_unit_tests/`)
+    # Checkout the WordPress unit test suite to a directory of your choice 
+    # (let us assume '/home/foo/wp_unit_tests/')
     mkdir /home/foo/wp_unit_tests
     svn co --ignore-externals http://unit-tests.svn.wordpress.org/trunk/ /home/foo/wp_unit_tests/
-
-
-Copy and edit the WordPress Unit Tests Configuration
-
+    
+    # Copy and edit the WordPress Unit Tests Configuration
     cp /home/foo/wp_unit_tests/wp-tests-config-sample.php /home/foo/wp_unit_tests/wp-tests-config.php
 
-Ensure your mySQL server is running and that you have created a database for test use in your mySQL server. The test engine will delete all data in the database, so create a database specifically for testing.
+Ensure your mySQL server is running and that you have created a database for test use in your mySQL server. The test engine will delete all data in the database, therefore you should create a database specifically for testing.	
+Make note of the database name, username, and password you configured for your test database.
+    
+Open `wp-tests-config.php` using a code editor of your choice, and make the following changes using the values you configured for your test database:
 
-The following edits will need to be applied to the `wp-tests-config.php` using a code editor of your choice.
-
-Please note: WP MVC Base does not need to be in the `wp-content/plugins` directory.
     <?php
-    define( 'DB_NAME', 'unit_tests' );
-    define( 'DB_USER', 'user' );
+    define( 'DB_NAME', 'dbname' );
+    define( 'DB_USER', 'username' );
     define( 'DB_PASSWORD', 'password' );
-
 	?>
-Load up the Terminal and cd into the directory where WP MVC Base is stored and run this command:
+
+
+Please note: WP MVC Base does not need to be in the `wp-content/plugins` directory. It can be anywhere on your filesystem.
+
+Start a terminal session and cd into the directory into which you cloned WP MVC Base. Enter the following command:
 
     WP_TESTS_DIR=/home/foo/wp_unit_tests phpunit
 
