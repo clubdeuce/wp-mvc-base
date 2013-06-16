@@ -73,10 +73,42 @@ namespace WPMVCBase\Testing
 			
 			$expected = '<input type="text" id="my-super-cool-field" name="my_super_cool_field" value="foo" placeholder="Enter some value" />bar';
 			
+			$this->expectOutputString( $expected );
+			$this->_controller->render_settings_field( $field );
+		}
+		
+		public function testReturnInputText()
+		{
+			$field = array(
+				'type' => 'text',
+				'id' => 'my-super-cool-field',
+				'name' => 'my_super_cool_field',
+				'value' => 'foo',
+				'placeholder' => 'Enter some value',
+				'after' => 'bar'
+			);
+			
+			$expected = '<input type="text" id="my-super-cool-field" name="my_super_cool_field" value="foo" placeholder="Enter some value" />bar';
+			
 			$this->assertEquals( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
 		}
 		
 		public function testRenderInputCheckbox()
+		{
+			$field = array(
+				'type'	=> 'checkbox',
+				'id'	=> 'my-super-cool-checkbox',
+				'name'	=> 'my_super_cool_checkbox',
+				'value'	=> '0',
+			);
+			
+			$expected = '<input type="checkbox" id="my-super-cool-checkbox" name="my_super_cool_checkbox" value="1" />';
+			
+			$this->expectOutputString( $expected );
+			$this->_controller->render_settings_field( $field );
+		}
+		
+		public function testReturnInputCheckbox()
 		{
 			$field = array(
 				'type'	=> 'checkbox',
@@ -101,10 +133,43 @@ namespace WPMVCBase\Testing
 			
 			$expected = '<input type="checkbox" id="my-super-cool-checkbox" name="my_super_cool_checkbox" value="1" checked />';
 			
+			$this->expectOutputString( $expected );
+			$this->_controller->render_settings_field( $field );
+		}
+		
+		public function testReturnInputCheckboxChecked()
+		{
+			$field = array(
+				'type'	=> 'checkbox',
+				'id'	=> 'my-super-cool-checkbox',
+				'name'	=> 'my_super_cool_checkbox',
+				'value'	=> '1',
+			);
+			
+			$expected = '<input type="checkbox" id="my-super-cool-checkbox" name="my_super_cool_checkbox" value="1" checked />';
+			
 			$this->assertEquals( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
 		}
 		
 		public function testRenderInputSelect()
+		{
+			$field = array(
+				'type'		=> 'select',
+				'id'		=> 'my-super-cool-select',
+				'name'		=> 'my_super_cool_select',
+				'value'		=> 'my-super-cool-value',
+				'options'	=> array(
+					'my_super_cool_option' => 'My Super Cool Option'
+				)
+			);
+			
+			$expected = '<select id="my-super-cool-select" name="my_super_cool_select"><option value="">Select…</option><option value="my_super_cool_option" >My Super Cool Option</option></select>';
+			
+			$this->expectOutputString( $expected );
+			$this->_controller->render_settings_field( $field );
+		}
+		
+		public function testReturnInputSelect()
 		{
 			$field = array(
 				'type'		=> 'select',
