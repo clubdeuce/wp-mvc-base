@@ -29,7 +29,7 @@ before_script:
     - mysql -e 'CREATE DATABASE wordpress_test;' -uroot
 
 script:
-    - phpunit
+	- phpunit
 
 notifications:
     email:
