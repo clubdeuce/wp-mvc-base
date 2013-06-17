@@ -15,7 +15,6 @@ env:
 
 before_script:
 	#Coveralls support
-	- curl -s http://getcomposer.org/installer | php
     - mkdir -p tmp
     - export WP_CORE_DIR=tmp/wordpress/
     - export WP_TESTS_DIR=tmp/wordpress-tests/
