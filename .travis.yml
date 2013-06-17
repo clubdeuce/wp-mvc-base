@@ -14,7 +14,13 @@ env:
     - WP_VERSION=3.5 WP_MULTISITE=1
 
 before_script:
-    - mkdir -p tmp
+	#Coveralls support
+	- mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
+	- curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o php-cs-fixer.phar
+	- curl -s http://getcomposer.org/installer | php
+	- php composer.phar install --dev --no-interaction --prefer-source
+	#phpUnit setup
+	- mkdir -p tmp
     - export WP_CORE_DIR=tmp/wordpress/
     - export WP_TESTS_DIR=tmp/wordpress-tests/
     - wget -nv -O tmp/wordpress.tar.gz https://github.com/WordPress/WordPress/tarball/$WP_VERSION
@@ -27,13 +33,12 @@ before_script:
     - sed -i "s/yourusernamehere/root/" tmp/wordpress-tests/wp-tests-config.php
     - sed -i "s/yourpasswordhere//" tmp/wordpress-tests/wp-tests-config.php
     - mysql -e 'CREATE DATABASE wordpress_test;' -uroot
-    - curl -s http://getcomposer.org/installer | php
-    - php composer.phar install --dev --no-interaction
 
 script:
-	- phpunit
+	#Coveralls support
 	- mkdir -p build/logs
 	- php vendor/bin/phpunit -c phpunit.xml.dist
+	- phpunit
 	
 after_script:
 	- php vendor/bin/coveralls
