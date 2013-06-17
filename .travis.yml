@@ -29,10 +29,10 @@ before_script:
     - mysql -e 'CREATE DATABASE wordpress_test;' -uroot
 
 script:
-    - phpunit
+	- phpunit
 	- mkdir -p build/logs
 	- php vendor/bin/phpunit -c phpunit.xml.dist
-
+	
 after_script:
 	- php vendor/bin/coveralls
 
