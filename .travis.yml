@@ -14,7 +14,6 @@ env:
     - WP_VERSION=3.5 WP_MULTISITE=1
 
 before_script:
-	#Coveralls support
     - mkdir -p tmp
     - export WP_CORE_DIR=tmp/wordpress/
     - export WP_TESTS_DIR=tmp/wordpress-tests/
@@ -37,4 +36,4 @@ notifications:
         recipients:
           - daryl@actionhook.com
         on_success: change
-        on_failure: always
+        on_failure: always  on_failure: always
