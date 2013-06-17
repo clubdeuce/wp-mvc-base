@@ -36,7 +36,8 @@ before_script:
 script:
 #Coveralls support
 - mkdir -p build/logs
-- php vendor/bin/phpunit -c phpunit.xml
+- mkdir -p build/cov
+- phpunit -c phpunit.xml
 - phpunit
 
 after_script:
