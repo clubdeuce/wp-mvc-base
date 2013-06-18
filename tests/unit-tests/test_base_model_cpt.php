@@ -80,7 +80,7 @@ namespace WPMVCBase\Testing
 				10 => sprintf( __('Book draft updated. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) )
 			);
 			
-			$this->assertEquals( $messages, $this->_cpt->get_post_updated_messages() );
+			$this->assertEquals( $messages, $this->_cpt->get_post_updated_messages( 'my-super-cool-text-domain' ) );
 		}
 	}
 }
