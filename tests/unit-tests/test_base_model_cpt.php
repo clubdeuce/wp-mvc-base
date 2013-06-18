@@ -44,8 +44,6 @@ namespace WPMVCBase\Testing
 		public function SetUp()
 		{
 			$this->_cpt = new Test_Stub_Base_Model_CPT( 'http://example.com', 'my-super-cool-text-domain' );
-			$this->factory->
-			do_action( 'init' );
 		}
 		
 		public function test_get_slug()
