@@ -38,10 +38,9 @@ script:
 - mkdir -p build/logs
 - mkdir -p build/cov
 - phpunit -c phpunit.xml
-- phpunit
 
 after_script:
-- php vendor/bin/coveralls
+- php vendor/bin/coveralls -v
 
 notifications:
     email:
