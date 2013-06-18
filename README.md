@@ -1,4 +1,4 @@
-WP MVC Base [![Build Status](https://travis-ci.org/dlozupone/wp-mvc-base.png?branch=development)](https://travis-ci.org/dlozupone/wp-mvc-base)
+WP MVC Base [![Build Status](https://travis-ci.org/dlozupone/wp-mvc-base.png?branch=master)](https://travis-ci.org/dlozupone/wp-mvc-base) [![Coverage Status](https://coveralls.io/repos/dlozupone/wp-mvc-base/badge.png?branch=master)](https://coveralls.io/r/dlozupone/wp-mvc-base?branch=master)
 ===========
 
 The purpose of this project is to create a base, mvc-style framework for rapid WordPress plugin development. To that end, this framework includes models for custom post types, metaboxes, screen help tabs, etc.

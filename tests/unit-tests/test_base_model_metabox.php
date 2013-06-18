@@ -25,6 +25,24 @@ namespace WPMVCBase\Testing
 			);
 		}
 		
+		public function test_add()
+		{
+        	$this->_metabox->add();
+        	global $wp_meta_boxes;
+            
+            $this->assertArrayHasKey( 'my-super-cool-metabox', $wp_meta_boxes['my_super_cool_posttype']['normal']['default'] );
+        }
+
+        public function test_remove()
+        {
+			$this->_metabox->add();
+			$this->_metabox->remove();
+			global $wp_meta_boxes;
+			
+			$this->assertFalse( is_array(  $wp_meta_boxes['my_super_cool_posttype']['normal']['default']['my-super-cool-metabox'] ) );
+		}
+
+		
 		public function test_get_id()
 		{
 			$this->assertEquals( 'my-super-cool-metabox', $this->_metabox->get_id() );
