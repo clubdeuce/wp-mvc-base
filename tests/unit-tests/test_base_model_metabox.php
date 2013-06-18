@@ -25,6 +25,14 @@ namespace WPMVCBase\Testing
 			);
 		}
 		
+		public function test_add()
+		{
+			$this->_metabox->add();
+			
+			global $wp_meta_boxes;
+			$this->assertArrayHasKey( 'my-super-cool-metabox', $wp_metaboxes['my_super_cool_posttype']['normal']['default'] );
+		}
+		
 		public function test_get_id()
 		{
 			$this->assertEquals( 'my-super-cool-metabox', $this->_metabox->get_id() );
