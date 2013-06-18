@@ -92,7 +92,7 @@ namespace WPMVCBase\Testing
 		
 		public function test_set_callback()
 		{
-			$this->_metabox->set_id( 'flibbertygibbet' );
+			$this->_metabox->set_callback( 'flibbertygibbet' );
 			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_callback() );
 		}
 		
@@ -112,6 +112,13 @@ namespace WPMVCBase\Testing
 		{
 			$this->_metabox->set_priority( 'low' );
 			$this->assertEquals( 'low', $this->_metabox->get_priority() );
+		}
+		
+		
+		public function test_set_callback_args()
+		{
+			$this->_metabox->set_callback_args( array( 'flibbertygibbet' => 'mtzlplck' ) );
+			$this->assertEquals( array( 'flibbertygibbet' => 'mtzlplck' ), $this->_metabox->get_callback_args() );
 		}
 		
 		/**
