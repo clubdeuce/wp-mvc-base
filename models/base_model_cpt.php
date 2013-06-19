@@ -289,7 +289,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 *
 		 * @param string $uri The plugin uri.
 		 * @param string $txtdomain The plugin text domain.
-		 * @return void
+		 * @return object The registered post type object on success, WP_Error object on failure
 		 * @access public
 		 * @since 0.1
 		 */
@@ -298,7 +298,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			if ( ! isset( $this->args ) )
 				$this->init_args( $uri, $txtdomain );
 			
-			register_post_type( $this->slug, $this->args );
+			return register_post_type( $this->slug, $this->args );
 		}
 		
 		/**
