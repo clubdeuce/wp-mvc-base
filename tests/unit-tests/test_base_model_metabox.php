@@ -25,6 +25,24 @@ namespace WPMVCBase\Testing
 			);
 		}
 		
+		public function test_add()
+		{
+        	$this->_metabox->add();
+        	global $wp_meta_boxes;
+            
+            $this->assertArrayHasKey( 'my-super-cool-metabox', $wp_meta_boxes['my_super_cool_posttype']['normal']['default'] );
+        }
+
+        public function test_remove()
+        {
+			$this->_metabox->add();
+			$this->_metabox->remove();
+			global $wp_meta_boxes;
+			
+			$this->assertFalse( is_array(  $wp_meta_boxes['my_super_cool_posttype']['normal']['default']['my-super-cool-metabox'] ) );
+		}
+
+		
 		public function test_get_id()
 		{
 			$this->assertEquals( 'my-super-cool-metabox', $this->_metabox->get_id() );
@@ -58,6 +76,49 @@ namespace WPMVCBase\Testing
 		public function test_get_callback_args()
 		{
 			$this->assertEquals( array( 'foo' => 'bar' ), $this->_metabox->get_callback_args() );
+		}
+		
+		public function test_set_id()
+		{
+			$this->_metabox->set_id( 'flibbertygibbet' );
+			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_id() );
+		}
+		
+		public function test_set_title()
+		{
+			$this->_metabox->set_title( 'flibbertygibbet' );
+			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_title() );
+		}
+		
+		public function test_set_callback()
+		{
+			$this->_metabox->set_callback( 'flibbertygibbet' );
+			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_callback() );
+		}
+		
+		public function test_set_post_type()
+		{
+			$this->_metabox->set_post_type( 'flibbertygibbet' );
+			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_post_type() );
+		}
+		
+		public function test_set_context()
+		{
+			$this->_metabox->set_context( 'side' );
+			$this->assertEquals( 'side', $this->_metabox->get_context() );
+		}
+		
+		public function test_set_priority()
+		{
+			$this->_metabox->set_priority( 'low' );
+			$this->assertEquals( 'low', $this->_metabox->get_priority() );
+		}
+		
+		
+		public function test_set_callback_args()
+		{
+			$this->_metabox->set_callback_args( array( 'flibbertygibbet' => 'mtzlplck' ) );
+			$this->assertEquals( array( 'flibbertygibbet' => 'mtzlplck' ), $this->_metabox->get_callback_args() );
 		}
 		
 		/**
