@@ -20,7 +20,7 @@ namespace WPMVCBase\Testing
 		public function __construct( $uri, $txtdomain )
 		{
 			parent::__construct( $uri, $txtdomain );
-			$this->help_screen => array(  'title' => __( 'My Help Screen', 'my_text_domain' ), 'id' => 'demo-help', 'call' => 'my_callback_function' );
+			$this->help_screen = array(  'title' => 'My Help Screen', 'id' => 'demo-help', 'call' => 'my_callback_function' );
 		}
 		
 		public function save( $postdata )
@@ -66,7 +66,7 @@ namespace WPMVCBase\Testing
 		public function test_get_help_screen()
 		{
 			$this->assertEquals( 
-				array( 'My Help Screen', 'id' => 'demo-help', 'call' => 'my_callback_function' ),
+				array( 'title' => 'My Help Screen', 'id' => 'demo-help', 'call' => 'my_callback_function' ),
 				$this->_cpt->get_help_screen( __FILE__, 'my-super-cool-text-domain' )
 			);
 		}
@@ -92,15 +92,29 @@ namespace WPMVCBase\Testing
 			
 			$this->assertEquals( $messages, $this->_cpt->get_post_updated_messages( $this->_post->ID, 'my-super-cool-text-domain' ) );
 		}
-		
+
+		/*
 		public function test_register()
 		{
 			$this->assertFalse( is_wp_error( $this->_cpt->register( 'http://my-super-cool-site.com', 'my-super-cool-text-domain' ) ) );
 		}
-		
+		*/
+
 		public function test_init_metaboxes()
 		{
-			//needs to be implemented
+			$this->assertEquals(  
+				array(
+					'book_metabox' => array(
+						'id' => 'book_metabox',
+						'title' => __( 'Book Metabox', $txtdomain ),
+						'post_type' => 'my-super-cool-cpt',
+						'context' => 'normal',
+						'priority' => 'default',
+						'callback_args' => array () 
+					)
+				),
+				$this->_cpt->get_metaboxes( 4, 'my-super-cool-textdomain' )
+			);
 		}
 	}
 }
