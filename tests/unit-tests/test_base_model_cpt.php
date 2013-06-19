@@ -116,6 +116,57 @@ namespace WPMVCBase\Testing
 				$this->_cpt->get_metaboxes( 4, 'my-super-cool-textdomain' )
 			);
 		}
+		
+		public function test_get_args()
+		{
+			$labels = array(
+				'name'                => _x( 'Books', 'Post Type General Name', 'my-super-cool-text-domain' ),
+				'singular_name'       => _x( 'Book', 'Post Type Singular Name', 'my-super-cool-text-domain' ),
+				'menu_name'           => __( 'Books', 'my-super-cool-text-domain' ),
+				'parent_item_colon'   => __( 'Parent Book', 'my-super-cool-text-domain' ),
+				'all_items'           => __( 'All Books', 'my-super-cool-text-domain' ),
+				'view_item'           => __( 'View Book', 'my-super-cool-text-domain' ),
+				'add_new_item'        => __( 'Add New Book', 'my-super-cool-text-domain' ),
+				'add_new'             => __( 'New Book', 'my-super-cool-text-domain' ),
+				'edit_item'           => __( 'Edit Book', 'my-super-cool-text-domain' ),
+				'update_item'         => __( 'Update Book', 'my-super-cool-text-domain' ),
+				'search_items'        => __( 'Search books', 'my-super-cool-text-domain' ),
+				'not_found'           => __( 'No books found', 'my-super-cool-text-domain' ),
+				'not_found_in_trash'  => __( 'No books found in Trash', 'my-super-cool-text-domain' ),
+			);
+
+			$args = array(
+				'description'         	=> __( 'Books', 'my-super-cool-text-domain' ),
+				'labels'              	=> $labels,
+				'supports'            	=> array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+				'taxonomies'          	=> null,
+				'hierarchical'        	=> false,
+				'public'              	=> true,
+				'show_ui'             	=> true,
+				'show_in_menu'        	=> true,
+				'show_in_nav_menus'   	=> true,
+				'show_in_admin_bar'   	=> true,
+				'menu_icon'           	=> null,
+				'can_export'          	=> true,
+				'has_archive'         	=> true,
+				'exclude_from_search' 	=> false,
+				'publicly_queryable'  	=> true,
+				'rewrite' 			  	=> array( 'slug' => 'books' ),
+				//this is supported in 3.6
+				'statuses'				=> array(
+					'draft' => array(
+						'label'                     => _x( 'New', 'book', 'my-super-cool-text-domain' ),
+						'public'                    => true,
+						'exclude_from_search'       => false,
+						'show_in_admin_all_list'    => true,
+						'show_in_admin_status_list' => true,
+						'label_count'               => _n_noop( 'New <span class="count">(%s)</span>', 'New <span class="count">(%s)</span>', 'my-super-cool-text-domain' )
+					)
+				)
+			);
+			
+			$this->assertEquals( $args, $this->_cpt->get_args( 'my-super-cool-text-domain' ) );
+		}
 	}
 }
 ?>
