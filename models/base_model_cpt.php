@@ -233,11 +233,10 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		}
 		
 		/**
-		 * Get the cpt help tabs.
+		 * Get the cpt metakey.
 		 *
 		 * @return string $metakey
 		 * @return void
-		 * @static
 		 * @access public
 		 * @since 0.1
 		 */

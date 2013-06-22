@@ -7,6 +7,7 @@ namespace WPMVCBase\Testing
 	 * The Test Stub CPT Model
 	 *
 	 * @package WPMVCBase_Testing\Unit_Tests
+	 * @internal
 	 * @since WP MVC Base Testing 0.1
 	 */
 	class Test_Stub_Base_Model_CPT extends \Base_Model_CPT
@@ -110,7 +111,12 @@ namespace WPMVCBase\Testing
 		}
 	}
 	
-	//An empty class used to test error triggers
+	/**
+	 * An empty cpt model for testing errors
+	 *
+	 * @internal
+	 * @since 0.2
+	 */
 	class Test_Stub_Base_Model_CPT_Empty extends \Base_Model_CPT
 	{
 		public function __construct( $uri, $txtdomain )
