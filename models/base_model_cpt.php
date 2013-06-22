@@ -201,37 +201,39 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 *
 		 * @param string $path The plugin app views path.
 		 * @param string $txtdomain The plugin text domain.
-		 * @return array $help_screen Contains the help screen tab objects.
+		 * @return array $help_tabs Contains the help screen tab objects.
 		 * @access public
+		 * @since 0.1
+		 */
+		public function get_help_tabs( $path, $txtdomain )
+		{
+			if( ! isset( $this->help_tabs ) && method_exists( $this, 'init_help_tabs' ) )
+				$this->init_help_tabs( $path, $txtdomain );
+			
+			return $this->help_tabs;
+		}
+		
+		/**
+		 * Get the cpt help screen tabs.
+		 *
+		 * @param string $path The plugin app views path.
+		 * @param string $txtdomain The plugin text domain.
+		 * @return array $help_tabs Contains the help screen tab objects.
+		 * @access public
+		 * @deprecated
 		 * @since 0.1
 		 */
 		public function get_help_screen( $path, $txtdomain )
 		{
-			if( ! isset( $this->help_screen ) && method_exists( $this, 'init_help_screen' ) )
-				$this->init_help_screen( $path, $txtdomain );
+			//warn the user about deprecated function use
+			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', $this->txtdomain );
 			
-			return $this->help_screen;
+			//and point to the replacement function
+			return $this->help_tabs;
 		}
 		
 		/**
-		 * Register this post type.
-		 *
-		 * @param string $uri The plugin uri.
-		 * @param string $txtdomain The plugin text domain.
-		 * @return object The registered post type object on success, WP_Error object on failure
-		 * @access public
-		 * @since 0.1
-		 */
-		public function register( $uri, $txtdomain )
-		{
-			if ( ! isset( $this->args ) )
-				$this->init_args( $uri, $txtdomain );
-			
-			return register_post_type( $this->slug, $this->args );
-		}
-		
-		/**
-		 * Get the cpt meta key.
+		 * Get the cpt help tabs.
 		 *
 		 * @return string $metakey
 		 * @return void
