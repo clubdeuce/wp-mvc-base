@@ -774,14 +774,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 						$this->save_data_attachment( $post_id );
 					break;
 				default:
-					if( isset( $this->cpts ) ):
-						foreach($this->cpts as $cpt):
-							if ( $cpt->get_slug() ==  $post_type && method_exists( $cpt, 'save' ) ):
-								$cpt->save( $_POST );
-								break;
-							endif;
-						endforeach;
-					endif;
+					if ( method_exists( $this->cpts[ $post_type ], 'save' ) )
+						$this->cpts[ $post_type ]->save( $_POST );
+					
 					break;
 			}
 		}
