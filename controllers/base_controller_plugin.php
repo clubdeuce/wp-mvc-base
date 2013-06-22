@@ -399,7 +399,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 					$this->add_shortcodes( $cpt->get_shortcodes() );
 					
 					//initialize the help screen tabs for the cpts
-					$help_screen = $cpt->get_help_screen( $this->app_views_path, $this->txtdomain );
+					$help_screen = $cpt->get_help_tabs( $this->app_views_path, $this->txtdomain );
 					if ( isset( $help_screen ) && is_array( $help_screen ) )
 						$this->help_tabs[$cpt->get_slug()] = $help_screen;
 				endforeach;
