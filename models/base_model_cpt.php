@@ -123,7 +123,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 */
 		public function get_post_updated_messages( $post, $txtdomain ) 
 		{
-			if ( method_exists( $this, 'init_messages' ) )
+			if ( ! isset( $this->messages ) && method_exists( $this, 'init_messages' ) )
 				$this->init_messages( $post, $this->txtdomain );
 				
 			if( ! isset( $this->messages ) ):
