@@ -329,29 +329,26 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		$this->init();
 	 		
 	 		//add default WP action callbacks
-	 		add_action( 'init',						array( &$this, 'wp_init' ) );
-	 		add_action( 'admin_menu',				array( &$this, 'admin_menu' ) );
-	 		add_action( 'admin_init',				array( &$this, 'admin_init' ) );
-	 		add_action( 'admin_notices',			array( &$this, 'admin_notice' ) );
-	 		
-	 		//register our post updated messages
-	 		add_action( 'post_updated_messages', 	array( &$this, 'post_updated_messages' ), 5 );
+	 		//add_action( 'init',						array( &$this, 'wp_init' ) );
+	 		//add_action( 'admin_menu',				array( &$this, 'admin_menu' ) );
+	 		//add_action( 'admin_init',				array( &$this, 'admin_init' ) );
+	 		//add_action( 'admin_notices',			array( &$this, 'admin_notice' ) );
 	 		
 	 		//load the plugin text domain
-	 		add_action( 'plugins_loaded',			array( &$this, 'plugins_loaded' ) );
-	 		add_action( 'add_meta_boxes',			array( &$this, 'add_meta_boxes' ) );
+	 		//add_action( 'plugins_loaded',			array( &$this, 'plugins_loaded' ) );
+	 		//add_action( 'add_meta_boxes',			array( &$this, 'add_meta_boxes' ) );
 	 		
 	 		//enqueue scripts and css
-	 		add_action( 'admin_enqueue_scripts',	array( &$this, 'admin_enqueue_scripts' ) );
-	 		add_action( 'wp_enqueue_scripts',		array( &$this, 'wp_enqueue_scripts' ) );
+	 		//add_action( 'admin_enqueue_scripts',	array( &$this, 'admin_enqueue_scripts' ) );
+	 		//add_action( 'wp_enqueue_scripts',		array( &$this, 'wp_enqueue_scripts' ) );
 	 		
 	 		//post actions
-	 		add_action( 'the_post',					array( &$this, 'callback_the_post' ) );
-	 		add_action( 'save_post',				array( &$this, 'callback_save_post' ) );
-	 		add_action( 'delete_post',				array( &$this, 'callback_delete_post' ) );
+	 		//add_action( 'the_post',					array( &$this, 'callback_the_post' ) );
+	 		//add_action( 'save_post',				array( &$this, 'callback_save_post' ) );
+	 		//add_action( 'delete_post',				array( &$this, 'callback_delete_post' ) );
 	 		
 	 		//register the page load callback
-	 		add_action( "load-{$GLOBALS['pagenow']}", array( $this, 'load_admin_page' ), 10, 3 );
+	 		//add_action( "load-{$GLOBALS['pagenow']}", array( $this, 'load_admin_page' ), 10, 3 );
 	 		
 	 		//register our plugin activation/deactivation callbacks
 	 		register_activation_hook( $this->main_plugin_file,		array( &$this, 'activate_plugin' ) );
