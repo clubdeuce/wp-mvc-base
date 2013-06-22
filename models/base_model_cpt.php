@@ -97,8 +97,10 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @access public
 		 * @since 0.1
 		 */
-		public function __construct( $uri, $txtdomain )
+		public function __construct( $uri = '', $txtdomain = '' )
 		{
+			$this->txtdomain = $txtdomain;
+			
 			if ( method_exists( $this, 'init' ) )
 				$this->init( $uri, $txtdomain );
 				
