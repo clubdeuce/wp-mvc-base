@@ -164,8 +164,19 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 */
 		public function get_args( $txtdomain )
 		{				
-			if( ! isset( $this->args ) )
-				$this->init_args( $txtdomain );
+			if( ! isset( $this->args ) ):
+				if ( ! method_exists( $this, 'init_args' ) ):
+					trigger_error(
+						sprintf(
+							__( 'Arguments for %s post type not set', $this->txtdomain ),
+							$this->slug
+						),
+						E_USER_WARNING
+					);
+				else:
+					$this->init_args( $txtdomain );
+				endif;
+			endif;
 			
 			return $this->args;
 		}
