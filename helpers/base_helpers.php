@@ -31,7 +31,8 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 * @todo How does this handle mutliple files in the upload?
 		 * @todo Move this into a separate plupload helper
 		 */
-		public static function plupload( $post, $files, $target, $log = false )
+		/*
+public static function plupload( $post, $files, $target, $log = false )
 		{	
 			//ensure path ends with a slash
 			$target = trailingslashit( $target );
@@ -69,6 +70,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 				fclose($handle);
 			endif;
 		}
+*/
 		
 		/**
 		 * Enqueue styles.
@@ -146,7 +148,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 *
 		 * @package WPMVCBase
 		 * @param string $directory The absolute path to the directory.
-		 * @returns array|bool array An array containg the directory contents on success, NULL on failure.
+		 * @returns array array An array containg the directory contents on success, NULL on failure.
 		 * @since 0.1
 		 */
 		public static function get_local_directory_contents( $directory )
