@@ -78,13 +78,13 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * This property is an array containing individual help screen definitions.
 		 * Example:
 		 * <code>
-		 * $help_screen = array(  'title' => __( 'My Help Screen', 'my_text_domain' ), 'id' => 'demo-help', 'call' => 'my_callback_function' );
+		 * $help_tabs = array(  'title' => __( 'My Help Screen', 'my_text_domain' ), 'id' => 'demo-help', 'call' => 'my_callback_function' );
 		 * </code>
 		 * @var array
 		 * @access protected
 		 * @since 0.1
 		 */
-		public $help_screen;
+		protected $help_tabs;
 		
 		/**
 		 * The class constructor.
