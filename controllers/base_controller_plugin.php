@@ -567,11 +567,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		{
 			global $post;
 			
-			if( is_array( $this->cpts ) ):
-				foreach( $this->cpts as $cpt ):
-					$messages[$cpt->get_slug()] = $cpt->get_post_updated_messages( $post, $this->txtdomain );
-				endforeach;
-			endif;
+			$messages[ $post->post_type ] = $this->cpts[ $post->post_type ]->get_post_updated_messages( $post, $this->txtdomain );
 						
 			return $messages;
 		}
