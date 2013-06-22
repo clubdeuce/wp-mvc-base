@@ -20,7 +20,15 @@ namespace WPMVCBase\Testing
 		public function __construct( $uri, $txtdomain )
 		{
 			parent::__construct( $uri, $txtdomain );
+		}
+		
+		protected function init_help_tabs()
+		{
 			$this->help_tabs = array(  'title' => 'My Help Screen', 'id' => 'demo-help', 'call' => 'my_callback_function' );
+		}
+		
+		protected function init_metaboxes()
+		{
 			$this->metaboxes = array(
 				'book_metabox' => array(
 					'id' => 'book_metabox',
@@ -31,7 +39,10 @@ namespace WPMVCBase\Testing
 					'callback_args' => array () 
 				)
 			);
-			
+		}
+		
+		protected function init_messages()
+		{
 			$this->messages = array(
 				0 => null, // Unused. Messages start at index 1.
 				1 => sprintf( __('Book updated. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink( $this->_post->ID) ) ),
@@ -48,7 +59,10 @@ namespace WPMVCBase\Testing
 				  date_i18n( __( 'M j, Y @ G:i' ), strtotime( $this->_post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
 				10 => sprintf( __('Book draft updated. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) )
 			);
-			
+		}
+		
+		protected function init_args()
+		{
 			$labels = array(
 				'name'                => _x( 'Books', 'Post Type General Name', 'my-super-cool-text-domain' ),
 				'singular_name'       => _x( 'Book', 'Post Type Singular Name', 'my-super-cool-text-domain' ),
