@@ -266,7 +266,7 @@ namespace WPMVCBase\Testing
 		public function test_empty_args()
 		{
 			$this->setExpectedException( 'PHPUnit_Framework_Error' );
-			$this->_cpt_empty->get_args();
+			$this->_cpt_empty->get_args( 'my-super-cool-text-domain' );
 		}
 		
 		public function test_empty_help_tabs()
