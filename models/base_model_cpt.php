@@ -123,26 +123,19 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 */
 		public function get_post_updated_messages( $post, $txtdomain ) 
 		{
+			if ( method_exists( $this, 'init_messages' ) )
+				$this->init_messages( $post, $this->txtdomain );
+				
+			if( ! isset( $this->messages ) ):
+				trigger_error( 
+					sprintf( __( 'CPT messages are not set for %s', $this->txtdomain ), get_class( $this ) ),
+					E_USER_WARNING 
+				);
+			endif;
 			
-			$messages = array(
-				0 => null, // Unused. Messages start at index 1.
-				1 => sprintf( __('Book updated. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink($post_ID) ) ),
-				2 => __('Custom field updated.', 'your_text_domain'),
-				3 => __('Custom field deleted.', 'your_text_domain'),
-				4 => __('Book updated.', 'your_text_domain'),
-				/* translators: %s: date and time of the revision */
-				5 => isset($_GET['revision']) ? sprintf( __('Book restored to revision from %s', 'your_text_domain'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __('Book published. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink($post_ID) ) ),
-				7 => __('Book saved.', 'your_text_domain'),
-				8 => sprintf( __('Book submitted. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-				9 => sprintf( __('Book scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview book</a>', 'your_text_domain'),
-				  // translators: Publish box date format, see http://php.net/date
-				  date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-				10 => sprintf( __('Book draft updated. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) )
-			);
-		
-			return $messages;
+			return $this->messages;
 		}
+		
 		/**
 		 * get the cpt slug
 		 *
