@@ -20,22 +20,22 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	 abstract class Base_Model_CPT extends Base_Model
 	 {
 	 	/**
-		 * the cpt slug
+		 * The cpt slug.
 		 *
 		 * @var string
 		 * @access protected
 		 * @since 0.1
 		 */
-		protected $slug = 'my_cpt_slug';
+		protected $slug;
 		
 		/**
-		 * the cpt metakey 
+		 * The cpt metakey .
 		 *
 		 * @var array
 		 * @access protected
 		 * @since 0.1
 		 */
-		protected $metakey = '_my_metakey';
+		protected $metakey;
 		
 		/**
 		 * The arguments passed to register_post_type.
