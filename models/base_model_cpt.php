@@ -145,6 +145,12 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 */
 		public function get_slug()
 		{
+			if ( !isset( $this->slug ) || $this->slug == '' )
+				trigger_error( 
+					sprintf( __( 'CPT Slug is not set for', $this->txtdomain ), get_class( $this ) ),
+					E_USER_WARNING
+				);
+
 			return $this->slug;
 		}
 		
