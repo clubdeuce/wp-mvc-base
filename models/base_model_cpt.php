@@ -229,18 +229,28 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 */
 		public function get_metakey()
 		{
+			if( ! isset( $this->metakey ) )
+				trigger_error( 
+					sprintf( __( 'Metakey is not set for', $this->txtdomain ), get_class( $this ) ),
+					E_USER_WARNING
+				);
+			
 			return $this->metakey;
 		}
-				
+		
 		/**
-		 * Save the cpt.
+		 * Register this post type.
 		 *
-		 * @param array $post_data the POSTed data
-		 * @abstract
+		 * @param string $uri The plugin uri.
+		 * @param string $txtdomain The plugin text domain.
+		 * @return object The registered post type object on success, WP_Error object on failure
+		 * @access public
 		 * @since 0.1
 		 */
-		abstract public function save( $post_data );
-
+		public function register()
+		{	
+			return register_post_type( $this->slug, $this->args );
+		}
 	 }
 endif;
 
