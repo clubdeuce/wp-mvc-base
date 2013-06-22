@@ -550,8 +550,30 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			//set up variables required for the view
 			$txtdomain = $this->txtdomain;
 			
-			//require the appropriate view for this metabox
-			require_once( $this->app_views_path . $metabox['args']['view'] );
+			//Is a view file specified for this metabox?
+			if ( isset( $metabox['args']['view'] ) ):
+				if ( file_exists( $this->app_views_path . $metabox['args']['view'] ) ):
+					//require the appropriate view for this metabox
+					include_once( $this->app_views_path . $metabox['args']['view'] );
+				else:
+					trigger_error(
+						sprintf(
+							__( 'The view file %s for metabox id %s does not exist', $this->txtdomain ),
+							$metabox['args']['view'],
+							$metabox['id']
+						),
+						E_USER_WARNING
+					);
+				endif;
+			else:
+				trigger_error(
+					sprintf(
+						__( 'No view specified in the callback arguments for metabox id %s', $this->txtdomain ),
+						$metabox['id']
+					),
+					E_USER_WARNING
+				);
+			endif;
 		}
 		
 		/**
