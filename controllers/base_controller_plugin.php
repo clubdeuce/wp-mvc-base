@@ -1254,6 +1254,34 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		{
 			return $this->txtdomain;
 		}
+		
+		/**
+		 * Add the cpt.
+		 *
+		 * Register the cpt, add the cpt scripts and styles, add the meta boxes and help screens.
+		 *
+		 * @since 0.2
+		 */
+		public function add_cpt( $cpt )
+		{
+			$this->cpts[ $cpt->get_slug() ] = $cpt;
+			add_action( 'init', array( &$cpt, 'register' ) );
+			add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
+			//register the post updated messages
+	 		add_action( 'post_updated_messages', array( &$this, 'post_updated_messages' ), 5 );
+	 		
+	 		if ( method_exists( $cpt, 'the_post' ) )
+				add_action( 'the_post', array( &$cpt, 'the_post' ) );
+			
+	 		if ( method_exists( $cpt, 'save_post' ) )
+				add_action( 'save_post', array( &$cpt, 'save_post' ) );
+			
+			if ( method_exists( $cpt, 'delete_post' ) )
+				add_action( 'delete_post', array( &$cpt, 'delete_post' ) );
+				
+			if( is_array( $cpt->get_help_tabs( $this->app_views_path, $this->txtdomain ) ) )
+				$this->help_tabs[ $cpt->get_slug() ] = $cpt->get_help_tabs( $this->app_views_path, $this->txtdomain );
+		}
 	}
 endif;
 ?>
