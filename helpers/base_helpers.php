@@ -208,10 +208,13 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 * @package WPMVCBase\Helper Functions
 		 * @param string $file The absolute path to the file.
 		 * @return TRUE on success, FALSE on failure.
+		 * deprecated
 		 * @since 0.1
 		 */
 		public static function delete_local_file( $file )
 		{
+			self::deprecated( 'delete_local_file', 'PHP unlink' );
+			
 			if( file_exists( $file ) )
 				return unlink( $file );
 		}
