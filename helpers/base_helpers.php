@@ -247,11 +247,11 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 * @internal
 		 * @since 0.2
 		 */
-		public static function deprecated( $deprecated, $replacement, $txtdomain )
+		public static function deprecated( $deprecated, $replacement, $txtdomain = '' )
 		{
 			trigger_error(
 				sprintf( 
-					__( 'DEPRECATED: The function "%s" is deprecated. Please use %s instead.', $txtdomain ), $deprecated, $replacement ),
+					__( 'DEPRECATED: The function %s is deprecated. Please use %s instead.', $txtdomain ), $deprecated, $replacement ),
 				E_USER_WARNING
 			);
 		}
