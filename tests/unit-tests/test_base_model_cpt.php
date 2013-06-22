@@ -250,6 +250,36 @@ namespace WPMVCBase\Testing
 			
 			$this->assertEquals( $args, $this->_cpt->get_args( 'my-super-cool-text-domain' ) );
 		}
+		
+		public function test_empty_slug()
+		{
+			$this->setExpectedException( 'PHPUnit_Framework_Error' );
+			$this->_cpt_empty->get_slug();
+		}
+		
+		public function test_empty_metakey()
+		{
+			$this->setExpectedException( 'PHPUnit_Framework_Error' );
+			$this->_cpt_empty->get_metakey();
+		}
+		
+		public function test_empty_args()
+		{
+			$this->setExpectedException( 'PHPUnit_Framework_Error' );
+			$this->_cpt_empty->get_args();
+		}
+		
+		public function test_empty_help_tabs()
+		{
+			$this->setExpectedException( 'PHPUnit_Framework_Error' );
+			$this->_cpt_empty->get_help_tabs();
+		}
+		
+		public function test_empty_messages()
+		{
+			$this->setExpectedException( 'PHPUnit_Framework_Error' );
+			$this->_cpt_empty->get_post_updated_messages( 4, 'my-super-cool-text-domain' );
+		}
 	}
-}
+} //namespace
 ?>
