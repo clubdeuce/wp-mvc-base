@@ -20,12 +20,7 @@ namespace WPMVCBase\Testing
 		public function __construct( $uri, $txtdomain )
 		{
 			parent::__construct( $uri, $txtdomain );
-			$this->help_screen = array(  'title' => 'My Help Screen', 'id' => 'demo-help', 'call' => 'my_callback_function' );
-		}
-		
-		public function save( $postdata )
-		{
-			//dummy implementation of abstract function
+			$this->help_tabs = array(  'title' => 'My Help Screen', 'id' => 'demo-help', 'call' => 'my_callback_function' );
 		}
 	}
 	
