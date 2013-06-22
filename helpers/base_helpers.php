@@ -174,7 +174,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 * Remove a directory and all contents from the local filesystem
 		 *
 		 * @package WPMVCBase
-		 * @param string $dirname The absokute path to the directory to be deleted.
+		 * @param string $dirname The absolute path to the directory to be deleted.
 		 * @param bool $force Delete all folder contents recursively (true). Default FALSE.
 		 * @return bool TRUE on success, FALSE on failure.
 		 * @since 0.1
