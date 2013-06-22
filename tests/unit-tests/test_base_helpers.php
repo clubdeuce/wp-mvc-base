@@ -14,8 +14,8 @@ namespace WPMVCBase\Testing
 	{
 		public function test_create_directory_dir_non_existent()
 		{
-			\Helper_Functions::create_directory( dirname( __FILE__ ) . '/foo' );
-			$this->assertFileExists( dirname( __FILE__ ) . '/foo/index.php' );
+			\Helper_Functions::create_directory( dirname( __FILE__ ) . '/foo/bar' );
+			$this->assertFileExists( dirname( __FILE__ ) . '/foo/bar/index.php' );
 		}
 		
 		public function test_create_directory_dir_existent()
@@ -44,7 +44,7 @@ namespace WPMVCBase\Testing
 			            'mimetype' => ''
 			        )
 			    ),
-				\Helper_Functions::get_local_directory_contents( dirname( __FILE__ ) . '/foo' )
+				\Helper_Functions::get_local_directory_contents( dirname( __FILE__ ) . '/foo/bar' )
 			);
 		}
 		
