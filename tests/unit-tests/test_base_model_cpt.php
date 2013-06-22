@@ -96,6 +96,15 @@ namespace WPMVCBase\Testing
 		}
 	}
 	
+	//An empty class used to test error triggers
+	class Test_Stub_Base_Model_CPT_Empty extends \Base_Model_CPT
+	{
+		public function __construct( $uri, $txtdomain )
+		{
+			parent::__construct( $uri, $txtdomain );
+		}
+	}
+	
 	/**
 	 * The test controller for Base_Model_CPT
 	 *
@@ -107,12 +116,14 @@ namespace WPMVCBase\Testing
 	class Test_Base_Model_CPT extends \WP_UnitTestCase
 	{
 		private $_cpt;
+		private $_empty_cpt;
 		
 		public function SetUp()
 		{
 			$this->_cpt = new Test_Stub_Base_Model_CPT( 'http://my-super-cool-site.com', 'my-super-cool-text-domain' );
+			$this->_cpt_empty = new Test_Stub_Base_Model_CPT_Empty( 'http://my-super-cool-site.com', 'my-super-cool-text-domain' );
 			$this->_post = new \StdClass;
-			$this->_post->ID = 4;
+			$this->_post->ID = '4';
 		}
 		
 		public function test_get_slug()
