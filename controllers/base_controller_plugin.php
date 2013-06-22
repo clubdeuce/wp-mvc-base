@@ -1287,7 +1287,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 				add_action( 'the_post', array( &$cpt, 'the_post' ) );
 			
 	 		if ( method_exists( $cpt, 'save_post' ) )
-				add_action( 'save_post', array( &$cpt, 'save_post' ) );
+				add_action( 'save_post', array( &$this, 'callback_save_post' ) );
 			
 			if ( method_exists( $cpt, 'delete_post' ) )
 				add_action( 'delete_post', array( &$cpt, 'delete_post' ) );
