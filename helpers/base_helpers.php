@@ -235,6 +235,15 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 			return $array;
 		}
 		
+		/**
+		 * Generate a deprecated warning message.
+		 *
+		 * This function is used to trigger a PHP warning message to notify user
+		 * a deprecated function has been called.
+		 *
+		 * @internal
+		 * @since 0.2
+		 */
 		public static function deprecated( $deprecated, $replacement, $txtdomain )
 		{
 			trigger_error(
