@@ -4,7 +4,7 @@
  *
  * @package WPMVCBase\Helper Functions
  * @author Daryl Lozupone <daryl@actionhook.com>
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  */
  
@@ -13,7 +13,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 	 * Helper functions class
 	 *
 	 * @package WPMVCBase\Helper Functions
-	 * @version 0.1
+	 * @version 0.2
 	 * @since WPMVCBase 0.1
 	 */
 	class Helper_Functions

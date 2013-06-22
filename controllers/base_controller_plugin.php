@@ -28,7 +28,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 *
 	 * @package WPMVCBase\Controllers
 	 * @abstract
-	 * @version 0.1
+	 * @version 0.2
 	 * @since WP_Base 0.1
 	 */
 	abstract class Base_Controller_Plugin

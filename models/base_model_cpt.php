@@ -13,7 +13,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	 * The base CPT object model.
 	 *
 	 * @package WPMVCBase\Models
-	 * @version 0.1
+	 * @version 0.2
 	 * @abstract
 	 * @since WPMVCBase 0.1
 	 */
