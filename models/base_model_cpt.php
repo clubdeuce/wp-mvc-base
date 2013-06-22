@@ -245,7 +245,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		{
 			if( ! isset( $this->metakey ) )
 				trigger_error( 
-					sprintf( __( 'Metakey is not set for', $this->txtdomain ), get_class( $this ) ),
+					sprintf( __( 'Metakey is not set for %s', $this->txtdomain ), get_class( $this ) ),
 					E_USER_WARNING
 				);
 			
