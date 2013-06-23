@@ -1145,7 +1145,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			
 			if( isset ( $args['after'] ) && is_file( $args['after'] ) ):
 				ob_start();
-				require_once($args['after'] );
+				require( $args['after'] );
 				$args['after'] = ob_get_clean();
 			endif;
 			
