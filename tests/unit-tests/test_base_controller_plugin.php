@@ -2,6 +2,36 @@
 namespace WPMVCBase\Testing
 {
 	require_once( dirname( __FILE__ ) . '../../../controllers/base_controller_plugin.php' );
+	require_once( dirname( __FILE__ ) . '../../../models/base_model_cpt.php' );
+	
+	/**
+	 * The stub CPT for the controller tests
+	 *
+	 * @package pkgtoken
+	 * @since 0.2
+	 * @internal
+	 */
+	class Test_Stub_CPT extends \Base_Model_CPT
+	{
+		protected $slug = 'my-test-cpt';
+		
+		public $help_tabs = array();
+		
+		public function save_post()
+		{
+			//implemented, but does nothing
+		}
+		
+		public function the_post()
+		{
+			//implemented, but does nothing
+		}
+		
+		public function delete_post()
+		{
+			//implemented, but does nothing
+		}
+	}
 	
 	/**
 	 * The stub controller for phpUnit tests.
@@ -13,7 +43,13 @@ namespace WPMVCBase\Testing
 	class WPMVCB_Controller extends \Base_Controller_Plugin {
 		public function init()
 		{
-			//does nothing
+			$cpt = new Test_Stub_CPT( 'http://example.com', 'my-txtdomain' );
+			$this->add_cpt( $cpt );
+		}
+		
+		public function get_cpt()
+		{
+			return $this->cpts[ 'my-test-cpt'];
 		}
 	}
 	
@@ -188,6 +224,46 @@ namespace WPMVCBase\Testing
 			$expected = '<select id="my-super-cool-select" name="my_super_cool_select"><option value="">Select…</option><option value="my_super_cool_option" >My Super Cool Option</option></select>';
 			
 			$this->assertEquals( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
+		}
+		
+		public function test_add_cpt_register()
+		{
+			$cpt = $this->_controller->get_cpt();
+			$this->assertFalse( false === has_action( 'init', array( $cpt, 'register' ) ) );
+		}
+		
+		/*
+		 * The following functions use the assertFalse because WP has_action my occasionally
+		 * return a non-boolean value that evaluates to false
+		 */
+		public function test_add_cpt_add_meta_boxes()
+		{
+			$this->assertFalse( false === has_action( 'add_meta_boxes', array( $this->_controller, 'add_meta_boxes' ) ) );
+		}
+		
+		public function test_add_cpt_add_post_updated_messages()
+		{
+			$this->assertFalse( false === has_action( 'post_updated_messages', array( $this->_controller, 'post_updated_messages' ) ) );
+		}
+		
+		public function test_add_cpt_add_the_post()
+		{
+			$this->assertFalse( false === has_action( 'the_post', array( $this->_controller, 'callback_the_post' ) ) );
+		}
+		
+		public function test_add_cpt_add_save_post()
+		{
+			$this->assertFalse( false === has_action( 'save_post', array( $this->_controller, 'callback_save_post' ) ) );
+		}
+		
+		public function test_add_cpt_add_delete_post()
+		{
+			$this->assertFalse( false === has_action( 'delete_post', array( $this->_controller, 'callback_delete_post' ) ) );
+		}
+		
+		public function test_add_cpt_help_tabs()
+		{
+			$this->assertClassHasAttribute( 'help_tabs', '\WPMVCBase\Testing\WPMVCB_Controller' );
 		}
 	}
 }
