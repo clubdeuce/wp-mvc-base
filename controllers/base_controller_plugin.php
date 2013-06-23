@@ -1281,13 +1281,13 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		add_action( 'post_updated_messages', array( &$this, 'post_updated_messages' ), 5 );
 	 		
 	 		if ( method_exists( $cpt, 'the_post' ) )
-				add_action( 'the_post', array( &$cpt, 'the_post' ) );
+				add_action( 'the_post', array( &$this, 'callback_the_post' ) );
 			
 	 		if ( method_exists( $cpt, 'save_post' ) )
 				add_action( 'save_post', array( &$this, 'callback_save_post' ) );
 			
 			if ( method_exists( $cpt, 'delete_post' ) )
-				add_action( 'delete_post', array( &$cpt, 'delete_post' ) );
+				add_action( 'delete_post', array( &$this, 'callback_delete_post' ) );
 				
 			if( is_array( $cpt->get_help_tabs( $this->app_views_path, $this->txtdomain ) ) )
 				$this->help_tabs[ $cpt->get_slug() ] = $cpt->get_help_tabs( $this->app_views_path, $this->txtdomain );
