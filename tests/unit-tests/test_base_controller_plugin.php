@@ -363,13 +363,13 @@ namespace WPMVCBase\Testing
 		
 		public function test_callback_the_post_for_attachment()
 		{
-			$post = $this->_controller->callback_the_post( get_post( $this->_page ) );
+			$post = $this->_controller->callback_the_post( get_post( $this->_attachment ) );
 			$this->assertObjectHasAttribute( 'foo', $post );
 		}
 		
 		public function test_callback_the_post_for_cpt()
 		{
-			$post = $this->_controller->callback_the_post( get_post( $this->_page ) );
+			$post = $this->_controller->callback_the_post( get_post( $this->_cpt ) );
 			$this->assertObjectHasAttribute( 'foo', $post );
 		}
 	}
