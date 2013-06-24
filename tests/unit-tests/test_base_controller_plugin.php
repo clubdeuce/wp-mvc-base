@@ -216,13 +216,13 @@ namespace WPMVCBase\Testing
 				'name' => 'my_super_cool_field',
 				'value' => 'foo',
 				'placeholder' => 'Enter some value',
-				'after' => dirname( dirname( __FILE__ ) ) . '/README.md'
+				'after' => dirname( dirname( __FILE__ ) ) . '/sample_file.txt'
 			);
 			
 			$expected = '<input type="text" id="my-super-cool-field" name="my_super_cool_field" value="foo" placeholder="Enter some value" />';
 			
 			ob_start();
-			require_once( dirname( __FILE__ ) . '/../README.md' );
+			require_once( dirname( __FILE__ ) . '/../sample_file.txt' );
 			$expected .= ob_get_clean();
 			
 			$this->assertEquals( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
