@@ -63,6 +63,10 @@ namespace WPMVCBase\Testing
 	 */
 	class Test_Controller extends \Base_Controller_Plugin
 	{
+		//set up nonces to test form submits
+		public $nonce_name = '65fyvbuyfvboicigu';
+		public $nonce_action = 'save_post';
+		
 		public function init()
 		{
 			$cpt = new Test_Stub_CPT( 'http://example.com', 'my-txtdomain' );
@@ -78,6 +82,16 @@ namespace WPMVCBase\Testing
 		{
 			$post->foo = 'bar';
 			return $post;
+		}
+		
+		public function save_data_post( $post_id )
+		{	
+			update_post_meta( $post_id, 'foo', 'this is a post' );
+		}
+		
+		public function save_data_page( $post_id )
+		{
+			update_post_meta( $post_id, 'foo', 'this is a page' );
 		}
 		
 		public function the_page( $post )
@@ -377,13 +391,47 @@ namespace WPMVCBase\Testing
 			
 			$post = get_post( $this->_cpt );
 			$cpt = $this->_controller->get_cpt();
-			//$expected = $cpt->get_post_updated_messages( $post, 'my-txt-domain' );
 			$messages = $this->_controller->post_updated_messages( $messages );
 			
 			$this->assertArrayHasKey( 'my-test-cpt', $messages );
 		}
 		
+		public function test_callback_save_post_for_post()
+		{
+			//set up the post
+			global $post;
+			$post = get_post( $this->_post );
+			setup_postdata( $post );
+			
+			//set the current user to admin
+			wp_set_current_user( 1 );
+			
+			//set up the POST variables to emulate form submission
+			$GLOBALS['_POST'][ $this->_controller->nonce_name ] = wp_create_nonce( $this->_controller->nonce_action );
+			wp_update_post( array( 'ID' => $this->_post, 'content' => 'Flibbertygibbet' ) );
+			
+			$meta = get_post_meta( $this->_post, 'foo', true );
+			$this->assertEquals( 'this is a post', $meta );
+		}
 		
+		public function test_callback_save_post_for_page()
+		{
+			//set up the post
+			global $post;
+			unset( $post );
+			$post = get_post( $this->_page );
+			setup_postdata( $post );
+			
+			//set the current user to admin
+			wp_set_current_user( 1 );
+			
+			//set up the POST variables to emulate form submission
+			$GLOBALS['_POST'][ $this->_controller->nonce_name ] = wp_create_nonce( $this->_controller->nonce_action );
+			wp_update_post( array( 'ID' => $this->_page, 'content' => 'Flibbertygibbet' ) );
+			
+			$meta = get_post_meta( $this->_page, 'foo', true );
+			$this->assertEquals( 'this is a page', $meta );
+		}
 	}
 }
 ?>
