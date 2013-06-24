@@ -138,7 +138,7 @@ namespace WPMVCBase\Testing
 				)
 			);
 			
-			$this->_attachement = $this->factory->attachment->create_object( 
+			$this->_attachment = $this->factory->attachment->create_object( 
 				dirname( __FILE__ ) . '../README.md',
 				$this->_post,
 				array(
