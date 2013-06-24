@@ -53,29 +53,7 @@ namespace WPMVCBase\Testing
 			);
 		}
 	}
-	
-	/**
-	 * The settings model test stub
-	 *
-	 * @package WPMVCBase_Testing\Unit_Tests
-	 * @since WPMVCBase 0.2
-	 * @internal
-	 */
-	class Test_Stub_Settings_Model
-	{
-		public function get_pages()
-		{
-		}
 		
-		public function get_settings_sections( $id )
-		{
-			return array(
-				
-			);
-		}
-	}
-	
-	
 	/**
 	 * The stub controller for phpUnit tests.
 	 *
@@ -83,8 +61,8 @@ namespace WPMVCBase\Testing
 	 * @since WPMVCBase 0.1
 	 * @internal
 	 */
-	class WPMVCB_Controller extends \Base_Controller_Plugin {
-	class Test_Controller extends \Base_Controller_Plugin {
+	class Test_Controller extends \Base_Controller_Plugin
+	{
 		public function init()
 		{
 			$cpt = new Test_Stub_CPT( 'http://example.com', 'my-txtdomain' );
