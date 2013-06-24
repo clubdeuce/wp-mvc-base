@@ -22,9 +22,10 @@ namespace WPMVCBase\Testing
 			//implemented, but does nothing
 		}
 		
-		public function the_post()
+		public function the_post( $post )
 		{
-			//implemented, but does nothing
+			$post->foo = 'bar';
+			return $post;
 		}
 		
 		public function delete_post()
@@ -32,6 +33,28 @@ namespace WPMVCBase\Testing
 			//implemented, but does nothing
 		}
 	}
+	
+	/**
+	 * The settings model test stub
+	 *
+	 * @package WPMVCBase_Testing\Unit_Tests
+	 * @since WPMVCBase 0.2
+	 * @internal
+	 */
+	class Test_Stub_Settings_Model
+	{
+		public function get_pages()
+		{
+		}
+		
+		public function get_settings_sections( $id )
+		{
+			return array(
+				
+			);
+		}
+	}
+	
 	
 	/**
 	 * The stub controller for phpUnit tests.
