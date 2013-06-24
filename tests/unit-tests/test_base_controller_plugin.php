@@ -64,6 +64,7 @@ namespace WPMVCBase\Testing
 	 * @internal
 	 */
 	class WPMVCB_Controller extends \Base_Controller_Plugin {
+	class Test_Controller extends \Base_Controller_Plugin {
 		public function init()
 		{
 			$cpt = new Test_Stub_CPT( 'http://example.com', 'my-txtdomain' );
@@ -113,7 +114,7 @@ namespace WPMVCBase\Testing
 		{
 			$this->factory = new \WP_UnitTest_Factory;
 			
-			$this->_controller = new WPMVCB_Controller(
+			$this->_controller = new Test_Controller(
 				'my-super-cool-plugin',
 				'1.0',
 				'/home/user/public_html/wp-content/plugins/my-super-cool-plugin',
@@ -345,7 +346,7 @@ namespace WPMVCBase\Testing
 		
 		public function test_add_cpt_help_tabs()
 		{
-			$this->assertClassHasAttribute( 'help_tabs', '\WPMVCBase\Testing\WPMVCB_Controller' );
+			$this->assertClassHasAttribute( 'help_tabs', '\WPMVCBase\Testing\Test_Controller' );
 		}
 		
 		public function test_callback_the_post_for_post()
