@@ -42,23 +42,23 @@ namespace WPMVCBase\Testing
 			);
 		}
 		
-		protected function init_messages()
+		protected function init_messages( $post )
 		{
 			$this->messages = array(
 				0 => null, // Unused. Messages start at index 1.
-				1 => sprintf( __('Book updated. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink( $this->_post->ID) ) ),
+				1 => sprintf( __('Book updated. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink( $post->ID) ) ),
 				2 => __('Custom field updated.', 'your_text_domain'),
 				3 => __('Custom field deleted.', 'your_text_domain'),
 				4 => __('Book updated.', 'your_text_domain'),
 				/* translators: %s: date and time of the revision */
 				5 => isset($_GET['revision']) ? sprintf( __('Book restored to revision from %s', 'your_text_domain'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __('Book published. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink($this->_post->ID) ) ),
+				6 => sprintf( __('Book published. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink($post->ID) ) ),
 				7 => __('Book saved.', 'your_text_domain'),
-				8 => sprintf( __('Book submitted. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) ),
+				8 => sprintf( __('Book submitted. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID) ) ) ),
 				9 => sprintf( __('Book scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview book</a>', 'your_text_domain'),
 				  // translators: Publish box date format, see http://php.net/date
-				  date_i18n( __( 'M j, Y @ G:i' ), strtotime( $this->_post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-				10 => sprintf( __('Book draft updated. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) )
+				  date_i18n( __( 'M j, Y @ G:i' ), strtotime( $this->_post->post_date ) ), esc_url( get_permalink($post->ID) ) ),
+				10 => sprintf( __('Book draft updated. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID) ) ) )
 			);
 		}
 		
@@ -135,15 +135,24 @@ namespace WPMVCBase\Testing
 	 
 	class Test_Base_Model_CPT extends \WP_UnitTestCase
 	{
+		private $_factory;
 		private $_cpt;
 		private $_empty_cpt;
+		private $_post;
 		
 		public function SetUp()
 		{
+			$this->_factory = new \WP_UnitTest_Factory;
 			$this->_cpt = new Test_Stub_Base_Model_CPT( 'http://my-super-cool-site.com', 'my-super-cool-text-domain' );
 			$this->_cpt_empty = new Test_Stub_Base_Model_CPT_Empty( 'http://my-super-cool-site.com', 'my-super-cool-text-domain' );
-			$this->_post = new \StdClass;
-			$this->_post->ID = '4';
+			$this->_post = get_post(
+				$this->_factory->post->create_object(
+					array(
+						'post_type' => 'my-super-cool-cpt',
+						'post_title' => 'Test CPT'
+					)
+				)
+			);
 		}
 		
 		public function test_get_slug()
@@ -190,11 +199,11 @@ namespace WPMVCBase\Testing
 				8 => sprintf( __('Book submitted. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) ),
 				9 => sprintf( __('Book scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview book</a>', 'your_text_domain'),
 				  // translators: Publish box date format, see http://php.net/date
-				  date_i18n( __( 'M j, Y @ G:i' ), strtotime( $this->_post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+				  date_i18n( __( 'M j, Y @ G:i' ), strtotime( $this->_post->post_date ) ), esc_url( get_permalink( $this->_post->ID ) ) ),
 				10 => sprintf( __('Book draft updated. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) )
 			);
 			
-			$this->assertEquals( $messages, $this->_cpt->get_post_updated_messages( $this->_post->ID, 'my-super-cool-text-domain' ) );
+			$this->assertEquals( $messages, $this->_cpt->get_post_updated_messages( $this->_post, 'my-super-cool-text-domain' ) );
 		}
 
 		/*
