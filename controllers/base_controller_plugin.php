@@ -344,7 +344,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		
 	 		//post actions
 	 		//add_action( 'the_post',					array( &$this, 'callback_the_post' ) );
-	 		//add_action( 'save_post',				array( &$this, 'callback_save_post' ) );
+ 			add_action( 'save_post',				array( &$this, 'callback_save_post' ) );	 			
 	 		//add_action( 'delete_post',				array( &$this, 'callback_delete_post' ) );
 	 		
 	 		//register the page load callback
@@ -744,7 +744,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 				return;
 				
 			// We need to check if the current user is authorised to do this action. 
-			if ( 'page' == $post_type ) {
+			if ( 'page' === $post_type ) {
 				if ( ! current_user_can( 'edit_page', $post_id ) )
 					return;
 			} else {
