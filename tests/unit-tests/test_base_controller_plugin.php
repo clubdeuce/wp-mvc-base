@@ -74,6 +74,24 @@ namespace WPMVCBase\Testing
 		{
 			return $this->cpts[ 'my-test-cpt'];
 		}
+		
+		public function the_post( $post )
+		{
+			$post->foo = 'bar';
+			return $post;
+		}
+		
+		public function the_page( $post )
+		{
+			$post->foo = 'bar';
+			return $post;
+		}
+		
+		public function the_attachment( $post )
+		{
+			$post->foo = 'bar';
+			return $post;
+		}
 	}
 	
 	/**
@@ -86,9 +104,15 @@ namespace WPMVCBase\Testing
 	class TestBaseControllerPlugin extends \WP_UnitTestCase
 	{
 		private $_controller;
+		private $_post;
+		private $_page;
+		private $_attachment;
+		private $_cpt;
 		
-		public function SetUp()
+		public function setUp()
 		{
+			$this->factory = new \WP_UnitTest_Factory;
+			
 			$this->_controller = new WPMVCB_Controller(
 				'my-super-cool-plugin',
 				'1.0',
@@ -96,6 +120,41 @@ namespace WPMVCBase\Testing
 				'/home/user/public_html/wp-content/plugins/my-super-cool-plugin/my-super-cool-plugin.php',
 				'http://my-super-cool-domain.com/wp-content/plugins/my-super-cool-plugin',
 				'my-super-cool-text-domain'
+			);
+			
+			$this->_post = $this->factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'post',
+					'post_status' => 'publish'
+				)
+			);
+			
+			$this->_page = $this->factory->post->create_object(
+				array(
+					'post_title' => 'Test Page',
+					'post_type' => 'page',
+					'post_status' => 'publish'
+				)
+			);
+			
+			$this->_attachement = $this->factory->attachment->create_object( 
+				dirname( __FILE__ ) . '../README.md',
+				$this->_post,
+				array(
+					'post_title' => 'Test Attachment',
+					'post_content' => 'A super cool attachment',
+					'post_status' => 'publish',
+					'post_mime_type' => 'content/txt'
+				)
+			);
+			
+			$this->_cpt = $this->factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'my-test-cpt',
+					'post_status' => 'publish'
+				)
 			);
 		}
 		
@@ -287,6 +346,30 @@ namespace WPMVCBase\Testing
 		public function test_add_cpt_help_tabs()
 		{
 			$this->assertClassHasAttribute( 'help_tabs', '\WPMVCBase\Testing\WPMVCB_Controller' );
+		}
+		
+		public function test_callback_the_post_for_post()
+		{
+			$post = $this->_controller->callback_the_post( get_post( $this->_post ) );
+			$this->assertObjectHasAttribute( 'foo', $post );
+		}
+		
+		public function test_callback_the_post_for_page()
+		{
+			$post = $this->_controller->callback_the_post( get_post( $this->_page ) );
+			$this->assertObjectHasAttribute( 'foo', $post );
+		}
+		
+		public function test_callback_the_post_for_attachment()
+		{
+			$post = $this->_controller->callback_the_post( get_post( $this->_page ) );
+			$this->assertObjectHasAttribute( 'foo', $post );
+		}
+		
+		public function test_callback_the_post_for_cpt()
+		{
+			$post = $this->_controller->callback_the_post( get_post( $this->_page ) );
+			$this->assertObjectHasAttribute( 'foo', $post );
 		}
 	}
 }
