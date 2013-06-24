@@ -736,7 +736,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 */
 		public function callback_save_post( $post_id )
 		{
-			global $post_type;
+			$post_type = get_post_type( $post_id );
 			
 			// verify if this is an auto save routine. 
 			// If it is our form has not been submitted, so we dont want to do anything
@@ -790,7 +790,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 */
 		public function callback_delete_post( $post_id )
 		{	
-			global $post_type;
+			$post_type = get_post_type( $post_id );
 			
 			// We need to check if the current user is authorised to do this action. 
 			if ( ! current_user_can( 'delete_post', $post_id ) )
