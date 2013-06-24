@@ -7,7 +7,7 @@ namespace WPMVCBase\Testing
 	/**
 	 * The stub CPT for the controller tests
 	 *
-	 * @package pkgtoken
+	 * @package WPMVCBase_Testing\Unit_Tests
 	 * @since 0.2
 	 * @internal
 	 */
