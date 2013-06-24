@@ -701,27 +701,29 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			{
 				case 'post':
 					if ( method_exists( $this, 'the_post' ) )
-						$this->the_post( $post );
+						$post = $this->the_post( $post );
 					break;
 				case 'page':
 					if ( method_exists( $this, 'the_page' ) )
-						$this->the_page( $post );
+						$post = $this->the_page( $post );
 					break;
 				case 'attachment':
 					if ( method_exists( $this, 'the_attachment' ) )
-						$this->the_attachment( $post );
+						$post = $this->the_attachment( $post );
 					break;
 				default:
 					if( isset( $this->cpts ) ):
 						foreach($this->cpts as $cpt):
 							if ( $cpt->get_slug() == $post->post_type && method_exists( $cpt, 'the_post' ) ):
-								return $cpt->the_post( $post );
+								$post = $cpt->the_post( $post );
 								break;
 							endif;
 						endforeach;
 					endif;
 					break;
 			}
+			
+			return $post;
 		}
 		
 		/**
