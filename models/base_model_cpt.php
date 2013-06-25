@@ -261,7 +261,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 */
 		public function register()
 		{	
-			return register_post_type( $this->slug, $this->args );
+			return register_post_type( $this->slug, $this->get_args( $this->txtdomain ) );
 		}
 	 }
 endif;
