@@ -129,7 +129,16 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function set_callback( $callback )
 		{
+			if ( ! is_callable( $callback ) ):
+				trigger_error(
+					__( 'A valid callback function must be specified', 'wp-mvc-base' ),
+					E_USER_WARNING
+				);
+				return false;
+			endif;
+			
 			$this->_callback = $callback;
+			return true;
 		}
 		
 		/**
