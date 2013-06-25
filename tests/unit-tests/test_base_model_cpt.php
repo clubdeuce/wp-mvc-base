@@ -170,10 +170,26 @@ namespace WPMVCBase\Testing
 			$this->assertEquals( array( 'my-super-cool-shortcode' => 'my-super-cool-callback' ), $this->_cpt->get_shortcodes() );
 		}
 		
-		public function test_get_help_screen_empty()
+		public function test_get_help_screen_error()
 		{
 			$this->setExpectedException( 'PHPUnit_Framework_Error' );
 			$this->_cpt->get_help_screen( __FILE__, 'my-super-cool-text-domain' );
+		}
+		
+		public function test_get_help_screen_error_message()
+		{
+			@$this->_cpt->get_help_screen( __FILE__, 'my-super-cool-text-domain' );
+			$error = error_get_last();
+			
+			$this->assertEquals( 'DEPRECATED: The function get_help_screen is deprecated. Please use get_help_tabs instead.', $error['message'] );
+		}
+		
+		public function test_get_help_screen()
+		{
+			$this->assertEquals(
+				array(  'title' => 'My Help Screen', 'id' => 'demo-help', 'call' => 'my_callback_function' ),
+				@$this->_cpt->get_help_screen( __FILE__, 'my-super-cool-text-domain' )
+			);
 		}
 		
 		public function test_get_help_tabs()
