@@ -137,7 +137,7 @@ namespace WPMVCBase\Testing
 	{
 		private $_factory;
 		private $_cpt;
-		private $_empty_cpt;
+		private $_cpt_empty;
 		private $_post;
 		
 		public function SetUp()
