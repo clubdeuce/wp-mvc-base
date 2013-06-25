@@ -108,7 +108,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function get_title()
 		{
-			return $this->title;
+			return $this->_title;
 		}
 		
 		/**
