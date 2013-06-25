@@ -170,7 +170,7 @@ namespace WPMVCBase\Testing
 			$this->assertEquals( array( 'my-super-cool-shortcode' => 'my-super-cool-callback' ), $this->_cpt->get_shortcodes() );
 		}
 		
-		public function test_get_help_screen()
+		public function test_get_help_screen_empty()
 		{
 			$this->setExpectedException( 'PHPUnit_Framework_Error' );
 			$this->_cpt->get_help_screen( __FILE__, 'my-super-cool-text-domain' );
