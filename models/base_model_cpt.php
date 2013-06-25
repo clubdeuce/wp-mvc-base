@@ -103,12 +103,6 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			
 			if ( method_exists( $this, 'init' ) )
 				$this->init( $uri, $txtdomain );
-				
-			//if ( method_exists( $this, 'init_args' ) )
-				//$this->init_args( $txtdomain );
-			
-			//if ( method_exists( $this, 'init_shortcodes' ) )
-	 			//$this->init_shortcodes();
 		}
 		
 		
