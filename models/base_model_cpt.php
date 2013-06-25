@@ -228,7 +228,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', $this->txtdomain );
 			
 			//and point to the replacement function
-			return $this->help_tabs;
+			return $this->get_help_tabs( $path, $txtdomain );
 		}
 		
 		/**
