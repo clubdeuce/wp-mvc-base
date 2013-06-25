@@ -72,6 +72,12 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function __construct( $title, $id, $content = null, $callback = null, $view = null )
 		{
+			if ( !isset( $content ) && ! isset( $callback ) && ! isset( $view ) )
+				trigger_error(
+					'You must specify either the help tab content, a callback function, or a view to use for the help tab',
+					E_USER_WARNING
+				);
+				
 			$this->_id = $id;
 			$this->_title = $title;
 			$this->_content = $content;
