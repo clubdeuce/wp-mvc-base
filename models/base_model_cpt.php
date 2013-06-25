@@ -126,12 +126,11 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			if ( ! isset( $this->messages ) && method_exists( $this, 'init_messages' ) )
 				$this->init_messages( $post, $this->txtdomain );
 				
-			if( ! isset( $this->messages ) ):
+			if( ! isset( $this->messages ) )
 				trigger_error( 
 					sprintf( __( 'CPT messages are not set for %s', $this->txtdomain ), get_class( $this ) ),
 					E_USER_WARNING 
 				);
-			endif;
 			
 			return $this->messages;
 		}
