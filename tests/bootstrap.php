@@ -1,5 +1,7 @@
 <?php
 
+define( 'WPMVCB_SRC_DIR', dirname( dirname( __FILE__ ) ) );
+
 require_once getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php';
 
 require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
