@@ -147,7 +147,7 @@ namespace WPMVCBase\Testing
 		{
 			require_once( WPMVCB_SRC_DIR . '/models/base_model_js_object.php' );
 			$scripts = array(
-				new \Base_Model_JS_Object( 'foo', 'http://example.com', null, false, false )
+				new \Base_Model_JS_Object( 'foo', 'http://example.com/foo.js', null, false, false )
 			);
 			
 			global $wp_scripts;
@@ -155,6 +155,25 @@ namespace WPMVCBase\Testing
 			\Helper_Functions::enqueue_scripts( $scripts );
 			do_action( 'wp_enqueue_scripts' );
 			$this->assertArrayHasKey( 'foo', $wp_scripts->registered );
+		}
+		
+		public function testEnqueueStyles()
+		{
+			$styles = array(
+				array(
+					'handle'=> 'bar',
+					'src' => 'http://example.com/bar.css',
+					'deps' => null,
+					'ver' => false,
+					'media' => 'all'
+				),
+				array( 'handle' => 'thickbox' )
+			);
+			
+			global $wp_styles;
+			\Helper_Functions::enqueue_styles( $styles );
+			do_action( 'wp_enqueue_scripts' );
+			$this->assertArrayHasKey( 'bar', $wp_styles->registered );
 		}
 	}
 }
