@@ -1279,8 +1279,12 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			if ( method_exists( $cpt, 'delete_post' ) )
 				add_action( 'delete_post', array( &$this, 'callback_delete_post' ) );
 				
-			if( is_array( $cpt->get_help_tabs( $this->app_views_path, $this->txtdomain ) ) )
+			if ( is_array( $cpt->get_help_tabs( $this->app_views_path, $this->txtdomain ) ) )
 				$this->help_tabs[ $cpt->get_slug() ] = $cpt->get_help_tabs( $this->app_views_path, $this->txtdomain );
+			
+			if ( is_array( $cpt->get_shortcodes() ) )
+				add_action( 'init', array( &$this, 'wp_init' ) );
+					
 		}
 	}
 endif;
