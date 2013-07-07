@@ -122,7 +122,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 *
 		 * @package WPMVCBase
 		 * @param string $dirname The absolute path to the directory to be deleted.
-		 * @param bool $force Delete all folder contents recursively (true). Default FALSE.
+		 * @param bool $force Delete all folder contents recursively (TRUE). Default FALSE.
 		 * @return bool TRUE on success, FALSE on failure.
 		 * @since 0.1
 		 */
@@ -135,6 +135,9 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 				$it = new RecursiveDirectoryIterator( $dirname );
 				$files = new RecursiveIteratorIterator( $it, RecursiveIteratorIterator::CHILD_FIRST );
 				foreach( $files as $file ):
+					if ( $file->getFilename() === '.' || $file->getFilename() === '..' ) {
+						continue;
+					}
 				    if ( $file->isDir() ){
 				        rmdir( $file->getRealPath() );
 				    } else {
