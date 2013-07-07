@@ -142,6 +142,20 @@ namespace WPMVCBase\Testing
 			$error = error_get_last();
 			$this->assertEquals( 'DEPRECATED: The function foo is deprecated. Please use bar instead.', $error['message'] );
 		}
+		
+		public function testEnqueueScripts()
+		{
+			require_once( WPMVCB_SRC_DIR . '/models/base_model_js_object.php' );
+			$scripts = array(
+				new \Base_Model_JS_Object( 'foo', 'http://example.com', null, false, false )
+			);
+			
+			global $wp_scripts;
+			
+			\Helper_Functions::enqueue_scripts( $scripts );
+			do_action( 'wp_enqueue_scripts' );
+			$this->assertArrayHasKey( 'foo', $wp_scripts->registered );
+		}
 	}
 }
 ?>
