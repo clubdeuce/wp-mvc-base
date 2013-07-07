@@ -27,7 +27,6 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 *
 		 * @package WPMVCBase\Helper Functions
 		 * @param array $styles The collection of style objects to be enqueued.
-		 * @codeCoverageIgnore
 		 * @since 0.1
 		 */
 		public static function enqueue_styles( $styles )
@@ -56,7 +55,6 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		 *
 		 * @package WPMVCBase\Helper Functions
 		 * @param array $scripts The collection of script objects to be enqueued.
-		 * @codeCoverageIgnore
 		 * @since 0.1
 		 */
 		public static function enqueue_scripts( $scripts )
