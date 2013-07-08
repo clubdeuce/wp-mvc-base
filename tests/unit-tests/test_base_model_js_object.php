@@ -25,14 +25,15 @@ namespace WPMVCBase\Testing
 				'mySuperCoolL10n',
 				array( 'foo' => 'bar' )
 			);
+			do_action( 'init' );
 		}
 		
 		public function test_register()
 		{
+			global $wp_scripts;
+			
 			$this->_script->register();
-			$this->_script->enqueue();
-			$this->_script->localize();
-			$this->assertArrayHasKey( 'my-super-cool-script', $GLOBALS['wp_scripts']->registered );
+			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'registered' ) );
 		}
 		
 		public function testRegisterHandle()
