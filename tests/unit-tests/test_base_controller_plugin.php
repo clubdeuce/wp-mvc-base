@@ -501,6 +501,57 @@ public function test_add_cpt_shortcodes()
 			$meta = get_post_meta( $this->_page, 'foo', true );
 			$this->assertEquals( 'this is a page', $meta );
 		}
+		
+		public function test_callback_save_post_for_cpt()
+		{
+			//set up the post
+			global $post;
+			$post = get_post( $this->_cpt );
+			setup_postdata( $post );
+			
+			//set the current user to admin
+			wp_set_current_user( 1 );
+			
+			//set up the POST variables to emulate form submission
+			$GLOBALS['_POST'][ $this->_controller->nonce_name ] = wp_create_nonce( $this->_controller->nonce_action );
+			wp_update_post( array( 'ID' => $this->_cpt, 'content' => 'Flibbertygibbet' ) );
+			
+			$this->assertEquals( 'SAVE CPT', $this->_controller->callback_save_post( $this->_cpt ) );
+		}
+		
+		public function testAdminRegisterControllerScripts()
+		{
+			$this->_controller->admin_enqueue_scripts( 'post.php' );
+			$this->assertTrue( wp_script_is( 'fooscript', 'registered' ) );
+		}
+		
+		public function testCallbackDeletePostExists()
+		{
+			$this->assertFalse( false === has_action( 'delete_post', array( $this->_controller, 'callback_delete_post' ) ) );
+		}
+		public function testCallbackDeletePost()
+		{
+			//set the current user to admin
+			wp_set_current_user( 1 );
+			
+			$this->assertEquals( 'DELETE DATA POST', $this->_controller->callback_delete_post( $this->_post ) );
+		}
+		
+		public function testCallbackDeletePage()
+		{
+			//set the current user to admin
+			wp_set_current_user( 1 );
+			
+			$this->assertEquals( 'DELETE DATA PAGE', $this->_controller->callback_delete_post( $this->_page ) );
+		}
+		
+		public function testCallbackDeleteCPT()
+		{
+			//set the current user to admin
+			wp_set_current_user( 1 );
+			
+			$this->assertEquals( 'DELETE CPT', $this->_controller->callback_delete_post( $this->_cpt ) );
+		}
 	}
 }
 ?>
