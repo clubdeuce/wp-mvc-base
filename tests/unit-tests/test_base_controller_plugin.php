@@ -3,6 +3,7 @@ namespace WPMVCBase\Testing
 {
 	require_once( dirname( __FILE__ ) . '../../../controllers/base_controller_plugin.php' );
 	require_once( dirname( __FILE__ ) . '../../../models/base_model_cpt.php' );
+	require_once( WPMVCB_SRC_DIR . '/models/base_model_js_object.php' );
 	
 	/**
 	 * The stub CPT for the controller tests
@@ -21,11 +22,14 @@ namespace WPMVCBase\Testing
 			$this->shortcodes = array(
 				'tscshortcode' => array( &$this, 'tscshortcode' )
 			);
+			$this->admin_scripts = array(
+				new \Base_Model_JS_Object( 'thickbox' )
+			);
 		}
 		
-		public function save_post()
+		public function save()
 		{
-			//implemented, but does nothing
+			return 'SAVE CPT';
 		}
 		
 		public function the_post( $post )
@@ -34,9 +38,9 @@ namespace WPMVCBase\Testing
 			return $post;
 		}
 		
-		public function delete_post()
+		public function delete()
 		{
-			//implemented, but does nothing
+			return 'DELETE CPT';
 		}
 		
 		protected function init_messages( $post )
@@ -129,6 +133,9 @@ namespace WPMVCBase\Testing
 		{
 			$cpt = new Test_Stub_CPT( 'http://example.com', 'my-txtdomain' );
 			$this->add_cpt( $cpt );
+			$this->admin_scripts = array(
+				new \Base_Model_JS_Object( 'fooscript', 'http://example.com/fooscript.js', null, false, false )
+			);
 		}
 		
 		public function get_cpt()
