@@ -804,7 +804,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 				default:
 					if( isset( $this->cpts ) ):
 						foreach($this->cpts as $cpt):
-							if ( $cpt->get_slug() ==  $post->post_type && method_exists( $cpt, 'delete' ) ):
+							if ( $cpt->get_slug() ==  $post_type && method_exists( $cpt, 'delete' ) ):
 								return $cpt->delete( $_POST );
 								break;
 							endif;
