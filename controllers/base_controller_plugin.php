@@ -758,16 +758,15 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			{
 				case 'post':
 					if ( method_exists( $this, 'save_data_post' ) )
-						$this->save_data_post( $post_id );
+						return $this->save_data_post( $post_id );
 					break;
 				case 'page':
 					if ( method_exists( $this, 'save_data_page' ) )
-						$this->save_data_page( $post_id );
+						return $this->save_data_page( $post_id );
 					break;
 				default:
-					if ( method_exists( $this->cpts[ $post_type ], 'save' ) )
-						$this->cpts[ $post_type ]->save( $_POST );
-					
+					if ( isset( $this->cpts[ $post_type ] ) && method_exists( $this->cpts[ $post_type ], 'save' ) )
+						return $this->cpts[ $post_type ]->save( $_POST );
 					break;
 			}
 		}
