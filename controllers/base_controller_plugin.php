@@ -751,7 +751,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			}
 			
 			// Third we need to check if the user intended to change this value.
-			if ( ! isset( $_POST[$this->nonce_name] ) || ! wp_verify_nonce( $_POST[$this->nonce_name], $this->nonce_action ) )
+			if ( ! isset( $_POST[ $this->nonce_name ] ) || ! wp_verify_nonce( $_POST[ $this->nonce_name ], $this->nonce_action ) )
 				return;
 			
 			//If we made it this far, we can save the POST data
