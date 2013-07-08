@@ -21,6 +21,7 @@ namespace WPMVCBase\Testing
 				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
 				array( 'jquery', 'my-super-cool-framework' ),
 				true,
+				true,
 				'mySuperCoolL10n',
 				array( 'foo' => 'bar' )
 			);
