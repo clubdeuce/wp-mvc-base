@@ -339,13 +339,13 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		//add_action( 'add_meta_boxes',			array( &$this, 'add_meta_boxes' ) );
 	 		
 	 		//enqueue scripts and css
-	 		//add_action( 'admin_enqueue_scripts',	array( &$this, 'admin_enqueue_scripts' ) );
+	 		add_action( 'admin_enqueue_scripts',	array( &$this, 'admin_enqueue_scripts' ) );
 	 		//add_action( 'wp_enqueue_scripts',		array( &$this, 'wp_enqueue_scripts' ) );
 	 		
 	 		//post actions
 	 		//add_action( 'the_post',					array( &$this, 'callback_the_post' ) );
  			add_action( 'save_post',				array( &$this, 'callback_save_post' ) );	 			
-	 		//add_action( 'delete_post',				array( &$this, 'callback_delete_post' ) );
+	 		add_action( 'delete_post',				array( &$this, 'callback_delete_post' ) );
 	 		
 	 		//register the page load callback
 	 		//add_action( "load-{$GLOBALS['pagenow']}", array( $this, 'load_admin_page' ), 10, 3 );
