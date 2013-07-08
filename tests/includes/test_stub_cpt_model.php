@@ -21,7 +21,7 @@ namespace WPMVCB\Testing
 				'tscshortcode' => array( &$this, 'tscshortcode' )
 			);
 			$this->admin_scripts = array(
-				new \Base_Model_JS_Object( 'thickbox' )
+				new \Base_Model_JS_Object( 'barscript', 'http//example.com/barscript.js' )
 			);
 		}
 		
