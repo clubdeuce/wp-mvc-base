@@ -793,17 +793,17 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			{
 				case 'post':
 					if ( method_exists( $this, 'delete_data_post' ) )
-						$this->delete_data_post( $post_id );
+						return $this->delete_data_post( $post_id );
 					break;
 				case 'page':
 					if ( method_exists( $this, 'delete_data_page' ) )
-						$this->delete_data_page( $post_id );
+						return $this->delete_data_page( $post_id );
 					break;
 				default:
 					if( isset( $this->cpts ) ):
 						foreach($this->cpts as $cpt):
-							if ( $cpt->get_slug() ==  $post->post_type && method_exists( $cpt, 'save' ) ):
-								$cpt->delete( $_POST );
+							if ( $cpt->get_slug() ==  $post->post_type && method_exists( $cpt, 'delete' ) ):
+								return $cpt->delete( $_POST );
 								break;
 							endif;
 						endforeach;
