@@ -65,18 +65,42 @@ namespace WPMVCBase\Testing
 			);
 		}
 		
+		public function testEnqueue()
+		{
+			global $wp_scripts;
+			$this->_script->enqueue();
+			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'enqueued' ) );
+		}
+		
 		public function testLocalize()
 		{
-			/**
-			 * @todo Determine how to test this
-			 */
+			global $wp_scripts;
+			$script = $wp_scripts->query( 'my-super-cool-script' );
+			$this->assertEquals( 'var mySuperCoolL10n = {"foo":"bar"};', $script->extra['data'] );
+		}
+		
+		public function testLocalizeEmpty()
+		{
+			global $wp_scripts;
+			$baz = new \Base_Model_JS_Object( 'baz', 'http://example.com/baz.js', null, false, false );
+			$baz->enqueue();
+			$this->assertFalse( $baz->localize() );
+		}
+		
+		public function test_dequeue()
+		{
+			$this->_script->enqueue();
+			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'enqueued' ) );
+			$this->_script->dequeue();
+			$this->assertFalse( wp_script_is( 'my-super-cool-script', 'enqueued' ) );
 		}
 		
 		public function test_deregister()
 		{
+			$this->_script->register();
+			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'registered' ) );
 			$this->_script->deregister();
-			$this->assertFalse( array_key_exists( 'my-super-cool-script', $GLOBALS['wp_scripts']->registered ) );
-			
+			$this->assertFalse( wp_script_is( 'my-super-cool-script', 'registered' ) );
 		}
 	}
 }
