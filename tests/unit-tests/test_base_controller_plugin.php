@@ -164,6 +164,16 @@ namespace WPMVCBase\Testing
 			$post->foo = 'bar';
 			return $post;
 		}
+		
+		public function delete_data_post()
+		{
+			return "DELETE DATA POST";
+		}
+		
+		public function delete_data_page()
+		{
+			return "DELETE DATA PAGE";
+		}
 	}
 	
 	/**
