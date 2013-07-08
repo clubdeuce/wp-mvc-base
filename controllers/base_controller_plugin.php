@@ -335,7 +335,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		//add_action( 'admin_notices',			array( &$this, 'admin_notice' ) );
 	 		
 	 		//load the plugin text domain
-	 		//add_action( 'plugins_loaded',			array( &$this, 'plugins_loaded' ) );
+	 		add_action( 'plugins_loaded',			array( &$this, 'plugins_loaded' ) );
 	 		//add_action( 'add_meta_boxes',			array( &$this, 'add_meta_boxes' ) );
 	 		
 	 		//enqueue scripts and css
@@ -343,7 +343,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		//add_action( 'wp_enqueue_scripts',		array( &$this, 'wp_enqueue_scripts' ) );
 	 		
 	 		//post actions
-	 		//add_action( 'the_post',					array( &$this, 'callback_the_post' ) );
+	 		add_action( 'the_post',					array( &$this, 'callback_the_post' ) );
  			add_action( 'save_post',				array( &$this, 'callback_save_post' ) );	 			
 	 		add_action( 'delete_post',				array( &$this, 'callback_delete_post' ) );
 	 		

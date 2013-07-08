@@ -70,6 +70,7 @@ namespace WPMVCB\Testing
 			);
 			
 			do_action( 'init' );
+			do_action( 'plugins_loaded' );
 		}
 		
 		public function testGetVersionExists()
