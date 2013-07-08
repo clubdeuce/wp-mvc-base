@@ -463,6 +463,7 @@ public function test_add_cpt_shortcodes()
 			$cpt = $this->_controller->get_cpt();
 			$messages = $this->_controller->post_updated_messages( $messages );
 			
+			$this->assertFalse( false === has_action( 'post_updated_messages', array( $this->_controller, 'post_updated_messages' ) ) );
 			$this->assertArrayHasKey( 'tbc-cpt', $messages );
 		}
 		
