@@ -700,12 +700,14 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			switch( $post->post_type )
 			{
 				case 'post':
-					if ( method_exists( $this, 'the_post' ) )
+					if ( method_exists( $this, 'the_post' ) ):
 						$post = $this->the_post( $post );
+					endif;
 					break;
 				case 'page':
-					if ( method_exists( $this, 'the_page' ) )
+					if ( method_exists( $this, 'the_page' ) ):
 						$post = $this->the_page( $post );
+					endif;
 					break;
 				default:
 					if( isset( $this->cpts ) ):
