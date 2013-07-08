@@ -390,14 +390,14 @@ namespace WPMVCBase\Testing
 			$this->assertEquals( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
 		}
 		
-		public function test_add_cpt_register()
+		public function testAddCptRegister()
 		{
 			$cpt = $this->_controller->get_cpt();
 			$this->assertFalse( false === has_action( 'init', array( $cpt, 'register' ) ) );
 		}
 		
 		/*
-		 * The following functions use the assertFalse because WP has_action my occasionally
+		 * The following functions use the assertFalse because WP has_action may occasionally
 		 * return a non-boolean value that evaluates to false
 		 */
 		public function test_add_cpt_add_meta_boxes()
