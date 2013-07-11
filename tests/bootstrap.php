@@ -10,6 +10,7 @@ require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
 //include vfsStream support
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/Quota.php' );
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStream.php' );
+require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamException.php' );
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamContainerIterator.php' );
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamContainer.php' );
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamContent.php' );
