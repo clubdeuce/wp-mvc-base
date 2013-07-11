@@ -343,7 +343,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		//add_action( 'add_meta_boxes',			array( &$this, 'add_meta_boxes' ) );
 	 		
 	 		//enqueue scripts and css
-	 		add_action( 'admin_enqueue_scripts',	array( &$this, 'admin_enqueue_scripts' ) );
+	 		if( isset( $this->admin_scripts ) && count( $this->admin_scripts ) > 0 )
+	 			add_action( 'admin_enqueue_scripts',	array( &$this, 'admin_enqueue_scripts' ) );
 	 		//add_action( 'wp_enqueue_scripts',		array( &$this, 'wp_enqueue_scripts' ) );
 	 		
 	 		//post actions
