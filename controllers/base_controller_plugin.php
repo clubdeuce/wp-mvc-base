@@ -641,12 +641,12 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 										$script->localize();
 									endforeach;
 								}
-							}
+							}	//$hook == 'post.php' || $hook == 'post-new.php'
 							break;
-						}
-					}
-				}
-			}
+						}	//$cpt->get_slug() == $screen->post_type
+					}	//foreach( $this->cpts as $cpt )
+				}	//isset( $this->cpts )
+			}	//$hook == 'post.php' || $hook == 'edit.php' || $hook == 'post-new.php'
 		}
 		
 		/**
@@ -979,7 +979,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			
 			if ( is_array( $menu_pages ) ):
 				foreach( $menu_pages as $key => &$page ):
-					//set the callback if necessary
+					//set the page callback function if not already set
 					if( ! isset( $page['callback'] ) )
 						$page['callback'] = array( &$this, 'render_options_page' );
 					
