@@ -57,7 +57,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * 			'menu_title'	=>	__( 'My Submenu Title', 'mytextdomain' ),
 		 * 			'capability'	=>	'manage_posts',
 		 * 			'menu_slug'		=> 'my-page-slug',
-		 * 			'callback'		=> 'my_page_slug.php',	//The view file name. Can be anything. Will be prepended with the plugin view path.
+		 * 			'callback'		=> 'my_callback',	//this can be a function or omitted to use default method
 		 * 			'icon_url'		=> 'my-icon.png',	//this property is ignored for submenu pages
 		 * 			'position'		=> 100,			//this property is ignored for submenu pages
 		 * 			'js'			=> array (
@@ -65,7 +65,8 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * 			),
 		 * 			'help_screen'	=> array (
 		 * 								@see Base_Model_Help_Tab for elements
-		 * 			)
+		 * 			),
+		 * 			'view'          => 'my_page_slug.php'
 		 *		),...
 		 * );
 		 * </code>
