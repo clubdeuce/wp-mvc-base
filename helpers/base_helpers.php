@@ -118,7 +118,7 @@ if ( ! class_exists( 'Helper_Functions' ) ):
 		}
 		
 		/**
-		 * Remove a directory and all contents from the local filesystem
+		 * Remove a directory and all contents from the local filesystem.
 		 *
 		 * @package WPMVCBase
 		 * @param string $dirname The absolute path to the directory to be deleted.
