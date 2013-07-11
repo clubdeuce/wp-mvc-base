@@ -620,6 +620,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			if( isset( $this->admin_scripts ) ):
 				foreach( $this->admin_scripts as $script ):
 					$script->register();
+					$script->enqueue();
 				endforeach;
 			endif;
 
