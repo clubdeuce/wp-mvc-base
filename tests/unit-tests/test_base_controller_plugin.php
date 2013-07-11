@@ -19,14 +19,22 @@ namespace WPMVCB\Testing
 		private $_cpt;
 		
 		public function setUp()
-		{
+		{	
+			//set up our virtual filesystem
+			\org\bovigo\vfs\vfsStreamWrapper::register();
+			\org\bovigo\vfs\vfsStreamWrapper::setRoot( new \org\bovigo\vfs\vfsStreamDirectory( 'test_dir' ) );
+			$this->_mock_path = trailingslashit( \org\bovigo\vfs\vfsStream::url( 'test_dir' ) );
+			$this->_filesystem = \org\bovigo\vfs\vfsStreamWrapper::getRoot();
+			
+			//set up our post factory
 			$this->factory = new \WP_UnitTest_Factory;
 			
+			//set up our controller
 			$this->_controller = new Test_Controller(
 				'my-super-cool-plugin',
 				'1.0',
-				'/home/user/public_html/wp-content/plugins/my-super-cool-plugin',
-				'/home/user/public_html/wp-content/plugins/my-super-cool-plugin/my-super-cool-plugin.php',
+				$this->_mock_path,
+				$this->_mock_path . 'my-super-cool-plugin.php',
 				'http://my-super-cool-domain.com/wp-content/plugins/my-super-cool-plugin',
 				'my-super-cool-text-domain'
 			);
