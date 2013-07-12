@@ -23,7 +23,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @var string
 		 * @since 0.1
 		 */
-		private $version = '0.1';
+		private $version = '0.2';
 		
 		/**
 		 * The plugin options. 
@@ -47,28 +47,23 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * The options pages.
 		 *
-		 * Contains an array of page elements. These items are added to the WP Dashboard Sidebar. The key should match the menu_slug property.
+		 * Contains an array of Base_Model_Menu_Page objects. 
 		 * Example:
 		 * <code>
-		 * $this->pages = array(
-		 * 		'my-page-slug' => array(
-		 * 			'parent_slug'	=> 'my-menu-page',	//See below
-		 * 			'page_title'	=>	__( 'My Page Title', 'mytextdomain' ),
-		 * 			'menu_title'	=>	__( 'My Submenu Title', 'mytextdomain' ),
-		 * 			'capability'	=>	'manage_posts',
-		 * 			'menu_slug'		=> 'my-page-slug',
-		 * 			'callback'		=> 'my_callback',	//this can be a function or omitted to use default method
-		 * 			'icon_url'		=> 'my-icon.png',	//this property is ignored for submenu pages
-		 * 			'position'		=> 100,			//this property is ignored for submenu pages
-		 * 			'js'			=> array (
-		 * 								@see Base_Controller_Plugin::$scripts for elements
-		 * 			),
-		 * 			'help_screen'	=> array (
-		 * 								@see Base_Model_Help_Tab for elements
-		 * 			),
-		 * 			'view'          => 'my_page_slug.php'
-		 *		),...
-		 * );
+		 * $page => new Base_Model_Menu_Page;
+		 * $page->set_parent_slug( 'my-menu-page' );
+		 * $page->set_page_title( __( 'My Page Title', 'mytextdomain' ) );
+		 * $page->set_menu_title( __( 'My Submenu Title', 'mytextdomain' ) );
+		 * $page->set_capability( 'manage_posts' );
+		 * $page->set_menu_slug( 'my-page-slug' );
+		 * $page->set_callback( 'my_callback' );
+		 * $page->set_icon_url(	'my-icon.png' );
+		 * $page->set_position( '100.12345' );
+		 * $page->set_admin_scripts( array ( @see Base_Model_JS_Object ) );
+		 * $page->set_help_tabs( array ( @see Base_Model_Help_Tab ) );
+		 * $page->set_view( 'my_page_slug.php' );
+		 * 
+		 * $this->pages = array( 'my_page_slug' => $page );
 		 * </code>
 		 *
 		 * If the parent_slug property is specified, the page will be added using the WP add_submenu_page function. 
@@ -76,8 +71,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 *
 		 * @var array
 		 * @since 0.1
-		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
-		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
+		 * @see Base_Model_Menu_Page
 		 */
 		protected $pages;
 		
