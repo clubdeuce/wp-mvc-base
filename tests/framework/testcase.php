@@ -11,18 +11,30 @@ namespace WPMVCB\Testing
 		
 		public function getReflectionPropertyValue( $class, $property )
 		{
-			$reflection = new \ReflectionClass( $class );
-			$property_reflection = $reflection->getProperty( $property );
-			$property_reflection->setAccessible( true );
-			return $property_reflection->getValue( $class );
+			$reflection = new \ReflectionProperty( $class, $property );
+			$reflection->setAccessible( true );
+			return $reflection->getValue( $class );
 		}
 		
 		public function setReflectionPropertyValue( $class, $property, $value )
 		{
-			$reflection = new \ReflectionClass( $class );
-			$property_reflection = $reflection->getProperty( $property );
-			$property_reflection->setAccessible( true );
-			return $property_reflection->setValue( $class, $value );
+			$reflection = new \ReflectionProperty( $class, $property );
+			$reflection->setAccessible( true );
+			return $reflection->setValue( $class, $value );
+		}
+		
+		public function reflectionMethodInvoke( $class, $method )
+		{
+			$reflection = new \ReflectionMethod( $class, $method );
+			$reflection->setAccessible( true );
+			$reflection->invoke( $class );
+		}
+		
+		public function reflectionMethodInvokeArgs( $class, $method, $args )
+		{
+			$reflection = new \ReflectionMethod( $class, $method );
+			$reflection->setAccessible( true );
+			$reflection->invoke( $class, $args );
 		}
 	}
 }
