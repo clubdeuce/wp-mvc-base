@@ -294,7 +294,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function get_settings( $option_name = null, $option_element = null )
 		{
-			if( ! isset( $this-> settings ) )
+			if( ! isset( $this->settings ) )
 				$this->init_settings();
 			
 			//Was a specific setting requested?
