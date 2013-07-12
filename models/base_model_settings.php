@@ -41,6 +41,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 *
 		 * @var array
 		 * @since 0.1
+		 * @link http://codex.wordpress.org/Function_Reference/register_setting#Parameters
 		 */
 		protected $options;
 		
@@ -173,6 +174,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @param string $uri The plugin base uri.
 		 * @param string $path The plugin absoulte path.
 		 * @param string $txtdomain The plugin text domain. Used to localize section/field headings, titles, etc.
+		 * @codeCoverageIgnore
 		 * @since 0.1
 		 */
 		abstract protected function init( $uri, $path, $txtdomain );
