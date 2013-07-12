@@ -343,9 +343,11 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 	 		//add_action( 'add_meta_boxes',			array( &$this, 'add_meta_boxes' ) );
 	 		
 	 		//enqueue scripts and css
-	 		if( isset( $this->admin_scripts ) && count( $this->admin_scripts ) > 0 )
+	 		if( ( isset( $this->admin_scripts ) && count( $this->admin_scripts ) > 0 ) )
 	 			add_action( 'admin_enqueue_scripts',	array( &$this, 'admin_enqueue_scripts' ) );
-	 		//add_action( 'wp_enqueue_scripts',		array( &$this, 'wp_enqueue_scripts' ) );
+	 			
+	 		if( isset( $this->scripts ) && count( $this->scripts ) > 0 )
+	 			add_action( 'wp_enqueue_scripts',		array( &$this, 'wp_enqueue_scripts' ) );
 	 		
 	 		//post actions
 	 		add_action( 'the_post',					array( &$this, 'callback_the_post' ) );
@@ -1320,6 +1322,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			$this->cpts[ $cpt->get_slug() ] = $cpt;
 			add_action( 'init', array( &$cpt, 'register' ) );
 			add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
+			
 			//register the post updated messages
 	 		add_action( 'post_updated_messages', array( &$this, 'post_updated_messages' ), 5 );
 	 		
