@@ -980,19 +980,30 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 			
 			if ( is_array( $menu_pages ) ):
 				foreach( $menu_pages as $key => &$page ):
-					//set the page callback function if not already set
-					if( ! isset( $page['callback'] ) )
-						$page['callback'] = array( &$this, 'render_options_page' );
-					
-					$page['callback'] = apply_filters( 'ah_filter_menu_page_callback' . $key, $page['callback'] );
-					
-					if( ! isset( $page['parent_slug'] ) ):
-						$page['hook_suffix'] = add_menu_page( $page['page_title'], $page['menu_title'], $page['capability'], $page['menu_slug'], $page['callback'], $page['icon_url'], $page['position'] );
-					else:
-						$page['hook_suffix'] = add_submenu_page( $page['parent_slug'], $page['page_title'], $page['menu_title'], $page['capability'], $page['menu_slug'], $page['callback'] );
-					endif;
-					
-					if ( false === $page['hook_suffix'] ):
+					if( $page instanceof Base_Model_Menu_Page ) {
+						if ( ! $page->get_callback() )
+							$page->set_callback( array( &$this, 'render_options_page' ) );
+						
+						if ( false === $page->add() )
+							$error = true;
+					} else {
+						//set the page callback function if not already set
+						if( ! isset( $page['callback'] ) )
+							$page['callback'] = array( &$this, 'render_options_page' );
+						
+						$page['callback'] = apply_filters( 'ah_filter_menu_page_callback' . $key, $page['callback'] );
+						
+						if( ! isset( $page['parent_slug'] ) ):
+							$page['hook_suffix'] = add_menu_page( $page['page_title'], $page['menu_title'], $page['capability'], $page['menu_slug'], $page['callback'], $page['icon_url'], $page['position'] );
+						else:
+							$page['hook_suffix'] = add_submenu_page( $page['parent_slug'], $page['page_title'], $page['menu_title'], $page['capability'], $page['menu_slug'], $page['callback'] );
+						endif;
+						
+						if ( false === $page['hook_suffix'] )
+							$error = true;
+					}	//$page instanceof Base_Model_Options_Page
+								
+					if ( $error ):
 						trigger_error( 
 							sprintf( __( 'Unable to add submenu page due to insufficient user capability: %s.', $this->txtdomain ), $key ),
 							E_USER_WARNING
