@@ -228,7 +228,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function get_settings_sections( $key = null )
 		{
-			if ( ! is_null( $key ) ):
+			if ( isset( $key ) ):
 				if ( isset( $this->settings_sections[$key] ) ):
 					return $this->settings_sections[$key];
 				else:
@@ -336,6 +336,33 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		}
 		
 		/**
+		 * Add an option.
+		 *
+		 * @param array $option
+		 * @since 0.2
+		 */
+		public function add_option( $option )
+		{
+			if( ! is_array( $option ) ) :
+				trigger_error(
+					sprintf(
+						__( 'Method %s expects an array. The passed in parameter is of type: %s', 'wpmvcb' ),
+						__FUNCTION__,
+						gettype( $option )
+					),
+					E_USER_NOTICE
+				);
+				return false;
+			else:
+				if ( ! is_array( $this->options ) )
+					$this->options = array();
+				
+				$this->options = array_merge( $this->options, $option );
+				return true;
+			endif;
+		}
+		
+		/**
 		 * Add a settings section.
 		 *
 		 * @param array $section The section to be added.
@@ -344,7 +371,23 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function add_settings_section( $section )
 		{
-			$this->settings_sections = array_merge( $this->settings_sections, $section );
+			if( ! is_array( $section ) ) :
+				trigger_error(
+					sprintf(
+						__( 'Method %s expects an array. The passed in parameter is of type: %s', 'wpmvcb' ),
+						__FUNCTION__,
+						gettype( $section )
+					),
+					E_USER_NOTICE
+				);
+				return false;
+			else:
+				if ( ! is_array( $this->settings_sections ) )
+					$this->settings_sections = array();
+				
+				$this->settings_sections = array_merge( $this->settings_sections, $section );
+				return true;
+			endif;
 		}
 		
 		/**
@@ -354,9 +397,25 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @return void
 		 * @since 0.1
 		 */
-		public function add_settings_field( $settings )
+		public function add_settings_field( $field )
 		{
-			$this->settings_fields = array_merge( $this->settings_fields, $settings );
+			if( ! is_array( $field ) ) :
+				trigger_error(
+					sprintf(
+						__( 'Method %s expects an array. The passed in parameter is of type: %s', 'wpmvcb' ),
+						__FUNCTION__,
+						gettype( $field )
+					),
+					E_USER_NOTICE
+				);
+				return false;
+			else:
+				if ( ! is_array( $this->settings_fields ) )
+					$this->settings_fields = array();
+				
+				$this->settings_fields = array_merge( $this->settings_fields, $field );
+				return true;
+			endif;
 		}
 		
 		/**
@@ -375,6 +434,8 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 				foreach( $input as $key => $value ):
 					$input[$key] = sanitize_text_field( $value );
 				endforeach;
+			else:
+				$input = sanitize_text_field( $input );
 			endif;
 			
 			return $input;
