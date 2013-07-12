@@ -79,7 +79,12 @@ namespace WPMVCB\Testing
 			do_action( 'plugins_loaded' );
 		}
 		
-		public function testGetVersionExists()
+		public function testFilesystemExists()
+		{
+			$this->assertTrue( is_dir( $this->_mock_path ) );
+		}
+		
+		public function testMethodGetVersionExists()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'get_version' ) );
 		}
@@ -128,7 +133,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodMainPluginFile()
 		{
-			$this->assertEquals( '/home/user/public_html/wp-content/plugins/my-super-cool-plugin/my-super-cool-plugin.php', $this->_controller->main_plugin_file() );
+			$this->assertEquals( $this->_mock_path . 'my-super-cool-plugin.php', $this->_controller->main_plugin_file() );
 		}
 		
 		/**
@@ -192,7 +197,7 @@ namespace WPMVCB\Testing
 			$settings_model_reflection->setAccessible( true );
 			$settings_model = $settings_model_reflection->getValue( $this->_controller );
 			
-			//set up a reflection of $settings_model
+			//set up a reflection of $settings_model pages object
 			$reflection = new \ReflectionClass( $settings_model );
 			$pages_reflection = $reflection->getProperty( 'pages' );
 			$pages_reflection->setAccessible( true );
@@ -200,6 +205,62 @@ namespace WPMVCB\Testing
 			
 			$this->assertEquals( 'toplevel_page_my-page-slug', $pages['my-page-slug']['hook_suffix'] );
 			$this->assertEquals( 'my-page-menu-title_page_my-submenu-page-slug', $pages['my-submenu-page-slug']['hook_suffix'] );
+		}
+		
+		public function testRenderOptionsPageExists()
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'render_options_page' ) );
+		}
+		
+		/**
+		 * Ensure the default options page view exists and has a certain format.
+		 * 
+		 * @depends testRenderOptionsPageExists
+		 */
+		public function testMethodRenderOptionsPageNoView()
+		{
+			global $_REQUEST;
+			$_REQUEST['page'] = 'my-page-slug';
+			
+			$this->assertFileExists( WPMVCB_SRC_DIR . '/views/base_options_page.php' );
+			
+			ob_start();
+			$this->_controller->render_options_page();
+			$output = ob_get_clean();
+			
+			//$this->assertRegExp( 'foo', $output );
+			$this->markTestIncomplete( 'Not yet implemented' );
+		}
+		
+		public function testMethodRenderOptionsPageViewExists()
+		{
+			$this->markTestIncomplete( 'Not yet implemented' );
+			global $_REQUEST;
+			$_REQUEST['page'] = 'my-page-slug';
+			
+			//set up a reflection to get the controller->settings_model object
+			$controller_reflection = new \ReflectionClass( $this->_controller );
+			$settings_model_reflection = $controller_reflection->getProperty( 'settings_model' );
+			$settings_model_reflection->setAccessible( true );
+			$settings_model = $settings_model_reflection->getValue( $this->_controller );
+			
+			//get the settings pages
+			$this->assertTrue( method_exists( $settings_model, 'get_pages' ) );
+			$pages = $settings_model->get_pages();
+			
+			//make the app views directory and verify it exists
+			mkdir( $this->_mock_path . 'app/views/', 0755, true );
+			$this->assertTrue( $this->_filesystem->hasChild( 'app/views' ) );
+			
+			//create the view file for this options page and verify it exists
+			$handle = fopen( $this->_mock_path . 'app/views/' . $pages['my-page-slug']['view'], 'w' );
+			fwrite( $handle, 'This is foobar.' );
+			fclose( $handle );
+			$this->assertTrue( $this->_filesystem->hasChild( 'app/views/' . $pages['my-page-slug']['view'] ) );
+			
+			//test the output for a match
+			$this->expectOutputString( 'This is foobar.' );
+			$this->_controller->render_options_page();
 		}
 		
 		/**
@@ -640,6 +701,98 @@ do_action( 'admin_init' );
 			wp_set_current_user( 1 );
 			
 			$this->assertEquals( 'DELETE CPT', $this->_controller->callback_delete_post( $this->_cpt ) );
+		}
+		
+		public function testAdminEnqueueScriptsActionExists()
+		{
+			$this->assertFalse( false === has_action( 'admin_enqueue_scripts', array( &$this->_controller, 'admin_enqueue_scripts' ) ) );
+		}
+		
+		public function testPluginControllerAdminScriptsRegistered()
+		{
+			//set up a wp_screen object
+			set_current_screen( 'edit.php' );
+			
+			do_action( 'admin_enqueue_scripts' );
+			$this->assertTrue( wp_script_is( 'fooscript', 'registered' ) );
+		}
+		
+		public function testPluginControllerAdminScriptsEnqueued()
+		{
+			//set up a wp_screen object
+			set_current_screen( 'edit.php' );
+			
+			do_action( 'admin_enqueue_scripts' );
+			$this->assertTrue( wp_script_is( 'fooscript', 'enqueued' ) );
+		}
+		
+		public function testRenderMetaboxExists()
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'render_metabox' ) );
+		}
+		
+		/**
+		 * @depends testRenderMetaboxExists
+		 * @expectedException PHPUnit_Framework_Error
+		 * @expectedExceptionMessage No view specified in the callback arguments for metabox id test-metabox
+		 */
+		public function testRenderMetaboxNoView()
+		{
+			$metabox = array(
+				'id' => 'test-metabox',
+				'args' => array()
+			);
+			
+			$this->_controller->render_metabox( $this->_post, $metabox );
+		}
+		
+		/**
+		 * @depends testRenderMetaboxExists
+		 * @expectedException PHPUnit_Framework_Error
+		 * @expectedExceptionMessage The view file foo.php for metabox id test-metabox does not exist
+		 */
+		public function testRenderMetaboxViewNonexistent()
+		{
+			$metabox = array(
+				'id' => 'test-metabox',
+				'args' => array(
+					'view' => 'foo.php'
+				)
+			);
+			
+			$this->_controller->render_metabox( $this->_post, $metabox );
+		}
+		
+		/**
+		 * @depends testRenderMetaboxExists
+		 */
+		public function testRenderMetabox()
+		{
+			//create our mock view directory
+			mkdir( $this->_mock_path . 'app/views', 0755, true );
+			$this->assertTrue( $this->_filesystem->hasChild( 'app/views' ) );
+			
+			//create our mock View file
+			$handle = fopen( $this->_mock_path . 'app/views/foo.php', 'w' );
+			fwrite( $handle, 'This is foo.<?php echo $nonce; ?>' );
+			fclose( $handle );
+			$this->assertFileExists( $this->_mock_path . 'app/views/foo.php' );
+			
+			$metabox = array(
+				'id' => 'test-metabox',
+				'args' => array(
+					'view' => 'foo.php'
+				)
+			);
+			
+			$this->assertObjectHasAttribute( 'nonce_name', $this->_controller );
+			$this->assertObjectHasAttribute( 'nonce_action', $this->_controller );
+			
+			$this->expectOutputString( 
+				'This is foo.' . wp_nonce_field( $this->_controller->nonce_action, $this->_controller->nonce_name, true, false )
+			);
+			
+			$this->_controller->render_metabox( $this->_post, $metabox );
 		}
 	}
 }
