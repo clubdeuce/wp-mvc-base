@@ -303,19 +303,33 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 			else:
 				//Was a specific element requested?
 				if( is_null( $option_element ) ):
-					//no
-					return $this->settings[$option_name];
-				else:
-					//a specfic option was requested
-					if ( isset( $this->settings[$option_name][$option_element] ) ):
-						return $this->settings[$option_name][$option_element];
+					//return the option group
+					if ( isset( $this->settings[ $option_name ] ) ):
+						return $this->settings[ $option_name ];
 					else:
-						//Return the default value if specified. Otherwise FALSE.
-						if( isset( $this->settings_fields[$option_element]['default'] ) ):
-							return $this->settings_fields[$option_element]['default'];
+						return false;
+					endif;
+				else:
+					//a specfic option in the option group was requested
+					if ( is_array( $this->settings[ $option_name ] ) ):
+						//option is a serialized array and the requested element might exist
+						if ( isset( $this->settings[ $option_name ][ $option_element ] ) ):
+							return $this->settings[ $option_name ][ $option_element ];
 						else:
-							return false;
+							//Return the default value if specified. Otherwise FALSE.
+							if( isset( $this->settings_fields[ $option_element ]['default'] ) ):
+								return $this->settings_fields[ $option_element ]['default'];
+							else:
+								return false;
+							endif;
 						endif;
+					else:
+						//the requested option is a single value and has no elements
+						trigger_error(
+							__( 'You have requested an element of an option that is stored as a single key/value pair.', 'wpmvcb' ),
+							E_USER_NOTICE
+						);
+						return false;
 					endif;
 				endif;
 			endif;
