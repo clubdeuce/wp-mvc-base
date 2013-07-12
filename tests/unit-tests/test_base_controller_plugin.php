@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once( WPMVCB_TEST_DIR . '/includes/test_stub_plugin_controller.php' );	
+	require_once( WPMVCB_TEST_DIR . '/includes/test_stub_plugin_controller.php' );
 	
 	/**
 	 * The test controller for Base_Controller_Plugin.
@@ -85,48 +85,48 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testGetVersionExists
+		 * @depends testMethodGetVersionExists
 		 */
-		public function testGetVersion()
+		public function testMethodGetVersion()
 		{
 			$this->assertEquals( '1.0', $this->_controller->get_version() );
 		}
 		
-		public function testGetSlugExists()
+		public function testMethodGetSlugExists()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'get_slug' ) );
 		}
 		
 		/**
-		 * @depends testGetSlugExists
+		 * @depends testMethodGetSlugExists
 		 */
-		public function testGetSlug()
+		public function testMethodGetSlug()
 		{
 			$this->assertEquals( 'my-super-cool-plugin', $this->_controller->get_slug() );
 		}
 		
-		public function testGetTextdomainExists()
+		public function testMethodGetTextdomainExists()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'get_textdomain' ) );
 		}
 		
 		/**
-		 * @depends testGetTextdomainExists
+		 * @depends testMethodGetTextdomainExists
 		 */
-		public function testGetTextdomain()
+		public function testMethodGetTextdomain()
 		{
 			$this->assertEquals( 'my-super-cool-text-domain', $this->_controller->get_textdomain() );
 		}
 		
-		public function testMainPluginFileExists()
+		public function testMethodMainPluginFileExists()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'main_plugin_file' ) );
 		}
 		
 		/**
-		 * @depends testMainPluginFileExists
+		 * @depends testMethodMainPluginFileExists
 		 */
-		public function testMainPluginFile()
+		public function testMethodMainPluginFile()
 		{
 			$this->assertEquals( '/home/user/public_html/wp-content/plugins/my-super-cool-plugin/my-super-cool-plugin.php', $this->_controller->main_plugin_file() );
 		}
@@ -158,7 +158,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testAdminInitActionExists
 		 */
-		public function testRegisterOptions()
+		public function testMethodRegisterOptions()
 		{	
 			ob_start();
 			settings_fields( 'test_options' );
@@ -179,7 +179,7 @@ namespace WPMVCB\Testing
 		 * @expectedException PHPUnit_Framework_Error
 		 * @exectedExceptionMessage Unable to add submenu page due to insufficient user capability: my-fake-submenu-page
 		 */
-		public function testAddMenuPages()
+		public function testMethodAddMenuPages()
 		{
 			if( ! did_action( 'admin_init' ) ) {
 				do_action( 'admin_init' );
@@ -205,7 +205,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testAdminInitActionExists
 		 */
-		public function testAddSettingsSections()
+		public function testMethodAddSettingsSections()
 		{
 			if( ! did_action( 'admin_init' ) ) {
 				do_action( 'admin_init' );
@@ -217,7 +217,7 @@ namespace WPMVCB\Testing
 			$this->assertArrayHasKey( 'my-settings-section', $wp_settings_sections['my-page-slug'] );
 		}
 		
-		public function testAddSettingsFields()
+		public function testMethodAddSettingsFields()
 		{
 			if( ! did_action( 'admin_init' ) ) {
 				do_action( 'admin_init' );
@@ -233,7 +233,7 @@ namespace WPMVCB\Testing
 			
 		}
 		
-		public function testRenderSettingsFieldExists()
+		public function testMethodRenderSettingsFieldExists()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'render_settings_field' ) );
 		}
@@ -241,7 +241,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testRenderInputText()
+		public function testMethodRenderInputText()
 		{
 			$field = array(
 				'type' => 'text',
@@ -261,7 +261,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testReturnInputText()
+		public function testMethodReturnInputText()
 		{
 			$field = array(
 				'type' => 'text',
@@ -284,7 +284,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testRenderInputCheckbox()
+		public function testMethodRenderInputCheckbox()
 		{
 			$field = array(
 				'type'	=> 'checkbox',
@@ -302,7 +302,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testReturnInputCheckbox()
+		public function testMethodReturnInputCheckbox()
 		{
 			$field = array(
 				'type'	=> 'checkbox',
@@ -319,7 +319,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testRenderInputCheckboxChecked()
+		public function testMethodRenderInputCheckboxChecked()
 		{
 			$field = array(
 				'type'	=> 'checkbox',
@@ -337,7 +337,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testReturnInputCheckboxChecked()
+		public function testMethodReturnInputCheckboxChecked()
 		{
 			$field = array(
 				'type'	=> 'checkbox',
@@ -354,7 +354,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testRenderInputSelect()
+		public function testMethodRenderInputSelect()
 		{
 			$field = array(
 				'type'		=> 'select',
@@ -375,7 +375,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testReturnInputSelect()
+		public function testMethodReturnInputSelect()
 		{
 			$field = array(
 				'type'		=> 'select',
@@ -395,7 +395,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testRenderTextarea()
+		public function testMethodRenderTextarea()
 		{
 			$field = array(
 				'type'		=> 'textarea',
@@ -411,7 +411,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testRenderSettingsFieldExists
 		 */
-		public function testReturnTextarea()
+		public function testMethodReturnTextarea()
 		{
 			$field = array(
 				'type'		=> 'textarea',
@@ -423,7 +423,7 @@ namespace WPMVCB\Testing
 			$this->assertEquals( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
 		}
 		
-		public function testAddCptExists()
+		public function testMethodAddCptExists()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'add_cpt' ) );
 		}
