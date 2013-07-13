@@ -19,6 +19,7 @@
 				<directory suffix=".php">./tests/</directory>
 				<directory suffix=".php">./tests/unit-tests/</directory>
 				<directory suffix=".php">./tests/includes/</directory>
+				<directory suffix=".php">./vendor/</directory>
 		</exclude>
 		</whitelist>
 	</filter>
