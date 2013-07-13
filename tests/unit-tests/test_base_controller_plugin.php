@@ -300,7 +300,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodRenderInputText()
 		{
@@ -320,7 +320,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodReturnInputText()
 		{
@@ -343,7 +343,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodRenderInputCheckbox()
 		{
@@ -361,7 +361,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodReturnInputCheckbox()
 		{
@@ -378,7 +378,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodRenderInputCheckboxChecked()
 		{
@@ -396,7 +396,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodReturnInputCheckboxChecked()
 		{
@@ -413,7 +413,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodRenderInputSelect()
 		{
@@ -434,7 +434,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodReturnInputSelect()
 		{
@@ -454,7 +454,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodRenderTextarea()
 		{
@@ -470,7 +470,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testRenderSettingsFieldExists
+		 * @depends testMethodRenderSettingsFieldExists
 		 */
 		public function testMethodReturnTextarea()
 		{
@@ -495,7 +495,7 @@ namespace WPMVCB\Testing
 		 */
 		 
 		/**
-		 * @depends testAddCptExists
+		 * @depends testMethodAddCptExists
 		 */
 		public function testAddCptRegisterCallbackExists()
 		{
@@ -504,7 +504,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testAddCptExists
+		 * @depends testMethodAddCptExists
 		 */
 		public function test_add_cpt_add_meta_boxes()
 		{
@@ -512,7 +512,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testAddCptExists
+		 * @depends testMethodAddCptExists
 		 */
 		public function test_add_cpt_add_post_updated_messages()
 		{
@@ -520,7 +520,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testAddCptExists
+		 * @depends testMethodAddCptExists
 		 */
 		public function test_add_cpt_add_the_post()
 		{
@@ -528,7 +528,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testAddCptExists
+		 * @depends testMethodAddCptExists
 		 */
 		public function test_add_cpt_add_save_post()
 		{
@@ -536,7 +536,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testAddCptExists
+		 * @depends testMethodAddCptExists
 		 */
 		public function test_add_cpt_add_delete_post()
 		{
@@ -544,7 +544,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testAddCptExists
+		 * @depends testMethodAddCptExists
 		 */
 		public function test_add_cpt_help_tabs()
 		{
@@ -552,7 +552,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testAddCptExists
+		 * @depends testMethodAddCptExists
 		 */
 		public function test_add_cpt_shortcodes()
 		{
