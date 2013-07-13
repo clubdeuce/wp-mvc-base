@@ -195,7 +195,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 					if( isset( $option['option_name'] ) ):
 						$this->settings[$option['option_name']] = get_option( $option['option_name'] );
 					else:
-						$this->settings[ $key ] = get_option( $option['option_name'] );
+						$this->settings[ $key ] = get_option( $key );
 					endif;
 				endforeach;
 			endif;
