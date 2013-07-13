@@ -191,8 +191,12 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		{
 			//load up our current settings
 			if( isset( $this->options ) ):
-				foreach( $this->options as $option ):
-					$this->settings[$option['option_name']] = get_option( $option['option_name'] );
+				foreach( $this->options as $key => $option ):
+					if( isset( $option['option_name'] ) ):
+						$this->settings[$option['option_name']] = get_option( $option['option_name'] );
+					else:
+						$this->settings[ $key ] = get_option( $option['option_name'] );
+					endif;
 				endforeach;
 			endif;
 		}
