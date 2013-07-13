@@ -15,7 +15,7 @@ env:
 
 before_script:
 #Coveralls support
-- mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
+#- mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
 - curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o php-cs-fixer.phar
 - curl -s http://getcomposer.org/installer | php
 - php composer.phar install --dev --no-interaction --prefer-source
