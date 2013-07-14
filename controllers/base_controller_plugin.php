@@ -1104,157 +1104,45 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 *
 		 * @param array $args The settings field arguments.
 		 * @param string $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
-		 * @return void|string void on ECHO, HTML string on any other $echo value.
+		 * @return string|void void on ECHO, HTML string on any other $echo value.
 		 * @access public
 		 * @since 0.1
 		 */
 		public function render_settings_field( $args, $echo = 'echo' )
 		{
+			if ( ! isset( $args['type'] ) || ! isset( $args['id'] ) || ! isset( $args['name'] ) ):
+				trigger_error( 
+					__( 'The settings field type, id and name must be set', 'wpmvcb' ),
+					E_USER_WARNING
+				);
+				return false;
+			endif;
+			
+			$value = isset( $args['value'] ) ? $args['value'] : null;
+			$placeholder = isset( $args['placeholder'] ) ? $args['placeholder'] : null;
+				
 			switch( $args['type'] )
-			{
+			{	
 				case 'checkbox':
-					return $this->_render_input_checkbox( $args, $echo );
+					$html = Base_Helpers_Render_Fields::render_input_checkbox( $args['id'], $args['name'], $args['value'] );
 					break;
 				case 'select':
-					return $this->_render_input_select( $args, $echo );
+					if ( !isset( $args['options'] ) )
+						trigger_error( 
+							__( 'The options must be set to render a select field.', 'wpmvcb' ),
+							E_USER_WARNING
+						);
+					$html =  Base_Helpers_Render_Fields::render_input_select( $args['id'], $args['name'], $args['options'], $args['value'] );
 					break;
 				case 'text':
-					return $this->_render_input_text( $args, $echo );
+					$html = Base_Helpers_Render_Fields::render_input_text( $args['id'], $args['name'], $args['value'], $args['placeholder'], $args['after'] );
 					break;
 				case 'textarea':
-					return $this->_render_input_textarea( $args, $echo );
+					$html = Base_Helpers_Render_Fields::render_input_textarea( $args['id'], $args['name'], $args['value'], $args['placeholder'] );
 					break;
 			}
-		}
-		
-		/**
-		 * Render a checkbox input field.
-		 *
-		 * @param array $args The field arguments.
-		 * @param string $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
-		 * @return void|string void on ECHO, HTML string on any other $echo value.
-		 * @access private
-		 * @since 0.1
-		 * @todo move into a helper library?
-		 */
-		private function _render_input_checkbox( $args, $echo )
-		{
-			$html = sprintf( '<input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s/>',
-				$args['id'],
-				$args['name'],
-				true == $args['value'] ? 'checked ' : ''
-			);
 			
-			if ( 'echo' === $echo ):
-				echo $html;
-			else:
-				return $html;
-			endif;
-		}
-		
-		/**
-		 * Render a text input field.
-		 *
-		 * @param array $args The field arguments.
-		 * @param string $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
-		 * @return void|string void on ECHO, HTML string on any other $echo value.
-		 * @access private
-		 * @since 0.1
-		 */
-		private function _render_input_text( $args, $echo )
-		{
-			$txtdomain = $this->txtdomain;
-			
-			if( isset ( $args['after'] ) && is_file( $args['after'] ) ):
-				ob_start();
-				require( $args['after'] );
-				$args['after'] = ob_get_clean();
-			endif;
-			
-			$html = sprintf( '<input type="text" id="%1$s" name="%2$s" value="%3$s" %4$s />%5$s',
-				$args['id'],
-				$args['name'],
-				$args['value'],
-				isset( $args['placeholder'] ) ? sprintf( 'placeholder="%s"', $args['placeholder'] ) : '',
-				isset( $args['after'] ) ? $args['after'] : ''
-			);
-			
-			if ( 'echo' === $echo ):
-				echo $html;
-			else:
-				return $html;
-			endif;
-		}
-		
-		/**
-		 * Render a select input field.
-		 *
-		 * @param array $args The field arguments.
-		 * @param string $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
-		 * @return void|string void on ECHO, HTML string on any other $echo value.
-		 * @access private
-		 * @since 0.1
-		 * @todo move into a helper library?
-		 */
-		private function _render_input_select( $args, $echo )
-		{
-			$html = sprintf( '<select id="%1$s" name="%2$s">%3$s</select>',
-				$args['id'],
-				$args['name'],
-				$this->_render_input_select_options( $args['options'], $args['value'] )
-			);
-			
-			if ( 'echo' === $echo ):
-				echo $html;
-			else:
-				return $html;
-			endif;
-		}
-		
-		/**
-		 * Render a select input field options block.
-		 *
-		 * @param array $options A key/value pair of values and option display strings.
-		 * @param string $current_value The current value for this option field.
-		 * @access private
-		 * @since 0.1
-		 * @todo move into a helper library?
-		 */
-		private function _render_input_select_options( $options, $current_value )
-		{	
-			$html = sprintf( '<option value="">Select…</option>',
-				_x( 'Select…', 'Select an option', $this->txtdomain ) );
-			
-			if( is_array( $options ) ):
-				foreach( $options as $key => $val ):
-					$html .= sprintf ( '<option value="%1$s" %2$s>%3$s</option>', 
-						$key,
-						$current_value == $key ? 'selected' : '',
-						$val
-					);
-				endforeach;
-			endif;
-			
-			return $html;
-		}
-		
-		/**
-		 * Display or return a text area input
-		 *
-		 * @param array $args The field arguments.
-		 * @param string $echo Echo the html or return it ( noecho ).
-		 * @access private
-		 * @since 0.2
-		 */
-		private function _render_input_textarea( $args, $echo = 'echo' )
-		{
-			$html = sprintf( '<textarea id="%1$s" name="%2$s">%3$s</textarea>',
-				$args['id'],
-				$args['name'],
-				$args['value']
-			);
-			
-			if ( 'echo' === $echo ):
+			if( $echo === 'echo' ):
 				echo $html;
 			else:
 				return $html;
