@@ -1118,6 +1118,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 				return false;
 			endif;
 			
+			include_once( $this->base_path . '/helpers/render_fields.php' );
 			$value = isset( $args['value'] ) ? $args['value'] : null;
 			$placeholder = isset( $args['placeholder'] ) ? $args['placeholder'] : null;
 				
