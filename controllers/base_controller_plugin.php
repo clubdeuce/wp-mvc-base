@@ -1055,20 +1055,23 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ):
 		 */
 		public function render_options_page()
 		{
-			//get the pages as set up in the settings model
-			$pages = $this->settings_model->get_pages();
-			//get the page being requested
-			$page = $pages[$_REQUEST['page']];
-			
-			$options = $this->settings_model->get_options();
-			
-			if ( isset( $page['view'] ) && file_exists( trailingslashit( $this->app_views_path ) . $page['view'] ) ):
-				$view = trailingslashit( $this->app_views_path ) . $page['view'];
-			else:
-				$view = trailingslashit( $this->base_views_path ) . 'base_options_page.php';
+			if ( isset( $this->settings_model ) ):
+				//get the pages as set up in the settings model
+				$pages = $this->settings_model->get_pages();
+					
+				//get the page being requested
+				$page = $pages[$_REQUEST['page']];
+				
+				$options = $this->settings_model->get_options();
+				
+				if ( isset( $page['view'] ) && file_exists( trailingslashit( $this->app_views_path ) . $page['view'] ) ):
+					$view = trailingslashit( $this->app_views_path ) . $page['view'];
+				else:
+					$view = trailingslashit( $this->base_views_path ) . 'base_options_page.php';
+				endif;
+				
+				require_once( $view );
 			endif;
-			
-			require_once( $view );
 		}
 		
 		/**
