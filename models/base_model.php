@@ -101,6 +101,25 @@ if( ! class_exists( 'Base_Model' ) ):
 		protected $metaboxes;
 		
 		/**
+		 * The model's help tabs.
+		 * 
+		 * This is a collection of Base_Model_Help_Tab objects.
+		 *
+		 * @var array
+		 * @since 0.2
+		 * @see Base_Model_Help_Tabs
+		 */
+		protected $help_tabs;
+		
+		/**
+		 * The model's shortcodes.
+		 * 
+		 * @var array
+		 * @since 0.2
+		 */
+		protected $shortcodes;
+		
+		/**
 		 * Get the frontend CSS.
 		 *
 		 * @package WPMVCBase\Models
@@ -195,6 +214,94 @@ if( ! class_exists( 'Base_Model' ) ):
 				$this->init_metaboxes( $post_id, $txtdomain );
 			
 			return $this->metaboxes;
+		}
+		
+		/**
+		 * Get the cpt help screen tabs.
+		 *
+		 * @return array $_help_tabs Contains the help screen tab objects.
+		 * @access public
+		 * @since 0.1
+		 */
+		public function get_help_tabs()
+		{
+			if( isset( $this->help_tabs ) ):
+				return $this->help_tabs;
+			endif;
+		}
+		
+		/**
+		 * Get the cpt help screen tabs.
+		 *
+		 * @return array|void $_help_tabs Contains the help screen tab objects. VOID on empty.
+		 * @access public
+		 * @deprecated
+		 * @since 0.1
+		 */
+		public function get_help_screen()
+		{
+			//warn the user about deprecated function use
+			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', $this->_txtdomain );
+			
+			//and point to the replacement function
+			return $this->get_help_tabs();
+		}
+		
+		public function get_shortcodes()
+		{
+			if ( isset( $this->shortcodes ) ) :
+				return $this->shortcodes;
+			endif;
+		}
+		
+		public function add_metabox( $handle, $metabox )
+		{
+			if ( ! isset( $this->metaboxes) ):
+				$this->metaboxes = array();
+			endif;
+			
+			if ( $metabox instanceOf Base_Model_Metabox ):
+				$this->metaboxes = array_merge( $this->metaboxes, array( $handle => $metabox ) );
+			else:
+				trigger_error(
+					sprintf( __( '%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
+					E_USER_WARNING
+				);
+			endif;
+		}
+		
+		/**
+		 * Add a help tab object.
+		 *
+		 * @param string $handle The help tab handle.
+		 * @param object $help_tab The Base_Model_Help_Tab object.
+		 * @since 0.2
+		 * @see Base_Model_Help_Tab
+		 */
+		public function add_help_tab( $handle, $help_tab )
+		{
+			if ( ! is_array( $this->_help_tabs ) ):
+				$this->help_tabs = array();
+			endif;
+			
+			if ( $help_tab instanceOf Base_Model_Help_Tab ):
+				$this->help_tabs = array_merge( $this->help_tabs, array( $handle => $help_tab ) );
+				return true;
+			else:
+				trigger_error(
+					sprintf( __( '%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
+					E_USER_WARNING
+				);
+			endif;
+		}
+		
+		public function add_shortcode( $shortcode, $callback )
+		{
+			if ( ! isset( $this->shortcodes ) ):
+				$this->shortcodes = array();
+			endif;
+			
+			$this->shortcodes = array_merge( $this->shortcodes, array( $shortcode => $callback ) );
 		}
 	}
 endif;
