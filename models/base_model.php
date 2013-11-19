@@ -265,7 +265,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				$this->metaboxes = array();
 			endif;
 			
-			if( ! $metabox instanceOf Base_Model_Metabox ) {
+			if ( ! $metabox instanceOf Base_Model_Metabox ) {
 				trigger_error(
 					sprintf( __( '%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
 					E_USER_WARNING
@@ -293,16 +293,18 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			if ( ! is_array( $this->_help_tabs ) ):
 				$this->help_tabs = array();
 			endif;
-
-			if ( $help_tab instanceOf Base_Model_Help_Tab ) {
-				$this->help_tabs = array_merge( $this->help_tabs, array( $handle => $help_tab ) );
-
-				return true;
-			} else {
+			
+			if ( ! $help_tab instanceOf Base_Model_Help_Tab ) {
 				trigger_error(
 					sprintf( __( '%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
 					E_USER_WARNING
 				);
+				return false;
+			}
+			
+			if ( $help_tab instanceOf Base_Model_Help_Tab ) {
+				$this->help_tabs = array_merge( $this->help_tabs, array( $handle => $help_tab ) );
+				return true;
 			}
 		}
 
