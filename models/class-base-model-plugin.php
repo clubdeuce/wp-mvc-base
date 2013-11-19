@@ -229,7 +229,8 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function main_plugin_file()
 		{
-			Helper_Functions::deprecated( __FUNCTION__, 'get_main_plugin_file', $this->txtdomain );
+			$helper = new Helper_Functions();
+			$helper->deprecated( __FUNCTION__, 'get_main_plugin_file', $this->txtdomain );
 
 			return $this->main_plugin_file;
 		}
