@@ -174,62 +174,6 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		protected $txtdomain;
 
 		/**
-		 * The plugin css files
-		 *
-		 * An array containing css used by the controller.
-		 *
-		 * @var array
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $css;
-
-		/**
-		 * The plugin admin css files
-		 *
-		 * An array containing css used by the controller on admin pages.
-		 *
-		 * @var array
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $admin_css;
-
-		/**
-		 * The controller javascript files
-		 *
-		 * An array containing javascripts used by the controller.
-		 *
-		 * @var array
-		 * @access protected
-		 * @see Base_Model_JS_Object
-		 * @since 0.1
-		 */
-		protected $scripts;
-
-		/**
-		 * The controller admin javascript files
-		 *
-		 * An array containing javascripts used by the controller on admin pages.
-		 *
-		 * @var array
-		 * @access protected
-		 * @see Base_Model_JS_Object
-		 * @since 0.1
-		 */
-		protected $admin_scripts;
-
-		/**
-		 * Metaboxes required by the controller.
-		 *
-		 * @var array Contains an array of WP_Base_Metabox objects
-		 * @access protected
-		 * @see Base_Model_Metabox
-		 * @since 0.1
-		 */
-		protected $metaboxes;
-
-		/**
 		 * The plugin custom post types.
 		 *
 		 * @var array Contains an array of cpt model objects
@@ -246,15 +190,6 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 * @since 0.1
 		 */
 		protected $settings_model;
-
-		/**
-		 * The plugin help tabs.
-		 *
-		 * @var array
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $help_tabs = array();
 
 		/**
 		 * The nonce name to be used for plugin form submissions.
@@ -359,7 +294,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		{
 			Helper_Functions::deprecated( __FUNCTION__, 'get_main_plugin_file', $this->txtdomain );
 
-			return $this->get_main_plugin_file;
+			return $this->main_plugin_file;
 		}
 
 		/**
@@ -454,7 +389,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_controllers_path()
 		{
-			return $this->base_controllers_path();
+			return $this->base_controllers_path;
 		}
 		
 		/**
@@ -466,7 +401,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_models_path()
 		{
-			return $this->base_models_path();
+			return $this->base_models_path;
 		}
 		
 		/**
@@ -478,7 +413,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_views_path()
 		{
-			return $this->base_views_path();
+			return $this->base_views_path;
 		}
 		
 		/**
