@@ -5,6 +5,8 @@
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
+	strict="true"
+	verbose="true"
 	>
 	<testsuites>
 		<testsuite name="WP MVC Base Test Suite">
@@ -26,6 +28,7 @@
 	<logging>
 		<log type="coverage-clover" target="build/logs/clover.xml" />
 		<log type="coverage-php" target="build/cov/coverage.php"/>
+		<log type="coverage-html" target="build/reports/coverage" />
 		<log type="coverage-text" target="php://stdout" />
 	</logging>
 </phpunit>
