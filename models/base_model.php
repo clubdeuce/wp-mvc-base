@@ -264,15 +264,20 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			if ( ! isset( $this->metaboxes) ):
 				$this->metaboxes = array();
 			endif;
-
-			if ( $metabox instanceOf Base_Model_Metabox ) :
-				$this->metaboxes = array_merge( $this->metaboxes, array( $handle => $metabox ) );
-			else :
+			
+			if( ! $metabox instanceOf Base_Model_Metabox ) {
 				trigger_error(
 					sprintf( __( '%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
 					E_USER_WARNING
 				);
-			endif;
+				
+				return false;
+			}
+			
+			if ( $metabox instanceOf Base_Model_Metabox ) {
+				$this->metaboxes = array_merge( $this->metaboxes, array( $handle => $metabox ) );
+				return true;
+			}
 		}
 
 		/**
