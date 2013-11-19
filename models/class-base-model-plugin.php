@@ -1,10 +1,10 @@
 <?php
 
 /**
- * The base plugin model
+ * The base plugin model.
  *
  * @package MPMVCBase\Models
- * @version 0.1
+ * @version 0.2
  * @since 0.2
  * @author Daryl Lozupone <dlozupone@renegadetechconsulting.com>
  *
@@ -17,7 +17,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 	 * The base plugin model
 	 *
 	 * @package WPMVCBase\Models
-	 * @version 0.1
+	 * @version 0.2
 	 * @since 0.2
 	 */
 	class Base_Model_Plugin extends Base_Model
