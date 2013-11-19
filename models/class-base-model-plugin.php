@@ -10,7 +10,7 @@
  *
  */
 
-include_once 'base_model.php';
+include_once 'class-base-model.php';
 
 if ( ! class_exists( 'Base_Model_Plugin' ) ):
 	/**

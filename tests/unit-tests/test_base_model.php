@@ -2,6 +2,7 @@
 namespace WPMVCB\Testing
 {
 	require_once( WPMVCB_SRC_DIR . '/models/base_model.php' );
+	require_once WPMVCB_SRC_DIR . '/models/class-base-model.php';
 	
 	/**
 	 * Base Model Test Stub
