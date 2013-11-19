@@ -61,33 +61,6 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		protected $app_path;
 
 		/**
-		 * The plugin controllers path.
-		 *
-		 * @var string
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $app_controllers_path;
-
-		/**
-		 * The plugin models path.
-		 *
-		 * @var string
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $app_models_path;
-
-		/**
-		 * The plugin views path
-		 *
-		 * @var string
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $app_views_path;
-
-		/**
 		 * The base directory path.
 		 *
 		 * @var string
@@ -95,36 +68,6 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 * @since 0.1
 		 */
 		protected $base_path;
-
-		/**
-		 * The base controllers path.
-		 *
-		 * This is the absolute path to the base classes 
-		 * (e.g. /home/user/public_html/wp-content/plugins/my-plugin/base )
-		 *
-		 * @var string
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $base_controllers_path;
-
-		/**
-		 * The base models path.
-		 *
-		 * @var string
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $base_models_path;
-
-		/**
-		 * The base views path.
-		 *
-		 * @var string
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $base_views_path;
 
 		/**
 		 * The absoulte path to the main plugin file.
@@ -243,13 +186,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 			$this->main_plugin_file			= $file;
 			$this->path						= trailingslashit( $path );
 			$this->app_path					= $this->path . 'app/';
-			$this->app_controllers_path		= $this->app_path . 'controllers/';
-			$this->app_models_path			= $this->app_path . 'models/';
-			$this->app_views_path			= $this->app_path . 'views/';
 			$this->base_path				= trailingslashit( dirname( dirname( __FILE__ ) ) );
-			$this->base_controllers_path	= $this->base_path . 'controllers/';
-			$this->base_models_path			= $this->base_path . 'models/';
-			$this->base_views_path			= $this->base_path . 'views/';
 			$this->uri						= trailingslashit( $uri );
 			$this->js_uri					= $this->uri . 'js/';
 			$this->css_uri					= $this->uri . 'css/';
