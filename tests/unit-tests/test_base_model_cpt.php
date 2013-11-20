@@ -1,22 +1,22 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once( WPMVCB_SRC_DIR . '/models/base_model_cpt.php' );
+	require_once( WPMVCB_SRC_DIR . '/models/class-base-model-cpt.php' );
 	
 	/**
-	 * The test controller for Base_Model_CPT
+	 * The tests for Base_Model_CPT
 	 *
 	 * @since WPMVCBase 0.1
 	 * @internal
 	 */
 	 
-	class Test_Base_Model_CPT extends WPMVCB_Test_Case
+	class BaseModelCptTest extends WPMVCB_Test_Case
 	{
 		private $_factory;
 		private $_cpt;
 		private $_post;
 		
-		public function SetUp()
+		public function setUp()
 		{
 			$this->_factory = new \WP_UnitTest_Factory;
 			$this->_cpt = new \Base_Model_CPT( 'fooslug', 'Book', 'Books', 'http://my-super-cool-site.com', 'footxtdomain' );
@@ -33,7 +33,6 @@ namespace WPMVCB\Testing
 		
 		protected function init_args()
 		{
-
 			$this->_cpt->set_args ( 
 				array(
 					'description'         	=> __( 'Books', 'my-super-cool-text-domain' ),
@@ -66,14 +65,49 @@ namespace WPMVCB\Testing
 			);
 		}
 		
+		/**
+		 * @covers Base_Model_CPT::_init_labels
+		 */
+		public function testInitLabels()
+		{
+			$expected =  array(
+				'name' => 'Books',
+				'singular_name' => 'Book',
+				'menu_name' => 'Books',
+				'parent_item_colon' => 'Parent Book',
+				'all_items' => 'All Books',
+				'view_item' => 'View Book',
+				'add_new_item' => 'Add New Book',
+				'add_new' => 'New Book',
+				'edit_item' => 'Edit Book',
+				'update_item' => 'Update Book',
+				'search_items' => 'Search Books',
+				'not_found' => 'No books found',
+				'not_found_in_trash' => 'No books found in Trash'
+			);
+			
+			$this->assertClassHasAttribute( '_labels', '\Base_Model_CPT' );
+			$this->assertTrue( method_exists( $this->_cpt, '_init_labels' ) );
+			$this->reflectionMethodInvoke( $this->_cpt, '_init_labels' );
+			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_cpt, '_labels' ) );
+		}
+		
+		/**
+		 * @covers Base_Model_CPT::get_slug
+		 */
 		public function testMethodGetSlug()
 		{
+			$this->assertClassHasAttribute( '_slug', '\Base_Model_CPT' );
 			$this->assertTrue( method_exists( $this->_cpt, 'get_slug' ) );
 			$this->assertEquals( 'fooslug', $this->_cpt->get_slug() );
 		}
 		
+		/**
+		 * @covers Base_Model_CPT::set_metakey
+		 */
 		public function testMethodSetMetakey()
 		{
+			$this->assertClassHasAttribute( '_metakey', '\Base_Model_CPT' );
 			$this->assertTrue( method_exists( $this->_cpt, 'set_metakey' ) );
 			$this->_cpt->set_metakey( '_foo_metakey' );
 			
@@ -84,25 +118,32 @@ namespace WPMVCB\Testing
 			
 		}
 		
-		public function testMethodGetMetakeyExists()
-		{
-			$this->assertTrue( method_exists( $this->_cpt, 'get_metakey' ) );
-		}
-		
+		/**
+		 * @covers Base_Model_CPT::get_metakey
+		 */
 		public function testMethodGetMetakey()
 		{
+			$this->assertTrue( method_exists( $this->_cpt, 'get_metakey' ) );
 			$this->setReflectionPropertyValue( $this->_cpt, '_metakey', '_foo_metakey' );
 			$this->assertEquals( '_foo_metakey', $this->_cpt->get_metakey() );
 		}
 		
+		/**
+		 * @covers Base_Model_CPT::get_metakey
+		 * @depends testMethodGetMetakey
+		 */
 		public function testMethodGetMetakeyEmpty()
 		{
 			$this->setExpectedException( 'PHPUnit_Framework_Error', 'Metakey is not set for fooslug' );
 			$this->_cpt->get_metakey();
 		}
 		
+		/**
+		 * @covers Base_Model_CPT::get_post_updated_messages
+		 */
 		public function testMethodGetPostUpdatedMessages()
 		{
+			$this->assertClassHasAttribute( '_messages', '\Base_Model_CPT' );
 			$this->assertTrue( method_exists( $this->_cpt, 'get_post_updated_messages' ) );
 			
 			$messages = array(
@@ -128,22 +169,19 @@ namespace WPMVCB\Testing
 			);
 		}
 		
-		public function testMethodSetArgsExists()
-		{
-			$this->assertTrue( method_exists( $this->_cpt, 'set_args' ) );
-		}
-		
 		/**
-		 * @depends testMethodSetArgsExists
+		 * @covers Base_Model_CPT::set_args
 		 */
 		public function testMethodSetArgs()
 		{
+			$this->assertTrue( method_exists( $this->_cpt, 'set_args' ) );
 			$this->_cpt->set_args( array( 'foo' => 'bar' ) );
 			$this->assertEquals( array( 'foo' => 'bar' ), $this->getReflectionPropertyValue( $this->_cpt, '_args' ) );
 		}
 		
 		/**
-		 * @depends testMethodSetArgsExists
+		 * @covers Base_Model_CPT::set_args
+		 * @depends testMethodSetArgs
 		 */
 		public function testMethodSetArgsNonArray()
 		{
@@ -151,97 +189,24 @@ namespace WPMVCB\Testing
 			$this->_cpt->set_args( 'foo' );
 		}
 		
-		public function testMethodGetArgsExists()
-		{
-			$this->assertTrue( method_exists( $this->_cpt, 'get_args' ) );
-		}
-		
 		/**
-		 * @depends testMethodGetArgsExists
+		 * @covers Base_Model_CPT::get_args
 		 */
 		public function testMethodGetArgs()
 		{
+			$this->assertTrue( method_exists( $this->_cpt, 'get_args' ) );
 			$this->setReflectionPropertyValue( $this->_cpt, '_args', array( 'foo' => 'bar' ) );
 			$this->assertEquals( array( 'foo' => 'bar' ), $this->_cpt->get_args( array( 'foo' => 'bar' ) ) );
 		}
 		
 		/**
-		 * @depends testMethodGetArgsExists
+		 * @covers Base_Model_CPT::get_args
+		 * @depends testMethodGetArgs
 		 */
 		public function testMethodGetArgsError()
 		{
 			$this->setExpectedException( 'PHPUnit_Framework_Error', 'Arguments for fooslug post type not set' );
 			$this->_cpt->get_args();
-		}
-		
-		public function testMethodRegisterExists()
-		{
-			$this->assertTrue( method_exists( $this->_cpt, 'register' ) );
-		}
-		
-		/**
-		 * @depends testMethodRegisterExists
-		 */
-		public function testRegister()
-		{
-			$labels = array(
-				'name'                => _x( 'Books', 'Post Type General Name', $txtdomain ),
-				'singular_name'       => _x( 'Book', 'Post Type Singular Name', $txtdomain ),
-				'menu_name'           => __( 'Books', $txtdomain ),
-				'parent_item_colon'   => __( 'Parent Book', $txtdomain ),
-				'all_items'           => __( 'All Books', $txtdomain ),
-				'view_item'           => __( 'View Book', $txtdomain ),
-				'add_new_item'        => __( 'Add New Book', $txtdomain ),
-				'add_new'             => __( 'New Book', $txtdomain ),
-				'edit_item'           => __( 'Edit Book', $txtdomain ),
-				'update_item'         => __( 'Update Book', $txtdomain ),
-				'search_items'        => __( 'Search books', $txtdomain ),
-				'not_found'           => __( 'No books found', $txtdomain ),
-				'not_found_in_trash'  => __( 'No books found in Trash', $txtdomain ),
-			);
-	
-			$args = array(
-				'description'         	=> __( 'Books', $txtdomain ),
-				'labels'              	=> $labels,
-				'supports'            	=> array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
-				'hierarchical'        	=> false,
-				'public'              	=> true,
-				'show_ui'             	=> true,
-				'show_in_menu'        	=> true,
-				'show_in_nav_menus'   	=> true,
-				'show_in_admin_bar'   	=> true,
-				'menu_icon'           	=> null,
-				'can_export'          	=> true,
-				'has_archive'         	=> true,
-				'exclude_from_search' 	=> false,
-				'publicly_queryable'  	=> true,
-				'rewrite' 			  	=> array( 'slug' => 'books' ),
-			);
-			
-			$this->_cpt->set_args( $args );
-			$this->_cpt->register();
-			$this->assertTrue( post_type_exists( $this->_cpt->get_slug() ) );
-		}
-		
-		public function testMethodAddShortcode()
-		{
-			$this->assertTrue( method_exists( $this->_cpt, 'add_shortcode' ) );
-			$this->_cpt->add_shortcode( 'fooshortcode', 'foocallback' );
-			
-			$this->assertEquals(
-				array( 'fooshortcode' => 'foocallback' ),
-				$this->getReflectionPropertyValue( $this->_cpt, '_shortcodes' )
-			);
-		}
-		
-		/**
-		 * @depends testMethodAddShortcode
-		 */
-		public function testMethodGetShortcodes()
-		{
-			$this->assertTrue( method_exists( $this->_cpt, 'get_shortcodes' ) );
-			$this->setReflectionPropertyValue( $this->_cpt, '_shortcodes', array( 'fooshortcode' => 'foocallback' ) );
-			$this->assertEquals( array( 'fooshortcode' => 'foocallback' ), $this->_cpt->get_shortcodes() );
 		}
 	}
 } //namespace
