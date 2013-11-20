@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once( WPMVCB_SRC_DIR . '/models/base_model.php' );
+	require_once WPMVCB_SRC_DIR . '/helpers/base_helpers.php';
 	require_once WPMVCB_SRC_DIR . '/models/class-base-model.php';
 	
 	/**
@@ -31,8 +31,17 @@ namespace WPMVCB\Testing
 			$this->_model = new TestStubBaseModel;
 		}
 		
+		public function tearDown()
+		{
+			unset( $this->_model );
+		}
+		
+		/**
+		 * @covers Base_Model::get_css
+		 */
 		public function testMethodGetCss()
 		{
+			$this->assertClassHasAttribute( 'css', '\Base_Model' );
 			$this->assertTrue( method_exists( $this->_model, 'get_css' ) );
 			$this->setReflectionPropertyValue( $this->_model, 'css', array( 'foo_css' => array( 'handle' => 'bar_css' ) ) );
 			
@@ -42,16 +51,12 @@ namespace WPMVCB\Testing
 			);
 		}
 		
-		public function testMethodGetAdminCssExists()
-		{
-			$this->assertTrue( method_exists( $this->_model, 'get_admin_css' ) );
-		}
-		
 		/**
-		 * @depends testMethodGetAdminCssExists
+		 * @covers Base_Model::get_admin_css
 		 */
 		public function testMethodGetAdminCss()
 		{
+			$this->assertClassHasAttribute( 'admin_css', '\Base_Model' );
 			$this->assertTrue( method_exists( $this->_model, 'get_admin_css' ) );
 			$this->setReflectionPropertyValue( $this->_model, 'admin_css', array( 'foo_admin_css' => array( 'handle' => 'bar_admin_css' ) ) );
 			$this->assertEquals(
@@ -60,10 +65,14 @@ namespace WPMVCB\Testing
 			);
 		}
 		
+		/**
+		 * @covers Base_Model::get_scripts
+		 */
 		public function testMethodGetScripts()
 		{
+			$this->assertClassHasAttribute( 'scripts', '\Base_Model' );
 			$this->assertTrue( method_exists( $this->_model, 'get_scripts' ) );
-			global $post;
+			//global $post;
 			
 			$this->setReflectionPropertyValue( $this->_model, 'scripts', array ( 'foo_scripts' => 'bar_scripts' ) );
 			$this->assertEquals(
@@ -72,11 +81,15 @@ namespace WPMVCB\Testing
 			);
 		}
 		
+		/**
+		 * @covers Base_Model::get_admin_scripts
+		 */
 		public function testMethodGetAdminScripts()
 		{
+			$this->assertClassHasAttribute( 'admin_scripts', '\Base_Model' );
 			$this->assertTrue( method_exists( $this->_model, 'get_admin_scripts' ) );
 			
-			global $post;
+			//global $post;
 			$this->setReflectionPropertyValue( $this->_model, 'admin_scripts', array( 'foo_admin_scripts' => 'bar_admin_scripts' ) );
 			$this->assertEquals(
 				array( 'foo_admin_scripts' => 'bar_admin_scripts' ),
@@ -84,16 +97,13 @@ namespace WPMVCB\Testing
 			);
 		}
 		
-		public function testMethodAddMetaboxExists()
-		{
-			$this->assertTrue( method_exists( $this->_model, 'add_metabox' ) );
-		}
-		
 		/**
-		 * @depends testMethodAddMetaboxExists
+		 * @covers Base_Model::add_metabox
 		 */
 		public function testMethodAddMetabox()
-		{	
+		{
+			$this->assertClassHasAttribute( 'metaboxes', '\Base_Model' );
+			$this->assertTrue( method_exists( $this->_model, 'add_metabox' ) );
 			$stub = $this->getMockBuilder( 'Base_Model_Metabox' )
 						 ->disableOriginalConstructor()
 						 ->getMock();
@@ -106,7 +116,8 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testMethodAddMetaboxExists
+		 * @covers Base_Model::add_metabox
+		 * @depends testMethodAddMetabox
 		 */
 		public function testMethodAddMetaboxFail()
 		{
@@ -114,8 +125,12 @@ namespace WPMVCB\Testing
 			$this->_model->add_metabox( 'foo', 'bar' );
 		}
 		
+		/**
+		 * @covers Base_Model::get_metaboxes
+		 */
 		public function testMethodGetMetaboxes()
 		{
+			$this->assertClassHasAttribute( 'metaboxes', '\Base_Model' );
 			$this->assertTrue( method_exists( $this->_model, 'get_metaboxes' ) );
 			
 			$stub = $this->getMockBuilder( '\Base_Model_Metabox' )
@@ -126,16 +141,13 @@ namespace WPMVCB\Testing
 			$this->assertEquals( array( 'foo' => $stub ), $this->_model->get_metaboxes( 'bar', 'baz') );
 		}
 		
-		public function testMethodAddHelpTabExists()
-		{
-			$this->assertTrue( method_exists( $this->_model, 'add_help_tab' ) );
-		}
-		
 		/**
-		 * @depends testMethodAddHelpTabExists
+		 * @covers Base_Model::add_help_tab
 		 */
 		public function testMethodAddHelpTab()
-		{	
+		{
+			$this->assertClassHasAttribute( 'help_tabs', '\Base_Model' );
+			$this->assertTrue( method_exists( $this->_model, 'add_help_tab' ) );
 			//set up our mock help tab object
 			$stub = $this->getMockBuilder( '\Base_Model_Help_Tab' )
 						 ->disableOriginalConstructor()
@@ -150,7 +162,8 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testMethodAddHelpTabExists
+		 * @covers Base_Model::add_help_tab
+		 * @depends testMethodAddHelpTab
 		 */
 		public function testMethodAddHelpTabFail()
 		{
@@ -158,28 +171,13 @@ namespace WPMVCB\Testing
 			$this->_model->add_help_tab( 'foo', 'bar' );
 		}
 		
-		public function testMethodGetHelpScreenExists()
-		{
-			$this->assertTrue( method_exists( $this->_model, 'get_help_screen' ) );
-		}
-		
 		/**
-		 * @depends testMethodGetHelpScreenExists
-		 */
-		public function testMethodGetHelpScreenError()
-		{
-			$this->setExpectedException( 
-				'PHPUnit_Framework_Error',
-				'DEPRECATED: The function get_help_screen is deprecated. Please use get_help_tabs instead.'
-			);
-			$this->_model->get_help_screen( __FILE__, 'my-super-cool-text-domain' );
-		}
-		
-		/**
-		 * @depends testMethodGetHelpScreenExists
+		 * @covers Base_Model::get_help_screen
+		 * @depends testMethodAddHelpTab
 		 */
 		public function testMethodGetHelpScreen()
 		{
+			$this->assertTrue( method_exists( $this->_model, 'get_help_screen' ) );
 			$stub = $this->getMockBuilder( 'Base_Model_Help_Tab' )
 						 ->disableOriginalConstructor()
 						 ->getMock();
@@ -188,10 +186,27 @@ namespace WPMVCB\Testing
 			
 			$this->assertEquals(
 				array( 'foo' => $stub ),
-				@$this->_model->get_help_screen()
+				$this->_model->get_help_screen()
 			);
 		}
 		
+		/**
+		 * @covers Base_Model::get_help_screen
+		 * @depends testMethodGetHelpScreen
+		 */
+		public function testMethodGetHelpScreenError()
+		{
+			@$this->_model->get_help_screen( __FILE__, 'my-super-cool-text-domain' );
+			$error = error_get_last();
+			$this->assertEquals(
+				'DEPRECATED: The function get_help_screen is deprecated. Please use get_help_tabs instead.',
+				$error['message']
+			);
+		}
+		
+		/**
+		 * @covers Base_Model::get_help_tabs
+		 */
 		public function testMethodGetHelpTabs()
 		{
 			$this->assertTrue( method_exists( $this->_model, 'get_help_tabs' ) );
@@ -204,30 +219,43 @@ namespace WPMVCB\Testing
 			);
 		}
 		
+		/**
+		 * @covers Base_Model::add_shortcode
+		 */
 		public function testMethodAddShortcode()
 		{
+			$this->assertClassHasAttribute( 'shortcodes', '\Base_Model' );
 			$this->assertTrue( method_exists( $this->_model, 'add_shortcode' ) );
-			$this->_model->add_shortcode( 'fooshortcode', 'foocallback' );
 			
-			$this->assertEquals(
-				array( 'fooshortcode' => 'foocallback' ),
-				$this->getReflectionPropertyValue( $this->_model, 'shortcodes' )
-			);
+			$this->assertTrue( $this->_model->add_shortcode( 'foo', array( &$this, 'testMethodGetHelpTabs' ) ) );
 		}
 		
 		/**
+		 * @covers Base_Model::add_shortcode
+		 * @depends testMethodAddShortcode
+		 */
+		public function testMethodAddShortcodeFail()
+		{
+			@$this->_model->add_shortcode( 'fooshortcode', 'foocallback' );
+			$error = error_get_last();
+			$this->assertEquals( 'Function add_shortcode expects a valid callback: foocallback is not.', $error['message'] );
+		}
+		
+		/**
+		 * @covers Base_Model::get_shortcodes
 		 * @depends testMethodAddShortcode
 		 */
 		public function testMethodGetShortcodes()
 		{
 			$this->assertTrue( method_exists( $this->_model, 'get_shortcodes' ) );
-			$this->_model->add_shortcode( 'fooshortcode', 'foocallback' );
-			$this->assertEquals( array( 'fooshortcode' => 'foocallback' ), $this->_model->get_shortcodes() );
+			$this->_model->add_shortcode( 'fooshortcode', array( &$this, 'testMethodAddShortcode' ) );
+			$this->assertEquals( array( 'fooshortcode' => array( &$this, 'testMethodAddShortcode' ) ), $this->_model->get_shortcodes() );
 		}
 		
 		/**
-		 * Test function when there are no shortcodes attached to this cpt.
-		 * @depends testMethodAddShortcode
+		 * Test function when there are no shortcodes for this model.
+		 * @covers Base_Model::get_shortcodes
+		 * @depends testMethodGetShortcodes
 		 */
 		public function testMethodGetShortcodesEmpty()
 		{
@@ -235,4 +263,3 @@ namespace WPMVCB\Testing
 		}
 	}
 }
-?>
