@@ -35,9 +35,9 @@ namespace WPMVCB\Testing
 			return $cpt_model;
 		}
 		
-		public function testPropertyCptModelExists()
+		public function testPropertyCptModelsExists()
 		{
-			$this->assertClassHasAttribute( 'cpt_model', '\Base_Controller_CPT' );
+			$this->assertClassHasAttribute( '_cpt_models', '\Base_Controller_CPT' );
 		}
 		
 		/**
@@ -139,6 +139,8 @@ namespace WPMVCB\Testing
 			          ->will( $this->returnValue( 'fooargs' ) );
 			
 			$this->_controller->add_model( $cpt_model );          
+			//add the model to the controller's _cpt_models property	  
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'fooslug' => $cpt_model ) );          
 			
 			$this->_controller->register();
 			$this->assertTrue( post_type_exists( 'fooslug' ) );
@@ -160,11 +162,12 @@ namespace WPMVCB\Testing
 			$model->expects( $this->any() )
 				  ->method( 'get_slug' )
 				  ->will( $this->returnValue( 'fooslug' ) );
-				  
-			$this->_controller->add_model( $model );
 			
-			$messages = $this->_controller->post_updated_messages( array() );
-			$this->assertArrayHasKey( 'fooslug', $messages );
+			//add the model to the controller's _cpt_models property	  
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'fooslug' => $model ) );
+			
+			$messages = $this->_controller->post_updated_messages( array(), 'fooslug' );
+			$this->assertArrayHasKey( 'fooslug', $messages, __( 'Messages not present in array', 'wpmvcb' ) );
 			$this->assertEquals( array( 'foo' => 'bar' ), $messages['fooslug'] );
 		}
 		
