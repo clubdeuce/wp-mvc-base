@@ -34,17 +34,14 @@ if ( ! class_exists( 'Base_Controller_CPT' ) ):
 		 */
 		protected $_cpt_models;
 
-        public function __construct( $cpt_model )
-        {
-            if( ! is_a( $cpt_model, 'Base_Model_CPT' ) ) {
-            	trigger_error( sprintf( __( '%s expects an object of type Base_Model_CPT', 'wpmvcb' ), __FUNCTION__ ), E_USER_WARNING );
-            }
-            
-	        $this->cpt_model = $cpt_model;
-	        add_action( 'init', array( &$this, 'register' ) );
-	        add_action( 'post_updated_messages', array( &$this, 'post_updated_messages' ) );
-	        add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
-        }
+		public function __construct()
+		{
+			parent::__construct();
+			add_action( 'init',                  array( &$this, 'register' ) );
+			add_filter( 'post_updated_messages', array( &$this, 'post_updated_messages' ) );
+			//add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
+			//add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
+		}
 
 		/**
 		 * Add a cpt model to this controller.
