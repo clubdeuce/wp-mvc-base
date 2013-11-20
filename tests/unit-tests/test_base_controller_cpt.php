@@ -60,8 +60,8 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testMethodAddModelExists
 		 * @covers Base_Controller_CPT::add_model
+		 * @depends testMethodAddModelExists
 		 */
 		public function testMethodAddModel()
 		{
@@ -79,8 +79,8 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testMethodAddModelExists
 		 * @covers Base_Controller_CPT::add_model
+		 * @depends testMethodAddModelExists
 		 */
 		public function testMethodAddModelFail()
 		{
@@ -98,6 +98,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Controller_CPT::add_model
 		 * @depends testMethodAddModel
 		 */
 		public function testActionThePostExists()
@@ -108,6 +109,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Controller_CPT::add_model
 		 * @depends testMethodAddModel
 		 */
 		public function testActionSavePostExists()
@@ -122,6 +124,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Controller_CPT::add_model
 		 * @depends testMethodAddModel
 		 */
 		public function testActionDeletePostExists()
