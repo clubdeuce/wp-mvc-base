@@ -58,26 +58,20 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			
 			$this->_cpt_models[ $model->get_slug() ] = $model;
 
-                if ( isset( $the_post ) ):
-                    add_action( 'the_post', $the_post );
-                endif;
+			if ( isset( $the_post ) ) {
+				add_action( 'the_post', $the_post );
+			}
 
-                if ( isset( $save_post ) ):
-                    add_action( 'save_post', $save_post );
-                endif;
+			if ( isset( $save_post ) ) {
+				add_action( 'save_post', $save_post );
+			}
 
-                if ( isset( $delete_post ) ):
-                    add_action( 'delete_post', $delete_post );
-                endif;
+			if ( isset( $delete_post ) ) {
+				add_action( 'delete_post', $delete_post );
+			}
 
-                add_action( 'post_updated_messages', array( &$model, 'get_post_updated_messages' ) );
-            else:
-                trigger_error(
-                    sprintf( __( '%s expects an object of type Base_Model_CPT', 'wpmvcb' ), __FUNCTION__ ),
-                    E_USER_WARNING
-                );
-            endif;
-        }
+			add_action( 'post_updated_messages', array( &$model, 'get_post_updated_messages' ) );
+		}
 
 		/**
 		 * Register this post type.
