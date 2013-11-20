@@ -1,12 +1,12 @@
 <?php
 /**
- * The base settings model
+ * The base settings model.
  *
  * @package WPMVCBase\Models
  * @author Daryl Lozupone <daryl@actionhook.com>
  * @since WPMVCBase 0.1
  */
- 
+
 if ( ! class_exists( 'Base_Model_Settings' ) ):
 	/**
 	 * The base settings model.
@@ -24,9 +24,9 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @since 0.1
 		 */
 		private $version = '0.2';
-		
+
 		/**
-		 * The plugin options. 
+		 * The plugin options.
 		 *
 		 * Contains an array of option objects in key/value pairs. Example:
 		 * <code>
@@ -44,11 +44,11 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @link http://codex.wordpress.org/Function_Reference/register_setting#Parameters
 		 */
 		protected $options;
-		
+
 		/**
 		 * The options pages.
 		 *
-		 * Contains an array of Base_Model_Menu_Page objects. 
+		 * Contains an array of Base_Model_Menu_Page objects.
 		 * Example:
 		 * <code>
 		 * $page => new Base_Model_Menu_Page;
@@ -63,11 +63,11 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * $page->set_admin_scripts( array ( @see Base_Model_JS_Object ) );
 		 * $page->set_help_tabs( array ( @see Base_Model_Help_Tab ) );
 		 * $page->set_view( 'my_page_slug.php' );
-		 * 
+		 *
 		 * $this->pages = array( 'my_page_slug' => $page );
 		 * </code>
 		 *
-		 * If the parent_slug property is specified, the page will be added using the WP add_submenu_page function. 
+		 * If the parent_slug property is specified, the page will be added using the WP add_submenu_page function.
 		 * Otherwise add_menu_page will be used, thus creating a top-level menu page.
 		 *
 		 * @var array
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @see Base_Model_Menu_Page
 		 */
 		protected $pages;
-		
+
 		/**
 		 * The settings sections.
 		 *
@@ -93,13 +93,13 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 *
 		 * The key for each section element will be used as the HTML id for the section.
 		 *
-		 * The callback parameter can be one of two values: NULL to use the default controller method, 
+		 * The callback parameter can be one of two values: NULL to use the default controller method,
 		 * or you can specify a custom class function.
-		 * If set to NULL, the controller will include the view file in the app views directory with the 
-		 * name matching the key of the section object. If that file does not exist, it will use the 
+		 * If set to NULL, the controller will include the view file in the app views directory with the
+		 * name matching the key of the section object. If that file does not exist, it will use the
 		 * default view included with this base package.
-		 * If set to any other value, the named function will be used. This method goes against strict 
-		 * MVC principles, as this forces the model to break encapsulation. 
+		 * If set to any other value, the named function will be used. This method goes against strict
+		 * MVC principles, as this forces the model to break encapsulation.
 		 * This is necessary given the WP Settings API procedural nature.
 		 *
 		 * @var array
@@ -107,7 +107,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @link http://codex.wordpress.org/Function_Reference/add_settings_section
 		 */
 		protected $settings_sections;
-		
+
 		/**
 		 * The settings fields.
 		 *
@@ -142,7 +142,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @link http://codex.wordpress.org/Function_Reference/add_settings_field
 		 */
 		protected $settings_fields;
-		
+
 		/**
 		 * The plugin settings.
 		 *
@@ -152,7 +152,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @since 0.1
 		 */
 		protected $settings;
-		
+
 		/**
 		 * The class constructor.
 		 *
@@ -167,7 +167,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 			$this->init( $uri, $path, $txtdomain );
 			$this->init_settings();
 		}
-		
+
 		/**
 		 * Initialize all class properties.
 		 *
@@ -178,7 +178,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @since 0.1
 		 */
 		abstract protected function init( $uri, $path, $txtdomain );
-		
+
 		/**
 		 * Initialize the settings property.
 		 *
@@ -190,17 +190,17 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		protected function init_settings()
 		{
 			//load up our current settings
-			if( isset( $this->options ) ):
-				foreach( $this->options as $key => $option ):
-					if( isset( $option['option_name'] ) ):
+			if ( isset( $this->options ) ) :
+				foreach ( $this->options as $key => $option ):
+					if ( isset( $option['option_name'] ) ):
 						$this->settings[$option['option_name']] = get_option( $option['option_name'] );
-					else:
+					else :
 						$this->settings[ $key ] = get_option( $key );
 					endif;
 				endforeach;
 			endif;
 		}
-		
+
 		/**
 		 * Get the options.
 		 *
@@ -211,7 +211,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		{
 			return $this->options;
 		}
-		
+
 		/**
 		 * Get the menu pages.
 		 *
@@ -222,27 +222,28 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		{
 			return $this->pages;
 		}
-		
+
 		/**
 		 * Get the settings sections.
 		 *
-		 * @param string $key The setting section key. If specfied, the function will return that one section. 
+		 * @param string $key The setting section key. If specfied, the function will return that one section.
 		 * @return array|bool The settings section(s) on success, FALSE on non-existence of the section.
 		 * @since 0.1
 		 */
 		public function get_settings_sections( $key = null )
 		{
-			if ( isset( $key ) ):
-				if ( isset( $this->settings_sections[$key] ) ):
+			if ( isset( $key ) ) {
+				//the requested section exists
+				if ( isset( $this->settings_sections[$key] ) ) {
 					return $this->settings_sections[$key];
-				else:
-					return false;
-				endif;
-			else:
-				return $this->settings_sections;
-			endif;
+				}
+				//the requested section does not exist
+				return false;
+			}
+			//return all sections
+			return $this->settings_sections;
 		}
-		
+
 		/**
 		 * Get the settings fields.
 		 *
@@ -250,10 +251,10 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @since 0.1
 		 */
 		public function get_settings_fields()
-		{		
+		{
 			return $this->settings_fields;
 		}
-		
+
 		/**
 		 * Set a page's properties
 		 *
@@ -264,13 +265,15 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function edit_page( $key, $args )
 		{
-			if( ! isset( $this->pages[$key] ) )
+			if ( ! isset( $this->pages[$key] ) ) {
 				return false;
-			
+			}
+
 			$this->pages[$key] = $args;
+
 			return true;
 		}
-		
+
 		/**
 		 * Set a section's properties
 		 *
@@ -281,13 +284,15 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function edit_settings_section( $key, $args )
 		{
-			if( ! isset( $this->settings_sections[$key] ) )
+			if ( ! isset( $this->settings_sections[$key] ) ) {
 				return false;
-			
+			}
+
 			$this->settings_sections[$key] = $args;
+
 			return true;
 		}
-		
+
 		/**
 		 * Get the plugin settings.
 		 *
@@ -298,47 +303,48 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function get_settings( $option_name = null, $option_element = null )
 		{
-			if( ! isset( $this->settings ) )
+			if ( ! isset( $this->settings ) )
 				$this->init_settings();
-			
+
 			//Was a specific setting requested?
-			if ( is_null( $option_name ) ):
+			if ( is_null( $option_name ) ) :
 				return $this->settings;
-			else:
+			else :
 				//Was a specific element requested?
-				if( is_null( $option_element ) ):
+				if ( is_null( $option_element ) ) :
 					//return the option group
 					if ( isset( $this->settings[ $option_name ] ) ):
 						return $this->settings[ $option_name ];
-					else:
+					else :
 						return false;
 					endif;
-				else:
+				else :
 					//a specfic option in the option group was requested
 					if ( is_array( $this->settings[ $option_name ] ) ):
 						//option is a serialized array and the requested element might exist
 						if ( isset( $this->settings[ $option_name ][ $option_element ] ) ):
 							return $this->settings[ $option_name ][ $option_element ];
-						else:
+						else :
 							//Return the default value if specified. Otherwise FALSE.
-							if( isset( $this->settings_fields[ $option_element ]['default'] ) ):
+							if ( isset( $this->settings_fields[ $option_element ]['default'] ) ):
 								return $this->settings_fields[ $option_element ]['default'];
-							else:
+							else :
 								return false;
 							endif;
 						endif;
-					else:
+					else :
 						//the requested option is a single value and has no elements
 						trigger_error(
 							__( 'You have requested an element of an option that is stored as a single key/value pair.', 'wpmvcb' ),
 							E_USER_NOTICE
 						);
+
 						return false;
 					endif;
 				endif;
 			endif;
 		}
-		
+
 		/**
 		 * Add an option.
 		 *
@@ -347,7 +353,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function add_option( $option )
 		{
-			if( ! is_array( $option ) ) :
+			if ( ! is_array( $option ) ) {
 				trigger_error(
 					sprintf(
 						__( 'Method %s expects an array. The passed in parameter is of type: %s', 'wpmvcb' ),
@@ -356,16 +362,18 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 					),
 					E_USER_NOTICE
 				);
+
 				return false;
-			else:
-				if ( ! is_array( $this->options ) )
-					$this->options = array();
-				
-				$this->options = array_merge( $this->options, $option );
-				return true;
-			endif;
-		}
+			}
 		
+			if ( ! is_array( $this->options ) )
+				$this->options = array();
+
+			$this->options = array_merge( $this->options, $option );
+
+			return true;
+		}
+
 		/**
 		 * Add a settings section.
 		 *
@@ -375,7 +383,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function add_settings_section( $section )
 		{
-			if( ! is_array( $section ) ) :
+			if ( ! is_array( $section ) ) {
 				trigger_error(
 					sprintf(
 						__( 'Method %s expects an array. The passed in parameter is of type: %s', 'wpmvcb' ),
@@ -384,16 +392,19 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 					),
 					E_USER_NOTICE
 				);
+
 				return false;
-			else:
-				if ( ! is_array( $this->settings_sections ) )
-					$this->settings_sections = array();
-				
-				$this->settings_sections = array_merge( $this->settings_sections, $section );
-				return true;
-			endif;
+			}
+			
+			if ( ! is_array( $this->settings_sections ) ) {
+				$this->settings_sections = array();
+			}
+
+			$this->settings_sections = array_merge( $this->settings_sections, $section );
+
+			return true;
 		}
-		
+
 		/**
 		 * Add a settings field.
 		 *
@@ -403,7 +414,7 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function add_settings_field( $field )
 		{
-			if( ! is_array( $field ) ) :
+			if ( ! is_array( $field ) )  {
 				trigger_error(
 					sprintf(
 						__( 'Method %s expects an array. The passed in parameter is of type: %s', 'wpmvcb' ),
@@ -412,19 +423,22 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 					),
 					E_USER_NOTICE
 				);
+
 				return false;
-			else:
-				if ( ! is_array( $this->settings_fields ) )
-					$this->settings_fields = array();
-				
-				$this->settings_fields = array_merge( $this->settings_fields, $field );
-				return true;
-			endif;
+			}
+			
+			if ( ! is_array( $this->settings_fields ) ) {
+				$this->settings_fields = array();
+			}
+			
+			$this->settings_fields = array_merge( $this->settings_fields, $field );
+
+			return true;
 		}
-		
+
 		/**
 		 * A generic sanitization routine.
-		 * 
+		 *
 		 * Assumes all values are text strings. You can overwrite this function by including a function
 		 * using the same name in the child class.
 		 *
@@ -434,16 +448,17 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 */
 		public function sanitize_input( $input )
 		{
-			if( is_array( $input ) ):
-				foreach( $input as $key => $value ):
+			if ( is_array( $input ) ) {
+				foreach ( $input as $key => $value ):
 					$input[$key] = sanitize_text_field( $value );
 				endforeach;
-			else:
-				$input = sanitize_text_field( $input );
-			endif;
+			}
 			
+			if ( ! is_array( $input ) ) {
+				$input = sanitize_text_field( $input );
+			}
+
 			return $input;
 		}
 	}
 endif;
-?>
