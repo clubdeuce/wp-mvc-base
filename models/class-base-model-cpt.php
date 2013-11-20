@@ -79,15 +79,14 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @access public
 		 * @since 0.1
 		 */
-		public function __construct( $slug, $singular, $plural, $uri = '', $txtdomain = '' )
+		public function __construct( $slug, $singular, $plural, $uri = '', $txtdomain = 'wpmvcb' )
 		{
 			$this->_slug      = $slug;
 			$this->_singular  = $singular;
 			$this->_plural    = $plural;
 			$this->_uri       = $uri;
-			$this->_txtdomain = $txtdomain;
 	
-			$this->_init_labels();
+			$this->_init_labels( $txtdomain );
 		}
 		/**
 		 * Initialize the CPT labels property.
@@ -95,22 +94,22 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @return void
 		 * @since 0.1
 		 */
-		protected function _init_labels()
+		protected function _init_labels( $txtdomain )
 		{
 			$this->_labels = array(
 				'name'                => $this->_plural,
 				'singular_name'       => $this->_singular,
 				'menu_name'           => $this->_plural,
-				'parent_item_colon'   => sprintf( __( 'Parent %s', $this->_txtdomain ), $this->_singular ),
-				'all_items'           => sprintf( __( 'All %s', $this->_txtdomain ), $this->_plural ),
-				'view_item'           => sprintf( __( 'View %s', $this->_txtdomain ), $this->_singular ),
-				'add_new_item'        => sprintf( __( 'Add New %s', $this->_txtdomain ), $this->_singular ),
-				'add_new'             => sprintf( __( 'New %s', $this->_txtdomain ), $this->_singular ),
-				'edit_item'           => sprintf( __( 'Edit %s', $this->_txtdomain ), $this->_singular ),
-				'update_item'         => sprintf( __( 'Update %s', $this->_txtdomain ), $this->_singular ),
-				'search_items'        => sprintf( __( 'Search %s', $this->_txtdomain ), $this->_plural ),
-				'not_found'           => sprintf( __( 'No %s found', $this->_txtdomain ), strtolower( $this->_plural ) ),
-				'not_found_in_trash'  => sprintf( __( 'No %s found in Trash', $this->_txtdomain ), strtolower( $this->_plural ) ),
+				'parent_item_colon'   => sprintf( __( 'Parent %s', $txtdomain ), $this->_singular ),
+				'all_items'           => sprintf( __( 'All %s', $txtdomain ), $this->_plural ),
+				'view_item'           => sprintf( __( 'View %s', $txtdomain ), $this->_singular ),
+				'add_new_item'        => sprintf( __( 'Add New %s', $txtdomain ), $this->_singular ),
+				'add_new'             => sprintf( __( 'New %s', $txtdomain ), $this->_singular ),
+				'edit_item'           => sprintf( __( 'Edit %s', $txtdomain ), $this->_singular ),
+				'update_item'         => sprintf( __( 'Update %s', $txtdomain ), $this->_singular ),
+				'search_items'        => sprintf( __( 'Search %s', $txtdomain ), $this->_plural ),
+				'not_found'           => sprintf( __( 'No %s found', $txtdomain ), strtolower( $this->_plural ) ),
+				'not_found_in_trash'  => sprintf( __( 'No %s found in Trash', $txtdomain ), strtolower( $this->_plural ) ),
 			);
 		}
 	
@@ -122,18 +121,18 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @access public
 		 * @since 0.1
 		 */
-		public function get_post_updated_messages( $post )
+		public function get_post_updated_messages( $post, $txtdomain = 'wpmvcb' )
 		{
 			$messages = array(
 				0 => null, // Unused. Messages start at index 1.
 				1 => sprintf(
-					__( '%1$s updated. <a href="%3$s">View %2$s</a>', $this->_txtdomain ),
+					__( '%1$s updated. <a href="%3$s">View %2$s</a>', $txtdomain ),
 					$this->_singular,
 					strtolower( $this->_singular ),
 					esc_url( get_permalink( $post->ID ) )
 				),
-				2 => __( 'Custom field updated.', $this->_txtdomain ),
-				3 => __( 'Custom field deleted.', $this->_txtdomain ),
+				2 => __( 'Custom field updated.', $txtdomain ),
+				3 => __( 'Custom field deleted.', $txtdomain ),
 				4 => sprintf( __( '%s updated.', $this->_txtdomain ), $this->_singular ),
 				/* translators: %2$s: date and time of the revision */
 				5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %s', $this->_txtdomain ), $this->_singular, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,

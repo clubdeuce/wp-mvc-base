@@ -88,7 +88,7 @@ namespace WPMVCB\Testing
 			
 			$this->assertClassHasAttribute( '_labels', '\Base_Model_CPT' );
 			$this->assertTrue( method_exists( $this->_cpt, '_init_labels' ) );
-			$this->reflectionMethodInvoke( $this->_cpt, '_init_labels' );
+			$this->reflectionMethodInvokeArgs( $this->_cpt, '_init_labels', 'footxtdomain' );
 			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_cpt, '_labels' ) );
 		}
 		
@@ -165,7 +165,7 @@ namespace WPMVCB\Testing
 			
 			$this->assertEquals( 
 				$messages,
-				$this->_cpt->get_post_updated_messages( $this->_post )
+				$this->_cpt->get_post_updated_messages( $this->_post, 'footxtdomain' )
 			);
 		}
 		
