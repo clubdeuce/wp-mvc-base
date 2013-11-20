@@ -152,17 +152,12 @@ namespace WPMVCB\Testing
 			$this->_controller->render_metabox( $this->_post, $metabox, 'foo', 'bar', 'baz' );
 		}
 		
-		public function testMethodExistsAuthenticatePost()
-		{
-			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
-		}
-		
 		/**
 		 * @covers Base_Controller::authenticate_post
-		 * @depends testMethodExistsAuthenticatePost
 		 */
 		public function testMethodAuthenticatePostForPost()
-		{	
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
 			
 			$post_id = $factory->post->create_object(
@@ -188,10 +183,10 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Controller::authenticate_post
-		 * @depends testMethodExistsAuthenticatePost
 		 */
 		public function testMethodAuthenticatePostForPage()
-		{	
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
 			
 			$post_id = $factory->post->create_object(
@@ -217,10 +212,10 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Controller::authenticate_post
-		 * @depends testMethodExistsAuthenticatePost
 		 */
 		public function testMethodAuthenticatePostUserCannotEditPage()
-		{	
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
 			
 			$post_id = $factory->post->create_object(
@@ -246,10 +241,10 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Controller::authenticate_post
-		 * @depends testMethodExistsAuthenticatePost
 		 */
 		public function testMethodAuthenticatePostUserCannotEditPost()
-		{	
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
 			
 			$post_id = $factory->post->create_object(
@@ -275,10 +270,10 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Controller::authenticate_post
-		 * @depends testMethodExistsAuthenticatePost
 		 */
 		public function testMethodAuthenticatePostNoNonce()
-		{	
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
 			
 			$post_id = $factory->post->create_object(
@@ -304,10 +299,11 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Controller::authenticate_post
-		 * @depends testMethodExistsAuthenticatePost
 		 */
 		public function testMethodAuthenticatePostDoingAutosave()
 		{
+			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
+			
 			define( 'DOING_AUTOSAVE', true );
 			
 			$this->assertEmpty(
