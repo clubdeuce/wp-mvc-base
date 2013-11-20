@@ -50,9 +50,9 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 * @access public
 		 * @since 0.3
 		 */
-		public function add_model( $model, $the_post = null, $save_post = null , $delete_post = null )
+		public function add_model( $model, $the_post = null, $save_post = null, $delete_post = null )
 		{
-			if( ! is_a( $model, 'Base_Model_CPT' ) ) {
+			if ( ! is_a( $model, 'Base_Model_CPT' ) ) {
 				trigger_error( sprintf( __( '%s expects an object of type Base_Model_CPT', 'wpmvcb' ), __FUNCTION__ ), E_USER_WARNING );
 			}
 			
@@ -84,7 +84,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		public function register()
 		{
 			if ( isset( $this->_cpt_models ) ) {
-				foreach ( $this->_cpt_models as $cpt) {
+				foreach ( $this->_cpt_models as $cpt ) {
 					$return[ $cpt->get_slug() ] = register_post_type( $cpt->get_slug(), $cpt->get_args() );
 				}
 			}
