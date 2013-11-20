@@ -17,11 +17,6 @@ namespace WPMVCB\Testing
 		public function setUp()
 		{
 			parent::setUp();
-			
-			$cpt_model = $this->getMockBuilder( '\Base_Model_CPT' )
-							  ->disableOriginalConstructor()
-							  ->getMock();
-							  
 			$this->_controller = new \Base_Controller_CPT( $cpt_model );
 		}
 		
@@ -52,14 +47,11 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @expectedException PHPUnit_Framework_Error
-		 * @expectedErrorMessage __constructor expects an object of type Base_Model_CPT
 		 * @covers Base_Controller_CPT::__construct
 		 */
-		public function testMethodConstructorFail()
+		public function testActionExistsAdminEnqueueScripts()
 		{
-			$object = new \stdClass;
-			$controller = new \Base_Controller_CPT( $object );
+			$this->assertFalse( false === has_action( 'admin_enqueue_scripts', array( $this->_controller, 'admin_enqueue_scripts' ) ) );
 		}
 		
 		public function testMethodAddModelExists()
@@ -74,8 +66,16 @@ namespace WPMVCB\Testing
 		public function testMethodAddModel()
 		{
 			$cpt_model = $this->_createStubCptModel();
-			$this->_controller->add_model( $cpt_model, 'foo', 'bar', 'baz' );
-			$this->assertEquals( $cpt_model, $this->getReflectionPropertyValue( $this->_controller, 'cpt_model' ) );
+			
+			//set up stub function get_slug method
+			$cpt_model->expects( $this->any() )
+			          ->method( 'get_slug' )
+			          ->will( $this->returnValue( 'fooslug' ) );
+			
+			$expected = array( 'fooslug' => $cpt_model );
+			
+			$this->_controller->add_model( $cpt_model );
+			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_controller, '_cpt_models' ) );
 		}
 		
 		/**
@@ -88,15 +88,13 @@ namespace WPMVCB\Testing
 			$this->_controller->add_model( 'foo' );
 		}
 		
+		/**
+		 * @covers Base_Controller_CPT::__construct
+		 */
 		public function testActionInitRegisterExists()
 		{		 
 			$this->assertTrue( method_exists( $this->_controller, 'register' ), __( 'Method does not exist', 'wmvcb' ) );
 			$this->assertFalse( false === has_action( 'init', array( $this->_controller, 'register' ) ) );
-		}
-		
-		public function testActionExistsAdminEnqueueScripts()
-		{
-			$this->assertFalse( false === has_action( 'admin_enqueue_scripts', array( $this->_controller, 'admin_enqueue_scripts' ) ) );
 		}
 		
 		/**
@@ -133,7 +131,6 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testMethodAddModel
 		 * @covers Base_Controller_CPT::register
 		 */
 		public function testMethodRegister()
@@ -149,7 +146,6 @@ namespace WPMVCB\Testing
 			          ->method( 'get_args' )
 			          ->will( $this->returnValue( 'fooargs' ) );
 			
-			$this->_controller->add_model( $cpt_model );          
 			//add the model to the controller's _cpt_models property	  
 			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'fooslug' => $cpt_model ) );          
 			
@@ -158,7 +154,6 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testMethodAddModel
 		 * @covers Base_Controller_CPT::post_updated_messages
 		 */
 		public function testMethodPostUpdatedMessages()
@@ -183,7 +178,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testMethodAddModel
+		 * @covers Base_Controller_CPT::__construct
 		 */
 		public function testActionPostUpdatedMessagesExists()
 		{
