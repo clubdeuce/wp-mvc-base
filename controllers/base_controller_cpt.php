@@ -15,14 +15,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Controller_CPT' ) ):
-    /**
-     * The base custom post type controller.
-     *
-     * @package WPMVCBase\Controllers
-     * @version 0.1
-     * @since WP_Base 0.3
-     */
+if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' ) ) :
+	/**
+	 * The base custom post type controller.
+	 *
+	 * @package WPMVCBase\Controllers
+	 * @version 0.1
+	 * @since WPMVCBase 0.3
+	 */
 	class Base_Controller_CPT extends Base_Controller
 	{
 		/**
