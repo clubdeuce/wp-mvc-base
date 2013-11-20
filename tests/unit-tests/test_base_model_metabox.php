@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once( WPMVCB_SRC_DIR . '/models/base_model_metabox.php' );
+	require_once( WPMVCB_SRC_DIR . '/models/class-base-model-metabox.php' );
 	
 	/**
 	 * The test controller for Base_Model_Metabox.
@@ -30,21 +30,21 @@ namespace WPMVCB\Testing
 		public function testMethodAdd()
 		{
 			$this->assertTrue( method_exists( $this->_metabox, 'add' ), 'Method does not exist' );
-        	$this->_metabox->add();
-        	global $wp_meta_boxes;
-            
-            $this->assertArrayHasKey( 'my-super-cool-metabox', $wp_meta_boxes['my_super_cool_posttype']['normal']['default'] );
-        }
+			$this->_metabox->add();
+			global $wp_meta_boxes;
+			
+			$this->assertArrayHasKey( 'my-super-cool-metabox', $wp_meta_boxes['my_super_cool_posttype']['normal']['default'] );
+		}
 
 		/**
 		 * @depends testMethodAdd
 		 */
-        public function testMethodRemove()
-        {
-        	global $wp_meta_boxes;
-        	
-        	$this->assertTrue( method_exists( $this->_metabox, 'remove' ), 'Method does not exist' );
-        	
+		public function testMethodRemove()
+		{
+			global $wp_meta_boxes;
+			
+			$this->assertTrue( method_exists( $this->_metabox, 'remove' ), 'Method does not exist' );
+			
 			$this->_metabox->add();
 			$this->_metabox->remove();
 			

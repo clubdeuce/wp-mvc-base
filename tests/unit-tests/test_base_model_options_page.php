@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require( WPMVCB_SRC_DIR . '/models/base_model_menu_page.php' );
+	require( WPMVCB_SRC_DIR . '/models/class-base-model-menu-page.php' );
 	
 	/**
 	 * Base Model Options Page tests.
@@ -532,6 +532,7 @@ namespace WPMVCB\Testing
 		/**
 		 * Test the addition of a sub menu page with appropriate user capability.
 		 *
+		 * @covers Base_Model_Menu_Page::add
 		 * @depends testMethodSetParentSlugExists
 		 * @depends testMethodSetPageTitleExists
 		 * @depends testMethodSetMenuTitleExists
@@ -555,32 +556,6 @@ namespace WPMVCB\Testing
 			
 			//verify we had a successful addition
 			$this->assertFalse( false === $page->add() );
-		}
-		
-		/**
-		 * Test the addition of a sub menu page without appropriate user capability.
-		 *
-		 * @depends testMethodSetParentSlugExists
-		 * @depends testMethodSetPageTitleExists
-		 * @depends testMethodSetMenuTitleExists
-		 * @depends testMethodSetCapabilityExists
-		 * @depends testMethodSetMenuSlugExists
-		 * @depends testMethodSetCallbackExists
-		 * @depends testMethodAddExists
-		 */
-		public function testMethodAddSubmenuPageLackCapability()
-		{	
-			set_current_user( 0 );
-			$page = new \Base_Model_Menu_Page;
-			$page->set_parent_slug( 'options-general.php' );
-			$page->set_page_title( 'My Page Title' );
-			$page->set_menu_title( 'My Menu Title' );
-			$page->set_capability( 'manage_options' );
-			$page->set_menu_slug( 'my-menu-slug');
-			$page->set_callback( 'my_callback' );
-			
-			//verify we had a successful addition
-			$this->assertTrue( false === $page->add() );
 		}
 	}
 }
