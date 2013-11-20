@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once( WPMVCB_SRC_DIR . '/models/base_model_plugin.php' );
+	require_once( WPMVCB_SRC_DIR . '/models/class-base-model-plugin.php' );
 	
 	/**
 	 * The test class for Base_Model_Plugin attributes.
@@ -42,41 +42,11 @@ namespace WPMVCB\Testing
 			$this->assertClassHasAttribute( 'app_path', '\Base_Model_Plugin' );
 		}
 		
-		public function testAttributeExistsAppControllersPath()
-		{
-			$this->assertClassHasAttribute( 'app_controllers_path', '\Base_Model_Plugin' );
-		}
-		
-		public function testAttributeExistsAppModelsPath()
-		{
-			$this->assertClassHasAttribute( 'app_models_path', '\Base_Model_Plugin' );
-		}
-		
-		public function testAttributeExistsAppViewsPath()
-		{
-			$this->assertClassHasAttribute( 'app_views_path', '\Base_Model_Plugin' );
-		}
-		
 		public function testAttributeExistsBasePath()
 		{
 			$this->assertClassHasAttribute( 'base_path', '\Base_Model_Plugin' );
 		}
-		
-		public function testAttributeExistsBaseControllersPath()
-		{
-			$this->assertClassHasAttribute( 'base_controllers_path', '\Base_Model_Plugin' );
-		}
-		
-		public function testAttributeExistsBaseModelsPath()
-		{
-			$this->assertClassHasAttribute( 'base_models_path', '\Base_Model_Plugin' );
-		}
-		
-		public function testAttributeExistsBaseViewsPath()
-		{
-			$this->assertClassHasAttribute( 'base_views_path', '\Base_Model_Plugin' );
-		}
-		
+				
 		public function testAttributeExistsMainPluginFile()
 		{
 			$this->assertClassHasAttribute( 'main_plugin_file', '\Base_Model_Plugin' );
@@ -290,4 +260,3 @@ namespace WPMVCB\Testing
 		}
 	}
 }
-?>
