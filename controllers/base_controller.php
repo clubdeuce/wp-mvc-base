@@ -37,6 +37,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
         {
             add_action( 'init', array( &$this, 'add_shortcodes' ) );
             add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
+            add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
         }
 
         public function add_shortcodes( $shortcodes )
