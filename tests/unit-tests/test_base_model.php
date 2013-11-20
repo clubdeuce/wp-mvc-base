@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once WPMVCB_SRC_DIR . '/helpers/base_helpers.php';
+	require_once WPMVCB_SRC_DIR . '/helpers/class-base-helpers.php';
 	require_once WPMVCB_SRC_DIR . '/models/class-base-model.php';
 	
 	/**
