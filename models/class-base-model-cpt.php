@@ -121,7 +121,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @access public
 		 * @since 0.1
 		 */
-		public function get_post_updated_messages( $post, $txtdomain = 'wpmvcb' )
+		public function get_post_updated_messages( $post, $txtdomain )
 		{
 			$messages = array(
 				0 => null, // Unused. Messages start at index 1.
