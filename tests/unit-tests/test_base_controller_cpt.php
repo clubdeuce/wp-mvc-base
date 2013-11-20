@@ -24,6 +24,16 @@ namespace WPMVCB\Testing
 			$this->_controller = new \Base_Controller_CPT( $cpt_model );
 		}
 		
+		public function tearDown()
+		{
+			//remove actions set up by these tests
+			remove_action( 'the_post', 'foo' );
+			remove_action( 'save_post', 'bar' );
+			remove_action( 'delete_post', 'baz' );
+			remove_action( 'post_updated_messages', array( $cpt_model, 'get_post_updated_messages' ) );
+			unset( $this->_controller );
+		}
+		
 		private function _createStubCptModel()
 		{
 			// Create stub for cpt_model
@@ -179,16 +189,6 @@ namespace WPMVCB\Testing
 			$cpt_model = $this->_createStubCptModel();
 			$this->_controller->add_model( $cpt_model );
 			$this->assertFalse( false === has_action( 'post_updated_messages', array( $cpt_model, 'get_post_updated_messages' ) ) );
-		}
-		
-		public function tearDown()
-		{
-			//remove actions set up by these tests
-			remove_action( 'the_post', 'foo' );
-			remove_action( 'save_post', 'bar' );
-			remove_action( 'delete_post', 'baz' );
-			remove_action( 'post_updated_messages', array( $cpt_model, 'get_post_updated_messages' ) );
-			unset( $this->_controller );
 		}
 	}
 }
