@@ -20,7 +20,6 @@ require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamDirectory.php' );
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamWrapper.php' );
 
 require_once( 'framework/testcase.php' );
-require_once( WPMVCB_SRC_DIR . '/helpers/base_helpers.php' );
 
 echo 'Welcome to the WP MVC Base Test Suite' . PHP_EOL;
 echo 'Version 1.0' . PHP_EOL;
