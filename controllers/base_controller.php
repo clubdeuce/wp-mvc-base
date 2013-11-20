@@ -76,7 +76,22 @@ if ( ! class_exists( 'Base_Controller' ) ):
                 endforeach;
             endif;
         }
-
+		
+		/**
+		 * Enqueue scripts for the admin dashboard.
+		 *
+		 * @return void
+		 * @since WPMVCBase 0.3
+		 */
+		public function admin_enqueue_scripts()
+		{
+			if ( isset( $this->admin_scripts ) ) {
+				foreach ( $this->admin_scripts as $script ) {
+					$script->enqueue();
+				}
+			}
+		}
+		
         /**
          * Render a metabox.
          *
