@@ -81,10 +81,10 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 */
 		public function __construct( $slug, $singular, $plural, $uri = '', $txtdomain = 'wpmvcb' )
 		{
-			$this->_slug      = $slug;
-			$this->_singular  = $singular;
-			$this->_plural    = $plural;
-			$this->_uri       = $uri;
+			$this->_slug     = $slug;
+			$this->_singular = $singular;
+			$this->_plural   = $plural;
+			$this->_uri      = $uri;
 	
 			$this->_init_labels( $txtdomain );
 		}

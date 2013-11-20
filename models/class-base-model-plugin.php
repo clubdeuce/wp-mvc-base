@@ -181,16 +181,16 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function __construct( $slug, $version, $file, $path, $uri, $txtdomain )
 		{
-			$this->slug                     = $slug;
-			$this->version					= $version;
-			$this->main_plugin_file			= $file;
-			$this->path						= trailingslashit( $path );
-			$this->app_path					= $this->path . 'app/';
-			$this->base_path				= trailingslashit( dirname( dirname( __FILE__ ) ) );
-			$this->uri						= trailingslashit( $uri );
-			$this->js_uri					= $this->uri . 'js/';
-			$this->css_uri					= $this->uri . 'css/';
-			$this->txtdomain				= $txtdomain;
+			$this->slug             = $slug;
+			$this->version          = $version;
+			$this->main_plugin_file = $file;
+			$this->path             = trailingslashit( $path );
+			$this->app_path         = $this->path . 'app/';
+			$this->base_path        = trailingslashit( dirname( dirname( __FILE__ ) ) );
+			$this->uri              = trailingslashit( $uri );
+			$this->js_uri           = $this->uri . 'js/';
+			$this->css_uri          = $this->uri . 'css/';
+			$this->txtdomain        = $txtdomain;
 
 			require_once( $this->base_path . 'helpers/class-base-helpers.php' );
 		}
