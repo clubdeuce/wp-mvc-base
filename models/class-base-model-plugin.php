@@ -170,11 +170,11 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 * @category Models
 		 * @package WPMVCBase
 		 *
-		 * @param string $slug The plugin slug.
-		 * @param string $version The plugin version.
-		 * @param string $path The plugin directory path.
-		 * @param string $file The main plugin file absolute path.
-		 * @param string $uri The plugin directory uri.
+		 * @param string $slug      The plugin slug.
+		 * @param string $version   The plugin version.
+		 * @param string $path      The plugin directory path.
+		 * @param string $file      The main plugin file absolute path.
+		 * @param string $uri       The plugin directory uri.
 		 * @param string $txtdomain The plugin text domain.
 		 * @access public
 		 * @since 0.1
