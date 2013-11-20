@@ -35,7 +35,16 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @since 0.1
 		 */
 		protected $_metakey;
-	
+		
+		/**
+		 * The CPT labels.
+		 * 
+		 * @var array
+		 * @access protected
+		 * @since 0.1
+		 */
+		protected $_labels;
+		
 		/**
 		 * The arguments passed to register_post_type.
 		 *
@@ -81,22 +90,26 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			$this->_init_labels();
 		}
 		/**
+		 * Initialize the CPT labels property.
+		 *
+		 * @return void
+		 * @since 0.1
 		 */
 		protected function _init_labels()
 		{
 			$this->_labels = array(
-				'name'				  => $this->_plural,
-				'singular_name'		  => $this->_singular,
-				'menu_name'			  => $this->_plural,
-				'parent_item_colon'	  => sprintf( __( 'Parent %s', $this->_txtdomain ), $this->_singular ),
-				'all_items'			  => sprintf( __( 'All %s', $this->_txtdomain ), $this->_plural ),
-				'view_item'			  => sprintf( __( 'View %s', $this->_txtdomain ), $this->_singular ),
-				'add_new_item'		  => sprintf( __( 'Add New %s', $this->_txtdomain ), $this->_singular ),
-				'add_new'			  => sprintf( __( 'New %s', $this->_txtdomain ), $this->_singular ),
-				'edit_item'			  => sprintf( __( 'Edit %s', $this->_txtdomain ), $this->_singular ),
-				'update_item'		  => sprintf( __( 'Update %s', $this->_txtdomain ), $this->_singular ),
-				'search_items'		  => sprintf( __( 'Search %s', $this->_txtdomain ), $this->_plural ),
-				'not_found'			  => sprintf( __( 'No %s found', $this->_txtdomain ), strtolower( $this->_plural ) ),
+				'name'                => $this->_plural,
+				'singular_name'       => $this->_singular,
+				'menu_name'           => $this->_plural,
+				'parent_item_colon'   => sprintf( __( 'Parent %s', $this->_txtdomain ), $this->_singular ),
+				'all_items'           => sprintf( __( 'All %s', $this->_txtdomain ), $this->_plural ),
+				'view_item'           => sprintf( __( 'View %s', $this->_txtdomain ), $this->_singular ),
+				'add_new_item'        => sprintf( __( 'Add New %s', $this->_txtdomain ), $this->_singular ),
+				'add_new'             => sprintf( __( 'New %s', $this->_txtdomain ), $this->_singular ),
+				'edit_item'           => sprintf( __( 'Edit %s', $this->_txtdomain ), $this->_singular ),
+				'update_item'         => sprintf( __( 'Update %s', $this->_txtdomain ), $this->_singular ),
+				'search_items'        => sprintf( __( 'Search %s', $this->_txtdomain ), $this->_plural ),
+				'not_found'           => sprintf( __( 'No %s found', $this->_txtdomain ), strtolower( $this->_plural ) ),
 				'not_found_in_trash'  => sprintf( __( 'No %s found in Trash', $this->_txtdomain ), strtolower( $this->_plural ) ),
 			);
 		}
@@ -104,10 +117,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * Get the CPT messages
 		 *
-		 * @param string $this->_singular The singular CPT post name (e.g. Book).
-		 * @param string $this->_plural The plural CPT post name (e.g. Books).
 		 * @param object $post The WP post object.
-		 * @param string $this->_txtdomain The text domain to use for localization.
 		 * @return array $_messages The messages array.
 		 * @access public
 		 * @since 0.1
@@ -180,24 +190,22 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 				return $this->_args;
 			}
 			
-			trigger_error( sprintf( __( 'Arguments for %s post type not set', $this->_txtdomain ), $this->_slug ), E_USER_WARNING );
+			trigger_error( sprintf( __( 'Arguments for %s post type not set', 'wpmvcb' ), $this->_slug ), E_USER_WARNING );
 		}
 	
 		/**
 		 * Get the cpt metakey.
 		 *
 		 * @return string $_metakey
-		 * @return void
+		 * @return string $metakey
 		 * @access public
 		 * @since 0.1
 		 */
 		public function get_metakey()
 		{
-			if ( ! isset( $this->_metakey ) )
-				trigger_error(
-					sprintf( __( 'Metakey is not set for %s', $this->_txtdomain ), $this->_slug ),
-					E_USER_WARNING
-				);
+			if ( ! isset( $this->_metakey ) ) {
+				trigger_error( sprintf( __( 'Metakey is not set for %s', 'wpmvcb' ), $this->_slug ), E_USER_WARNING );
+			}
 	
 			return $this->_metakey;
 		}
@@ -206,14 +214,22 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		{
 			$this->_metakey = $metakey;
 		}
-	
+		
+		/**
+		 * Set the $args property
+		 *
+		 * @param array $args
+		 * @return bool|void TRUE on success.
+		 * @since 0.1
+		 */
 		public function set_args( $args )
 		{
-			if ( is_array( $args ) ) {
-				$this->_args = $args;
+			if ( ! is_array( $args ) ) {
+				trigger_error( sprintf( __( '%s expects an array', 'wpmvcb' ), __FUNCTION__ ), E_USER_WARNING );	
 			}
 			
-			trigger_error( sprintf( __( '%s expects an array', 'wpmvcb' ), __FUNCTION__ ), E_USER_WARNING );
+			$this->_args = $args;
+			return true;
 		}
 	}
 endif;
