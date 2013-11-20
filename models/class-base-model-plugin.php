@@ -280,7 +280,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_app_controllers_path()
 		{
-			return $this->app_controllers_path;
+			return $this->app_path . 'controllers/';
 		}
 		
 		/**
@@ -292,7 +292,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_app_models_path()
 		{
-			return $this->app_models_path;
+			return $this->app_path . 'models/';
 		}
 		
 		/**
@@ -303,7 +303,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_app_views_path()
 		{
-			return $this->app_views_path;
+			return $this->app_path . 'views/';
 		}
 		
 		/**
@@ -327,7 +327,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_controllers_path()
 		{
-			return $this->base_controllers_path;
+			return $this->base_path . 'controllers/';
 		}
 		
 		/**
@@ -339,7 +339,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_models_path()
 		{
-			return $this->base_models_path;
+			return $this->base_path . 'models/';
 		}
 		
 		/**
@@ -351,7 +351,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_views_path()
 		{
-			return $this->base_views_path;
+			return $this->base_path . 'views/';
 		}
 		
 		/**
