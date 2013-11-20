@@ -192,7 +192,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 			$this->css_uri					= $this->uri . 'css/';
 			$this->txtdomain				= $txtdomain;
 
-			require_once( $this->base_path . 'helpers/base_helpers.php' );
+			require_once( $this->base_path . 'helpers/class-base-helpers.php' );
 		}
 
 		/**
