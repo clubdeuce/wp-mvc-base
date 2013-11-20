@@ -532,6 +532,7 @@ namespace WPMVCB\Testing
 		/**
 		 * Test the addition of a sub menu page with appropriate user capability.
 		 *
+		 * @covers Base_Model_Menu_Page::add
 		 * @depends testMethodSetParentSlugExists
 		 * @depends testMethodSetPageTitleExists
 		 * @depends testMethodSetMenuTitleExists
