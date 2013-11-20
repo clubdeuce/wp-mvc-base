@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require( WPMVCB_SRC_DIR . '/models/base_model_menu_page.php' );
+	require( WPMVCB_SRC_DIR . '/models/class-base-model-menu-page.php' );
 	
 	/**
 	 * Base Model Options Page tests.

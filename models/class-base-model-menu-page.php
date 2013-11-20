@@ -160,9 +160,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_parent_slug()
 		{
-			if( isset( $this->_parent_slug ) )
-
+			if ( isset( $this->_parent_slug ) ) {
 				return $this->_parent_slug;
+			}
 		}
 
 		/**
@@ -184,9 +184,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_page_title()
 		{
-			if( isset( $this->_page_title ) )
-
+			if ( isset( $this->_page_title ) ) {
 				return $this->_page_title;
+			}
 		}
 
 		/**
@@ -203,13 +203,14 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the _menu_title property.
 		 *
-		 * @return string|null
+		 * @return string|void
 		 * @since 0.2
 		 */
 		public function get_menu_title()
 		{
-			if ( isset( $this->_menu_title ) )
-			 return $this->_menu_title;
+			if ( isset( $this->_menu_title ) ) {
+				return $this->_menu_title;
+			}
 		}
 
 		/**
@@ -226,13 +227,14 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the _capability property.
 		 *
-		 * @return string|null
+		 * @return string|void
 		 * @since 0.2
 		 */
 		public function get_capability()
 		{
-			if ( isset( $this->_capability ) )
-			 return $this->_capability;
+			if ( isset( $this->_capability ) ) {
+				return $this->_capability;
+			}
 		}
 
 		/**
@@ -241,7 +243,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @param string $slug
 		 * @since 0.2
 		 */
-		public function set_menu_slug( $slug)
+		public function set_menu_slug( $slug )
 		{
 			$this->_menu_slug = $slug;
 		}
@@ -254,8 +256,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_menu_slug()
 		{
-			if ( isset( $this->_menu_slug ) )
-			 return $this->_menu_slug;
+			if ( isset( $this->_menu_slug ) ) {
+				return $this->_menu_slug;
+			}
 		}
 
 		/**
@@ -277,8 +280,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_callback()
 		{
-			if ( isset( $this->_callback ) )
-			 return $this->_callback;
+			if ( isset( $this->_callback ) ) {
+				return $this->_callback;
+			}
 		}
 
 		/**
@@ -295,13 +299,14 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the _icon_url property.
 		 *
-		 * @return string|null
+		 * @return string|void
 		 * @since 0.2
 		 */
 		public function get_icon_url()
 		{
-			if ( isset( $this->_icon_url ) )
-			 return $this->_icon_url;
+			if ( isset( $this->_icon_url ) ) {
+				return $this->_icon_url;
+			}
 		}
 
 		/**
@@ -318,13 +323,14 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the _position property.
 		 *
-		 * @return string|null
+		 * @return string|void
 		 * @since 0.2
 		 */
 		public function get_position()
 		{
-			if ( isset( $this->_position ) )
-			 return $this->_position;
+			if ( isset( $this->_position ) ) {
+				return $this->_position;
+			}
 		}
 
 		/**
@@ -341,13 +347,14 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the _admin_scripts property.
 		 *
-		 * @return string|null
+		 * @return string|void
 		 * @since 0.2
 		 */
 		public function get_admin_scripts()
 		{
-			if ( isset( $this->_admin_scripts ) )
-			 return $this->_admin_scripts;
+			if ( isset( $this->_admin_scripts ) ) {
+				return $this->_admin_scripts;
+			}
 		}
 
 		/**
@@ -364,13 +371,14 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the _admin_css property.
 		 *
-		 * @return string|null
+		 * @return string|void
 		 * @since 0.2
 		 */
 		public function get_admin_css()
 		{
-			if ( isset( $this->_admin_css ) )
-			 return $this->_admin_css;
+			if ( isset( $this->_admin_css ) ) {
+				return $this->_admin_css;
+			}
 		}
 
 		/**
@@ -392,8 +400,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_help_tabs()
 		{
-			if ( isset( $this->_help_tabs ) )
-			 return $this->_help_tabs;
+			if ( isset( $this->_help_tabs ) ) {
+				return $this->_help_tabs;
+			}
 		}
 
 		/**
@@ -410,25 +419,27 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the _view property.
 		 *
-		 * @return string|null
+		 * @return string|void
 		 * @since 0.2
 		 */
 		public function get_view()
 		{
-			if ( isset( $this->_view ) )
-			 return $this->_view;
+			if ( isset( $this->_view ) ) {
+				return $this->_view;
+			}
 		}
 
 		/**
 		 * Get the _hook_suffix property.
 		 *
-		 * @return string|false
+		 * @return string|void
 		 * @since 0.2
 		 */
 		public function get_hook_suffix()
 		{
-			if ( isset( $this->_hook_suffix ) )
-			 return $this->_hook_suffix;
+			if ( isset( $this->_hook_suffix ) ) {
+				return $this->_hook_suffix;
+			}
 		}
 
 		/**
@@ -441,22 +452,14 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function add()
 		{
-			if( isset( $this->_parent_slug ) ):
+			if ( isset( $this->_parent_slug ) ) {
 				$this->_hook_suffix = add_submenu_page( $this->_parent_slug, $this->_page_title, $this->_menu_title, $this->_capability, $this->_menu_slug, $this->_callback );
-			else:
-				$this->_hook_suffix = add_menu_page( $this->_page_title, $this->_menu_title, $this->_capability, $this->_menu_slug, $this->_callback, $this->_icon_url, $this->_position );
-			endif;
-
-			/*
-if ( false === $this->_hook_suffix ):
-				trigger_error(
-					sprintf( __( 'Unable to add submenu page due to insufficient user capability: %s.', $this->txtdomain ), $key ),
-					E_USER_WARNING
-				);
-			endif;
-*/
-
-			return $this->_hook_suffix;
+				return $this->hook_suffix;
+			}
+			
+			$this->_hook_suffix = add_menu_page( $this->_page_title, $this->_menu_title, $this->_capability, $this->_menu_slug, $this->_callback, $this->_icon_url, $this->_position );
+			
+			return $this->hook_suffix;
 		}
 	}
 }

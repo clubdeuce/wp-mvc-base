@@ -263,7 +263,7 @@ namespace WPMVCB\Testing
 			$this->assertTrue( method_exists( $this->_controller, 'add_menu_pages' ) );
 			
 			//set up a page object stub
-			require_once WPMVCB_SRC_DIR . '/models/base_model_menu_page.php';
+			require_once WPMVCB_SRC_DIR . '/models/class-base-model-menu-page.php';
 			
 			$page = new \Base_Model_Menu_Page();
 			$this->setReflectionPropertyValue( $page, '_page_title', 'foo_title' );
@@ -301,7 +301,7 @@ namespace WPMVCB\Testing
 			$this->assertTrue( method_exists( $this->_controller, 'add_menu_pages' ) );
 			
 			//set up a page object stub
-			require_once WPMVCB_SRC_DIR . '/models/base_model_menu_page.php';
+			require_once WPMVCB_SRC_DIR . '/models/class-base-model-menu-page.php';
 			
 			$page = new \Base_Model_Menu_Page();
 			$this->setReflectionPropertyValue( $page, '_parent_slug', 'general' );
