@@ -298,6 +298,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodAddMenuPagesMenuError()
 		{
+			$this->markTestIncomplete( 'Not yet complete' );
 			$this->assertTrue( method_exists( $this->_controller, 'add_menu_pages' ) );
 			
 			//set up a page object stub
