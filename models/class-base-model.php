@@ -251,33 +251,44 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			//and point to the replacement function
 			return $this->get_help_tabs();
 		}
-
+		
+		/**
+		 * Get the model's shortcodes.
+		 *
+		 * @return array|void $shortcodes
+		 * @since 0.1
+		 */
 		public function get_shortcodes()
 		{
-			if ( isset( $this->shortcodes ) ) :
+			if ( isset( $this->shortcodes ) ) {
 				return $this->shortcodes;
-			endif;
+			}
 		}
 
+		/**
+		 * Add a metabox.
+		 *
+		 * @param string $handle The metabox handle.
+		 * @param object $metabox A metabox object.
+		 * @return bool|void TRUE on success.
+		 * @see Base_Model_Metabox
+		 * @since 0.1
+		 */
 		public function add_metabox( $handle, $metabox )
 		{
-			if ( ! isset( $this->metaboxes) ):
+			if ( ! isset( $this->metaboxes) ) {
 				$this->metaboxes = array();
-			endif;
-			
-			if ( ! $metabox instanceOf Base_Model_Metabox ) {
-				trigger_error(
-					sprintf( __( '%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
-					E_USER_WARNING
-				);
-				
-				return false;
 			}
-			
+						
 			if ( $metabox instanceOf Base_Model_Metabox ) {
 				$this->metaboxes = array_merge( $this->metaboxes, array( $handle => $metabox ) );
 				return true;
 			}
+			
+			trigger_error(
+				sprintf( __( '%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
+				E_USER_WARNING
+			);
 		}
 
 		/**
@@ -285,36 +296,48 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @param string $handle The help tab handle.
 		 * @param object $help_tab The Base_Model_Help_Tab object.
+		 * @return bool|void TRUE on success.
 		 * @since 0.2
 		 * @see Base_Model_Help_Tab
 		 */
 		public function add_help_tab( $handle, $help_tab )
 		{
-			if ( ! is_array( $this->_help_tabs ) ):
+			if ( ! is_array( $this->_help_tabs ) ) {
 				$this->help_tabs = array();
-			endif;
-			
-			if ( ! $help_tab instanceOf Base_Model_Help_Tab ) {
-				trigger_error(
-					sprintf( __( '%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
-					E_USER_WARNING
-				);
-				return false;
 			}
 			
 			if ( $help_tab instanceOf Base_Model_Help_Tab ) {
 				$this->help_tabs = array_merge( $this->help_tabs, array( $handle => $help_tab ) );
 				return true;
 			}
+			
+			//A valid help tab object is not included.
+			trigger_error(
+				sprintf( __( '%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
+				E_USER_WARNING
+			);
 		}
-
+		
+		/**
+		 * Add a shortcode object.
+		 *
+		 * @param string $shortcode The shortcode name.
+		 * @param string $callback The shortcode callback handler.
+		 * @return void
+		 * @since 0.1
+		 */
 		public function add_shortcode( $shortcode, $callback )
 		{
 			if ( ! isset( $this->shortcodes ) ) {
 				$this->shortcodes = array();
 			}
-
-			$this->shortcodes = array_merge( $this->shortcodes, array( $shortcode => $callback ) );
+			
+			if ( is_callable( $callback ) ) {
+				$this->shortcodes = array_merge( $this->shortcodes, array( $shortcode => $callback ) );
+				return true;
+			}
+			
+			trigger_error( sprintf( __( 'Function %s expects a valid callback: %s is not.', 'wpmvcb' ), __FUNCTION__, $callback ), E_USER_WARNING );
 		}
 	}
 endif;
