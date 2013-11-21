@@ -54,6 +54,14 @@ namespace WPMVCB\Testing
 			$this->assertFalse( false === has_action( 'admin_enqueue_scripts', array( $this->_controller, 'admin_enqueue_scripts' ) ) );
 		}
 		
+		/**
+		 * @covers Base_Controller_CPT::__construct
+		 */
+		public function testActionExistsAddMetaBoxes()
+		{
+			$this->assertEquals( true, has_action( 'add_meta_boxes', array( &$this->_controller, 'add_meta_boxes' ) ) );
+		}
+		
 		public function testMethodAddModelExists()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'add_model' ) );

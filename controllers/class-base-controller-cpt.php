@@ -114,5 +114,23 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 
 			return $messages;
 		}
+		
+		/**
+		 * Add the metaboxes necessary for the custom post types.
+		 *
+		 * @since WPMVCBase 0.3
+		 */
+		public function add_meta_boxes()
+		{
+			if ( isset( $this->_cpt_models ) && is_array( $this->_cpt_models ) ) {
+				foreach ( $this->_cpt_models as $cpt ) {
+					if ( $metaobxes = $cpt->get_metaboxes() ) {
+						foreach ( $metaboxes as $metabox ) {
+							$metabox->add();
+						}
+					}
+				}
+			}
+		}
 	}
 endif;
