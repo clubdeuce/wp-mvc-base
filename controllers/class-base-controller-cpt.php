@@ -124,7 +124,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		{
 			if ( isset( $this->_cpt_models ) && is_array( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
-					if ( $metaobxes = $cpt->get_metaboxes() ) {
+					if ( $metaboxes = $cpt->get_metaboxes() ) {
 						foreach ( $metaboxes as $metabox ) {
 							$metabox->add();
 						}
