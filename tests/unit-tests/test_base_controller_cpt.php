@@ -35,7 +35,7 @@ namespace WPMVCB\Testing
 			// Create stub for cpt_model
 			$cpt_model = $this->getMockBuilder( '\Base_Model_CPT' )
 						 ->disableOriginalConstructor()
-						 ->setMethods( array( 'get_slug', 'get_args', 'get_post_updated_messages' ) )
+						 ->setMethods( array( 'get_slug', 'get_args', 'get_post_updated_messages', 'get_metaboxes' ) )
 						 ->getMock();
 			
 			return $cpt_model;
@@ -196,6 +196,68 @@ namespace WPMVCB\Testing
 			$cpt_model = $this->_createStubCptModel();
 			$this->_controller->add_model( $cpt_model );
 			$this->assertFalse( false === has_action( 'post_updated_messages', array( $cpt_model, 'get_post_updated_messages' ) ) );
+		}
+		
+		/**
+		 * @covers Base_Controller_CPT::add_meta_boxes
+		 */
+		public function testMethodAddMetaBoxes()
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'add_meta_boxes' ) );
+			
+			//create a stub metabox
+			$metabox = $this->getMockBuilder( '\Base_Model_Metabox' )
+			                ->setMethods( array( '__construct', 'get_id', 'get_title', 'get_callback', 'get_post_type', 'get_priority', 'get_context', 'get_callback_args' ) )
+			                ->disableOriginalConstructor()
+			                ->getMock();
+			
+			$metabox->expects( $this->any() )
+			        ->method( 'get_id' )
+			        ->will( $this->returnValue( 'foometabox' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_title' )
+			        ->will( $this->returnValue( 'Foo Metabox' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_callback' )
+			        ->will( $this->returnValue( 'time' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_post_type' )
+			        ->will( $this->returnValue( 'post' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_context' )
+			        ->will( $this->returnValue( 'normal' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_priority' )
+			        ->will( $this->returnValue( 'default' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_callback_args' )
+			        ->will( $this->returnValue( array( 'foo' => 'bar' ) ) );
+			
+			
+			//stub the cpt model
+			$model = $this->_createStubCptModel();
+			
+			$model->expects( $this->any() )
+			      ->method( 'get_metaboxes' )
+			      ->will( $this->returnValue( array( $metabox ) ) );
+			
+			
+			//add the model to the controller
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'foocpt' => $model ) );
+			
+			$this->_controller->add_meta_boxes();
+			
+			//verify metabox added to global $wp_meta_boxes
+			global $wp_meta_boxes;
+			
+			$this->assertArrayHasKey( 'post', $wp_meta_boxes, __( 'Missing post key', 'wmpvcb' ) );
+			$this->assertArrayHasKey( 'normal', $wp_meta_boxes['post'], __( 'Missing foometabox key', 'wmpvcb' ) );
+			$this->assertArrayHasKey( 'default', $wp_meta_boxes['post']['normal'], __( 'Missing default key', 'wmpvcb' ) );
+			$this->assertArrayHasKey( 'foometabox', $wp_meta_boxes['post']['normal']['default'], __( 'Missing foometabox key', 'wmpvcb' ) );
+			$this->assertContains( 'foometabox', $wp_meta_boxes['post']['normal']['default']['foometabox'] );
+			$this->assertContains( 'Foo Metabox', $wp_meta_boxes['post']['normal']['default']['foometabox'] );
+			$this->assertContains( 'time', $wp_meta_boxes['post']['normal']['default']['foometabox'] );
+			$this->assertContains( array( 'foo' => 'bar' ), $wp_meta_boxes['post']['normal']['default']['foometabox'] );
 		}
 	}
 }
