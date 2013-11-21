@@ -140,7 +140,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * @return void
 		 * @since 0.1
 		 */
-		public function __construct( $id, $title, $callback, $post_type, $context, $priority, $callback_args )
+		public function __construct( $id, $title, $callback, $post_type, $context, $priority, $callback_args = array() )
 		{
 			$this->id            = $id;
 			$this->title         = $title;
