@@ -1,6 +1,6 @@
 <?php
 if ( !class_exists( 'Base_Controller_Settings' ) ) {
-    include_once 'base_controller.php';
+    include_once 'class-base-controller.php';
 
     /**
      * The base settings controller class.

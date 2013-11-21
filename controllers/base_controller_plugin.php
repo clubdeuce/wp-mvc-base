@@ -22,7 +22,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-include_once 'base_controller.php';
+include_once 'class-base-controller.php';
 
 if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
     /**
