@@ -39,7 +39,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			parent::__construct();
 			add_action( 'init',                  array( &$this, 'register' ) );
 			add_filter( 'post_updated_messages', array( &$this, 'post_updated_messages' ) );
-			//add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
+			add_action( 'add_meta_boxes',        array( &$this, 'add_meta_boxes' ) );
+			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
 			//add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
 		}
 
@@ -136,6 +137,25 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 								$metabox->get_callback_args()
 							);
 						}
+					}
+				}
+			}
+		}
+		
+		/**
+		 * The admin_enqueue_scripts_callback.
+		 *
+		 * @return void
+		 * @since 0.3
+		 */
+		public function admin_enqueue_scripts()
+		{
+			foreach( $this->_cpt_models as $cpt ) {
+				$scripts = $cpt->get_admin_scripts();
+				
+				if ( isset( $scripts ) ) {
+					foreach( $scripts as $script ) {
+						$script->register();
 					}
 				}
 			}
