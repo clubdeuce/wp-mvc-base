@@ -2,40 +2,41 @@
 namespace WPMVCB\Testing
 {
 	require_once( WPMVCB_SRC_DIR . '/controllers/class-base-controller.php' );
-	
+
 	/**
 	 * The test controller for Base_Controller_Plugin
 	 *
 	 * @since WPMVCBase 0.1
 	 * @internal
 	 */
-	 
+
 	class BaseControllerTest extends WPMVCB_Test_Case
 	{
 		public function setUp()
 		{
 			parent::setUp();
-			
+
 			//set up the virtual filesystem
 			\org\bovigo\vfs\vfsStreamWrapper::register();
 			\org\bovigo\vfs\vfsStreamWrapper::setRoot( new \org\bovigo\vfs\vfsStreamDirectory( 'test_dir' ) );
 			$this->_mock_path = trailingslashit( \org\bovigo\vfs\vfsStream::url( 'test_dir' ) );
 			$this->_filesystem = \org\bovigo\vfs\vfsStreamWrapper::getRoot();
-			
+
 			$this->_controller = new \Base_Controller();
 		}
-		
+
 		public function tearDown()
 		{
 			unset( $this->_mock_path );
 			unset( $this->_filesystem );
 			unset( $this->_controller );
 		}
+
 		public function testMethodExistsAddShortcodes()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'add_shortcodes' ) );
 		}
-		
+
 		/**
 		 * @covers Base_Controller::add_shortcodes
 		 * @depends testMethodExistsAddShortcodes
@@ -46,7 +47,7 @@ namespace WPMVCB\Testing
 			$this->assertTrue( shortcode_exists( 'foo' ) );
 			remove_shortcode( 'foo' );
 		}
-		
+
 		/**
 		 * @covers Base_Controller::add_shortcodes
 		 * @depends testMethodExistsAddShortcodes
@@ -57,11 +58,12 @@ namespace WPMVCB\Testing
 		{
 			$this->_controller->add_shortcodes( 'foo' );
 		}
+
 		public function testMethodExistsRenderMetabox()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'render_metabox' ) );
 		}
-		
+
 		/**
 		 * @depends testMethodExistsRenderMetabox
 		 * @expectedException PHPUnit_Framework_Error
@@ -74,10 +76,10 @@ namespace WPMVCB\Testing
 				'id' => 'test-metabox',
 				'args' => array()
 			);
-			
+
 			$this->_controller->render_metabox( $this->_post, $metabox );
 		}
-		
+
 		/**
 		 * @depends testMethodExistsRenderMetabox
 		 * @expectedException PHPUnit_Framework_Error
@@ -92,10 +94,10 @@ namespace WPMVCB\Testing
 					'view' => 'foo.php'
 				)
 			);
-			
+
 			$this->_controller->render_metabox( $this->_post, $metabox );
 		}
-		
+
 		/**
 		 * @depends testMethodExistsRenderMetabox
 		 * @covers Base_Controller::render_metabox
@@ -105,30 +107,30 @@ namespace WPMVCB\Testing
 			//create our mock view directory
 			mkdir( $this->_mock_path . 'app/views', 0755, true );
 			$this->assertTrue( $this->_filesystem->hasChild( 'app/views' ) );
-			
+
 			//create our mock View file
 			$handle = fopen( $this->_mock_path . 'app/views/foo.php', 'w' );
 			fwrite( $handle, 'This is foo.' );
 			fclose( $handle );
 			$this->assertFileExists( $this->_mock_path . 'app/views/foo.php' );
-			
+
 			$metabox = array(
 				'id' => 'test-metabox',
 				'args' => array(
 					'view' =>  $this->_mock_path . 'app/views/foo.php'
 				)
 			);
-			
+
 			//set up class attributes necessary for the function
 			$this->_controller->nonce_name = 'foo_nonce_name';
 			$this->_controller->nonce_action = 'foo_nonce_action';
 			$this->_controller->txtdomain = 'foo_txtdomain';
-			
+
 			$this->expectOutputString( 'This is foo.' );
-			
+
 			$this->_controller->render_metabox( $this->_post, $metabox, 'foo', 'bar', 'baz' );
 		}
-		
+
 		/**
 		 * @covers Base_Controller::authenticate_post
 		 */
@@ -136,7 +138,7 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
-			
+
 			$post_id = $factory->post->create_object(
 				array(
 					'post_title' => 'Test Post',
@@ -144,11 +146,11 @@ namespace WPMVCB\Testing
 					'post_status' => 'publish'
 				)
 			);
-			
+
 			wp_set_current_user( 1 );
-			
+
 			$this->assertTrue(
-				$this->_controller->authenticate_post( 
+				$this->_controller->authenticate_post(
 					$post_id,
 					'post',
 					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
@@ -157,7 +159,7 @@ namespace WPMVCB\Testing
 				)
 			);
 		}
-		
+
 		/**
 		 * @covers Base_Controller::authenticate_post
 		 */
@@ -165,7 +167,7 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
-			
+
 			$post_id = $factory->post->create_object(
 				array(
 					'post_title' => 'Test Post',
@@ -173,11 +175,11 @@ namespace WPMVCB\Testing
 					'post_status' => 'publish'
 				)
 			);
-			
+
 			wp_set_current_user( 1 );
-			
+
 			$this->assertTrue(
-				$this->_controller->authenticate_post( 
+				$this->_controller->authenticate_post(
 					$post_id,
 					'page',
 					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
@@ -186,7 +188,7 @@ namespace WPMVCB\Testing
 				)
 			);
 		}
-		
+
 		/**
 		 * @covers Base_Controller::authenticate_post
 		 */
@@ -194,7 +196,7 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
-			
+
 			$post_id = $factory->post->create_object(
 				array(
 					'post_title' => 'Test Post',
@@ -202,11 +204,11 @@ namespace WPMVCB\Testing
 					'post_status' => 'publish'
 				)
 			);
-			
+
 			wp_set_current_user( 0 );
-			
+
 			$this->assertEmpty(
-				$this->_controller->authenticate_post( 
+				$this->_controller->authenticate_post(
 					$post_id,
 					'page',
 					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
@@ -215,7 +217,7 @@ namespace WPMVCB\Testing
 				)
 			);
 		}
-		
+
 		/**
 		 * @covers Base_Controller::authenticate_post
 		 */
@@ -223,7 +225,7 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
-			
+
 			$post_id = $factory->post->create_object(
 				array(
 					'post_title' => 'Test Post',
@@ -231,11 +233,11 @@ namespace WPMVCB\Testing
 					'post_status' => 'publish'
 				)
 			);
-			
+
 			wp_set_current_user( 0 );
-			
+
 			$this->assertEmpty(
-				$this->_controller->authenticate_post( 
+				$this->_controller->authenticate_post(
 					$post_id,
 					'post',
 					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
@@ -244,7 +246,7 @@ namespace WPMVCB\Testing
 				)
 			);
 		}
-		
+
 		/**
 		 * @covers Base_Controller::authenticate_post
 		 */
@@ -252,7 +254,7 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
-			
+
 			$post_id = $factory->post->create_object(
 				array(
 					'post_title' => 'Test Post',
@@ -260,11 +262,11 @@ namespace WPMVCB\Testing
 					'post_status' => 'publish'
 				)
 			);
-			
+
 			wp_set_current_user( 1 );
-			
+
 			$this->assertEmpty(
-				$this->_controller->authenticate_post( 
+				$this->_controller->authenticate_post(
 					$post_id,
 					'page',
 					array(),
@@ -273,18 +275,18 @@ namespace WPMVCB\Testing
 				)
 			);
 		}
-		
+
 		/**
 		 * @covers Base_Controller::authenticate_post
 		 */
 		public function testMethodAuthenticatePostDoingAutosave()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
-			
+
 			define( 'DOING_AUTOSAVE', true );
-			
+
 			$this->assertEmpty(
-				$this->_controller->authenticate_post( 
+				$this->_controller->authenticate_post(
 					$post_id,
 					'page',
 					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
