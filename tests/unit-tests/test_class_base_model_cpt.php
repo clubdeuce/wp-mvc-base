@@ -2,25 +2,25 @@
 namespace WPMVCB\Testing
 {
 	require_once( WPMVCB_SRC_DIR . '/models/class-base-model-cpt.php' );
-	
+
 	/**
 	 * The tests for Base_Model_CPT
 	 *
 	 * @since WPMVCBase 0.1
 	 * @internal
 	 */
-	 
+
 	class BaseModelCptTest extends WPMVCB_Test_Case
 	{
 		private $_factory;
 		private $_cpt;
 		private $_post;
-		
+
 		public function setUp()
 		{
 			$this->_factory = new \WP_UnitTest_Factory;
 			$this->_cpt = new \Base_Model_CPT( 'fooslug', 'Book', 'Books', 'http://my-super-cool-site.com', 'footxtdomain' );
-			
+
 			$this->_post = get_post(
 				$this->_factory->post->create_object(
 					array(
@@ -30,10 +30,10 @@ namespace WPMVCB\Testing
 				)
 			);
 		}
-		
+
 		protected function init_args()
 		{
-			$this->_cpt->set_args ( 
+			$this->_cpt->set_args (
 				array(
 					'description'         	=> __( 'Books', 'my-super-cool-text-domain' ),
 					'labels'              	=> $labels,
@@ -64,7 +64,7 @@ namespace WPMVCB\Testing
 				)
 			);
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::_init_labels
 		 */
@@ -85,13 +85,13 @@ namespace WPMVCB\Testing
 				'not_found' => 'No books found',
 				'not_found_in_trash' => 'No books found in Trash'
 			);
-			
+
 			$this->assertClassHasAttribute( '_labels', '\Base_Model_CPT' );
 			$this->assertTrue( method_exists( $this->_cpt, '_init_labels' ) );
 			$this->reflectionMethodInvokeArgs( $this->_cpt, '_init_labels', 'footxtdomain' );
 			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_cpt, '_labels' ) );
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::get_slug
 		 */
@@ -101,7 +101,7 @@ namespace WPMVCB\Testing
 			$this->assertTrue( method_exists( $this->_cpt, 'get_slug' ) );
 			$this->assertEquals( 'fooslug', $this->_cpt->get_slug() );
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::set_metakey
 		 */
@@ -110,14 +110,14 @@ namespace WPMVCB\Testing
 			$this->assertClassHasAttribute( '_metakey', '\Base_Model_CPT' );
 			$this->assertTrue( method_exists( $this->_cpt, 'set_metakey' ) );
 			$this->_cpt->set_metakey( '_foo_metakey' );
-			
+
 			$this->assertEquals(
 				'_foo_metakey',
 				$this->getReflectionPropertyValue( $this->_cpt, '_metakey' )
 			);
-			
+
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::get_metakey
 		 */
@@ -127,7 +127,7 @@ namespace WPMVCB\Testing
 			$this->setReflectionPropertyValue( $this->_cpt, '_metakey', '_foo_metakey' );
 			$this->assertEquals( '_foo_metakey', $this->_cpt->get_metakey() );
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::get_metakey
 		 * @depends testMethodGetMetakey
@@ -137,7 +137,7 @@ namespace WPMVCB\Testing
 			$this->setExpectedException( 'PHPUnit_Framework_Error', 'Metakey is not set for fooslug' );
 			$this->_cpt->get_metakey();
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::get_post_updated_messages
 		 */
@@ -145,7 +145,7 @@ namespace WPMVCB\Testing
 		{
 			$this->assertClassHasAttribute( '_messages', '\Base_Model_CPT' );
 			$this->assertTrue( method_exists( $this->_cpt, 'get_post_updated_messages' ) );
-			
+
 			$messages = array(
 				0 => null, // Unused. Messages start at index 1.
 				1 => sprintf( __('Book updated. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink( $this->_post->ID) ) ),
@@ -162,13 +162,13 @@ namespace WPMVCB\Testing
 				  date_i18n( __( 'M j, Y @ G:i' ), strtotime( $this->_post->post_date ) ), esc_url( get_permalink( $this->_post->ID ) ) ),
 				10 => sprintf( __('Book draft updated. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) )
 			);
-			
-			$this->assertEquals( 
+
+			$this->assertEquals(
 				$messages,
 				$this->_cpt->get_post_updated_messages( $this->_post, 'footxtdomain' )
 			);
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::set_args
 		 */
@@ -178,7 +178,7 @@ namespace WPMVCB\Testing
 			$this->_cpt->set_args( array( 'foo' => 'bar' ) );
 			$this->assertEquals( array( 'foo' => 'bar' ), $this->getReflectionPropertyValue( $this->_cpt, '_args' ) );
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::set_args
 		 * @depends testMethodSetArgs
@@ -188,7 +188,7 @@ namespace WPMVCB\Testing
 			$this->setExpectedException( 'PHPUnit_Framework_Error', 'set_args expects an array' );
 			$this->_cpt->set_args( 'foo' );
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::get_args
 		 */
@@ -198,7 +198,7 @@ namespace WPMVCB\Testing
 			$this->setReflectionPropertyValue( $this->_cpt, '_args', array( 'foo' => 'bar' ) );
 			$this->assertEquals( array( 'foo' => 'bar' ), $this->_cpt->get_args( array( 'foo' => 'bar' ) ) );
 		}
-		
+
 		/**
 		 * @covers Base_Model_CPT::get_args
 		 * @depends testMethodGetArgs
@@ -210,4 +210,3 @@ namespace WPMVCB\Testing
 		}
 	}
 } //namespace
-?>
