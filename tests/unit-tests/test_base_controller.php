@@ -82,15 +82,6 @@ namespace WPMVCB\Testing
 		{
 			$this->_controller->add_shortcodes( 'foo' );
 		}
-		
-		/**
-		 * @covers Base_Controller::add_meta_boxes
-		 */
-		public function testMethodAddMetaboxes()
-		{	
-			$this->assertTrue( method_exists( $this->_controller, 'add_meta_boxes' ) );
-		}
-		
 		public function testMethodExistsRenderMetabox()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'render_metabox' ) );
