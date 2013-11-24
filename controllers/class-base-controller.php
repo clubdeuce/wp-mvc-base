@@ -61,22 +61,29 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		/**
 		 * The WP add_meta_boxes action callback
 		 *
+		 * @param array $metaboxes Array containing Base_Model_Metabox objects.
 		 * @internal
 		 * @access public
 		 * @since 0.1
+		 * @see Base_Model_Metabox
 		 */
-		public function add_meta_boxes()
+		public function add_meta_boxes( $metaboxes )
 		{
 			global $post;
 
-			$metaboxes = $this->model->get_metaboxes( $post->ID, $this->txtdomain );
-
 			if ( is_array( $metaboxes ) ) {
 				foreach ( $metaboxes as $metabox ) {
-					if ( is_null( $metabox->get_callback() ) ) {
-						$metabox->set_callback( array( &$this, 'render_metabox' ) );
+					foreach( $metabox->get_post_types() as $post_type ) {
+						add_meta_box( 
+							$metabox->get_id(),
+							$metabox->get_title(),
+							is_null( $metabox->get_callback() ) ? array( &$this, 'render_metabox' ): $metabox->get_callback(),
+							$post_type,
+							$metabox->get_context(),
+							$metabox->get_priority(),
+							$metabox->get_callback_args()
+						);
 					}
-					$metabox->add();
 				}
 			}
 		}
