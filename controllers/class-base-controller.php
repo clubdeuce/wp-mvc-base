@@ -35,11 +35,15 @@ if ( ! class_exists( 'Base_Controller' ) ):
 	{
 		public function __construct()
 		{
-			add_action( 'init', array( &$this, 'add_shortcodes' ) );
-			add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
-			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
 		}
-
+		
+		/**
+		 * Add shortcodes to WP.
+		 *
+		 * @param array $shortcodes
+		 * @return void
+		 * @since WPMVCBase 0.1
+		 */
 		public function add_shortcodes( $shortcodes )
 		{
 			if ( ! is_array( $shortcodes ) ) {
