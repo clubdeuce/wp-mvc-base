@@ -235,7 +235,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		function get_handle()
 		{
 			if ( isset( $this->_handle ) ) {
-				return $handle;
+				return $this->_handle;
 			}
 		}
 		
