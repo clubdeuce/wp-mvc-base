@@ -2,37 +2,131 @@
 
 <project name="WpMvcBase" default="dist">
 
+	<!-- ============================================  -->
+    <!-- Target: clean                                 -->
+    <!-- ============================================  -->
+    <target name="clean" description="Clean build evnironemnt" >
+    	<delete dir="build" />
+    	<delete dir="/tmp/wordpress" />
+    	<delete dir="/tmp/wordpress-tests" />
+    </target>
+    
     <!-- ============================================  -->
     <!-- Target: prepare                               -->
     <!-- ============================================  -->
-    <target name="prepare">
-        <echo msg="Making directory ./build" />
+    <target name="prepare" depends="clean" description="Install testing dependencies">
+    	<property environment="env" />
+        <echo msg="Making directory ./build..." />
         <mkdir dir="./build" />
-	<mkdir dir="./build/logs" />
-	<mkdir dir="./build/cov" />
+		<mkdir dir="./build/logs" />
+		<mkdir dir="./build/cov" />
+		<mkdir dir="./build/reports" />
+		<echo msg="Getting build dependencies..." />
+		<httpget url="http://cs.sensiolabs.org/get/php-cs-fixer.phar" dir="./" />
+		<exec command="php php-cs-fixer.phar fix ./ --fixers=-indentation --verbose" dir="." passthru="true" />
+		<exec command="curl -s http://getcomposer.org/installer | php" dir="." passthru="true" checkreturn="true" />
+		<composer command="install">
+			<arg value="--dev" />
+			<arg value="--no-interaction" />
+			<arg value="--prefer-source" />
+		</composer>
+		<!-- <gitclone repository="git@github.com:WordPress-Coding-Standards/WordPress-Coding-Standards.git $(pear config-get php_dir)/PHP/CodeSniffer/Standards/WordPress> -->
+		<echo msg="Retrieving WordPress core…" />
+		<gitclone repository="git@github.com:WordPress/WordPress.git" targetPath="/tmp/wordpress" gitPath="/usr/local/git/bin/git" />
+		<svncheckout repositoryurl="http://unit-tests.svn.wordpress.org/trunk/" todir="/tmp/wordpress-tests" trustServerCert="true" />
+		<copy file="/tmp/wordpress-tests/wp-tests-config-sample.php" tofile="/tmp/wordpress-tests/wp-tests-config.php" overwrite="true" />
+		<reflexive file="/tmp/wordpress-tests/wp-tests-config.php">
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="dirname\( __FILE__ \) . '/wordpress/'" replace="'/tmp/wordpress/'" />
+					<regexp pattern="yourdbnamehere" replace="wp_test" />
+					<regexp pattern="yourusernamehere" replace="${env.MYSQL_USER}" />
+					<regexp pattern="yourpasswordhere" replace="${env.MYSQL_PASSWORD}" />
+				</replaceregexp>
+			</filterchain>
+		</reflexive>
+		<exec command="mysql 'CREATE DATABASE wp_test;' -u${env.MYSQL_USER} -p${env.MYSQL_PASSWORD}" dir="." />
     </target>
-
+    
+	<!-- ============================================  -->
+    <!-- Target: quality                               -->
     <!-- ============================================  -->
-    <!-- Target: build                                 -->
-    <!-- ============================================  -->
-    <target name="build" depends="prepare">
-
-        <echo msg="running PHPUnit..." />
-        <exec command="phpunit" dir="./" passthru="true" />
+    <target name="quality" depends="prepare" description="Quality Assurance">
+    	<mkdir dir="build/reports/pmd" />
+		<phpmd rulesets="cleancode,codesize,naming,design,unusedcode">
+			<fileset dir="./">
+				<include name="controllers/*.php" />
+				<include name="helpers/*.php" />
+				<include name="models/*.php" />
+				<include name="views/*.php" />
+			</fileset>
+			<formatter type="html" outfile="build/reports/pmd.html"/>
+		</phpmd>
+		<phpcpd>
+			<fileset dir="./" id="filestocpd">
+				<include name="controllers/*.php" />
+				<include name="helpers/*.php" />
+				<include name="models/*.php" />
+				<include name="views/*.php" />
+			</fileset>
+			<formatter type="pmd" outfile="build/logs/phpcpd.xml"/>
+		</phpcpd>
+		<!--
+<phpcodesniffer
+			standard="PEAR"
+			format="summary"
+			showSniffs="true"
+			showWarnings="true">
+			<fileset dir=".">
+				<include name="controllers/*.php" />
+				<include name="helpers/*.php" />
+				<include name="models/*.php" />
+				<include name="views/*.php" />
+			</fileset>
+		</phpcodesniffer>
+-->
+		
     </target>
-
+    
+    <!-- ============================================  -->
+    <!-- Target: phpunit                               -->
+    <!-- ============================================  -->
+    <target name="phpunit" depends="quality" description="Run tests with PHPUnit">
+    	<mkdir dir="build/reports/coverage" />
+    	<exec command="phpunit -v" dir="./" passthru="true" />
+    </target>
+    
     <!-- ============================================  -->
     <!-- (DEFAULT)  Target: dist                       --> 
     <!-- ============================================  -->
-    <target name="dist" depends="build">
+    <target name="dist" depends="phpunit">
         <echo msg="Creating archive..." />
 
-        <tar destfile="./build/wpmvcbase.tar.gz" compression="gzip">
+        <tar destfile="build/wpmvcbase.tar.gz" compression="gzip">
             <fileset dir="./build">
                 <include name="*" />
             </fileset>
         </tar>
-
+        <mkdir dir="build/apigen" />
+        <mkdir dir="build/apigen/api" />
+        <mkdir dir="build/apigen/internal" />
+        <gitclone repository="git@github.com:dlozupone/wp-mvc-base-docs.git" targetPath="build/apigen/api" gitPath="${env.GIT_PATH}/git" bare="true" /> 
+		<apigen
+			source="."
+			destination="build/apigen/api"
+			exclude="*/tests/*,*/vendor/*,*/build/*"
+			title="WPMVC Base API Documentation"
+			deprecated="true"
+			todo="false"/>
+		<gitpush repository="build/apigen/api" refspec="master:master" />
+		<apigen
+			source="."
+			destination="build/apigen/internal"
+			exclude="*/tests/*,*/vendor/*,*/build/*"
+			title="WPMVC Base API Documentation"
+			internal="true"
+			deprecated="true"
+			todo="true"/>
         <echo msg="Files copied and compressed in build directory OK!" />
     </target>
 </project>

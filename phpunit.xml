@@ -5,10 +5,18 @@
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
+	strict="true"
+	verbose="true"
 	>
 	<testsuites>
-		<testsuite name="WP MVC Base Test Suite">
+		<testsuite name="constraint">
+			<directory suffix=".php">./tests/constraint</directory>
+		</testsuite>
+		<testsuite name="unit">
 			<directory suffix=".php">./tests/unit-tests/</directory>
+		</testsuite>
+		<testsuite name="integration">
+			<directory suffix=".php">./tests/integration-tests/</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
@@ -26,6 +34,7 @@
 	<logging>
 		<log type="coverage-clover" target="build/logs/clover.xml" />
 		<log type="coverage-php" target="build/cov/coverage.php"/>
+		<log type="coverage-html" target="build/reports/coverage" />
 		<log type="coverage-text" target="php://stdout" />
 	</logging>
 </phpunit>

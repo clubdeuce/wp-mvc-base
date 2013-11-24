@@ -1,2 +1,5 @@
 build
 vendor
+composer.phar
+php-cs-fixer.phar
+test_base_controller_plugin.php.bak

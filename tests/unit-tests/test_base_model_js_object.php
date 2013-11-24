@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once( dirname( __FILE__ ) . '../../../models/base_model_js_object.php' );
+	require_once( WPMVCB_SRC_DIR . '/models/class-base-model-js-object.php' );
 	
 	/**
 	 * The test controller for Base_Model_JS_Object.
@@ -26,7 +26,6 @@ namespace WPMVCB\Testing
 				'mySuperCoolL10n',
 				array( 'foo' => 'bar' )
 			);
-			do_action( 'init' );
 		}
 		
 		public function testMethodRegister()
