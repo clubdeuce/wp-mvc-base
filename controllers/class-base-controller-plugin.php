@@ -79,10 +79,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			$this->plugin_model = $model;
 			
 			add_action( 'plugins_loaded',        array( &$this, 'load_text_domain' ) );
-			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
-			add_action( 'add_meta_boxes',        array( &$this, 'add_meta_boxes' ) );
-			add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
 			add_action( 'admin_notices',         array( &$this, 'admin_notice' ) );
+			add_action( 'add_meta_boxes',        array( &$this, 'add_meta_boxes' ) );
+			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
+			add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
 		}
 
 		/**
