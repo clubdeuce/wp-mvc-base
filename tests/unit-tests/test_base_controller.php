@@ -31,31 +31,6 @@ namespace WPMVCB\Testing
 			unset( $this->_filesystem );
 			unset( $this->_controller );
 		}
-		
-		/**
-		 * @covers Base_Controller::__construct
-		 */
-		public function testActionExistsAddMetaBoxes()
-		{
-			$this->assertFalse( false === has_action( 'add_meta_boxes', array( $this->_controller, 'add_meta_boxes' ) ) );
-		}
-		
-		/**
-		 * @covers Base_Controller::__construct
-		 */
-		public function testActionExistsAddShortcodes()
-		{
-			$this->assertFalse( false === has_action( 'init', array( $this->_controller, 'add_shortcodes' ) ) );
-		}
-		
-		/**
-		 * @covers Base_Controller::__construct
-		 */
-		public function testActionExistsAdminEnqueueScripts()
-		{
-			$this->assertFalse( false === has_action( 'admin_enqueue_scripts', array( $this->_controller, 'admin_enqueue_scripts' ) ) );
-		}
-		
 		public function testMethodExistsAddShortcodes()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'add_shortcodes' ) );
