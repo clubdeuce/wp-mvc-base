@@ -89,19 +89,28 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		}
 		
 		/**
-		 * Enqueue scripts for the admin dashboard.
+		 * Enqueue scripts.
 		 *
+		 * @param array $scripts Array containing Base_Model_JS objects
 		 * @return void
 		 * @since WPMVCBase 0.3
 		 */
-		public function admin_enqueue_scripts()
+		public function enqueue_scripts( $scripts )
 		{
-			if ( isset( $this->admin_scripts ) ) {
-				foreach ( $this->admin_scripts as $script ) {
+			if ( is_array( $scripts ) ) {
+				foreach ( $scritps as $script ) {
 					$script->enqueue();
 				}
 			}
 		}
+		
+		/**
+		 * Enqueue scripts for the front end
+		 *
+		 * @param
+		 * @return
+		 * @since
+		 */
 		
 		/**
 		 * Render a metabox.
