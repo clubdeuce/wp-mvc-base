@@ -107,6 +107,57 @@ namespace WPMVCB\Testing
 			$this->_script->deregister();
 			$this->assertFalse( wp_script_is( 'my-super-cool-script', 'registered' ), 'Script not deregistered' );
 		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::get_handle
+		 */
+		public function testMethodGetHandle()
+		{
+			$this->assertTrue( method_exists( $this->_script, 'get_handle' ) );
+			$this->assertEquals( 'my-super-cool-script', $this->_script->get_handle() );
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::get_src
+		 */
+		public function testMethodGetSrc()
+		{
+			$this->assertTrue( method_exists( $this->_script, 'get_src' ) );
+			$this->assertEquals(
+				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
+				$this->_script->get_src()
+			);
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::get_deps
+		 */
+		public function testMethodGetDeps()
+		{
+			$this->assertTrue( method_exists( $this->_script, 'get_deps' ) );
+			$this->assertEquals( array( 'jquery', 'my-super-cool-framework' ), $this->_script->get_deps()
+			);
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::get_version
+		 */
+		public function testMethodGetVersion()
+		{
+			$this->assertTrue( method_exists( $this->_script, 'get_version' ) );
+			$this->assertEquals( true, $this->_script->get_version()
+			);
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::get_in_footer
+		 */
+		public function testMethodGetInFooter()
+		{
+			$this->assertTrue( method_exists( $this->_script, 'get_in_footer' ) );
+			$this->assertEquals( true, $this->_script->get_in_footer()
+			);
+		}
 	}
 }
 ?>
