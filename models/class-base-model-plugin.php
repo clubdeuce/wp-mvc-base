@@ -119,7 +119,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		/**
 		 * The plugin custom post types.
 		 *
-		 * @var array Contains an array of cpt model objects
+		 * @var array Contains an array of cpt controller objects
 		 * @access protected
 		 * @since 0.1
 		 */
@@ -191,10 +191,10 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 			$this->js_uri           = $this->uri . 'js/';
 			$this->css_uri          = $this->uri . 'css/';
 			$this->txtdomain        = $txtdomain;
-
+			
 			require_once( $this->base_path . 'helpers/class-base-helpers.php' );
 		}
-
+		
 		/**
 		 * Get the plugin slug.
 		 *
