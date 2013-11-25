@@ -217,7 +217,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			global $post;
 
 			//add the global javascripts
-			$scripts = $this->plugin_model->get_scripts();
+			$scripts = $this->plugin_model->get_scripts( $post, $this->plugin_model->get_textdomain(), $this->plugin_model->get_uri() );
 			
 			if ( isset( $scripts ) && is_array( $scripts ) ) {
 				foreach( $scripts as $script ) {
