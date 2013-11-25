@@ -44,7 +44,7 @@ namespace WPMVCB\Testing
 		 * @return bool
 		 * @since 0.3
 		 */
-		public static function assertMetaboxExists($args, $message = '')
+		public static function assertMetaboxExists( $args, $message = '' )
 		{
 			self::assertThat( $args, self::metaboxExists(), $message );
 		}

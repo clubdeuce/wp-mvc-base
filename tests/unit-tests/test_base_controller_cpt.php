@@ -207,13 +207,13 @@ namespace WPMVCB\Testing
 
 			//create a stub metabox
 			$metabox = $this->getMockBuilder( '\Base_Model_Metabox' )
-			                ->setMethods( array( '__construct', 'get_id', 'get_title', 'get_callback', 'get_post_type', 'get_priority', 'get_context', 'get_callback_args' ) )
+			                ->setMethods( array( '__construct', 'get_id', 'get_title', 'get_callback', 'get_post_types', 'get_priority', 'get_context', 'get_callback_args' ) )
 			                ->disableOriginalConstructor()
 			                ->getMock();
 
 			$metabox->expects( $this->any() )
 			        ->method( 'get_id' )
-			        ->will( $this->returnValue( 'foometabox' ) );
+			        ->will( $this->returnValue( 'foocptmetabox' ) );
 			$metabox->expects( $this->any() )
 			        ->method( 'get_title' )
 			        ->will( $this->returnValue( 'Foo Metabox' ) );
@@ -221,17 +221,17 @@ namespace WPMVCB\Testing
 			        ->method( 'get_callback' )
 			        ->will( $this->returnValue( 'time' ) );
 			$metabox->expects( $this->any() )
-			        ->method( 'get_post_type' )
-			        ->will( $this->returnValue( 'post' ) );
+			        ->method( 'get_post_types' )
+			        ->will( $this->returnValue( array( 'post', 'page' ) ) );
 			$metabox->expects( $this->any() )
 			        ->method( 'get_context' )
-			        ->will( $this->returnValue( 'normal' ) );
+			        ->will( $this->returnValue( 'side' ) );
 			$metabox->expects( $this->any() )
 			        ->method( 'get_priority' )
-			        ->will( $this->returnValue( 'default' ) );
+			        ->will( $this->returnValue( 'high' ) );
 			$metabox->expects( $this->any() )
 			        ->method( 'get_callback_args' )
-			        ->will( $this->returnValue( array( 'foo' => 'bar' ) ) );
+			        ->will( $this->returnValue( array( 'bar' => 'baz' ) ) );
 
 			//stub the cpt model
 			$model = $this->_createStubCptModel();
@@ -241,21 +241,18 @@ namespace WPMVCB\Testing
 			      ->will( $this->returnValue( array( $metabox ) ) );
 
 			//add the model to the controller
-			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'foocpt' => $model ) );
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'foocptmetabox' => $model ) );
 
 			$this->_controller->add_meta_boxes();
 
-			//verify metabox added to global $wp_meta_boxes
-			global $wp_meta_boxes;
-
-			$this->assertArrayHasKey( 'post', $wp_meta_boxes, __( 'Missing post key', 'wmpvcb' ) );
-			$this->assertArrayHasKey( 'normal', $wp_meta_boxes['post'], __( 'Missing foometabox key', 'wmpvcb' ) );
-			$this->assertArrayHasKey( 'default', $wp_meta_boxes['post']['normal'], __( 'Missing default key', 'wmpvcb' ) );
-			$this->assertArrayHasKey( 'foometabox', $wp_meta_boxes['post']['normal']['default'], __( 'Missing foometabox key', 'wmpvcb' ) );
-			$this->assertContains( 'foometabox', $wp_meta_boxes['post']['normal']['default']['foometabox'] );
-			$this->assertContains( 'Foo Metabox', $wp_meta_boxes['post']['normal']['default']['foometabox'] );
-			$this->assertContains( 'time', $wp_meta_boxes['post']['normal']['default']['foometabox'] );
-			$this->assertContains( array( 'foo' => 'bar' ), $wp_meta_boxes['post']['normal']['default']['foometabox'] );
+			$this->assertMetaboxExists( array( 'foocptmetabox', 'Foo Metabox', 'time', 'post', 'side', 'high', array( 'bar' => 'baz' ) ) );
+			$this->assertMetaboxExists( array( 'foocptmetabox', 'Foo Metabox', 'time', 'page', 'side', 'high', array( 'bar' => 'baz' ) ) );
+		}
+		
+		public function testMethodAdminEnqueueScripts()
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'admin_enqueue_scripts' ) );
+			$this->markTestIncomplete( 'Not yet implemented' );
 		}
 	}
 }
