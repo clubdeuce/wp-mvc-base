@@ -87,6 +87,10 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			$this->_uri      = $uri;
 	
 			$this->_init_labels( $txtdomain );
+			
+			if ( method_exists( $this, 'init' ) ) {
+				$this->init();
+			}
 		}
 		/**
 		 * Initialize the CPT labels property.
