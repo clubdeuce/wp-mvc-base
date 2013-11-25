@@ -97,6 +97,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodWpEnqueueScripts()
 		{
+			$this->assertTrue( method_exists( $this->_controller, 'wp_enqueue_scripts' ) );
+			
 			$script = $this->getMockBuilder( '\Base_Model_JS_Object' )
 			               ->disableOriginalConstructor()
 			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_version', 'get_in_footer' ) )
@@ -124,12 +126,16 @@ namespace WPMVCB\Testing
 			
 			$model = $this->getMockBuilder( '\Base_Model_Plugin' )
 			              ->disableOriginalConstructor()
-			              ->setMethods( array( 'get_scripts' ) )
+			              ->setMethods( array( 'get_scripts', 'get_textdomain', 'get_uri' ) )
 			              ->getMock();
 			              
 			$model->expects( $this->any() )
 			      ->method( 'get_scripts' )
 			      ->will( $this->returnValue( array( $script ) ) );
+			
+			$model->expects( $this->any() )
+			      ->method( 'get_textdomain' )
+			      ->will( $this->returnValue( 'footxtdomain' ) );
 			
 			$this->setReflectionPropertyValue( $this->_controller, 'plugin_model', $model );
 			
