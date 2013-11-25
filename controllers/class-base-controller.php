@@ -105,14 +105,6 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		}
 		
 		/**
-		 * Enqueue scripts for the front end
-		 *
-		 * @param
-		 * @return
-		 * @since
-		 */
-		
-		/**
 		 * Render a metabox.
 		 *
 		 * This function serves as the callback for a metabox.
