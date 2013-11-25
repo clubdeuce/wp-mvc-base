@@ -157,8 +157,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 * @param string $hook The WP page hook.
 		 * @uses globalHelper_Functions::enqueue_styles() to enqueue the styles.
 		 * @uses Helper_Functions::enqueue_scripts() to enqueue the scripts.
-		 * @uses Base_Model_CPT::get_admin_css() to retrieve the CPT admin css.
-		 * @uses Base_Model_CPT::get_admin_scripts() to retrieve the CPT admin scripts.
+		 * @uses Base_Model_Plugin::get_admin_css() to retrieve the admin css.
+		 * @uses Base_Model_Plugin::get_admin_scripts() to retrieve the admin scripts.
 		 * @internal
 		 * @access public
 		 * @since 0.1
@@ -170,39 +170,24 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			$screen = get_current_screen();
 
 			//register the scripts
-			if ( isset( $this->admin_scripts ) ) {
-				foreach ( $this->admin_scripts as $script ) {
-					$script->register();
-					$script->enqueue();
+			$scripts = $this->plugin_model->get_admin_scripts( 
+				$post,
+				$this->plugin_model->get_textdomain(),
+				$this->plugin_model->get_uri()
+			);
+			
+			if ( isset( $scripts ) ) {
+				foreach ( $scripts as $script ) {
+					wp_enqueue_script(
+						$script->get_handle(),
+						$script->get_src(),
+						$script->get_deps(),
+						$script->get_version(),
+						$script->get_in_footer()
+					);
 				}
 			}
-
-			if ( ( $hook == 'post.php' || $hook == 'edit.php' || $hook == 'post-new.php' ) ) {
-				if ( isset( $this->cpts ) ) {
-					foreach ( $this->cpts as $cpt ) {
-						if ( $cpt->get_slug() == $screen->post_type ) {
-							//enqueue the admin css
-							$css = $cpt->get_admin_css( $this->css_uri );
-							if ( is_array( $css ) )
-								Helper_Functions::enqueue_styles( $css );
-
-							if ( $hook == 'post.php' || $hook == 'post-new.php' ) {
-								//enqueue the scripts on single post edit pages
-								$scripts = $cpt->get_admin_scripts( $post, $this->txtdomain, $this->js_uri );
-								if ( is_array( $scripts ) ) {
-									foreach ( $scripts as $script ) {
-										$script->enqueue();
-										$script->localize();
-									}
-								}
-							}	//$hook == 'post.php' || $hook == 'post-new.php'
-							break;
-						}	//$cpt->get_slug() == $screen->post_type
-					}	//foreach( $this->cpts as $cpt )
-				}	//isset( $this->cpts )
-			}	//$hook == 'post.php' || $hook == 'edit.php' || $hook == 'post-new.php'
 		}
-*/
 
 		/**
 		 * Enqueue scripts and styles for frontend pages
