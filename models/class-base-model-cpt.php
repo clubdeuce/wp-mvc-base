@@ -91,6 +91,10 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			if ( method_exists( $this, 'init' ) ) {
 				$this->init();
 			}
+			
+			if ( ! method_exists( $this, 'init' ) ) {
+				trigger_error( __( 'Your child CPT model %s does not have a method init(). Please implement this method and set your CPT arguments ( passed to WordPress register_post_type as the $args parameter ) as well as any custom actions, etc.', 'wpmvcb' ), E_USER_WARNING );
+			}
 		}
 		/**
 		 * Initialize the CPT labels property.
