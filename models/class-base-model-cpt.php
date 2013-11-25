@@ -197,7 +197,23 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 				return $this->_args;
 			}
 			
-			trigger_error( sprintf( __( 'Arguments for %s post type not set', 'wpmvcb' ), $this->_slug ), E_USER_WARNING );
+			return array(
+				'description'         	=> $this->_plural,
+				'labels'              	=> $this->_labels,
+				'supports'            	=> array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+				'hierarchical'        	=> false,
+				'public'              	=> true,
+				'show_ui'             	=> true,
+				'show_in_menu'        	=> true,
+				'show_in_nav_menus'   	=> true,
+				'show_in_admin_bar'   	=> true,
+				'menu_icon'           	=> null,
+				'can_export'          	=> true,
+				'has_archive'         	=> true,
+				'exclude_from_search' 	=> false,
+				'publicly_queryable'  	=> true,
+				'rewrite' 			  	=> array( 'slug' => $this->_slug ),
+			);
 		}
 	
 		/**
