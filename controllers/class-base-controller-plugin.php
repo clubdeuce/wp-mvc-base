@@ -218,33 +218,17 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		{
 			global $post;
 
-			//add any global css
-			if ( is_array( $this->css ) ) {
-				Helper_Functions::enqueue_styles( $this->css, $this->css_uri );
-			}
-
 			//add the global javascripts
-			if ( isset( $this->js) && is_array( $this->js ) ) {
-				Helper_Functions::enqueue_scripts( $this->js );
-			}
-
-			//get our cpt scripts and css
-			if ( isset ( $this->cpts ) ) {
-				foreach ( $this->cpts as $cpt ) {
-					if ( $cpt->get_slug() == $post->post_type ) {
-						//enqueue the cpt scripts
-						$scripts = $cpt->get_scripts( $post, $this->txtdomain, $this->js_uri );
-						if ( is_array( $scripts ) ) {
-							Helper_Functions::enqueue_scripts( $scripts );
-						}
-						
-						//enqueue the cpt css
-						$css = $cpt->get_css( $this->css_uri );
-						if ( is_array( $css ) ) {
-							Helper_Functions::enqueue_styles( $css );
-						}
-						break;
+			$scripts = $this->plugin_model->get_scripts();
+			
+			if ( isset( $scripts ) && is_array( $scripts ) ) {
+				foreach( $scripts as $script ) {
+					wp_enqueue_script( $script->get_handle(),  $script->get_src(), $script->get_deps(), $script->get_version(), $script->get_in_footer() );
+					/*
+if ( isset( $script->get_localization_var() ) && isset( $script->get_localization_args() ) ) {
+						wp_localize_script( $script, $script->get_localization_var, $script->get_localization_args() );
 					}
+*/
 				}
 			}
 		}

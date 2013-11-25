@@ -91,5 +91,60 @@ namespace WPMVCB\Testing
 		{
 			$this->assertFalse( false === has_action( 'wp_enqueue_scripts', array( $this->_controller, 'wp_enqueue_scripts' ) ) );
 		}
+		
+		/**
+		 * covers Base_Controller_Plugin::wp_enqueue_scripts
+		 */
+		public function testMethodWpEnqueueScripts()
+		{
+			$script = $this->getMockBuilder( '\Base_Model_JS_Object' )
+			               ->disableOriginalConstructor()
+			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_version', 'get_in_footer' ) )
+			               ->getMock();
+			
+			$script->expects( $this->any() )
+			       ->method( 'get_handle' )
+			       ->will( $this->returnValue( 'fooscript' ) );
+			       
+			$script->expects( $this->any() )
+			       ->method( 'get_src' )
+			       ->will( $this->returnValue('http://example.com/foo.js' ) );
+			       
+			$script->expects( $this->any() )
+			       ->method( 'get_deps' )
+			       ->will( $this->returnValue( array( 'jquery' ) ) );
+			       
+			$script->expects( $this->any() )
+			       ->method( 'get_version' )
+			       ->will( $this->returnValue( true ) );
+			       
+			$script->expects( $this->any() )
+			       ->method( 'get_in_footer' )
+			       ->will( $this->returnValue( true ) );
+			
+			$model = $this->getMockBuilder( '\Base_Model_Plugin' )
+			              ->disableOriginalConstructor()
+			              ->setMethods( array( 'get_scripts' ) )
+			              ->getMock();
+			              
+			$model->expects( $this->any() )
+			      ->method( 'get_scripts' )
+			      ->will( $this->returnValue( array( $script ) ) );
+			
+			$this->setReflectionPropertyValue( $this->_controller, 'plugin_model', $model );
+			
+			$this->_controller->wp_enqueue_scripts();
+			
+			$this->assertTrue( wp_script_is( 'fooscript', 'registered' ) );
+			
+			global $wp_scripts;
+			
+			$this->assertArrayHasKey( 'fooscript', $wp_scripts->registered );
+			$this->assertEquals( $wp_scripts->registered['fooscript']->handle, 'fooscript' );
+			$this->assertEquals( $wp_scripts->registered['fooscript']->src, 'http://example.com/foo.js' );
+			$this->assertEquals( $wp_scripts->registered['fooscript']->deps, array( 'jquery' ) );
+			$this->assertEquals( $wp_scripts->registered['fooscript']->ver, true );
+			$this->assertEquals( $wp_scripts->registered['fooscript']->extra, array( 'group' => 1 ) );
+		}
 	}
 }
