@@ -186,7 +186,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * Get the cpt arguments.
 		 *
-		 * @param string $this->_txtdomain The plugin text domain.
+		 * If this property is not explicitly set in the child class, some default values will be returned.
 		 * @return array $_args
 		 * @access public
 		 * @since 0.1
