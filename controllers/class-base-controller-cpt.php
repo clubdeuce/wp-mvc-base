@@ -34,9 +34,27 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 * @since 0.1
 		 */
 		protected $_cpt_models;
-
-		public function __construct()
+		
+		/**
+		 * The plugin txt domain.
+		 * 
+		 * @var string
+		 * @since WPMVCBase 0.3
+		 */
+		protected $_txtdomain;
+		
+		/**
+		 * The class constructor.
+		 *
+		 * @param string $txtdomain The plugin text domain.
+		 * @since WPMVCBase 0.1
+		 */
+		public function __construct( $txtdomain = null )
 		{
+			if ( isset( $txtdomain ) ) {
+				$this->_txtdomain = $txtdomain;
+			}
+			
 			parent::__construct();
 			add_action( 'init',                  array( &$this, 'register' ) );
 			add_filter( 'post_updated_messages', array( &$this, 'post_updated_messages' ) );
@@ -109,7 +127,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			if ( isset( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
 					if ( method_exists( $cpt, 'get_post_updated_messages' ) ) {
-						$messages[ $cpt->get_slug() ] = $cpt->get_post_updated_messages( $post, $this->txtdomain );
+						$messages[ $cpt->get_slug() ] = $cpt->get_post_updated_messages( $post, $this->_txtdomain );
 					}
 				}
 			}
@@ -126,7 +144,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		{
 			if ( isset( $this->_cpt_models ) && is_array( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
-					if ( $metaboxes = $cpt->get_metaboxes( $post, $this->txtdomain ) ) {
+					if ( $metaboxes = $cpt->get_metaboxes( $post, $this->_txtdomain ) ) {
 						foreach ( $metaboxes as $metabox ) {
 							foreach( $metabox->get_post_types() as $post_type ) {
 								add_meta_box( 
