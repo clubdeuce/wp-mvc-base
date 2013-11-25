@@ -129,46 +129,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @access public
 		 * @since 0.1
 		 */
-		public function get_post_updated_messages( $post, $txtdomain )
 		{
-			$messages = array(
-				0 => null, // Unused. Messages start at index 1.
-				1 => sprintf(
-					__( '%1$s updated. <a href="%3$s">View %2$s</a>', $txtdomain ),
-					$this->_singular,
-					strtolower( $this->_singular ),
-					esc_url( get_permalink( $post->ID ) )
-				),
-				2 => __( 'Custom field updated.', $txtdomain ),
-				3 => __( 'Custom field deleted.', $txtdomain ),
-				4 => sprintf( __( '%s updated.', $txtdomain ), $this->_singular ),
-				/* translators: %2$s: date and time of the revision */
-				5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %s', $txtdomain ), $this->_singular, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __( '%s published. <a href="%s">View book</a>', $txtdomain ), $this->_singular, esc_url( get_permalink( $post->ID ) ) ),
-				7 => sprintf( __( '%s saved.', $txtdomain ), $this->_singular ),
-				8 => sprintf(
-					__( '%1$s submitted. <a target="_blank" href="%3$s">Preview %2$s</a>', $txtdomain ),
-					$this->_singular,
-					strtolower( $this->_singular ),
-					esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
-				),
-				9 => sprintf(
-					__( '%3$s scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview %4$s</a>', $txtdomain ),
-					// translators: Publish box date format, see http://php.net/date
-					date_i18n( __( 'M j, Y @ G:i' ), strtotime( $this->_post->post_date ) ),
-					esc_url( get_permalink( $post->ID ) ),
-					$this->_singular,
-					strtolower( $this->_singular )
-				),
-				10 => sprintf(
-					__( '%1$s draft updated. <a target="_blank" href="%3$s">Preview %2$s</a>', $txtdomain ),
-					$this->_singular,
-					strtolower( $this->_singular ),
-					esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
-				)
-			);
-	
-			return $messages;
 		}
 	
 		/**
