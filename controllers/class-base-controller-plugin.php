@@ -202,14 +202,12 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 				}	//isset( $this->cpts )
 			}	//$hook == 'post.php' || $hook == 'edit.php' || $hook == 'post-new.php'
 		}
+*/
 
 		/**
 		 * Enqueue scripts and styles for frontend pages
 		 *
-		 * @uses Helper_Functions::enqueue_styles()
-		 * @uses Helper_Functions::enqueue_scripts()
-		 * @uses Base_Model_CPT::get_css()
-		 * @uses Base_Model_CPT::get_scripts()
+		 * @uses Base_Model_Plugin::get_scripts()
 		 * @internal
 		 * @access public
 		 * @since 0.1
