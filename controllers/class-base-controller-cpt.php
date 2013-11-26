@@ -14,6 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+require_once 'class-base-controller.php';
 
 if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' ) ) :
 	/**
@@ -33,9 +34,27 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 * @since 0.1
 		 */
 		protected $_cpt_models;
-
-		public function __construct()
+		
+		/**
+		 * The plugin txt domain.
+		 * 
+		 * @var string
+		 * @since WPMVCBase 0.3
+		 */
+		protected $_txtdomain;
+		
+		/**
+		 * The class constructor.
+		 *
+		 * @param string $txtdomain The plugin text domain.
+		 * @since WPMVCBase 0.1
+		 */
+		public function __construct( $txtdomain = null )
 		{
+			if ( isset( $txtdomain ) ) {
+				$this->_txtdomain = $txtdomain;
+			}
+			
 			parent::__construct();
 			add_action( 'init',                  array( &$this, 'register' ) );
 			add_filter( 'post_updated_messages', array( &$this, 'post_updated_messages' ) );
@@ -105,11 +124,45 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		public function post_updated_messages( $messages )
 		{
 			global $post;
+			
 			if ( isset( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
-					if ( method_exists( $cpt, 'get_post_updated_messages' ) ) {
-						$messages[ $cpt->get_slug() ] = $cpt->get_post_updated_messages( $post, $this->txtdomain );
-					}
+					$messages[ $cpt->get_slug() ] = array(
+						0 => null, // Unused. Messages start at index 1.
+						1 => sprintf(
+							__( '%1$s updated. <a href="%3$s">View %2$s</a>', $this->_txtdomain ),
+							$cpt->get_singular(),
+							strtolower( $cpt->get_singular() ),
+							esc_url( get_permalink( $post->ID ) )
+						),
+						2 => __( 'Custom field updated.', $this->_txtdomain ),
+						3 => __( 'Custom field deleted.', $this->_txtdomain ),
+						4 => sprintf( __( '%s updated.', $this->_txtdomain ), $cpt->get_singular() ),
+						/* translators: %2$s: date and time of the revision */
+						5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %s', $this->_txtdomain ), $cpt->get_singular(), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+						6 => sprintf( __( '%s published. <a href="%s">View book</a>', $this->_txtdomain ), $cpt->get_singular(), esc_url( get_permalink( $post->ID ) ) ),
+						7 => sprintf( __( '%s saved.', $this->_txtdomain ), $cpt->get_singular() ),
+						8 => sprintf(
+							__( '%1$s submitted. <a target="_blank" href="%3$s">Preview %2$s</a>', $this->_txtdomain ),
+							$cpt->get_singular(),
+							strtolower( $cpt->get_singular() ),
+							esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
+						),
+						9 => sprintf(
+							__( '%3$s scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview %4$s</a>', $this->_txtdomain ),
+							// translators: Publish box date format, see http://php.net/date
+							date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ),
+							esc_url( get_permalink( $post->ID ) ),
+							$cpt->get_singular(),
+							strtolower( $cpt->get_singular() )
+						),
+						10 => sprintf(
+							__( '%1$s draft updated. <a target="_blank" href="%3$s">Preview %2$s</a>', $this->_txtdomain ),
+							$cpt->get_singular(),
+							strtolower( $cpt->get_singular() ),
+							esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
+						)
+					);
 				}
 			}
 
@@ -125,7 +178,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		{
 			if ( isset( $this->_cpt_models ) && is_array( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
-					if ( $metaboxes = $cpt->get_metaboxes( $post, $this->txtdomain ) ) {
+					if ( $metaboxes = $cpt->get_metaboxes( $post, $this->_txtdomain ) ) {
 						foreach ( $metaboxes as $metabox ) {
 							foreach( $metabox->get_post_types() as $post_type ) {
 								add_meta_box( 
