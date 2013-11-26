@@ -122,17 +122,6 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		}
 	
 		/**
-		 * Get the CPT messages
-		 *
-		 * @param object $post The WP post object.
-		 * @return array $_messages The messages array.
-		 * @access public
-		 * @since 0.1
-		 */
-		{
-		}
-	
-		/**
 		 * get the cpt slug
 		 *
 		 * @return string $_slug
