@@ -120,7 +120,29 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 				'not_found_in_trash'  => sprintf( __( 'No %s found in Trash', $txtdomain ), strtolower( $this->_plural ) ),
 			);
 		}
-	
+	    
+        /**
+         * Get the singular label
+         * 
+         * @return string $_singular
+         * @since WPMVCBase 0.3
+         */
+        public function get_singular()
+        {
+            return $this->_singular;
+        }
+        
+        /**
+         * Get the plural label
+         * 
+         * @return string $_plural
+         * @since WPMVCBase 0.3
+         */
+        public function get_plural()
+        {
+            return $this->_plural;
+        }
+	    
 		/**
 		 * get the cpt slug
 		 *
