@@ -208,7 +208,13 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 				
 				if ( isset( $scripts ) ) {
 					foreach( $scripts as $script ) {
-						$script->register();
+						wp_register_script(
+							$script->get_handle(),
+							$script->get_src(),
+							$script->get_deps(),
+							$script->get_ver(),
+							$script->get_in_footer()
+						);
 					}
 				}
 			}

@@ -43,7 +43,8 @@ namespace WPMVCB\Testing
 						 		'get_metaboxes',
 						 		'get_singular',
 						 		'get_plural',
-						 		'get_scripts' 
+						 		'get_scripts',
+						 		'get_admin_scripts' 
 						 	) 
 						 )
 						 ->getMock();
@@ -285,7 +286,54 @@ namespace WPMVCB\Testing
 		public function testMethodAdminEnqueueScripts()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'admin_enqueue_scripts' ) );
-			$this->markTestIncomplete( 'Not yet implemented' );
+			
+			$script = $this->getMockBuilder( '\Base_Model_JS_Object' )
+			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_ver', 'get_in_footer' ) )
+			               ->disableOriginalConstructor()
+			               ->getMock();
+			
+			$script->expects( $this->any() )
+			       ->method( 'get_handle' )
+			       ->will( $this->returnValue( 'adminscript' ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_src' )
+			       ->will( $this->returnValue( 'http://www.example.com/foo.js' ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_deps' )
+			       ->will( $this->returnValue( array( 'fooscript' ) ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_ver' )
+			       ->will( $this->returnValue( true ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_in_footer' )
+			       ->will( $this->returnValue( true ) );
+			       
+			//stub the cpt model
+			$model = $this->_createStubCptModel();
+
+			$model->expects( $this->any() )
+			      ->method( 'get_admin_scripts' )
+			      ->will( $this->returnValue( array( $script ) ) );
+			
+			//add the model to the controller
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'fooadminscript' => $model ) );
+			
+			//call the SUT
+			$this->_controller->admin_enqueue_scripts();
+			
+			//make the assertion
+			$this->assertScriptRegistered( 
+				array(
+					'adminscript',
+					'http://www.example.com/foo.js',
+					array( 'fooscript' ),
+					true,
+					true
+				)
+			);
+
+		}
+		
 		/**
 		 * @covers Base_Controller_CPT::wp_enqueue_scripts
 		 */
