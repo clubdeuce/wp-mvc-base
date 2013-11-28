@@ -27,6 +27,7 @@ namespace WPMVCB\Testing
 
 		public function tearDown()
 		{
+			wp_deregister_script( 'fooscript' );
 			unset( $this->_mock_path );
 			unset( $this->_filesystem );
 			unset( $this->_controller );
@@ -327,6 +328,56 @@ namespace WPMVCB\Testing
 					'foo_action'
 				)
 			);
+		}
+		
+		/**
+		 * @covers Base_Controller::enqueue_scripts
+		 */
+		public function testMethodEnqueueScripts()
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'enqueue_scripts' ), 'enqueue_scripts() does not exist' );
+			
+			//create a stub Base_Model_JS_Object
+			$script = $this->getMockBuilder( '\Base_Model_JS_Object' )
+			               ->disableOriginalConstructor()
+			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_ver', 'get_in_footer' ) )
+			               ->getMock();
+			
+			$script->expects( $this->any() )
+			       ->method( 'get_handle' )
+			       ->will( $this->returnValue( 'fooscript' ) );
+			       
+			$script->expects( $this->any() )
+			       ->method( 'get_src' )
+			       ->will( $this->returnValue('http://example.com/foo.js' ) );
+			       
+			$script->expects( $this->any() )
+			       ->method( 'get_deps' )
+			       ->will( $this->returnValue( array( 'jquery' ) ) );
+			       
+			$script->expects( $this->any() )
+			       ->method( 'get_ver' )
+			       ->will( $this->returnValue( true ) );
+			       
+			$script->expects( $this->any() )
+			       ->method( 'get_in_footer' )
+			       ->will( $this->returnValue( true ) );
+			
+			$this->_controller->enqueue_scripts( array( 'fooscript' => $script ) );
+			
+			//make sure script is registered
+			$this->assertScriptRegistered( 
+				array(
+					'fooscript',
+					'http://example.com/foo.js',
+					array( 'jquery' ),
+					true,
+					true
+				)
+			);
+			
+			//and enqueued
+			$this->assertTrue( wp_script_is( 'fooscript', 'enqueued' ), 'script not enuqueued' );
 		}
 	}
 }
