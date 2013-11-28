@@ -35,7 +35,17 @@ namespace WPMVCB\Testing
 			// Create stub for cpt_model
 			$cpt_model = $this->getMockBuilder( '\Base_Model_CPT' )
 						 ->disableOriginalConstructor()
-						 ->setMethods( array( 'get_slug', 'get_args', 'get_post_updated_messages', 'get_metaboxes', 'get_singular', 'get_plural' ) )
+						 ->setMethods( 
+						 	array( 
+						 		'get_slug',
+						 		'get_args',
+						 		'get_post_updated_messages',
+						 		'get_metaboxes',
+						 		'get_singular',
+						 		'get_plural',
+						 		'get_scripts' 
+						 	) 
+						 )
 						 ->getMock();
 			          
 			return $cpt_model;
@@ -276,6 +286,58 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'admin_enqueue_scripts' ) );
 			$this->markTestIncomplete( 'Not yet implemented' );
+		/**
+		 * @covers Base_Controller_CPT::wp_enqueue_scripts
+		 */
+		public function testMethodWpEnqueueScripts()
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'wp_enqueue_scripts' ) );
+			
+			//create a stub script
+			$script = $this->getMockBuilder( '\Base_Model_JS_Object' )
+			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_ver', 'get_in_footer' ) )
+			               ->disableOriginalConstructor()
+			               ->getMock();
+			
+			$script->expects( $this->any() )
+			       ->method( 'get_handle' )
+			       ->will( $this->returnValue( 'fooscript' ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_src' )
+			       ->will( $this->returnValue( 'http://www.example.com/foo.js' ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_deps' )
+			       ->will( $this->returnValue( array( 'barscript' ) ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_ver' )
+			       ->will( $this->returnValue( true ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_in_footer' )
+			       ->will( $this->returnValue( true ) );
+			       
+			//stub the cpt model
+			$model = $this->_createStubCptModel();
+
+			$model->expects( $this->any() )
+			      ->method( 'get_scripts' )
+			      ->will( $this->returnValue( array( $script ) ) );
+			
+			//add the model to the controller
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'foocptscript' => $model ) );
+			
+			//call the SUT
+			$this->_controller->wp_enqueue_scripts();
+			
+			//make the assertion
+			$this->assertScriptRegistered( 
+				array(
+					'fooscript',
+					'http://www.example.com/foo.js',
+					array( 'barscript' ),
+					true,
+					true
+				)
+			);
 		}
 	}
 }

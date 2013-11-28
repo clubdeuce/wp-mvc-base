@@ -213,5 +213,30 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 				}
 			}
 		}
+		
+		/**
+		 * The wp_enqueue_scripts_callback.
+		 *
+		 * @return void
+		 * @since 0.3
+		 */
+		public function wp_enqueue_scripts()
+		{
+			foreach( $this->_cpt_models as $cpt ) {
+				$scripts = $cpt->get_scripts();
+				
+				if ( isset( $scripts ) ) {
+					foreach( $scripts as $script ) {
+						wp_register_script(
+							$script->get_handle(),
+							$script->get_src(),
+							$script->get_deps(),
+							$script->get_ver(),
+							$script->get_in_footer()
+						);
+					}
+				}
+			}
+		}
 	}
 endif;
