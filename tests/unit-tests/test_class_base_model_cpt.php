@@ -10,7 +10,7 @@ namespace WPMVCB\Testing
 	 * @internal
 	 */
 
-	class BaseModelCptTest extends WPMVCB_Test_Case
+	class testBaseModelCpt extends WPMVCB_Test_Case
 	{
 		private $_factory;
 		private $_cpt;
