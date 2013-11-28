@@ -49,11 +49,9 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 * @param string $txtdomain The plugin text domain.
 		 * @since WPMVCBase 0.1
 		 */
-		public function __construct( $txtdomain = null )
+		public function __construct( $txtdomain )
 		{
-			if ( isset( $txtdomain ) ) {
-				$this->_txtdomain = $txtdomain;
-			}
+			$this->_txtdomain = $txtdomain;
 			
 			parent::__construct();
 			add_action( 'init',                  array( &$this, 'register' ) );
