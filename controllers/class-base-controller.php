@@ -116,7 +116,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 					if( ! is_a( $script, 'Base_Model_JS_Object' ) ) {
 						trigger_error(
 							sprintf( __( '%s is not a Base_Model_JS_Object', 'wpmvcbase' ), $key ),
-							E_USER_NOTICE
+							E_USER_WARNING
 						);
 					}
 				}
