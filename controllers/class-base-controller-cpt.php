@@ -36,7 +36,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		protected $_cpt_models;
 		
 		/**
-		 * The plugin txt domain.
+		 * The plugin text domain.
 		 * 
 		 * @var string
 		 * @since WPMVCBase 0.3
