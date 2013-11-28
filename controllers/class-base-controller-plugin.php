@@ -185,5 +185,32 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 				}
 			}
 		}
+
+		/**
+		 * Enqueue scripts and styles for frontend pages
+		 *
+		 * @uses Base_Model_Plugin::get_scripts()
+		 * @internal
+		 * @access public
+		 * @since 0.1
+		 */
+		public function wp_enqueue_scripts()
+		{
+			global $post;
+
+			//add the global javascripts
+			$scripts = $this->plugin_model->get_scripts();
+			
+			if ( isset( $scripts ) && is_array( $scripts ) ) {
+				foreach( $scripts as $script ) {
+					wp_enqueue_script( $script->get_handle(),  $script->get_src(), $script->get_deps(), $script->get_version(), $script->get_in_footer() );
+					/*
+if ( isset( $script->get_localization_var() ) && isset( $script->get_localization_args() ) ) {
+						wp_localize_script( $script, $script->get_localization_var, $script->get_localization_args() );
+					}
+*/
+				}
+			}
+		}
 	}
 }	// ! class_exists( 'Base_Controller_Plugin' )
