@@ -62,10 +62,14 @@ namespace WPMVCB\Testing
 
 			unset( $controller );
 		}
-
-		public function testAttributePluginModelExists()
+		
+		/**
+		 * @covers Base_Controller_Plugin::__construct
+		 */
+		public function testAttributePluginModel()
 		{
 			$this->assertClassHasAttribute( 'plugin_model', '\Base_Controller_Plugin' );
+			$this->assertSame( $this->_model, $this->getReflectionPropertyValue( $this->_controller, 'plugin_model' ) );
 		}
 
 		public function testActionAdminNoticesExists()
