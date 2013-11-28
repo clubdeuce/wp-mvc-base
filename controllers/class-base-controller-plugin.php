@@ -171,11 +171,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			$screen = get_current_screen();
 
 			//register the scripts
-			$scripts = $this->plugin_model->get_admin_scripts( 
-				$post,
-				$this->plugin_model->get_textdomain(),
-				$this->plugin_model->get_uri()
-			);
+			$scripts = $this->plugin_model->get_admin_scripts();
 			
 			if ( isset( $scripts ) ) {
 				foreach ( $scripts as $script ) {
@@ -203,7 +199,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			global $post;
 
 			//add the global javascripts
-			$scripts = $this->plugin_model->get_scripts( $post, $this->plugin_model->get_textdomain(), $this->plugin_model->get_uri() );
+			$scripts = $this->plugin_model->get_scripts();
 			
 			if ( isset( $scripts ) && is_array( $scripts ) ) {
 				foreach( $scripts as $script ) {
