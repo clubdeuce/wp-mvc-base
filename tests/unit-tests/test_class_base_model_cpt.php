@@ -91,7 +91,25 @@ namespace WPMVCB\Testing
 			$this->reflectionMethodInvokeArgs( $this->_cpt, '_init_labels', 'footxtdomain' );
 			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_cpt, '_labels' ) );
 		}
-
+		
+		/**
+		 * @covers Base_Model_CPT::get_singular
+		 */
+		public function testMethodGetSingular()
+		{
+			$this->assertTrue( method_exists( $this->_cpt, 'get_singular' ), 'get_singular() does not exist' );
+			$this->assertSame( 'Book', $this->_cpt->get_singular() );
+		}
+		
+		/**
+		 * @covers Base_Model_CPT::get_plural
+		 */
+		public function testMethodGetPlural()
+		{
+			$this->assertTrue( method_exists( $this->_cpt, 'get_plural' ), 'get_plural() does not exist' );
+			$this->assertSame( 'Books', $this->_cpt->get_plural() );
+		}
+		
 		/**
 		 * @covers Base_Model_CPT::get_slug
 		 */
