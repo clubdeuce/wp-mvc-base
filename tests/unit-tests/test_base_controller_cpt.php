@@ -62,7 +62,7 @@ namespace WPMVCB\Testing
 			$this->assertClassHasAttribute( '_txtdomain', '\Base_Controller_CPT' );
 		}
 		
-		public function testActions()
+		public function testActionExistsWpEnqueueScripts()
 		{
 			$this->assertFalse(
 				false === has_action( 'wp_enqueue_scripts', array( &$this->_controller, 'wp_enqueue_scripts' ) ),
@@ -74,18 +74,19 @@ namespace WPMVCB\Testing
 		 * @covers Base_Controller_CPT::__construct
 		 */
 		public function testActionExistsAdminEnqueueScripts()
-		{
-			$this->assertFalse( false === has_action( 'admin_enqueue_scripts', array( $this->_controller, 'admin_enqueue_scripts' ) ) );
+			$this->assertFalse(
+				false === has_action( 'admin_enqueue_scripts', array( $this->_controller, 'admin_enqueue_scripts' ) ),
+				'admin_enqueue_scripts not hooked'
+			);
 		}
-
-		/**
-		 * @covers Base_Controller_CPT::__construct
-		 */
+		
 		public function testActionExistsAddMetaBoxes()
-		{
-			$this->assertEquals( true, has_action( 'add_meta_boxes', array( &$this->_controller, 'add_meta_boxes' ) ) );
+			$this->assertFalse(
+				false === has_action( 'add_meta_boxes', array( &$this->_controller, 'add_meta_boxes' ) ),
+				'add_meta_boxes not hooked'
+			);
 		}
-
+		
 		public function testMethodAddModelExists()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'add_model' ) );
