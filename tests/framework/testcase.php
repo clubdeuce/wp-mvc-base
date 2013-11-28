@@ -38,20 +38,29 @@ namespace WPMVCB\Testing
 		}
 
 		/**
-		 * The assertion assertMetaboxExists.
+		 * Assert a metabox is registered with WordPress and associated properties are correctly set.
 		 *
 		 * @param array $args Contains: metabox id, title, callback, post type, context, priority, callback args
+		 * @param string $message The error message displayed on failure.
 		 * @return bool
 		 * @since 0.3
+		 * @link http://codex.wordpress.org/Function_Reference/add_meta_box
 		 */
 		public static function assertMetaboxExists( $args, $message = '' )
 		{
 			self::assertThat( $args, self::metaboxExists(), $message );
 		}
-
+		
+		/** 
+		 * Returns a PHPUnit_Framework_Constraint_MetaboxExists matcher object.
+	     *
+	     * @return object PHPUnit_Framework_Constraint_MetaboxExists
+	     * @since  0.3
+	     */
 		public static function metaboxExists()
 		{
-			return new \WPMVCB\Testing\MetaboxExists();
+			return new \WPMVCB\Testing\PHPUnit_Framework_Constraint_MetaboxExists();
+		}
 		}
 	}
 }

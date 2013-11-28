@@ -13,7 +13,7 @@ namespace WPMVCB\Testing;
  *
  */
 
-class MetaboxExists extends \PHPUnit_Framework_Constraint
+class PHPUnit_Framework_Constraint_MetaboxExists extends \PHPUnit_Framework_Constraint
 {
 	public function matches($args)
 	{
