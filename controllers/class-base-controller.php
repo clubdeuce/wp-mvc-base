@@ -94,6 +94,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		/**
 		 * Enqueue scripts.
 		 *
+		 * @uses wp_enqueue_script
 		 * @param array $scripts Array containing Base_Model_JS objects
 		 * @return void
 		 * @since WPMVCBase 0.3
@@ -101,8 +102,23 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		public function enqueue_scripts( $scripts )
 		{
 			if ( is_array( $scripts ) ) {
-				foreach ( $scripts as $script ) {
-					$script->enqueue();
+				foreach ( $scripts as $key => $script ) {
+					if( is_a( $script, 'Base_Model_JS_Object' ) ) {
+						wp_enqueue_script(
+							$script->get_handle(),
+							$script->get_src(),
+							$script->get_deps(),
+							$script->get_ver(),
+							$script->get_in_footer()
+						);
+					}
+					
+					if( ! is_a( $script, 'Base_Model_JS_Object' ) ) {
+						trigger_error(
+							sprintf( __( '%s is not a Base_Model_JS_Object', 'wpmvcbase' ), $key ),
+							E_USER_NOTICE
+						);
+					}
 				}
 			}
 		}
