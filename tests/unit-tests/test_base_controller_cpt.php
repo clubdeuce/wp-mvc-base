@@ -17,7 +17,7 @@ namespace WPMVCB\Testing
 		public function setUp()
 		{
 			parent::setUp();
-			$this->_controller = new \Base_Controller_CPT( $cpt_model );
+			$this->_controller = new \Base_Controller_CPT( 'footxtdomain' );
 		}
 
 		public function tearDown()
