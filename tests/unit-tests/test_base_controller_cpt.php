@@ -62,6 +62,14 @@ namespace WPMVCB\Testing
 			$this->assertClassHasAttribute( '_txtdomain', '\Base_Controller_CPT' );
 		}
 		
+		public function testActions()
+		{
+			$this->assertFalse(
+				false === has_action( 'wp_enqueue_scripts', array( &$this->_controller, 'wp_enqueue_scripts' ) ),
+				'wp_enqueue_scripts not hooked'
+			);
+		}
+		
 		/**
 		 * @covers Base_Controller_CPT::__construct
 		 */
