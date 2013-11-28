@@ -56,9 +56,6 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			parent::__construct();
 			add_action( 'init',                  array( &$this, 'register' ) );
 			add_filter( 'post_updated_messages', array( &$this, 'post_updated_messages' ) );
-			add_action( 'add_meta_boxes',        array( &$this, 'add_meta_boxes' ) );
-			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
-			//add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
 		}
 
 		/**
