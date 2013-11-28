@@ -35,9 +35,9 @@ namespace WPMVCB\Testing
 			// Create stub for cpt_model
 			$cpt_model = $this->getMockBuilder( '\Base_Model_CPT' )
 						 ->disableOriginalConstructor()
-						 ->setMethods( array( 'get_slug', 'get_args', 'get_post_updated_messages', 'get_metaboxes' ) )
+						 ->setMethods( array( 'get_slug', 'get_args', 'get_post_updated_messages', 'get_metaboxes', 'get_singular', 'get_plural' ) )
 						 ->getMock();
-
+			          
 			return $cpt_model;
 		}
 
@@ -45,7 +45,12 @@ namespace WPMVCB\Testing
 		{
 			$this->assertClassHasAttribute( '_cpt_models', '\Base_Controller_CPT' );
 		}
-
+		
+		public function testPropertyTxtdomainExists()
+		{
+			$this->assertClassHasAttribute( '_txtdomain', '\Base_Controller_CPT' );
+		}
+		
 		/**
 		 * @covers Base_Controller_CPT::__construct
 		 */
@@ -174,20 +179,38 @@ namespace WPMVCB\Testing
 			//create a stub cpt model for testing
 			$model = $this->_createStubCptModel();
 			$model->expects( $this->any() )
-				  ->method( 'get_post_updated_messages' )
-				  ->will( $this->returnValue( array( 'foo' => 'bar' ) ) );
+				  ->method( 'get_singular' )
+				  ->will( $this->returnValue( 'Book' ) );
 			$model->expects( $this->any() )
 				  ->method( 'get_slug' )
-				  ->will( $this->returnValue( 'fooslug' ) );
+				  ->will( $this->returnValue( 'foocptslug' ) );
 
 			//add the model to the controller's _cpt_models property
-			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'fooslug' => $model ) );
-
-			$messages = $this->_controller->post_updated_messages( array(), 'fooslug' );
-			$this->assertArrayHasKey( 'fooslug', $messages, __( 'Messages not present in array', 'wpmvcb' ) );
-			$this->assertEquals( array( 'foo' => 'bar' ), $messages['fooslug'] );
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'foocptslug' => $model ) );
+			
+			$messages = $this->_controller->post_updated_messages( array() );
+			
+			$expected = array(
+				0 => null, // Unused. Messages start at index 1.
+				1 => sprintf( __('Book updated. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink( $this->_post->ID) ) ),
+				2 => __('Custom field updated.', 'your_text_domain'),
+				3 => __('Custom field deleted.', 'your_text_domain'),
+				4 => __('Book updated.', 'your_text_domain'),
+				/* translators: %s: date and time of the revision */
+				5 => isset($_GET['revision']) ? sprintf( __('Book restored to revision from %s', 'your_text_domain'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => sprintf( __('Book published. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink($this->_post->ID) ) ),
+				7 => __('Book saved.', 'your_text_domain'),
+				8 => sprintf( __('Book submitted. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) ),
+				9 => sprintf( __('Book scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview book</a>', 'your_text_domain'),
+				  // translators: Publish box date format, see http://php.net/date
+				  date_i18n( __( 'M j, Y @ G:i' ), strtotime( $this->_post->post_date ) ), esc_url( get_permalink( $this->_post->ID ) ) ),
+				10 => sprintf( __('Book draft updated. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) )
+			);
+			
+			$this->assertArrayHasKey( 'foocptslug', $messages, __( 'Messages not present in array', 'wpmvcb' ) );
+			$this->assertEquals( $expected, $messages['foocptslug'] );
 		}
-
+				
 		/**
 		 * @covers Base_Controller_CPT::__construct
 		 */
