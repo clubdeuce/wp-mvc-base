@@ -35,7 +35,9 @@ if ( ! class_exists( 'Base_Controller' ) ):
 	{
 		public function __construct()
 		{
-			add_action( 'wp_enqueue_scripts', array( &$this, 'wp_enqueue_scripts' ) );
+			add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
+			add_action( 'add_meta_boxes',        array( &$this, 'add_meta_boxes' ) );
 		}
 		
 		/**
