@@ -51,15 +51,19 @@ namespace WPMVCB\Testing
 			          
 			return $cpt_model;
 		}
-
+		
 		public function testPropertyCptModelsExists()
 		{
 			$this->assertClassHasAttribute( '_cpt_models', '\Base_Controller_CPT' );
 		}
 		
+		/**
+		 * @covers Base_Controller_CPT::__construct
+		 */
 		public function testPropertyTxtdomainExists()
 		{
 			$this->assertClassHasAttribute( '_txtdomain', '\Base_Controller_CPT' );
+			$this->assertSame( 'footxtdomain', $this->getReflectionPropertyValue( $this->_controller, '_txtdomain' ) );
 		}
 		
 		public function testActionExistsWpEnqueueScripts()
