@@ -80,9 +80,6 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			
 			add_action( 'plugins_loaded',        array( &$this, 'load_text_domain' ) );
 			add_action( 'admin_notices',         array( &$this, 'admin_notice' ) );
-			add_action( 'add_meta_boxes',        array( &$this, 'add_meta_boxes' ) );
-			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
-			add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
 			
 			if ( method_exists( $this, 'init' ) ) {
 				$this->init();
