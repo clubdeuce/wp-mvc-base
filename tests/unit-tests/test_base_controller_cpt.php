@@ -74,6 +74,7 @@ namespace WPMVCB\Testing
 		 * @covers Base_Controller_CPT::__construct
 		 */
 		public function testActionExistsAdminEnqueueScripts()
+		{
 			$this->assertFalse(
 				false === has_action( 'admin_enqueue_scripts', array( $this->_controller, 'admin_enqueue_scripts' ) ),
 				'admin_enqueue_scripts not hooked'
@@ -81,6 +82,7 @@ namespace WPMVCB\Testing
 		}
 		
 		public function testActionExistsAddMetaBoxes()
+		{
 			$this->assertFalse(
 				false === has_action( 'add_meta_boxes', array( &$this->_controller, 'add_meta_boxes' ) ),
 				'add_meta_boxes not hooked'
