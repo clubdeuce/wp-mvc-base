@@ -136,7 +136,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 */
 		public function get_plural()
 		{
-			return $this->_plural();
+			return $this->_plural;
 		}
 		
 		/**
