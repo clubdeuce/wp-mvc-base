@@ -35,6 +35,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 	{
 		public function __construct()
 		{
+			add_action( 'wp_enqueue_scripts', array( &$this, 'wp_enqueue_scripts' ) );
 		}
 		
 		/**

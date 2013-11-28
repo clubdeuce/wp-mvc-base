@@ -31,7 +31,18 @@ namespace WPMVCB\Testing
 			unset( $this->_filesystem );
 			unset( $this->_controller );
 		}
-
+		
+		/**
+		 * @covers Base_Controller::__construct
+		 */
+		public function testConstructor()
+		{
+			$this->assertFalse(
+				false === has_action( 'wp_enqueue_scripts', array( &$this->_controller, 'wp_enqueue_scripts' ) ),
+				'wp_enqueue_scripts not hooked'
+			);
+		}
+		
 		public function testMethodExistsAddShortcodes()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'add_shortcodes' ) );
