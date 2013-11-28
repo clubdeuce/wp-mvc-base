@@ -379,5 +379,17 @@ namespace WPMVCB\Testing
 			//and enqueued
 			$this->assertTrue( wp_script_is( 'fooscript', 'enqueued' ), 'script not enuqueued' );
 		}
+		
+		/**
+		 * In this test, we pass an array that does not contain Base_Model_JS_Objects. The test should fail.
+		 *
+		 * @expectedException PHPUnit_Framework_Error
+		 * @ExpectedExceptionMessage fooscript is not a Base_Model_JS_Object
+		 * @covers Base_Controller::enqueue_scripts
+		 */
+		public function testMethodEnqueueScriptsFail()
+		{
+			$this->_controller->enqueue_scripts( array( 'fooscript' => new \StdClass ) );
+		}
 	}
 }
