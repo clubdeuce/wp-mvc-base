@@ -35,7 +35,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @covers Base_Controller::__construct
 		 */
-		public function testConstructor()
+		public function testActionExistsWpEnqueueScripts()
 		{
 			$this->assertFalse(
 				false === has_action( 'wp_enqueue_scripts', array( &$this->_controller, 'wp_enqueue_scripts' ) ),
