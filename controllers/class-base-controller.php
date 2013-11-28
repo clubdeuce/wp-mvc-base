@@ -101,7 +101,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		public function enqueue_scripts( $scripts )
 		{
 			if ( is_array( $scripts ) ) {
-				foreach ( $scritps as $script ) {
+				foreach ( $scripts as $script ) {
 					$script->enqueue();
 				}
 			}
