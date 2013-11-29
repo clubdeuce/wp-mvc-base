@@ -11,7 +11,7 @@ The WP MVC Base Test Suite uses [PHPUnit](http://phpunit.de) to maintain code qu
 Travis-CI Automated Testing
 -----------
 
-The master branch of WP MVC Base is automatically tested on [travis-ci.org](http://travis-ci.org). The image above will show you the latest test's output. Travis-CI will also automatically test all new Pull Requests to make sure they will not break our build.
+The master branch of WP MVC Base is automatically tested on [travis-ci.org](http://travis-ci.org). The image above will show you the latest test's output. Travis-CI will also automatically test all new Pull Requests to make sure they will not break the build.
 
 Quick Start (For Local Testing)
 -----------------------------
@@ -41,7 +41,7 @@ Open `wp-tests-config.php` using a code editor of your choice, and make the foll
 
 Please note: WP MVC Base does not need to be in the `wp-content/plugins` directory. It can be anywhere on your filesystem.
 
-Start a terminal session and cd into the directory into which you cloned WP MVC Base. Enter the following command:
+Start a terminal session and cd into the directory into which you cloned the WP MVC Base tests. Enter the following command:
 
     WP_TESTS_DIR=/home/foo/wp_unit_tests phpunit
 

@@ -6,7 +6,7 @@
  * @author Daryl Lozupone <daryl@actionhook.com>
  * @since WPMVCBase 0.1
  */
- 
+
 /*
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,7 +23,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if( ! class_exists( 'Base_Model' ) ):
+if ( ! class_exists( 'Base_Model' ) ) :
 	/**
 	 * The base model.
 	 *
@@ -44,18 +44,18 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * @since 0.2
 		 */
 		private $version = '0.2';
-			
+
 		/**
 		 * The plugin css files
 		 *
-		 * An array containing css used by the model. 
+		 * An array containing css used by the model.
 		 *
 		 * @package WPMVCBase\Models
 		 * @var array
 		 * @since 0.1
 		 */
 		protected $css;
-		
+
 		/**
 		 * The plugin admin css files.
 		 *
@@ -66,7 +66,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * @since 0.1
 		 */
 		protected $admin_css;
-		
+
 		/**
 		 * The model javascript files
 		 *
@@ -78,7 +78,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * @since 0.1
 		 */
 		protected $scripts;
-		
+
 		/**
 		 * The model admin javascript files
 		 *
@@ -89,7 +89,7 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * @since 0.1
 		 */
 		protected $admin_scripts;
-		
+
 		/**
 		 * Metaboxes required by this model.
 		 *
@@ -99,7 +99,26 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * @since 0.1
 		 */
 		protected $metaboxes;
-		
+
+		/**
+		 * The model's help tabs.
+		 *
+		 * This is a collection of Base_Model_Help_Tab objects.
+		 *
+		 * @var array
+		 * @since 0.2
+		 * @see Base_Model_Help_Tabs
+		 */
+		protected $help_tabs;
+
+		/**
+		 * The model's shortcodes.
+		 *
+		 * @var array
+		 * @since 0.2
+		 */
+		protected $shortcodes;
+
 		/**
 		 * Get the frontend CSS.
 		 *
@@ -110,12 +129,13 @@ if( ! class_exists( 'Base_Model' ) ):
 		 */
 		public function get_css( $uri )
 		{
-			if( ! isset( $this->css ) && method_exists( $this, 'init_css' ) )
+			if ( ! isset( $this->css ) && method_exists( $this, 'init_css' ) ) {
 				$this->init_css( $uri );
-			
+			}
+
 			return $this->css;
 		}
-		
+
 		/**
 		 * Get the admin CSS.
 		 *
@@ -126,19 +146,20 @@ if( ! class_exists( 'Base_Model' ) ):
 		 */
 		public function get_admin_css( $uri )
 		{
-			if( ! isset( $this->admin_css ) && method_exists( $this, 'init_admin_css' ) )
+			if ( ! isset( $this->admin_css ) && method_exists( $this, 'init_admin_css' ) ) {
 				$this->init_admin_css( $uri );
+			}
 			
-			if( is_array( $this->admin_css ) ):
-				foreach( $this->admin_css as $key => $css ):
+			if ( is_array( $this->admin_css ) ) :
+				foreach ( $this->admin_css as $key => $css ) :
 					//filter the css elements
 					$this->admin_css[$key] = apply_filters( 'ah_base_filter_admin_css-' . $css['handle'], $css );
 				endforeach;
 			endif;
-			
+
 			return $this->admin_css;
 		}
-		
+
 		/**
 		 * Get the front end javascripts.
 		 *
@@ -150,13 +171,14 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * @since 0.1
 		 */
 		public function get_scripts( $post, $txtdomain, $uri )
-		{	
-			if( ! isset( $this->scripts ) && method_exists( $this, 'init_scripts' ) )
+		{
+			if ( ! isset( $this->scripts ) && method_exists( $this, 'init_scripts' ) ) {
 				$this->init_scripts( $uri );
+			}
 			
 			return $this->scripts;
 		}
-		
+
 		/**
 		 * Get the admin javascripts.
 		 *
@@ -167,19 +189,20 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * @return array $admin_scripts
 		 * @since 0.1
 		 */
-		public function get_admin_scripts( $post, $txtdomain, $uri = '')
+		public function get_admin_scripts( $post, $txtdomain, $uri = '' )
 		{
-			if( ! isset( $this->admin_scripts ) && method_exists( $this, 'init_admin_scripts' ) )
+			if ( ! isset( $this->admin_scripts ) && method_exists( $this, 'init_admin_scripts' ) ) {
 				$this->init_admin_scripts( $post, $txtdomain, $uri );
-			
+			}
+
 			return $this->admin_scripts;
 		}
-		
+
 		/**
 		 * Get the model's metaboxes
 		 *
 		 * This function will return the metaboxes. The post_id parameter
-		 * is used so that this function may return the values stored for 
+		 * is used so that this function may return the values stored for
 		 * the corresponding custom fields in the callback arguments.
 		 *
 		 * @package WPMVCBase\Models
@@ -190,12 +213,131 @@ if( ! class_exists( 'Base_Model' ) ):
 		 * @since 0.1
 		 */
 		public function get_metaboxes( $post_id, $txtdomain )
-		{	
-			if ( ! isset( $this->metaboxes ) && method_exists( $this, 'init_metaboxes' ) )
+		{
+			if ( ! isset( $this->metaboxes ) && method_exists( $this, 'init_metaboxes' ) ) {
 				$this->init_metaboxes( $post_id, $txtdomain );
-			
+			}
+
 			return $this->metaboxes;
+		}
+
+		/**
+		 * Get the cpt help screen tabs.
+		 *
+		 * @return array $_help_tabs Contains the help screen tab objects.
+		 * @access public
+		 * @since 0.1
+		 */
+		public function get_help_tabs()
+		{
+			if ( isset( $this->help_tabs ) ) {
+				return $this->help_tabs;
+			}
+		}
+
+		/**
+		 * Get the cpt help screen tabs.
+		 *
+		 * @return array|void $_help_tabs Contains the help screen tab objects. VOID on empty.
+		 * @access public
+		 * @deprecated
+		 * @since 0.1
+		 */
+		public function get_help_screen()
+		{
+			//warn the user about deprecated function use
+			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', $this->_txtdomain );
+
+			//and point to the replacement function
+			return $this->get_help_tabs();
+		}
+		
+		/**
+		 * Get the model's shortcodes.
+		 *
+		 * @return array|void $shortcodes
+		 * @since 0.1
+		 */
+		public function get_shortcodes()
+		{
+			if ( isset( $this->shortcodes ) ) {
+				return $this->shortcodes;
+			}
+		}
+
+		/**
+		 * Add a metabox.
+		 *
+		 * @param string $handle The metabox handle.
+		 * @param object $metabox A metabox object.
+		 * @return bool|void TRUE on success.
+		 * @see Base_Model_Metabox
+		 * @since 0.1
+		 */
+		public function add_metabox( $handle, $metabox )
+		{
+			if ( ! isset( $this->metaboxes) ) {
+				$this->metaboxes = array();
+			}
+						
+			if ( $metabox instanceOf Base_Model_Metabox ) {
+				$this->metaboxes = array_merge( $this->metaboxes, array( $handle => $metabox ) );
+				return true;
+			}
+			
+			trigger_error(
+				sprintf( __( '%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
+				E_USER_WARNING
+			);
+		}
+
+		/**
+		 * Add a help tab object.
+		 *
+		 * @param string $handle The help tab handle.
+		 * @param object $help_tab The Base_Model_Help_Tab object.
+		 * @return bool|void TRUE on success.
+		 * @since 0.2
+		 * @see Base_Model_Help_Tab
+		 */
+		public function add_help_tab( $handle, $help_tab )
+		{
+			if ( ! is_array( $this->_help_tabs ) ) {
+				$this->help_tabs = array();
+			}
+			
+			if ( $help_tab instanceOf Base_Model_Help_Tab ) {
+				$this->help_tabs = array_merge( $this->help_tabs, array( $handle => $help_tab ) );
+				return true;
+			}
+			
+			//A valid help tab object is not included.
+			trigger_error(
+				sprintf( __( '%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
+				E_USER_WARNING
+			);
+		}
+		
+		/**
+		 * Add a shortcode object.
+		 *
+		 * @param string $shortcode The shortcode name.
+		 * @param string $callback The shortcode callback handler.
+		 * @return void
+		 * @since 0.1
+		 */
+		public function add_shortcode( $shortcode, $callback )
+		{
+			if ( ! isset( $this->shortcodes ) ) {
+				$this->shortcodes = array();
+			}
+			
+			if ( is_callable( $callback ) ) {
+				$this->shortcodes = array_merge( $this->shortcodes, array( $shortcode => $callback ) );
+				return true;
+			}
+			
+			trigger_error( sprintf( __( 'Function %s expects a valid callback: %s is not.', 'wpmvcb' ), __FUNCTION__, $callback ), E_USER_WARNING );
 		}
 	}
 endif;
-?>

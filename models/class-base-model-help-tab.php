@@ -25,7 +25,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @since 0.1
 		 */
 		private $_id;
-		
+
 		/**
 		 * The help tab title.
 		 *
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @since 0.1
 		 */
 		private $_title;
-		
+
 		/**
 		 * The help tab content.
 		 *
@@ -41,7 +41,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @since 0.1
 		 */
 		private $_content;
-		
+
 		/**
 		 * The help tab callback function.
 		 *
@@ -49,9 +49,9 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @since 0.1
 		 */
 		private $_callback;
-		
+
 		/**
-		 * The help tab view file. 
+		 * The help tab view file.
 		 *
 		 * This must be an absolute path to the view file.
 		 *
@@ -59,7 +59,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @since 0.1
 		 */
 		private $_view;
-		
+
 		/**
 		 * The class constructor.
 		 *
@@ -72,13 +72,20 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function __construct( $title, $id, $content = null, $callback = null, $view = null )
 		{
-			$this->_id = $id;
-			$this->_title = $title;
-			$this->_content = $content;
+			if ( ! isset( $content ) && ! isset( $callback ) && ! isset( $view ) ) {
+				trigger_error(
+					'You must specify either the help tab content, a callback function, or a view to use for the help tab',
+					E_USER_WARNING
+				);
+			}
+			
+			$this->_id       = $id;
+			$this->_title    = $title;
+			$this->_content  = $content;
 			$this->_callback = $callback;
-			$this->_view = $view;
+			$this->_view     = $view;
 		}
-		
+
 		/**
 		 * Add this help tab to the current screen.
 		 *
@@ -87,14 +94,14 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function add()
 		{
-			if( is_null( $this->_callback ) && file_exists( $this->_view ) ):
+			if ( is_null( $this->_callback ) && file_exists( $this->_view ) ) {
 				ob_start();
 				require_once( $this->_view );
 				$this->_content = ob_get_clean();
-			endif;
-			get_current_screen()->add_help_tab( array('id' => $this->_id, 'title' => $this->_title, 'content' => $this->_content ) );
+			}
+			get_current_screen()->add_help_tab( array( 'id' => $this->_id, 'title' => $this->_title, 'content' => $this->_content ) );
 		}
-		
+
 		/**
 		 * Get the help tab title.
 		 *
@@ -102,9 +109,9 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function get_title()
 		{
-			return $this->title;
+			return $this->_title;
 		}
-		
+
 		/**
 		 * Get the help tab id.
 		 *
@@ -114,7 +121,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		{
 			return $this->_id;
 		}
-		
+
 		/**
 		 * Set the help tab callback.
 		 *
@@ -123,9 +130,20 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function set_callback( $callback )
 		{
+			if ( ! is_callable( $callback ) ):
+				trigger_error(
+					__( 'A valid callback function must be specified', 'wp-mvc-base' ),
+					E_USER_WARNING
+				);
+
+				return false;
+			endif;
+
 			$this->_callback = $callback;
+
+			return true;
 		}
-		
+
 		/**
 		 * Set the help tab content.
 		 *
@@ -138,4 +156,3 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		}
 	}
 endif;
-?>
