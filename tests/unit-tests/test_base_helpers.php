@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCBase\Testing
 {
-	require_once( WPMVCB_SRC_DIR . '/helpers/base_helpers.php' );
+	require_once( WPMVCB_SRC_DIR . '/helpers/class-base-helpers.php' );
 	
 	/**
 	 * The test controller for Helper_Functions
@@ -61,12 +61,6 @@ namespace WPMVCBase\Testing
 		public function testRemoveLocalDirectory()
 		{
 			$this->markTestIncomplete( 'This cannot be implemented using vfsStream due to being incompatible with SplFileInfo::getRealPath(). See https://github.com/mikey179/vfsStream/wiki/Known-Issues.');
-			/*
-\Helper_Functions::create_directory( $this->_base_dir_path . '/foo' );
-			$this->assertTrue( $this->_filesystem->hasChild( 'foo' ) );
-			$this->assertTrue( \Helper_Functions::remove_local_directory( $this->_base_dir_path . '/foo', 'force' ) );
-			$this->assertFalse( $this->_filesystem->hasChild ( 'foo' ) );
-*/
 		}
 		
 		public function testRemoveLocalDirectoryDirParamSlash()
@@ -82,12 +76,6 @@ namespace WPMVCBase\Testing
 		public function testRemoveLocalDirectoryDirNonexistent()
 		{
 			$this->assertFalse( \Helper_Functions::remove_local_directory( $this->_base_dir_path . '/bar' ) );
-		}
-		
-		public function testDeleteLocalFileException()
-		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error' );
-			\Helper_Functions::delete_local_file( $this->_base_dir_path . '/index.php' );
 		}
 		
 		public function testDeleteLocalFileExceptionMessage()
@@ -124,17 +112,6 @@ namespace WPMVCBase\Testing
 		}
 		
 		/**
-		 * Test for deprecated() trigger error
-		 *
-		 * @since 0.1
-		 */
-		public function testDeprecatedException()
-		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error' );
-			\Helper_Functions::deprecated( 'foo', 'bar', 'my-super-cool-text-domain' );
-		}
-		
-		/**
 		 * Test the deprecated() error message
 		 *
 		 * @since 0.1
@@ -150,7 +127,7 @@ namespace WPMVCBase\Testing
 		
 		public function testEnqueueScripts()
 		{
-			require_once( WPMVCB_SRC_DIR . '/models/base_model_js_object.php' );
+			require_once( WPMVCB_SRC_DIR . '/models/class-base-model-js-object.php' );
 			$scripts = array(
 				new \Base_Model_JS_Object( 'foo', 'http://example.com/foo.js', null, false, false )
 			);

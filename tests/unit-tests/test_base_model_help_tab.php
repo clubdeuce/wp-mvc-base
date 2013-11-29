@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once( dirname( __FILE__ ) . '../../../models/base_model_help_tab.php' );
+	require_once( WPMVCB_SRC_DIR . '/models/class-base-model-help-tab.php' );
 	
 	class testBaseModelHelpTab extends WPMVCB_Test_Case
 	{
