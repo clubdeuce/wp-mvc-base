@@ -30,7 +30,7 @@ namespace WPMVCB\Testing
 		
 		public function tearDown()
 		{
-			wp_script_deregister( 'my-super-cool-script' );
+			wp_deregister_script( 'my-super-cool-script' );
 			unset( $this->_script );
 		}
 		
