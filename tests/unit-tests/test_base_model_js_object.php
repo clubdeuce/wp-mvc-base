@@ -82,45 +82,67 @@ namespace WPMVCB\Testing
 		public function testMethodLocalize()
 		{
 			global $wp_scripts;
+			
 			$this->assertTrue( method_exists( 'Base_Model_JS_Object', 'localize' ) );
+			
+			wp_register_script( 
+				'my-super-cool-script',
+				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
+				array( 'jquery', 'my-super-cool-framework' ),
+				true,
+				true
+			);
+			
+			$this->_script->localize();
+			
 			$script = $wp_scripts->query( 'my-super-cool-script' );
 			$this->assertEquals( 'var mySuperCoolL10n = {"foo":"bar"};', $script->extra['data'] );
 		}
 		
 		/**
 		 * @covers Base_Model_JS_Object::localize
-		 * @depends testMethodEnqueue
-		 * @depends testMethodLocalize
 		 */
 		public function testLocalizeEmpty()
 		{
-			global $wp_scripts;
+			$this->assertTrue( method_exists( 'Base_Model_JS_Object', 'localize' ) );
+			
 			$baz = new \Base_Model_JS_Object( 'baz', 'http://example.com/baz.js', null, false, false );
-			$baz->enqueue();
+			
+			wp_register_script( 'baz', 'http://example.com/baz.js', null, false, false );
 			$this->assertFalse( $baz->localize() );
 		}
 		
 		/**
 		 * @covers Base_Model_JS_Object::dequeue
-		 * @depends testMethodEnqueue
 		 */
 		public function test_dequeue()
 		{
 			$this->assertTrue( method_exists( 'Base_Model_JS_Object', 'dequeue' ), 'Method dequeue does not exist' );
-			$this->_script->enqueue();
-			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'enqueued' ), 'Script not enqueued' );
+			wp_enqueue_script(
+				'my-super-cool-script',
+				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
+				array( 'jquery', 'my-super-cool-framework' ),
+				true,
+				true
+			);
+			
 			$this->_script->dequeue();
 			$this->assertFalse( wp_script_is( 'my-super-cool-script', 'enqueued', 'Script not dequeued' ) );
 		}
 		
 		/**
 		 * @covers Base_Model_JS_Object::deregister
-		 * @depends testMethodRegister
 		 */
 		public function test_deregister()
 		{
 			$this->assertTrue( method_exists( 'Base_Model_JS_Object', 'deregister' ), 'Method deregister does not exist' );
-			$this->_script->register();
+			wp_register_script(
+				'my-super-cool-script',
+				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
+				array( 'jquery', 'my-super-cool-framework' ),
+				true,
+				true
+			);
 			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'registered' ), 'Script not registered' );
 			$this->_script->deregister();
 			$this->assertFalse( wp_script_is( 'my-super-cool-script', 'registered' ), 'Script not deregistered' );
