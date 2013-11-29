@@ -39,6 +39,7 @@ namespace WPMVCB\Testing
 
 		public function tearDown()
 		{
+			wp_deregister_script( 'fooscript' );
 			unset( $this->_controller );
 			unset( $this->_mock_path );
 			unset( $this->_filesystem );
@@ -61,10 +62,14 @@ namespace WPMVCB\Testing
 
 			unset( $controller );
 		}
-
-		public function testAttributePluginModelExists()
+		
+		/**
+		 * @covers Base_Controller_Plugin::__construct
+		 */
+		public function testAttributePluginModel()
 		{
 			$this->assertClassHasAttribute( 'plugin_model', '\Base_Controller_Plugin' );
+			$this->assertSame( $this->_model, $this->getReflectionPropertyValue( $this->_controller, 'plugin_model' ) );
 		}
 
 		public function testActionAdminNoticesExists()
@@ -101,7 +106,7 @@ namespace WPMVCB\Testing
 			
 			$script = $this->getMockBuilder( '\Base_Model_JS_Object' )
 			               ->disableOriginalConstructor()
-			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_version', 'get_in_footer' ) )
+			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_ver', 'get_in_footer' ) )
 			               ->getMock();
 			
 			$script->expects( $this->any() )
@@ -117,7 +122,7 @@ namespace WPMVCB\Testing
 			       ->will( $this->returnValue( array( 'jquery' ) ) );
 			       
 			$script->expects( $this->any() )
-			       ->method( 'get_version' )
+			       ->method( 'get_ver' )
 			       ->will( $this->returnValue( true ) );
 			       
 			$script->expects( $this->any() )
@@ -126,31 +131,32 @@ namespace WPMVCB\Testing
 			
 			$model = $this->getMockBuilder( '\Base_Model_Plugin' )
 			              ->disableOriginalConstructor()
-			              ->setMethods( array( 'get_scripts', 'get_textdomain', 'get_uri' ) )
+			              ->setMethods( array( 'get_scripts' ) )
 			              ->getMock();
 			              
 			$model->expects( $this->any() )
 			      ->method( 'get_scripts' )
 			      ->will( $this->returnValue( array( $script ) ) );
 			
-			$model->expects( $this->any() )
-			      ->method( 'get_textdomain' )
-			      ->will( $this->returnValue( 'footxtdomain' ) );
-			
+			//add the model to the controller
 			$this->setReflectionPropertyValue( $this->_controller, 'plugin_model', $model );
 			
+			//call the SUT
 			$this->_controller->wp_enqueue_scripts();
 			
-			$this->assertTrue( wp_script_is( 'fooscript', 'registered' ) );
+			//make sure script is registered
+			$this->assertScriptRegistered( 
+				array(
+					'fooscript',
+					'http://example.com/foo.js',
+					array( 'jquery' ),
+					true,
+					true
+				)
+			);
 			
-			global $wp_scripts;
-			
-			$this->assertArrayHasKey( 'fooscript', $wp_scripts->registered );
-			$this->assertEquals( $wp_scripts->registered['fooscript']->handle, 'fooscript' );
-			$this->assertEquals( $wp_scripts->registered['fooscript']->src, 'http://example.com/foo.js' );
-			$this->assertEquals( $wp_scripts->registered['fooscript']->deps, array( 'jquery' ) );
-			$this->assertEquals( $wp_scripts->registered['fooscript']->ver, true );
-			$this->assertEquals( $wp_scripts->registered['fooscript']->extra, array( 'group' => 1 ) );
+			//and enqueued
+			$this->assertTrue( wp_script_is( 'fooscript', 'enqueued' ), 'script not enuqueued' );
 		}
 		
 		/**

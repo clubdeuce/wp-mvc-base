@@ -163,14 +163,10 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the front end javascripts.
 		 *
-		 * @package WPMVCBase\Models
-		 * @param object $post The WP Post object
-		 * @param string $txtdomain The plugin text domain.
-		 * @param string $uri The plugin js uri ( e.g. http://example.com/wp-content/plugins/myplugin/js )
 		 * @return array $admin_scripts Collection of admin scripts.
 		 * @since 0.1
 		 */
-		public function get_scripts( $post, $txtdomain, $uri )
+		public function get_scripts()
 		{
 			if ( ! isset( $this->scripts ) && method_exists( $this, 'init_scripts' ) ) {
 				$this->init_scripts( $uri );
@@ -182,14 +178,10 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the admin javascripts.
 		 *
-		 * @package WPMVCBase\Models
-		 * @param object $post The WP Post object
-		 * @param string $txtdomain The plugin text domain.
-		 * @param string $uri The plugin js uri ( e.g. http://example.com/wp-content/plugins/myplugin/js )
 		 * @return array $admin_scripts
 		 * @since 0.1
 		 */
-		public function get_admin_scripts( $post, $txtdomain, $uri = '' )
+		public function get_admin_scripts()
 		{
 			if ( ! isset( $this->admin_scripts ) && method_exists( $this, 'init_admin_scripts' ) ) {
 				$this->init_admin_scripts( $post, $txtdomain, $uri );

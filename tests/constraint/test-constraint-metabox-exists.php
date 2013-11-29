@@ -7,7 +7,7 @@ class testConstraintMetaboxExists extends \WP_UnitTestCase
 
 	public function setUp()
 	{
-		$this->_constraint = new \WPMVCB\Testing\MetaboxExists();
+		$this->_constraint = new \WPMVCB\Testing\PHPUnit_Framework_Constraint_MetaboxExists();
 	}
 
 	public function testNoMetabox()

@@ -3,13 +3,17 @@ namespace WPMVCB\Testing;
 /**
  * Custom PHPUnit constraint class.
  *
+ * This class provides the constraint MetaboxExists, which verifies the metabox has been
+ * registered with WordPress and that all associatied properties ( e.g. id, title, etc )
+ * are properly set.
+ *
  * @package WPMVCBase\Testing
  * @since 0.3
  * @author Daryl Lozupone <dlozupone@renegadetechconsulting.com>
  *
  */
 
-class MetaboxExists extends \PHPUnit_Framework_Constraint
+class PHPUnit_Framework_Constraint_MetaboxExists extends \PHPUnit_Framework_Constraint
 {
 	public function matches($args)
 	{

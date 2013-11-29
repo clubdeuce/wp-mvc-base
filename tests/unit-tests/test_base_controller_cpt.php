@@ -17,7 +17,7 @@ namespace WPMVCB\Testing
 		public function setUp()
 		{
 			parent::setUp();
-			$this->_controller = new \Base_Controller_CPT( $cpt_model );
+			$this->_controller = new \Base_Controller_CPT( 'footxtdomain' );
 		}
 
 		public function tearDown()
@@ -35,33 +35,64 @@ namespace WPMVCB\Testing
 			// Create stub for cpt_model
 			$cpt_model = $this->getMockBuilder( '\Base_Model_CPT' )
 						 ->disableOriginalConstructor()
-						 ->setMethods( array( 'get_slug', 'get_args', 'get_post_updated_messages', 'get_metaboxes' ) )
+						 ->setMethods( 
+						 	array( 
+						 		'get_slug',
+						 		'get_args',
+						 		'get_post_updated_messages',
+						 		'get_metaboxes',
+						 		'get_singular',
+						 		'get_plural',
+						 		'get_scripts',
+						 		'get_admin_scripts' 
+						 	) 
+						 )
 						 ->getMock();
-
+			          
 			return $cpt_model;
 		}
-
+		
 		public function testPropertyCptModelsExists()
 		{
 			$this->assertClassHasAttribute( '_cpt_models', '\Base_Controller_CPT' );
 		}
-
+		
+		/**
+		 * @covers Base_Controller_CPT::__construct
+		 */
+		public function testPropertyTxtdomainExists()
+		{
+			$this->assertClassHasAttribute( '_txtdomain', '\Base_Controller_CPT' );
+			$this->assertSame( 'footxtdomain', $this->getReflectionPropertyValue( $this->_controller, '_txtdomain' ) );
+		}
+		
+		public function testActionExistsWpEnqueueScripts()
+		{
+			$this->assertFalse(
+				false === has_action( 'wp_enqueue_scripts', array( &$this->_controller, 'wp_enqueue_scripts' ) ),
+				'wp_enqueue_scripts not hooked'
+			);
+		}
+		
 		/**
 		 * @covers Base_Controller_CPT::__construct
 		 */
 		public function testActionExistsAdminEnqueueScripts()
 		{
-			$this->assertFalse( false === has_action( 'admin_enqueue_scripts', array( $this->_controller, 'admin_enqueue_scripts' ) ) );
+			$this->assertFalse(
+				false === has_action( 'admin_enqueue_scripts', array( $this->_controller, 'admin_enqueue_scripts' ) ),
+				'admin_enqueue_scripts not hooked'
+			);
 		}
-
-		/**
-		 * @covers Base_Controller_CPT::__construct
-		 */
+		
 		public function testActionExistsAddMetaBoxes()
 		{
-			$this->assertEquals( true, has_action( 'add_meta_boxes', array( &$this->_controller, 'add_meta_boxes' ) ) );
+			$this->assertFalse(
+				false === has_action( 'add_meta_boxes', array( &$this->_controller, 'add_meta_boxes' ) ),
+				'add_meta_boxes not hooked'
+			);
 		}
-
+		
 		public function testMethodAddModelExists()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'add_model' ) );
@@ -174,20 +205,38 @@ namespace WPMVCB\Testing
 			//create a stub cpt model for testing
 			$model = $this->_createStubCptModel();
 			$model->expects( $this->any() )
-				  ->method( 'get_post_updated_messages' )
-				  ->will( $this->returnValue( array( 'foo' => 'bar' ) ) );
+				  ->method( 'get_singular' )
+				  ->will( $this->returnValue( 'Book' ) );
 			$model->expects( $this->any() )
 				  ->method( 'get_slug' )
-				  ->will( $this->returnValue( 'fooslug' ) );
+				  ->will( $this->returnValue( 'foocptslug' ) );
 
 			//add the model to the controller's _cpt_models property
-			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'fooslug' => $model ) );
-
-			$messages = $this->_controller->post_updated_messages( array(), 'fooslug' );
-			$this->assertArrayHasKey( 'fooslug', $messages, __( 'Messages not present in array', 'wpmvcb' ) );
-			$this->assertEquals( array( 'foo' => 'bar' ), $messages['fooslug'] );
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'foocptslug' => $model ) );
+			
+			$messages = $this->_controller->post_updated_messages( array() );
+			
+			$expected = array(
+				0 => null, // Unused. Messages start at index 1.
+				1 => sprintf( __('Book updated. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink( $this->_post->ID) ) ),
+				2 => __('Custom field updated.', 'your_text_domain'),
+				3 => __('Custom field deleted.', 'your_text_domain'),
+				4 => __('Book updated.', 'your_text_domain'),
+				/* translators: %s: date and time of the revision */
+				5 => isset($_GET['revision']) ? sprintf( __('Book restored to revision from %s', 'your_text_domain'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => sprintf( __('Book published. <a href="%s">View book</a>', 'your_text_domain'), esc_url( get_permalink($this->_post->ID) ) ),
+				7 => __('Book saved.', 'your_text_domain'),
+				8 => sprintf( __('Book submitted. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) ),
+				9 => sprintf( __('Book scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview book</a>', 'your_text_domain'),
+				  // translators: Publish box date format, see http://php.net/date
+				  date_i18n( __( 'M j, Y @ G:i' ), strtotime( $this->_post->post_date ) ), esc_url( get_permalink( $this->_post->ID ) ) ),
+				10 => sprintf( __('Book draft updated. <a target="_blank" href="%s">Preview book</a>', 'your_text_domain'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $this->_post->ID) ) ) )
+			);
+			
+			$this->assertArrayHasKey( 'foocptslug', $messages, __( 'Messages not present in array', 'wpmvcb' ) );
+			$this->assertEquals( $expected, $messages['foocptslug'] );
 		}
-
+				
 		/**
 		 * @covers Base_Controller_CPT::__construct
 		 */
@@ -252,7 +301,106 @@ namespace WPMVCB\Testing
 		public function testMethodAdminEnqueueScripts()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'admin_enqueue_scripts' ) );
-			$this->markTestIncomplete( 'Not yet implemented' );
+			
+			$script = $this->getMockBuilder( '\Base_Model_JS_Object' )
+			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_ver', 'get_in_footer' ) )
+			               ->disableOriginalConstructor()
+			               ->getMock();
+			
+			$script->expects( $this->any() )
+			       ->method( 'get_handle' )
+			       ->will( $this->returnValue( 'adminscript' ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_src' )
+			       ->will( $this->returnValue( 'http://www.example.com/foo.js' ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_deps' )
+			       ->will( $this->returnValue( array( 'fooscript' ) ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_ver' )
+			       ->will( $this->returnValue( true ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_in_footer' )
+			       ->will( $this->returnValue( true ) );
+			       
+			//stub the cpt model
+			$model = $this->_createStubCptModel();
+
+			$model->expects( $this->any() )
+			      ->method( 'get_admin_scripts' )
+			      ->will( $this->returnValue( array( $script ) ) );
+			
+			//add the model to the controller
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'fooadminscript' => $model ) );
+			
+			//call the SUT
+			$this->_controller->admin_enqueue_scripts();
+			
+			//make the assertion
+			$this->assertScriptRegistered( 
+				array(
+					'adminscript',
+					'http://www.example.com/foo.js',
+					array( 'fooscript' ),
+					true,
+					true
+				)
+			);
+
+		}
+		
+		/**
+		 * @covers Base_Controller_CPT::wp_enqueue_scripts
+		 */
+		public function testMethodWpEnqueueScripts()
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'wp_enqueue_scripts' ) );
+			
+			//create a stub script
+			$script = $this->getMockBuilder( '\Base_Model_JS_Object' )
+			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_ver', 'get_in_footer' ) )
+			               ->disableOriginalConstructor()
+			               ->getMock();
+			
+			$script->expects( $this->any() )
+			       ->method( 'get_handle' )
+			       ->will( $this->returnValue( 'fooscript' ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_src' )
+			       ->will( $this->returnValue( 'http://www.example.com/foo.js' ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_deps' )
+			       ->will( $this->returnValue( array( 'barscript' ) ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_ver' )
+			       ->will( $this->returnValue( true ) );
+			$script->expects( $this->any() )
+			       ->method( 'get_in_footer' )
+			       ->will( $this->returnValue( true ) );
+			       
+			//stub the cpt model
+			$model = $this->_createStubCptModel();
+
+			$model->expects( $this->any() )
+			      ->method( 'get_scripts' )
+			      ->will( $this->returnValue( array( $script ) ) );
+			
+			//add the model to the controller
+			$this->setReflectionPropertyValue( $this->_controller, '_cpt_models', array( 'foocptscript' => $model ) );
+			
+			//call the SUT
+			$this->_controller->wp_enqueue_scripts();
+			
+			//make the assertion
+			$this->assertScriptRegistered( 
+				array(
+					'fooscript',
+					'http://www.example.com/foo.js',
+					array( 'barscript' ),
+					true,
+					true
+				)
+			);
 		}
 	}
 }
