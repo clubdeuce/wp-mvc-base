@@ -146,11 +146,11 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		public function __construct( $handle, $src = false, $deps = array(), $version = false, $in_footer = false, $localization_var = null, $localization_args = null )
 		{
-			$this->_handle			  = $handle;
-			$this->_src				  = $src;
-			$this->_deps			  = $deps;
-			$this->_version			  = $version;
-			$this->_in_footer		  = $in_footer;
+			$this->_handle            = $handle;
+			$this->_src               = $src;
+			$this->_deps              = $deps;
+			$this->_version           = $version;
+			$this->_in_footer         = $in_footer;
 			$this->_localization_var  = $localization_var;
 			$this->_localization_args = $localization_args;
 		}
