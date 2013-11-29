@@ -10,11 +10,11 @@ namespace WPMVCB\Testing
 	 * @since WPMVCBase 0.1
 	 * @internal
 	 */
-	class TestBaseModelJsObject extends WPMVCB_Test_Case
+	class testBaseModelJsObject extends WPMVCB_Test_Case
 	{
 		private $_script;
 		
-		public function SetUp()
+		public function setUp()
 		{
 			parent::setUp();
 			$this->_script = new \Base_Model_JS_Object(
@@ -28,6 +28,15 @@ namespace WPMVCB\Testing
 			);
 		}
 		
+		public function tearDown()
+		{
+			wp_script_deregister( 'my-super-cool-script' );
+			unset( $this->_script );
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::register
+		 */
 		public function testMethodRegister()
 		{
 			global $wp_scripts;
@@ -57,6 +66,9 @@ namespace WPMVCB\Testing
 			);
 		}
 		
+		/**
+		 * @covers Base_Model_JS_Object::enqueue
+		 */
 		public function testMethodEnqueue()
 		{
 			$this->assertTrue( method_exists( 'Base_Model_JS_Object', 'enqueue' ) );
@@ -64,6 +76,9 @@ namespace WPMVCB\Testing
 			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'enqueued' ) );
 		}
 		
+		/**
+		 * @covers Base_Model_JS_Object::localize
+		 */
 		public function testMethodLocalize()
 		{
 			global $wp_scripts;
@@ -73,6 +88,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model_JS_Object::localize
 		 * @depends testMethodEnqueue
 		 * @depends testMethodLocalize
 		 */
@@ -85,6 +101,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model_JS_Object::dequeue
 		 * @depends testMethodEnqueue
 		 */
 		public function test_dequeue()
@@ -97,6 +114,7 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model_JS_Object::deregister
 		 * @depends testMethodRegister
 		 */
 		public function test_deregister()
