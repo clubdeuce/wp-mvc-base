@@ -26,7 +26,26 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @since 0.1
 		 */
 		protected $_slug;
-	
+		
+		/**
+		 * The cpt singular name, e.g. Book.
+		 *
+		 * @var string
+		 * @access protected
+		 * @since 0.3
+		 */
+		protected $_singular;
+		
+		/**
+		 * The cpt plural name, e.g. Books.
+		 *
+		 * @var string
+		 * @access protected
+		 * @since 0.3
+		 *
+		 */
+		protected $_plural;
+		
 		/**
 		 * The cpt metakey.
 		 *
