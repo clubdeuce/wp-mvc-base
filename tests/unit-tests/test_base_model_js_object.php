@@ -158,6 +158,24 @@ namespace WPMVCB\Testing
 			$this->assertEquals( true, $this->_script->get_in_footer()
 			);
 		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::get_localization_var
+		 */
+		public function testMethodGetLocalizationVar()
+		{
+			$this->assertTrue( method_exists( $this->_script, 'get_localization_var' ) );
+			$this->assertEquals( 'mySuperCoolL10n', $this->_script->get_localization_var() );
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::get_localization_args
+		 */
+		public function testMethodGetLocalizationArgs()
+		{
+			$this->assertTrue( method_exists( $this->_script, 'get_localization_args' ) );
+			$this->assertEquals( array( 'foo' => 'bar' ), $this->_script->get_localization_args() );
+		}
 	}
 }
 ?>
