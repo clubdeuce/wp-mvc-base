@@ -64,7 +64,34 @@ namespace WPMVCB\Testing
 				)
 			);
 		}
-
+		
+		/**
+		 * @covers Base_Model_CPT::__construct
+		 */
+		public function testPropertySlug()
+		{
+			$this->assertClassHasAttribute( '_slug', '\Base_Model_CPT' );
+			$this->assertSame( 'fooslug', $this->getReflectionPropertyValue( $this->_cpt, '_slug' ) );
+		}
+		
+		/**
+		 * @covers Base_Model_CPT::__construct
+		 */
+		public function testPropertySingular()
+		{
+			$this->assertClassHasAttribute( '_singular', '\Base_Model_CPT' );
+			$this->assertSame( 'Book', $this->getReflectionPropertyValue( $this->_cpt, '_singular' ) );
+		}
+		
+		/**
+		 * @covers Base_Model_CPT::__construct
+		 */
+		public function testPropertyPlural()
+		{
+			$this->assertClassHasAttribute( '_plural', '\Base_Model_CPT' );
+			$this->assertSame( 'Books', $this->getReflectionPropertyValue( $this->_cpt, '_plural' ) );
+		}
+		
 		/**
 		 * @covers Base_Model_CPT::_init_labels
 		 */
