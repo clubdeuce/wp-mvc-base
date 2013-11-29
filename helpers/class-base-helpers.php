@@ -29,7 +29,8 @@ if ( ! class_exists( 'Helper_Functions' ) ) {
 		 * @param array $styles The collection of style objects to be enqueued.
 		 * @since 0.1
 		 */
-		public static function enqueue_styles( $styles )
+		/*
+public static function enqueue_styles( $styles )
 		{
 			foreach ( $styles as $style ) {
 				//filter the style object
@@ -49,6 +50,7 @@ if ( ! class_exists( 'Helper_Functions' ) ) {
 				}
 			}
 		}
+*/
 
 		/**
 		 * Enqueue scripts.
@@ -59,12 +61,14 @@ if ( ! class_exists( 'Helper_Functions' ) ) {
 		 * @param array $scripts The collection of script objects to be enqueued.
 		 * @since 0.1
 		 */
-		public static function enqueue_scripts( $scripts )
+		/*
+public static function enqueue_scripts( $scripts )
 		{
 			foreach ( $scripts as $script ) {
 				$script->enqueue();
 			}
 		}
+*/
 
 		/**
 		 * Create a directory and possibly add index.php

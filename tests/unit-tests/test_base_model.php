@@ -77,7 +77,7 @@ namespace WPMVCB\Testing
 			$this->setReflectionPropertyValue( $this->_model, 'scripts', array ( 'foo_scripts' => 'bar_scripts' ) );
 			$this->assertEquals(
 				array ( 'foo_scripts' => 'bar_scripts' ),
-				$this->_model->get_scripts( $post, 'my-super-cool-text-domain', 'http://my-super-cool-site' )
+				$this->_model->get_scripts()
 			);
 		}
 		
@@ -93,7 +93,7 @@ namespace WPMVCB\Testing
 			$this->setReflectionPropertyValue( $this->_model, 'admin_scripts', array( 'foo_admin_scripts' => 'bar_admin_scripts' ) );
 			$this->assertEquals(
 				array( 'foo_admin_scripts' => 'bar_admin_scripts' ),
-				$this->_model->get_admin_scripts( $post, 'http://my-super-cool-site' )
+				$this->_model->get_admin_scripts()
 			);
 		}
 		

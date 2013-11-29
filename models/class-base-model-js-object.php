@@ -146,11 +146,11 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		public function __construct( $handle, $src = false, $deps = array(), $version = false, $in_footer = false, $localization_var = null, $localization_args = null )
 		{
-			$this->_handle			  = $handle;
-			$this->_src				  = $src;
-			$this->_deps			  = $deps;
-			$this->_version			  = $version;
-			$this->_in_footer		  = $in_footer;
+			$this->_handle            = $handle;
+			$this->_src               = $src;
+			$this->_deps              = $deps;
+			$this->_version           = $version;
+			$this->_in_footer         = $in_footer;
 			$this->_localization_var  = $localization_var;
 			$this->_localization_args = $localization_args;
 		}
@@ -224,6 +224,97 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		public function deregister()
 		{
 			wp_deregister_script( $this->_handle );
+		}
+		
+		/**
+		 * Get the script handle.
+		 *
+		 * @return string $_handle
+		 * @since WPMVCBase 0.3
+		 */
+		function get_handle()
+		{
+			if ( isset( $this->_handle ) ) {
+				return $this->_handle;
+			}
+		}
+		
+		/**
+		 * Get the script source.
+		 *
+		 * @return string $_src
+		 * @since WPMVCBase 0.3
+		 */
+		function get_src()
+		{
+			if ( isset( $this->_src ) ) {
+				return $this->_src;
+			}
+		}
+		
+		/**
+		 * Get the script dependencies.
+		 *
+		 * @return array $_deps
+		 * @since WPMVCBase 0.3
+		 */
+		function get_deps()
+		{
+			if ( isset( $this->_deps ) ) {
+				return $this->_deps;
+			}
+		}
+		
+		/**
+		 * Get the script version.
+		 *
+		 * @return string $_version
+		 * @since WPMVCBase 0.3
+		 */
+		function get_version()
+		{
+			if ( isset( $this->_version ) ) {
+				return $this->_version;
+			}
+		}
+		
+		/**
+		 * Get the script placement.
+		 *
+		 * @return string $_in_footer
+		 * @since WPMVCBase 0.3
+		 */
+		function get_in_footer()
+		{
+			if ( isset( $this->_in_footer ) ) {
+				return $this->_in_footer;
+			}
+		}
+		
+		/**
+		 * Get the script localization variable name.
+		 *
+		 * @return string $_localization_var
+		 * @since WPMVCBase 0.3
+		 */
+		function get_localization_var()
+		{
+			if ( isset( $this->_localization_var ) ) {
+				return $this->_localization_var;
+			}
+		}
+		
+		/**
+		 * Get the script localization arguments.
+		 *
+		 * @return string $_localization_args
+		 * @since WPMVCBase 0.3
+		 */
+		function get_localization_args()
+		{
+			if ( isset( $this->_localization_args ) ) {
+				return $this->_localization_args;
+			}
 		}
 	}
 endif;

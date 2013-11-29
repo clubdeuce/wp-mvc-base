@@ -119,7 +119,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		/**
 		 * The plugin custom post types.
 		 *
-		 * @var array Contains an array of cpt model objects
+		 * @var array Contains an array of cpt controller objects
 		 * @access protected
 		 * @since 0.1
 		 */
@@ -170,31 +170,31 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 * @category Models
 		 * @package WPMVCBase
 		 *
-		 * @param string $slug The plugin slug.
-		 * @param string $version The plugin version.
-		 * @param string $path The plugin directory path.
-		 * @param string $file The main plugin file absolute path.
-		 * @param string $uri The plugin directory uri.
+		 * @param string $slug      The plugin slug.
+		 * @param string $version   The plugin version.
+		 * @param string $path      The plugin directory path.
+		 * @param string $file      The main plugin file absolute path.
+		 * @param string $uri       The plugin directory uri.
 		 * @param string $txtdomain The plugin text domain.
 		 * @access public
 		 * @since 0.1
 		 */
 		public function __construct( $slug, $version, $file, $path, $uri, $txtdomain )
 		{
-			$this->slug                     = $slug;
-			$this->version					= $version;
-			$this->main_plugin_file			= $file;
-			$this->path						= trailingslashit( $path );
-			$this->app_path					= $this->path . 'app/';
-			$this->base_path				= trailingslashit( dirname( dirname( __FILE__ ) ) );
-			$this->uri						= trailingslashit( $uri );
-			$this->js_uri					= $this->uri . 'js/';
-			$this->css_uri					= $this->uri . 'css/';
-			$this->txtdomain				= $txtdomain;
-
+			$this->slug             = $slug;
+			$this->version          = $version;
+			$this->main_plugin_file = $file;
+			$this->path             = trailingslashit( $path );
+			$this->app_path         = $this->path . 'app/';
+			$this->base_path        = trailingslashit( dirname( dirname( __FILE__ ) ) );
+			$this->uri              = trailingslashit( $uri );
+			$this->js_uri           = $this->uri . 'js/';
+			$this->css_uri          = $this->uri . 'css/';
+			$this->txtdomain        = $txtdomain;
+			
 			require_once( $this->base_path . 'helpers/class-base-helpers.php' );
 		}
-
+		
 		/**
 		 * Get the plugin slug.
 		 *

@@ -19,9 +19,10 @@ require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamFile.php' );
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamDirectory.php' );
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamWrapper.php' );
 
-require_once( 'framework/testcase.php' );
+require_once 'framework/class-constraint-metabox-exists.php';
+require_once 'framework/class-constraint-script-registered.php';
+require_once 'framework/testcase.php';
 
 echo 'Welcome to the WP MVC Base Test Suite' . PHP_EOL;
 echo 'Version 1.0' . PHP_EOL;
 echo 'Author: Daryl Lozupone <daryl@actionhook.com>' . PHP_EOL;
-?>
