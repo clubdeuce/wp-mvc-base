@@ -35,6 +35,87 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model_JS_Object::__construct
+		 */
+		public function testPropertyHandle()
+		{
+			$this->assertClassHasAttribute( '_handle', '\Base_Model_JS_Object' );
+			$this->assertSame( 'my-super-cool-script', $this->getReflectionPropertyValue( $this->_script, '_handle' ) );
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::__construct
+		 */
+		public function testPropertySrc()
+		{
+			$this->assertClassHasAttribute( '_src', '\Base_Model_JS_Object' );
+			$this->assertSame(
+				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
+				$this->getReflectionPropertyValue( $this->_script, '_src' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::__construct
+		 */
+		public function testPropertyDeps()
+		{
+			$this->assertClassHasAttribute( '_deps', '\Base_Model_JS_Object' );
+			$this->assertSame(
+				array( 'jquery', 'my-super-cool-framework' ),
+				$this->getReflectionPropertyValue( $this->_script, '_deps' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::__construct
+		 */
+		public function testPropertyVer()
+		{
+			$this->assertClassHasAttribute( '_version', '\Base_Model_JS_Object' );
+			$this->assertSame(
+				true,
+				$this->getReflectionPropertyValue( $this->_script, '_version' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::__construct
+		 */
+		public function testPropertyInFooter()
+		{
+			$this->assertClassHasAttribute( '_in_footer', '\Base_Model_JS_Object' );
+			$this->assertSame(
+				true,
+				$this->getReflectionPropertyValue( $this->_script, '_in_footer' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::__construct
+		 */
+		public function testPropertyLocalizationVar()
+		{
+			$this->assertClassHasAttribute( '_localization_var', '\Base_Model_JS_Object' );
+			$this->assertSame(
+				'mySuperCoolL10n',
+				$this->getReflectionPropertyValue( $this->_script, '_localization_var' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::__construct
+		 */
+		public function testPropertyLocalizationArgs()
+		{
+			$this->assertClassHasAttribute( '_localization_args', '\Base_Model_JS_Object' );
+			$this->assertSame(
+				array( 'foo' => 'bar' ),
+				$this->getReflectionPropertyValue( $this->_script, '_localization_args' )
+			);
+		}
+		
+		/**
 		 * @covers Base_Model_JS_Object::register
 		 */
 		public function testMethodRegister()
@@ -126,6 +207,7 @@ namespace WPMVCB\Testing
 				true
 			);
 			
+			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'enqueued', 'Script not dequeued' ) );
 			$this->_script->dequeue();
 			$this->assertFalse( wp_script_is( 'my-super-cool-script', 'enqueued', 'Script not dequeued' ) );
 		}
