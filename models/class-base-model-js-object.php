@@ -234,9 +234,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		function get_handle()
 		{
-			if ( isset( $this->_handle ) ) {
-				return $this->_handle;
-			}
+			return $this->_handle;
 		}
 		
 		/**
@@ -247,9 +245,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		function get_src()
 		{
-			if ( isset( $this->_src ) ) {
-				return $this->_src;
-			}
+			return $this->_src;
 		}
 		
 		/**
@@ -260,9 +256,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		function get_deps()
 		{
-			if ( isset( $this->_deps ) ) {
-				return $this->_deps;
-			}
+			return $this->_deps;
 		}
 		
 		/**
@@ -273,9 +267,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		function get_version()
 		{
-			if ( isset( $this->_version ) ) {
-				return $this->_version;
-			}
+			return $this->_version;
 		}
 		
 		/**
@@ -286,9 +278,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		function get_in_footer()
 		{
-			if ( isset( $this->_in_footer ) ) {
-				return $this->_in_footer;
-			}
+			return $this->_in_footer;
 		}
 		
 		/**
