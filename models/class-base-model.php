@@ -330,7 +330,11 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return true;
 			}
 			
-			trigger_error( sprintf( __( 'Function %s expects a valid callback: %s is not.', 'wpmvcb' ), __FUNCTION__, $callback ), E_USER_WARNING );
+			return new WP_Error(
+				'not callable',
+				sprintf( __( '%s::%s expects a valid callback.', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
+				$callback
+			);
 		}
 	}
 endif;
