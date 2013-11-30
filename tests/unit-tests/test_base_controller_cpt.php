@@ -123,8 +123,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodAddModelFail()
 		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error', 'add_model expects an object of type Base_Model_CPT' );
-			$this->_controller->add_model( 'foo' );
+			$model = new \StdClass();
+			$this->assertEquals(
+				new \WP_Error(
+					'invalid object type',
+					'Base_Controller_CPT::add_model expects an object of type Base_Model_CPT',
+					$model
+				),
+				$this->_controller->add_model( $model )
+			);
 		}
 
 		/**
