@@ -284,7 +284,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * Get the script localization variable name.
 		 *
-		 * @return string $_localization_var
+		 * @return string|bool $_localization_var if set, FALSE if not.
 		 * @since WPMVCBase 0.3
 		 */
 		function get_localization_var()
@@ -292,12 +292,14 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 			if ( isset( $this->_localization_var ) ) {
 				return $this->_localization_var;
 			}
+			
+			return false;
 		}
 		
 		/**
 		 * Get the script localization arguments.
 		 *
-		 * @return string $_localization_args
+		 * @return string|bool $_localization_args if set, FALSE if not.
 		 * @since WPMVCBase 0.3
 		 */
 		function get_localization_args()
@@ -305,6 +307,8 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 			if ( isset( $this->_localization_args ) ) {
 				return $this->_localization_args;
 			}
+			
+			return false;
 		}
 	}
 endif;
