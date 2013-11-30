@@ -291,12 +291,38 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model_JS_Object::get_localization_var
+		 */
+		public function testMethodGetLocalizationVarEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_script, 'get_localization_var' ) );
+			
+			//ensure the property is empty
+			$this->setReflectionPropertyValue( $this->_script, '_localization_var', null );
+			
+			$this->assertFalse( $this->_script->get_localization_var() );
+		}
+		
+		/**
 		 * @covers Base_Model_JS_Object::get_localization_args
 		 */
 		public function testMethodGetLocalizationArgs()
 		{
 			$this->assertTrue( method_exists( $this->_script, 'get_localization_args' ) );
 			$this->assertEquals( array( 'foo' => 'bar' ), $this->_script->get_localization_args() );
+		}
+		
+		/**
+		 * @covers Base_Model_JS_Object::get_localization_args
+		 */
+		public function testMethodGetLocalizationArgsEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_script, 'get_localization_args' ) );
+			
+			//ensure the property is empty
+			$this->setReflectionPropertyValue( $this->_script, '_localization_args', null );
+			
+			$this->assertFalse( $this->_script->get_localization_args() );
 		}
 	}
 }
