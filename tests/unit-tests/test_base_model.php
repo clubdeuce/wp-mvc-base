@@ -321,12 +321,16 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Model::get_shortcodes
-		 * @depends testMethodAddShortcode
 		 */
 		public function testMethodGetShortcodes()
 		{
 			$this->assertTrue( method_exists( $this->_model, 'get_shortcodes' ) );
-			$this->_model->add_shortcode( 'fooshortcode', array( &$this, 'testMethodAddShortcode' ) );
+			$this->setReflectionPropertyValue(
+				$this->_model,
+				'shortcodes',
+				array('fooshortcode' => array( &$this, 'testMethodAddShortcode' ) ) 
+			);
+			
 			$this->assertEquals( array( 'fooshortcode' => array( &$this, 'testMethodAddShortcode' ) ), $this->_model->get_shortcodes() );
 		}
 		
