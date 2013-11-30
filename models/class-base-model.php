@@ -123,17 +123,16 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * Get the frontend CSS.
 		 *
 		 * @package WPMVCBase\Models
-		 * @param string $uri The plugin css uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
-		 * @return array $admin_css
+		 * @return array\bool $css if set, FALSE if not.
 		 * @since 0.1
 		 */
-		public function get_css( $uri )
+		public function get_css()
 		{
 			if ( isset( $this->css ) ) {
 				return $this->css;
 			}
 			
-			return;
+			return false;
 		}
 
 		/**
