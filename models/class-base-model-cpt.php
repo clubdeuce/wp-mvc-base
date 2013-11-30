@@ -47,15 +47,6 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		protected $_plural;
 		
 		/**
-		 * The cpt metakey.
-		 *
-		 * @var array
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $_metakey;
-		
-		/**
 		 * The CPT labels.
 		 * 
 		 * @var array
@@ -198,28 +189,6 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 				'publicly_queryable'  	=> true,
 				'rewrite' 			  	=> array( 'slug' => $this->_slug ),
 			);
-		}
-	
-		/**
-		 * Get the cpt metakey.
-		 *
-		 * @return string $_metakey
-		 * @return string $metakey
-		 * @access public
-		 * @since 0.1
-		 */
-		public function get_metakey()
-		{
-			if ( ! isset( $this->_metakey ) ) {
-				trigger_error( sprintf( __( 'Metakey is not set for %s', 'wpmvcb' ), $this->_slug ), E_USER_WARNING );
-			}
-	
-			return $this->_metakey;
-		}
-	
-		public function set_metakey( $metakey )
-		{
-			$this->_metakey = $metakey;
 		}
 		
 		/**

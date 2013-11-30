@@ -148,42 +148,6 @@ namespace WPMVCB\Testing
 		}
 
 		/**
-		 * @covers Base_Model_CPT::set_metakey
-		 */
-		public function testMethodSetMetakey()
-		{
-			$this->assertClassHasAttribute( '_metakey', '\Base_Model_CPT' );
-			$this->assertTrue( method_exists( $this->_cpt, 'set_metakey' ) );
-			$this->_cpt->set_metakey( '_foo_metakey' );
-
-			$this->assertEquals(
-				'_foo_metakey',
-				$this->getReflectionPropertyValue( $this->_cpt, '_metakey' )
-			);
-
-		}
-
-		/**
-		 * @covers Base_Model_CPT::get_metakey
-		 */
-		public function testMethodGetMetakey()
-		{
-			$this->assertTrue( method_exists( $this->_cpt, 'get_metakey' ) );
-			$this->setReflectionPropertyValue( $this->_cpt, '_metakey', '_foo_metakey' );
-			$this->assertEquals( '_foo_metakey', $this->_cpt->get_metakey() );
-		}
-
-		/**
-		 * @covers Base_Model_CPT::get_metakey
-		 * @depends testMethodGetMetakey
-		 */
-		public function testMethodGetMetakeyEmpty()
-		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error', 'Metakey is not set for fooslug' );
-			$this->_cpt->get_metakey();
-		}
-
-		/**
 		 * @covers Base_Model_CPT::set_args
 		 */
 		public function testMethodSetArgs()
