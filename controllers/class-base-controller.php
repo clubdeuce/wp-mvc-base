@@ -50,9 +50,10 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		public function add_shortcodes( $shortcodes )
 		{
 			if ( ! is_array( $shortcodes ) ) {
-				trigger_error(
-					sprintf( __( 'Function %s expects an array', 'wpmvcb' ), __FUNCTION__ ),
-					E_USER_WARNING
+				return new WP_Error(
+					'non-array',
+					sprintf( __( '%s::%s expects an array', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
+					$shortcodes
 				);
 			}
 			

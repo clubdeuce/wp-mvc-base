@@ -85,12 +85,17 @@ namespace WPMVCB\Testing
 		/**
 		 * @covers Base_Controller::add_shortcodes
 		 * @depends testMethodExistsAddShortcodes
-		 * @expectedException PHPUnit_Framework_Error
-		 * @expectedExceptionMessage Function add_shortcodes expects an array
 		 */
 		public function testMethodAddShortcodesNonArray()
 		{
-			$this->_controller->add_shortcodes( 'foo' );
+			$this->assertEquals(
+				new \WP_Error(
+					'non-array',
+					'Base_Controller::add_shortcodes expects an array',
+					'foo'
+				),
+				$this->_controller->add_shortcodes( 'foo' )
+			);
 		}
 
 		public function testMethodExistsRenderMetabox()
