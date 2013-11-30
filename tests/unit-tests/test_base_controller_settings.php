@@ -282,7 +282,6 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodAddMenuPagesMenuError()
 		{
-			$this->markTestIncomplete( 'Not yet complete' );
 			$this->assertTrue( method_exists( $this->_controller, 'add_menu_pages' ) );
 
 			//set up a page object stub
@@ -303,13 +302,21 @@ namespace WPMVCB\Testing
 
 			//add the page to the model
 			$this->setReflectionPropertyValue( $this->_model, 'pages', array( 'foo-page' => $page ) );
-
-			$this->setExpectedException( 'PHPUnit_Framework_Error', 'Unable to add submenu page due to insufficient user capability: 0' );
-
+			
+			wp_set_current_user( 0 );
+			
 			//create the settings controller
 			$controller = new \Base_Controller_Settings( $this->_model );
-			$controller->add_menu_pages();
-
+			
+			$this->assertEquals(
+				new \WP_Error(
+					'failure',
+					'Unable to add submenu page: 0.',
+					$page
+				),
+				$controller->add_menu_pages()
+			);
+			
 			$this->_tearDown( $controller );
 		}
 
