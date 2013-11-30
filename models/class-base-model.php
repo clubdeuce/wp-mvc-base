@@ -297,9 +297,10 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			}
 			
 			//A valid help tab object is not included.
-			trigger_error(
-				sprintf( __( '%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
-				E_USER_WARNING
+			return new WP_Error(
+				'invalid object type',
+				sprintf( __( '%s::%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
+				$help_tab
 			);
 		}
 		
