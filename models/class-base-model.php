@@ -258,7 +258,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @param string $handle The metabox handle.
 		 * @param object $metabox A metabox object.
-		 * @return bool|void TRUE on success.
+		 * @return bool|object TRUE on success, WP_Error on failure.
 		 * @see Base_Model_Metabox
 		 * @since 0.1
 		 */
@@ -273,9 +273,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return true;
 			}
 			
-			trigger_error( 
-				sprintf( __( '%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
-				E_USER_WARNING
+			return new WP_Error(
+				'fail',
+				sprintf( 
+					__( '%s::%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ),
+					__CLASS__,
+					__FUNCTION__
+				),
+				$metabox
 			);
 		}
 
