@@ -23,15 +23,8 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 *
 		 * @since 0.2
 		 */
-		public function __construct( $model )
+		public function __construct( Base_Model_Settings $model )
 		{
-			if ( ! is_a( $model, 'Base_Model_Settings' ) ) {
-				trigger_error(
-					sprintf( __( '%s expects an object of type Base_Model_Settings', 'wpmvcb' ), __FUNCTION__ ),
-					E_USER_WARNING
-				);
-			}
-		
 			$this->model = $model;
 
 			if ( is_array( $this->model->get_settings_sections() ) ) {

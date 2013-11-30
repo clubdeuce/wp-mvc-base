@@ -82,22 +82,6 @@ namespace WPMVCB\Testing
 			$this->_tearDown( $controller );
 		}
 
-		/**
-		 * @expectedException PHPUnit_Framework_Error
-		 * @expectedExceptionMessage __construct expects an object of type Base_Model_Settings
-		 */
-		public function testMethodConstructFail()
-		{
-			$model = new \stdClass;
-
-			$controller = $this
-				->getMockBuilder( '\Base_Controller_Settings' )
-				->setConstructorArgs( array( $model ) )
-				->getMock();
-
-			$this->_tearDown( $controller );
-		}
-
 		public function testActionExistsAdminInitAddSettingsSections()
 		{
 			$this->_model
