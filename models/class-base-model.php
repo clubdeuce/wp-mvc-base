@@ -182,20 +182,13 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		}
 
 		/**
-		 * Get the model's metaboxes
+		 * Get the model's metaboxes.
 		 *
-		 * This function will return the metaboxes. The post_id parameter
-		 * is used so that this function may return the values stored for
-		 * the corresponding custom fields in the callback arguments.
-		 *
-		 * @package WPMVCBase\Models
-		 * @param string $post_id
-		 * @param string $txtdomain the text domain to use for translations
 		 * @return array|bool $metaboxes if set, FALSE if not.
 		 * @see WP_Metabox
 		 * @since 0.1
 		 */
-		public function get_metaboxes( $post_id, $txtdomain )
+		public function get_metaboxes()
 		{
 			if ( isset( $this->metaboxes ) ) {
 				return $this->metaboxes;
