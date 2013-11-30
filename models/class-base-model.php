@@ -129,35 +129,27 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function get_css( $uri )
 		{
-			if ( ! isset( $this->css ) && method_exists( $this, 'init_css' ) ) {
-				$this->init_css( $uri );
+			if ( isset( $this->css ) ) {
+				return $this->css;
 			}
-
-			return $this->css;
+			
+			return;
 		}
 
 		/**
 		 * Get the admin CSS.
 		 *
 		 * @package WPMVCBase\Models
-		 * @param string $uri The plugin css uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
 		 * @return array $admin_css Collection of admin css objects.
 		 * @since 0.1
 		 */
-		public function get_admin_css( $uri )
+		public function get_admin_css()
 		{
-			if ( ! isset( $this->admin_css ) && method_exists( $this, 'init_admin_css' ) ) {
-				$this->init_admin_css( $uri );
+			if ( isset( $this->admin_css ) ) {
+				return $this->admin_css;
 			}
 			
-			if ( is_array( $this->admin_css ) ) :
-				foreach ( $this->admin_css as $key => $css ) :
-					//filter the css elements
-					$this->admin_css[$key] = apply_filters( 'ah_base_filter_admin_css-' . $css['handle'], $css );
-				endforeach;
-			endif;
-
-			return $this->admin_css;
+			return;
 		}
 
 		/**
@@ -168,11 +160,11 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function get_scripts()
 		{
-			if ( ! isset( $this->scripts ) && method_exists( $this, 'init_scripts' ) ) {
-				$this->init_scripts( $uri );
+			if ( isset( $this->scripts ) ) {
+				return $this->scripts;
 			}
 			
-			return $this->scripts;
+			return;
 		}
 
 		/**
@@ -183,11 +175,11 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function get_admin_scripts()
 		{
-			if ( ! isset( $this->admin_scripts ) && method_exists( $this, 'init_admin_scripts' ) ) {
-				$this->init_admin_scripts( $post, $txtdomain, $uri );
+			if ( isset( $this->admin_scripts ) ) {
+				return $this->admin_scripts;
 			}
-
-			return $this->admin_scripts;
+			
+			return;
 		}
 
 		/**
@@ -206,11 +198,11 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function get_metaboxes( $post_id, $txtdomain )
 		{
-			if ( ! isset( $this->metaboxes ) && method_exists( $this, 'init_metaboxes' ) ) {
-				$this->init_metaboxes( $post_id, $txtdomain );
+			if ( isset( $this->metaboxes ) ) {
+				return $this->metaboxes;
 			}
-
-			return $this->metaboxes;
+			
+			return;
 		}
 
 		/**
@@ -225,6 +217,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			if ( isset( $this->help_tabs ) ) {
 				return $this->help_tabs;
 			}
+			
+			return;
 		}
 
 		/**
@@ -239,7 +233,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		{
 			//warn the user about deprecated function use
 			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', $this->_txtdomain );
-
+			
 			//and point to the replacement function
 			return $this->get_help_tabs();
 		}
@@ -255,6 +249,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			if ( isset( $this->shortcodes ) ) {
 				return $this->shortcodes;
 			}
+			
+			return;
 		}
 
 		/**
@@ -277,7 +273,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return true;
 			}
 			
-			trigger_error(
+			trigger_error( 
 				sprintf( __( '%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
 				E_USER_WARNING
 			);
