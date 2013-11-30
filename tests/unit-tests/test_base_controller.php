@@ -386,15 +386,39 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * In this test, we pass an array that does not contain Base_Model_JS_Objects. The test should fail.
+		 * In this test, we pass an non-arrat to the method.
 		 *
-		 * @expectedException PHPUnit_Framework_Error
-		 * @ExpectedExceptionMessage fooscript is not a Base_Model_JS_Object
 		 * @covers Base_Controller::enqueue_scripts
 		 */
-		public function testMethodEnqueueScriptsFail()
+		public function testMethodEnqueueScriptsNonArray()
 		{
-			$this->_controller->enqueue_scripts( array( 'fooscript' => new \StdClass ) );
+			$this->assertEquals(
+				new \WP_Error(
+					'non-array',
+					'Base_Controller::enqueue_scripts expects an array',
+					'foo'
+				),
+				$this->_controller->enqueue_scripts( 'foo' )
+			);
+		}
+		
+		/**
+		 * In this test, we pass an array that does not contain Base_Model_JS_Objects.
+		 *
+		 * @covers Base_Controller::enqueue_scripts
+		 */
+		public function testMethodEnqueueScriptsInvalidScriptObject()
+		{
+			$script = new \StdClass();
+			
+			$this->assertEquals(
+				new \WP_Error(
+					'invalid object type',
+					'fooscript is not a Base_Model_JS_Object',
+					$script
+				),
+				$this->_controller->enqueue_scripts( array( 'fooscript' => $script ) )
+			);
 		}
 	}
 }

@@ -97,30 +97,47 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 *
 		 * @uses wp_enqueue_script
 		 * @param array $scripts Array containing Base_Model_JS objects
-		 * @return void
+		 * @return void|object WP_Error object on failure.
 		 * @since WPMVCBase 0.3
 		 */
 		public function enqueue_scripts( $scripts )
 		{
-			if ( is_array( $scripts ) ) {
-				foreach ( $scripts as $key => $script ) {
-					if( is_a( $script, 'Base_Model_JS_Object' ) ) {
-						wp_enqueue_script(
-							$script->get_handle(),
-							$script->get_src(),
-							$script->get_deps(),
-							$script->get_ver(),
-							$script->get_in_footer()
-						);
+			
+			if ( ! is_array( $scripts ) ) {
+				return new WP_Error(
+					'non-array',
+					sprintf( __( '%s::%s expects an array', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
+					$scripts
+				);
+			}
+			
+			foreach ( $scripts as $key => $script ) {
+				if( is_a( $script, 'Base_Model_JS_Object' ) ) {
+					wp_enqueue_script(
+						$script->get_handle(),
+						$script->get_src(),
+						$script->get_deps(),
+						$script->get_ver(),
+						$script->get_in_footer()
+					);
+				}
+				
+				if( ! is_a( $script, 'Base_Model_JS_Object' ) ) {
+					if( ! isset( $wp_error ) ) {
+						$wp_error = new WP_Error();
 					}
 					
-					if( ! is_a( $script, 'Base_Model_JS_Object' ) ) {
-						trigger_error(
-							sprintf( __( '%s is not a Base_Model_JS_Object', 'wpmvcbase' ), $key ),
-							E_USER_WARNING
-						);
-					}
+					$wp_error->add(
+						'invalid object type',
+						sprintf( __( '%s is not a Base_Model_JS_Object', 'wpmvcbase' ), $key ),
+						$script
+					);
 				}
+			}
+			
+			//return the error object for invalid script types
+			if( isset( $wp_error ) ) {
+				return $wp_error;
 			}
 		}
 		
