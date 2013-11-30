@@ -117,12 +117,20 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Model::add_metabox
-		 * @depends testMethodAddMetabox
 		 */
 		public function testMethodAddMetaboxFail()
 		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error', 'add_metabox expects a Base_Model_Metabox object as the second parameter' );
-			$this->_model->add_metabox( 'foo', 'bar' );
+			$foo = new \StdClass;
+			
+			$this->assertTrue( method_exists( $this->_model, 'add_metabox') );
+			$this->assertEquals(
+				new \WP_Error(
+					'fail',
+					'Base_Model::add_metabox expects a Base_Model_Metabox object as the second parameter',
+					$foo
+				),
+				$this->_model->add_metabox( 'foo', $foo )
+			);
 		}
 		
 		/**
