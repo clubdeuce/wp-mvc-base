@@ -195,17 +195,21 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * Set the $args property
 		 *
 		 * @param array $args
-		 * @return bool|void TRUE on success.
+		 * @return bool|object TRUE on success, WP_Error object on failure.
 		 * @since 0.1
 		 */
 		public function set_args( $args )
-		{
-			if ( ! is_array( $args ) ) {
-				trigger_error( sprintf( __( '%s expects an array', 'wpmvcb' ), __FUNCTION__ ), E_USER_WARNING );	
+		{	
+			if( ! is_array( $args ) ) {
+				return new WP_Error( 
+					'FAIL',
+					sprintf( __( '%s::%s expects an array', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
+					$args
+				);
 			}
 			
 			$this->_args = $args;
-			return true;
+			return true;			
 		}
 	}
 endif;

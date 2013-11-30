@@ -159,12 +159,14 @@ namespace WPMVCB\Testing
 
 		/**
 		 * @covers Base_Model_CPT::set_args
-		 * @depends testMethodSetArgs
 		 */
 		public function testMethodSetArgsNonArray()
 		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error', 'set_args expects an array' );
-			$this->_cpt->set_args( 'foo' );
+			$this->assertTrue( method_exists( $this->_cpt, 'set_args' ) );
+			$this->assertEquals(
+				new \WP_Error( 'FAIL', 'Base_Model_CPT::set_args expects an array', 'foo' ),
+				$this->_cpt->set_args( 'foo' )
+			);
 		}
 
 		/**
