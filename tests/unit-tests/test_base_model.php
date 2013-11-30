@@ -215,13 +215,23 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * Pass an object not of type Base_Model_Help_Tab. Test should fail.
 		 * @covers Base_Model::add_help_tab
-		 * @depends testMethodAddHelpTab
 		 */
 		public function testMethodAddHelpTabFail()
 		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error', 'add_help_tab expects a Base_Model_Help_Tab object as the second parameter' );
-			$this->_model->add_help_tab( 'foo', 'bar' );
+			$this->assertTrue( method_exists( $this->_model, 'add_help_tab' ) );
+			
+			$tab = new \StdClass;
+			
+			$this->assertEquals(
+				new \WP_Error(
+					'invalid object type',
+					'Base_Model::add_help_tab expects a Base_Model_Help_Tab object as the second parameter',
+					$tab
+				),
+				$this->_model->add_help_tab( 'foo', $tab )
+			);
 		}
 		
 		/**
