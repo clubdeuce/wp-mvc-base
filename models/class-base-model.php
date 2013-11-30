@@ -139,7 +139,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * Get the admin CSS.
 		 *
 		 * @package WPMVCBase\Models
-		 * @return array $admin_css Collection of admin css objects.
+		 * @return array|bool $admin_css if set, FALSE if not.
 		 * @since 0.1
 		 */
 		public function get_admin_css()
@@ -148,13 +148,13 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return $this->admin_css;
 			}
 			
-			return;
+			return false;
 		}
 
 		/**
 		 * Get the front end javascripts.
 		 *
-		 * @return array $admin_scripts Collection of admin scripts.
+		 * @return array $scripts if set, FALSE if not.
 		 * @since 0.1
 		 */
 		public function get_scripts()
@@ -163,13 +163,13 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return $this->scripts;
 			}
 			
-			return;
+			return false;
 		}
 
 		/**
 		 * Get the admin javascripts.
 		 *
-		 * @return array $admin_scripts
+		 * @return array|bool $admin_scripts if set, FALSE if not.
 		 * @since 0.1
 		 */
 		public function get_admin_scripts()
@@ -178,7 +178,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return $this->admin_scripts;
 			}
 			
-			return;
+			return false;
 		}
 
 		/**
@@ -191,7 +191,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @package WPMVCBase\Models
 		 * @param string $post_id
 		 * @param string $txtdomain the text domain to use for translations
-		 * @return array $metaboxes an array of WP_Metabox objects
+		 * @return array|bool $metaboxes if set, FALSE if not.
 		 * @see WP_Metabox
 		 * @since 0.1
 		 */
@@ -201,13 +201,13 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return $this->metaboxes;
 			}
 			
-			return;
+			return false;
 		}
 
 		/**
 		 * Get the cpt help screen tabs.
 		 *
-		 * @return array $_help_tabs Contains the help screen tab objects.
+		 * @return array|bool $help_tabs if set, FALSE if not.
 		 * @access public
 		 * @since 0.1
 		 */
@@ -217,13 +217,13 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return $this->help_tabs;
 			}
 			
-			return;
+			return false;
 		}
 
 		/**
 		 * Get the cpt help screen tabs.
 		 *
-		 * @return array|void $_help_tabs Contains the help screen tab objects. VOID on empty.
+		 * @return array|FALSE $_help_tabs if set, FALSE if not.
 		 * @access public
 		 * @deprecated
 		 * @since 0.1
@@ -240,7 +240,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the model's shortcodes.
 		 *
-		 * @return array|void $shortcodes
+		 * @return array|bool $shortcodes if set, FALSE if not.
 		 * @since 0.1
 		 */
 		public function get_shortcodes()
@@ -249,7 +249,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return $this->shortcodes;
 			}
 			
-			return;
+			return false;
 		}
 
 		/**
@@ -288,7 +288,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @param string $handle The help tab handle.
 		 * @param object $help_tab The Base_Model_Help_Tab object.
-		 * @return bool|void TRUE on success.
+		 * @return bool|object TRUE on success, WP_Error on failure.
 		 * @since 0.2
 		 * @see Base_Model_Help_Tab
 		 */
