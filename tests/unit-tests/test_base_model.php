@@ -52,6 +52,15 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model::get_css
+		 */
+		public function testMethodGetCssEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_css' ) );
+			$this->assertFalse( $this->_model->get_css() );
+		}
+		
+		/**
 		 * @covers Base_Model::get_admin_css
 		 */
 		public function testMethodGetAdminCss()
@@ -63,6 +72,15 @@ namespace WPMVCB\Testing
 				array( 'foo_admin_css' => array( 'handle' => 'bar_admin_css' ) ),
 				$this->_model->get_admin_css( 'http://my-super-cool-site' )
 			);
+		}
+		
+		/**
+		 * @covers Base_Model::get_admin_css
+		 */
+		public function testMethodGetAdminCssEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_admin_css' ) );
+			$this->assertFalse( $this->_model->get_admin_css() );
 		}
 		
 		/**
@@ -82,6 +100,15 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model::get_scripts
+		 */
+		public function testMethodGetScriptsEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_scripts' ) );
+			$this->assertFalse( $this->_model->get_scripts() );
+		}
+		
+		/**
 		 * @covers Base_Model::get_admin_scripts
 		 */
 		public function testMethodGetAdminScripts()
@@ -95,6 +122,15 @@ namespace WPMVCB\Testing
 				array( 'foo_admin_scripts' => 'bar_admin_scripts' ),
 				$this->_model->get_admin_scripts()
 			);
+		}
+		
+		/**
+		 * @covers Base_Model::get_admin_scripts
+		 */
+		public function testMethodGetAdminScriptsEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_admin_scripts' ) );
+			$this->assertFalse( $this->_model->get_admin_scripts() );
 		}
 		
 		/**
@@ -147,6 +183,15 @@ namespace WPMVCB\Testing
 			$this->setReflectionPropertyValue( $this->_model, 'metaboxes', array( 'foo' => $stub ) );
 			
 			$this->assertEquals( array( 'foo' => $stub ), $this->_model->get_metaboxes( 'bar', 'baz') );
+		}
+		
+		/**
+		 * @covers Base_Model::get_metaboxes
+		 */
+		public function testMethodGetmetaboxesEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_metaboxes' ) );
+			$this->assertFalse( $this->_model->get_metaboxes() );
 		}
 		
 		/**
@@ -225,6 +270,15 @@ namespace WPMVCB\Testing
 				array( 'foo' => 1, 'bar' => 2 ),
 				$this->_model->get_help_tabs()
 			);
+		}
+		
+		/**
+		 * @covers Base_Model::get_help_tabs
+		 */
+		public function testMethodGetHelpTabsEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_help_tabs' ) );
+			$this->assertFalse( $this->_model->get_help_tabs() );
 		}
 		
 		/**
