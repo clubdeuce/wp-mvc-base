@@ -335,13 +335,12 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * Test function when there are no shortcodes for this model.
 		 * @covers Base_Model::get_shortcodes
-		 * @depends testMethodGetShortcodes
 		 */
 		public function testMethodGetShortcodesEmpty()
 		{
-			$this->assertNull( $this->_model->get_shortcodes() );
+			$this->assertTrue( method_exists( $this->_model, 'get_shortcodes' ) );
+			$this->assertFalse( $this->_model->get_shortcodes() );
 		}
 	}
 }
