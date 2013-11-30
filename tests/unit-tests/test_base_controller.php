@@ -97,7 +97,109 @@ namespace WPMVCB\Testing
 				$this->_controller->add_shortcodes( 'foo' )
 			);
 		}
+		
+		/**
+		 * @covers Base_Controller::add_meta_boxes
+		 */
+		public function testMethodAddMetaboxes()
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'add_meta_boxes' ) );
 
+			//create a stub metabox
+			$metabox = $this->getMockBuilder( '\Base_Model_Metabox' )
+			                ->setMethods( array( 'get_id', 'get_title', 'get_callback', 'get_post_types', 'get_priority', 'get_context', 'get_callback_args' ) )
+			                ->disableOriginalConstructor()
+			                ->getMock();
+
+			$metabox->expects( $this->any() )
+			        ->method( 'get_id' )
+			        ->will( $this->returnValue( 'cptcontroller' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_title' )
+			        ->will( $this->returnValue( 'Foo Metabox' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_callback' )
+			        ->will( $this->returnValue( 'time' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_post_types' )
+			        ->will( $this->returnValue( array( 'cptpost', 'cptpage' ) ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_context' )
+			        ->will( $this->returnValue( 'normal' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_priority' )
+			        ->will( $this->returnValue( 'default' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_callback_args' )
+			        ->will( $this->returnValue( array( 'foo' => 'bar' ) ) );
+
+			$this->_controller->add_meta_boxes( array( $metabox ) );
+
+			$this->assertMetaboxExists( array( 'cptcontroller', 'Foo Metabox', 'time', 'cptpost', 'normal', 'default', array( 'foo' => 'bar' ) ) );
+			$this->assertMetaboxExists( array( 'cptcontroller', 'Foo Metabox', 'time', 'cptpage', 'normal', 'default', array( 'foo' => 'bar' ) ) );
+		}
+		
+		/**
+		 * @covers Base_Controller::add_meta_boxes
+		 */
+		public function testMethodAddMetaboxesEmptyCallback()
+		{
+			$this->assertTrue( method_exists( $this->_controller, 'add_meta_boxes' ) );
+
+			//create a stub metabox
+			$metabox = $this->getMockBuilder( '\Base_Model_Metabox' )
+			                ->setMethods( array( 'get_id', 'get_title', 'get_callback', 'get_post_types', 'get_priority', 'get_context', 'get_callback_args' ) )
+			                ->disableOriginalConstructor()
+			                ->getMock();
+
+			$metabox->expects( $this->any() )
+			        ->method( 'get_id' )
+			        ->will( $this->returnValue( 'cptcontroller' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_title' )
+			        ->will( $this->returnValue( 'Foo Metabox' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_callback' )
+			        ->will( $this->returnValue( null ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_post_types' )
+			        ->will( $this->returnValue( array( 'cptpost', 'cptpage' ) ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_context' )
+			        ->will( $this->returnValue( 'normal' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_priority' )
+			        ->will( $this->returnValue( 'default' ) );
+			$metabox->expects( $this->any() )
+			        ->method( 'get_callback_args' )
+			        ->will( $this->returnValue( array( 'foo' => 'bar' ) ) );
+
+			$this->_controller->add_meta_boxes( array( $metabox ) );
+
+			$this->assertMetaboxExists( 
+				array( 
+					'cptcontroller',
+					'Foo Metabox',
+					array( &$this->_controller, 'render_metabox' ),
+					'cptpost',
+					'normal',
+					'default',
+					array( 'foo' => 'bar' ) 
+				) 
+			);
+			$this->assertMetaboxExists(
+				array(
+					'cptcontroller',
+					'Foo Metabox', 
+					array( &$this->_controller, 'render_metabox' ),
+					'cptpage',
+					'normal',
+					'default', 
+					array( 'foo' => 'bar' ) 
+				) 
+			);
+		}
+		
 		public function testMethodExistsRenderMetabox()
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'render_metabox' ) );
