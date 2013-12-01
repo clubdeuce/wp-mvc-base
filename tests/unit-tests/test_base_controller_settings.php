@@ -244,6 +244,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodAddMenuPagesMenu()
 		{
+			$this->markTestIncomplete( 'Not yet implemented' );
 			$this->assertTrue( method_exists( $this->_controller, 'add_menu_pages' ) );
 
 			//set up a page object stub
@@ -263,10 +264,12 @@ namespace WPMVCB\Testing
 
 			//add the page to the model
 			$this->setReflectionPropertyValue( $this->_model, 'pages', array( 'foo-page' => $page ) );
-
+			
+			wp_set_current_user( 0 );
+			
 			//create the settings controller
 			$controller = new \Base_Controller_Settings( $this->_model );
-			$controller->add_menu_pages();
+			$this->assertTrue( $controller->add_menu_pages() );
 
 			//get a reflection of the model pages property
 			$model = $this->getReflectionPropertyValue( $controller, 'model' );
