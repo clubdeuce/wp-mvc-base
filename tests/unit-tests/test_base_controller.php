@@ -42,6 +42,66 @@ namespace WPMVCB\Testing
 		/**
 		 * @covers Base_Controller::__construct
 		 */
+		public function testPropertyMainPluginFile()
+		{
+			$this->assertClassHasAttribute( '_main_plugin_file', '\Base_Controller' );
+			$this->assertEquals(
+				'/home/foo/plugin.php',
+				$this->getReflectionPropertyValue( $this->_controller, '_main_plugin_file' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Controller::__construct
+		 */
+		public function testPropertyAppPath()
+		{
+			$this->assertClassHasAttribute( '_app_path', '\Base_Controller' );
+			$this->assertEquals(
+				'/home/foo/app/',
+				$this->getReflectionPropertyValue( $this->_controller, '_app_path' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Controller::__construct
+		 */
+		public function testPropertyBasePath()
+		{
+			$this->assertClassHasAttribute( '_base_path', '\Base_Controller' );
+			$this->assertEquals(
+				'/home/foo/base/',
+				$this->getReflectionPropertyValue( $this->_controller, '_base_path' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Controller::__construct
+		 */
+		public function testPropertyUri()
+		{
+			$this->assertClassHasAttribute( '_uri', '\Base_Controller' );
+			$this->assertEquals(
+				'http://example.com/foo/',
+				$this->getReflectionPropertyValue( $this->_controller, '_uri' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Controller::__construct
+		 */
+		public function testPropertyTxtdomain()
+		{
+			$this->assertClassHasAttribute( '_txtdomain', '\Base_Controller' );
+			$this->assertEquals(
+				'footextdomain',
+				$this->getReflectionPropertyValue( $this->_controller, '_txtdomain' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Controller::__construct
+		 */
 		public function testActionExistsWpEnqueueScripts()
 		{
 			$this->assertFalse(
