@@ -89,8 +89,6 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			if ( isset( $delete_post ) ) {
 				add_action( 'delete_post', $delete_post );
 			}
-
-			add_action( 'post_updated_messages', array( &$model, 'get_post_updated_messages' ) );
 		}
 
 		/**
