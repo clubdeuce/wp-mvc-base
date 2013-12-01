@@ -23,15 +23,8 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 *
 		 * @since 0.2
 		 */
-		public function __construct( $model )
+		public function __construct( Base_Model_Settings $model )
 		{
-			if ( ! is_a( $model, 'Base_Model_Settings' ) ) {
-				trigger_error(
-					sprintf( __( '%s expects an object of type Base_Model_Settings', 'wpmvcb' ), __FUNCTION__ ),
-					E_USER_WARNING
-				);
-			}
-		
 			$this->model = $model;
 
 			if ( is_array( $this->model->get_settings_sections() ) ) {
@@ -77,6 +70,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 *
 		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
 		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
+		 * @return bool|object TRUE on success, WP_Error on failure.
 		 * @internal
 		 * @access public
 		 * @since 0.1
@@ -93,10 +87,16 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 						}
 						
 						$result = $page->add();
-						if ( false === $result ) {
-							trigger_error(
-								sprintf( __( 'Unable to add submenu page due to insufficient user capability: %s.', $this->txtdomain ), $key ),
-								E_USER_WARNING
+						
+						if ( false == $result ) {
+							if ( !isset( $wp_error ) ) {
+								$wp_error = new WP_Error();
+							}
+							
+							$wp_error->add(
+								'failure',
+								sprintf( __( 'Unable to add submenu page: %s.', $this->txtdomain ), $key ),
+								$page
 							);
 						}
 					}
@@ -104,7 +104,12 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 					//update the page element with these new properites
 					$this->model->edit_page( $key, $page );
 				} // end foreach
+				if ( isset( $wp_error ) ) {
+					return $wp_error;
+				}
 			} // end if
+			
+			return true;
 		}
 
 		/**

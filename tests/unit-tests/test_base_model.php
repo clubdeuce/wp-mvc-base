@@ -52,6 +52,15 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model::get_css
+		 */
+		public function testMethodGetCssEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_css' ) );
+			$this->assertFalse( $this->_model->get_css() );
+		}
+		
+		/**
 		 * @covers Base_Model::get_admin_css
 		 */
 		public function testMethodGetAdminCss()
@@ -63,6 +72,15 @@ namespace WPMVCB\Testing
 				array( 'foo_admin_css' => array( 'handle' => 'bar_admin_css' ) ),
 				$this->_model->get_admin_css( 'http://my-super-cool-site' )
 			);
+		}
+		
+		/**
+		 * @covers Base_Model::get_admin_css
+		 */
+		public function testMethodGetAdminCssEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_admin_css' ) );
+			$this->assertFalse( $this->_model->get_admin_css() );
 		}
 		
 		/**
@@ -82,6 +100,15 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model::get_scripts
+		 */
+		public function testMethodGetScriptsEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_scripts' ) );
+			$this->assertFalse( $this->_model->get_scripts() );
+		}
+		
+		/**
 		 * @covers Base_Model::get_admin_scripts
 		 */
 		public function testMethodGetAdminScripts()
@@ -95,6 +122,15 @@ namespace WPMVCB\Testing
 				array( 'foo_admin_scripts' => 'bar_admin_scripts' ),
 				$this->_model->get_admin_scripts()
 			);
+		}
+		
+		/**
+		 * @covers Base_Model::get_admin_scripts
+		 */
+		public function testMethodGetAdminScriptsEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_admin_scripts' ) );
+			$this->assertFalse( $this->_model->get_admin_scripts() );
 		}
 		
 		/**
@@ -117,12 +153,20 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Model::add_metabox
-		 * @depends testMethodAddMetabox
 		 */
 		public function testMethodAddMetaboxFail()
 		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error', 'add_metabox expects a Base_Model_Metabox object as the second parameter' );
-			$this->_model->add_metabox( 'foo', 'bar' );
+			$foo = new \StdClass;
+			
+			$this->assertTrue( method_exists( $this->_model, 'add_metabox') );
+			$this->assertEquals(
+				new \WP_Error(
+					'fail',
+					'Base_Model::add_metabox expects a Base_Model_Metabox object as the second parameter',
+					$foo
+				),
+				$this->_model->add_metabox( 'foo', $foo )
+			);
 		}
 		
 		/**
@@ -139,6 +183,15 @@ namespace WPMVCB\Testing
 			$this->setReflectionPropertyValue( $this->_model, 'metaboxes', array( 'foo' => $stub ) );
 			
 			$this->assertEquals( array( 'foo' => $stub ), $this->_model->get_metaboxes( 'bar', 'baz') );
+		}
+		
+		/**
+		 * @covers Base_Model::get_metaboxes
+		 */
+		public function testMethodGetmetaboxesEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_metaboxes' ) );
+			$this->assertFalse( $this->_model->get_metaboxes() );
 		}
 		
 		/**
@@ -162,13 +215,23 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * Pass an object not of type Base_Model_Help_Tab. Test should fail.
 		 * @covers Base_Model::add_help_tab
-		 * @depends testMethodAddHelpTab
 		 */
 		public function testMethodAddHelpTabFail()
 		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error', 'add_help_tab expects a Base_Model_Help_Tab object as the second parameter' );
-			$this->_model->add_help_tab( 'foo', 'bar' );
+			$this->assertTrue( method_exists( $this->_model, 'add_help_tab' ) );
+			
+			$tab = new \StdClass;
+			
+			$this->assertEquals(
+				new \WP_Error(
+					'invalid object type',
+					'Base_Model::add_help_tab expects a Base_Model_Help_Tab object as the second parameter',
+					$tab
+				),
+				$this->_model->add_help_tab( 'foo', $tab )
+			);
 		}
 		
 		/**
@@ -220,6 +283,15 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
+		 * @covers Base_Model::get_help_tabs
+		 */
+		public function testMethodGetHelpTabsEmpty()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'get_help_tabs' ) );
+			$this->assertFalse( $this->_model->get_help_tabs() );
+		}
+		
+		/**
 		 * @covers Base_Model::add_shortcode
 		 */
 		public function testMethodAddShortcode()
@@ -232,34 +304,43 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Model::add_shortcode
-		 * @depends testMethodAddShortcode
 		 */
 		public function testMethodAddShortcodeFail()
 		{
-			@$this->_model->add_shortcode( 'fooshortcode', 'foocallback' );
-			$error = error_get_last();
-			$this->assertEquals( 'Function add_shortcode expects a valid callback: foocallback is not.', $error['message'] );
+			$this->assertTrue( method_exists( $this->_model, 'add_shortcode' ) );
+			
+			$this->assertEquals(
+				new \WP_Error(
+					'not callable',
+					'Base_Model::add_shortcode expects a valid callback.',
+					'foocallback'
+				),
+				$this->_model->add_shortcode( 'fooshortcode', 'foocallback' )
+			);	
 		}
 		
 		/**
 		 * @covers Base_Model::get_shortcodes
-		 * @depends testMethodAddShortcode
 		 */
 		public function testMethodGetShortcodes()
 		{
 			$this->assertTrue( method_exists( $this->_model, 'get_shortcodes' ) );
-			$this->_model->add_shortcode( 'fooshortcode', array( &$this, 'testMethodAddShortcode' ) );
+			$this->setReflectionPropertyValue(
+				$this->_model,
+				'shortcodes',
+				array('fooshortcode' => array( &$this, 'testMethodAddShortcode' ) ) 
+			);
+			
 			$this->assertEquals( array( 'fooshortcode' => array( &$this, 'testMethodAddShortcode' ) ), $this->_model->get_shortcodes() );
 		}
 		
 		/**
-		 * Test function when there are no shortcodes for this model.
 		 * @covers Base_Model::get_shortcodes
-		 * @depends testMethodGetShortcodes
 		 */
 		public function testMethodGetShortcodesEmpty()
 		{
-			$this->assertNull( $this->_model->get_shortcodes() );
+			$this->assertTrue( method_exists( $this->_model, 'get_shortcodes' ) );
+			$this->assertFalse( $this->_model->get_shortcodes() );
 		}
 	}
 }

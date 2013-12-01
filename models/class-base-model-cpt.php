@@ -47,15 +47,6 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		protected $_plural;
 		
 		/**
-		 * The cpt metakey.
-		 *
-		 * @var array
-		 * @access protected
-		 * @since 0.1
-		 */
-		protected $_metakey;
-		
-		/**
 		 * The CPT labels.
 		 * 
 		 * @var array
@@ -106,11 +97,8 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			$this->_uri      = $uri;
 	
 			$this->_init_labels( $txtdomain );
-			
-			if ( method_exists( $this, 'init' ) ) {
-				$this->init();
-			}
 		}
+		
 		/**
 		 * Initialize the CPT labels property.
 		 *
@@ -202,44 +190,26 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 				'rewrite' 			  	=> array( 'slug' => $this->_slug ),
 			);
 		}
-	
-		/**
-		 * Get the cpt metakey.
-		 *
-		 * @return string $_metakey
-		 * @return string $metakey
-		 * @access public
-		 * @since 0.1
-		 */
-		public function get_metakey()
-		{
-			if ( ! isset( $this->_metakey ) ) {
-				trigger_error( sprintf( __( 'Metakey is not set for %s', 'wpmvcb' ), $this->_slug ), E_USER_WARNING );
-			}
-	
-			return $this->_metakey;
-		}
-	
-		public function set_metakey( $metakey )
-		{
-			$this->_metakey = $metakey;
-		}
 		
 		/**
 		 * Set the $args property
 		 *
 		 * @param array $args
-		 * @return bool|void TRUE on success.
+		 * @return bool|object TRUE on success, WP_Error object on failure.
 		 * @since 0.1
 		 */
 		public function set_args( $args )
-		{
-			if ( ! is_array( $args ) ) {
-				trigger_error( sprintf( __( '%s expects an array', 'wpmvcb' ), __FUNCTION__ ), E_USER_WARNING );	
+		{	
+			if( ! is_array( $args ) ) {
+				return new WP_Error( 
+					'FAIL',
+					sprintf( __( '%s::%s expects an array', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
+					$args
+				);
 			}
 			
 			$this->_args = $args;
-			return true;
+			return true;			
 		}
 	}
 endif;

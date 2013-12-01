@@ -123,100 +123,84 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * Get the frontend CSS.
 		 *
 		 * @package WPMVCBase\Models
-		 * @param string $uri The plugin css uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
-		 * @return array $admin_css
+		 * @return array\bool $css if set, FALSE if not.
 		 * @since 0.1
 		 */
-		public function get_css( $uri )
+		public function get_css()
 		{
-			if ( ! isset( $this->css ) && method_exists( $this, 'init_css' ) ) {
-				$this->init_css( $uri );
+			if ( isset( $this->css ) ) {
+				return $this->css;
 			}
-
-			return $this->css;
+			
+			return false;
 		}
 
 		/**
 		 * Get the admin CSS.
 		 *
 		 * @package WPMVCBase\Models
-		 * @param string $uri The plugin css uri ( e.g. http://example.com/wp-content/plugins/myplugin/css )
-		 * @return array $admin_css Collection of admin css objects.
+		 * @return array|bool $admin_css if set, FALSE if not.
 		 * @since 0.1
 		 */
-		public function get_admin_css( $uri )
+		public function get_admin_css()
 		{
-			if ( ! isset( $this->admin_css ) && method_exists( $this, 'init_admin_css' ) ) {
-				$this->init_admin_css( $uri );
+			if ( isset( $this->admin_css ) ) {
+				return $this->admin_css;
 			}
 			
-			if ( is_array( $this->admin_css ) ) :
-				foreach ( $this->admin_css as $key => $css ) :
-					//filter the css elements
-					$this->admin_css[$key] = apply_filters( 'ah_base_filter_admin_css-' . $css['handle'], $css );
-				endforeach;
-			endif;
-
-			return $this->admin_css;
+			return false;
 		}
 
 		/**
 		 * Get the front end javascripts.
 		 *
-		 * @return array $admin_scripts Collection of admin scripts.
+		 * @return array $scripts if set, FALSE if not.
 		 * @since 0.1
 		 */
 		public function get_scripts()
 		{
-			if ( ! isset( $this->scripts ) && method_exists( $this, 'init_scripts' ) ) {
-				$this->init_scripts( $uri );
+			if ( isset( $this->scripts ) ) {
+				return $this->scripts;
 			}
 			
-			return $this->scripts;
+			return false;
 		}
 
 		/**
 		 * Get the admin javascripts.
 		 *
-		 * @return array $admin_scripts
+		 * @return array|bool $admin_scripts if set, FALSE if not.
 		 * @since 0.1
 		 */
 		public function get_admin_scripts()
 		{
-			if ( ! isset( $this->admin_scripts ) && method_exists( $this, 'init_admin_scripts' ) ) {
-				$this->init_admin_scripts( $post, $txtdomain, $uri );
+			if ( isset( $this->admin_scripts ) ) {
+				return $this->admin_scripts;
 			}
-
-			return $this->admin_scripts;
+			
+			return false;
 		}
 
 		/**
-		 * Get the model's metaboxes
+		 * Get the model's metaboxes.
 		 *
-		 * This function will return the metaboxes. The post_id parameter
-		 * is used so that this function may return the values stored for
-		 * the corresponding custom fields in the callback arguments.
-		 *
-		 * @package WPMVCBase\Models
-		 * @param string $post_id
-		 * @param string $txtdomain the text domain to use for translations
-		 * @return array $metaboxes an array of WP_Metabox objects
+		 * @return array|bool $metaboxes if set, FALSE if not.
 		 * @see WP_Metabox
 		 * @since 0.1
 		 */
-		public function get_metaboxes( $post_id, $txtdomain )
+		public function get_metaboxes()
 		{
-			if ( ! isset( $this->metaboxes ) && method_exists( $this, 'init_metaboxes' ) ) {
-				$this->init_metaboxes( $post_id, $txtdomain );
+			if ( isset( $this->metaboxes ) ) {
+				return $this->metaboxes;
 			}
-
-			return $this->metaboxes;
+			
+			return false;
 		}
 
 		/**
 		 * Get the cpt help screen tabs.
 		 *
-		 * @return array $_help_tabs Contains the help screen tab objects.
+		 * @return array|bool $help_tabs if set, FALSE if not.
 		 * @access public
 		 * @since 0.1
 		 */
@@ -225,12 +209,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			if ( isset( $this->help_tabs ) ) {
 				return $this->help_tabs;
 			}
+			
+			return false;
 		}
 
 		/**
 		 * Get the cpt help screen tabs.
 		 *
-		 * @return array|void $_help_tabs Contains the help screen tab objects. VOID on empty.
+		 * @return array|FALSE $_help_tabs if set, FALSE if not.
 		 * @access public
 		 * @deprecated
 		 * @since 0.1
@@ -239,7 +225,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		{
 			//warn the user about deprecated function use
 			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', $this->_txtdomain );
-
+			
 			//and point to the replacement function
 			return $this->get_help_tabs();
 		}
@@ -247,7 +233,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the model's shortcodes.
 		 *
-		 * @return array|void $shortcodes
+		 * @return array|bool $shortcodes if set, FALSE if not.
 		 * @since 0.1
 		 */
 		public function get_shortcodes()
@@ -255,6 +241,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			if ( isset( $this->shortcodes ) ) {
 				return $this->shortcodes;
 			}
+			
+			return false;
 		}
 
 		/**
@@ -262,7 +250,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @param string $handle The metabox handle.
 		 * @param object $metabox A metabox object.
-		 * @return bool|void TRUE on success.
+		 * @return bool|object TRUE on success, WP_Error on failure.
 		 * @see Base_Model_Metabox
 		 * @since 0.1
 		 */
@@ -277,9 +265,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return true;
 			}
 			
-			trigger_error(
-				sprintf( __( '%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
-				E_USER_WARNING
+			return new WP_Error(
+				'fail',
+				sprintf( 
+					__( '%s::%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ),
+					__CLASS__,
+					__FUNCTION__
+				),
+				$metabox
 			);
 		}
 
@@ -288,7 +281,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @param string $handle The help tab handle.
 		 * @param object $help_tab The Base_Model_Help_Tab object.
-		 * @return bool|void TRUE on success.
+		 * @return bool|object TRUE on success, WP_Error on failure.
 		 * @since 0.2
 		 * @see Base_Model_Help_Tab
 		 */
@@ -304,9 +297,10 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			}
 			
 			//A valid help tab object is not included.
-			trigger_error(
-				sprintf( __( '%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __FUNCTION__ ),
-				E_USER_WARNING
+			return new WP_Error(
+				'invalid object type',
+				sprintf( __( '%s::%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
+				$help_tab
 			);
 		}
 		
@@ -329,7 +323,11 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				return true;
 			}
 			
-			trigger_error( sprintf( __( 'Function %s expects a valid callback: %s is not.', 'wpmvcb' ), __FUNCTION__, $callback ), E_USER_WARNING );
+			return new WP_Error(
+				'not callable',
+				sprintf( __( '%s::%s expects a valid callback.', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
+				$callback
+			);
 		}
 	}
 endif;
