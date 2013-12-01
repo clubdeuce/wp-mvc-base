@@ -44,7 +44,66 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @since 0.2
 		 */
 		private $version = '0.2';
+		
+		/**
+		 * The plugin path.
+		 *
+		 * This is the base directory for the plugin ( e.g. /home/user/public_html/wp-content/plugins/my-plugin ).
+		 *
+		 * @var string
+		 * @access protected
+		 * @since 0.1
+		 */
+		protected $_path;
 
+		/**
+		 * The plugin app path.
+		 *
+		 * @var string
+		 * @access protected
+		 * @since 0.1
+		 */
+		protected $_app_path;
+
+		/**
+		 * The base directory path.
+		 *
+		 * @var string
+		 * @access protected
+		 * @since 0.1
+		 */
+		protected $_base_path;
+
+		/**
+		 * The absoulte path to the main plugin file.
+		 *
+		 * @var string
+		 * @access protected
+		 * @since 0.1
+		 */
+		protected $_main_plugin_file;
+
+		/**
+		  * The plugin uri.
+		  *
+		  * @category Controllers
+		  * @package WPMVCBase
+		  * @var string
+		  * @access protected
+		  * @since 0.1
+		  */
+		protected $_uri;
+
+		/**
+		/**
+		 * The plugin text domain
+		 *
+		 * @var string
+		 * @access protected
+		 * @since 0.1
+		 */
+		protected $_txtdomain;
+		
 		/**
 		 * The plugin css files
 		 *
@@ -118,7 +177,26 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @since 0.2
 		 */
 		protected $shortcodes;
-
+		
+		/**
+		 * The class constructor.
+		 *
+		 * @param string $main_plugin_file
+		 * @param string $app_path
+		 * @param string $base_path
+		 * @param string $uri
+		 * @param string $txtdomain
+		 * @since 0.1
+		 */
+		public function __construct(  $main_plugin_file, $app_path, $base_path, $uri, $txtdomain = null )
+		{
+			$this->_main_plugin_file = $main_plugin_file;
+			$this->_app_path         = trailingslashit( $app_path );
+			$this->_base_path        = trailingslashit( $base_path );
+			$this->_uri              = trailingslashit( $uri );
+			$this->_txtdomain        = $txtdomain;
+		}
+		
 		/**
 		 * Get the frontend CSS.
 		 *
