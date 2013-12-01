@@ -10,7 +10,7 @@ namespace WPMVCB\Testing
 	 * @internal
 	 */
 
-	class BaseControllerTest extends WPMVCB_Test_Case
+	class testBaseController extends WPMVCB_Test_Case
 	{
 		public function setUp()
 		{
