@@ -85,17 +85,11 @@ namespace WPMVCB\Testing
 		/**
 		 * @covers Base_Controller::add_shortcodes
 		 * @depends testMethodExistsAddShortcodes
+		 * @expectedException PHPUnit_Framework_Error
 		 */
 		public function testMethodAddShortcodesNonArray()
 		{
-			$this->assertEquals(
-				new \WP_Error(
-					'non-array',
-					'Base_Controller::add_shortcodes expects an array',
-					'foo'
-				),
-				$this->_controller->add_shortcodes( 'foo' )
-			);
+				$this->_controller->add_shortcodes( 'foo' );
 		}
 		
 		/**
@@ -488,20 +482,14 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * In this test, we pass an non-arrat to the method.
+		 * In this test, we pass an non-array to the method.
 		 *
 		 * @covers Base_Controller::enqueue_scripts
+		 * @expectedException PHPUnit_Framework_Error
 		 */
 		public function testMethodEnqueueScriptsNonArray()
 		{
-			$this->assertEquals(
-				new \WP_Error(
-					'non-array',
-					'Base_Controller::enqueue_scripts expects an array',
-					'foo'
-				),
-				$this->_controller->enqueue_scripts( 'foo' )
-			);
+			$this->_controller->enqueue_scripts( 'foo' );
 		}
 		
 		/**
