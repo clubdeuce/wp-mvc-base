@@ -33,8 +33,59 @@ if ( ! class_exists( 'Base_Controller' ) ):
 	 */
 	class Base_Controller
 	{
-		public function __construct()
+		/**
+		 * The absolute path to the main plugin file. Ends with a slash.
+		 * 
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_main_plugin_file;
+		
+		/**
+		 * The absolute path to the plugin app path. Ends with a slash.
+		 * 
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_app_path;
+		
+		/**
+		 * The absolute path to the WPMVC Base path. Ends with a slash.
+		 * 
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_base_path;
+		
+		/**
+		 * The uri to the plugin directory. Ends with a slash.
+		 *
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_uri;
+		
+		/**
+		 * The plugin text domain.
+		 *
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_txtdomain;
+		
+		/**
+		 * The class constructor
+		 *
+		 * @since 0.1
+		 */
+		public function __construct( $main_plugin_file, $app_path, $base_path, $uri, $txtdomain )
 		{
+			$this->_main_plugin_file = $main_plugin_file;
+			$this->_app_path         = trailingslashit( $app_path );
+			$this->_base_path        = trailingslashit( $base_path );
+			$this->_uri              = trailingslashit( $uri );
+			$this->_txtdomain        = $txtdomain;
+			
 			add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
 			add_action( 'add_meta_boxes',        array( &$this, 'add_meta_boxes' ) );
