@@ -267,8 +267,6 @@ namespace WPMVCB\Testing
 
 		/**
 		 * @depends testMethodExistsRenderMetabox
-		 * @expectedException PHPUnit_Framework_Error
-		 * @expectedExceptionMessage No view specified in the callback arguments for metabox id test-metabox
 		 * @covers Base_Controller::render_metabox
 		 */
 		public function testRenderMetaboxNoViewSpecified()
@@ -277,14 +275,24 @@ namespace WPMVCB\Testing
 				'id' => 'test-metabox',
 				'args' => array()
 			);
-
-			$this->_controller->render_metabox( $this->_post, $metabox );
+			
+			//set up a post object 
+			$factory = new \WP_UnitTest_Factory;
+			
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title'  => 'Test Render Metabox',
+					'post_type'   => 'post',
+					'post_status' => 'publish'
+				)
+			);
+			
+			$this->expectOutputString( 'No view specified in the callback arguments for metabox id test-metabox' );
+			$this->_controller->render_metabox( get_post( $post_id ), $metabox );
 		}
 
 		/**
 		 * @depends testMethodExistsRenderMetabox
-		 * @expectedException PHPUnit_Framework_Error
-		 * @expectedExceptionMessage The view file foo.php for metabox id test-metabox does not exist
 		 * @covers Base_Controller::render_metabox
 		 */
 		public function testRenderMetaboxViewNonexistent()
@@ -295,15 +303,27 @@ namespace WPMVCB\Testing
 					'view' => 'foo.php'
 				)
 			);
-
-			$this->_controller->render_metabox( $this->_post, $metabox );
+			
+			//set up a post object 
+			$factory = new \WP_UnitTest_Factory;
+			
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title'  => 'Test Render Metabox',
+					'post_type'   => 'post',
+					'post_status' => 'publish'
+				)
+			);
+			
+			$this->expectOutputString( 'The view file foo.php for metabox id test-metabox does not exist' );
+			$this->_controller->render_metabox( get_post( $post_id ), $metabox );
 		}
 
 		/**
 		 * @depends testMethodExistsRenderMetabox
 		 * @covers Base_Controller::render_metabox
 		 */
-		public function testRenderMetabox()
+		public function testMethodRenderMetabox()
 		{
 			//create our mock view directory
 			mkdir( $this->_mock_path . 'app/views', 0755, true );
@@ -314,22 +334,29 @@ namespace WPMVCB\Testing
 			fwrite( $handle, 'This is foo.' );
 			fclose( $handle );
 			$this->assertFileExists( $this->_mock_path . 'app/views/foo.php' );
-
+			
+			//set up a metabx
 			$metabox = array(
 				'id' => 'test-metabox',
 				'args' => array(
 					'view' =>  $this->_mock_path . 'app/views/foo.php'
 				)
 			);
-
-			//set up class attributes necessary for the function
-			$this->_controller->nonce_name = 'foo_nonce_name';
-			$this->_controller->nonce_action = 'foo_nonce_action';
-			$this->_controller->txtdomain = 'foo_txtdomain';
-
+			
+			//set up a post object 
+			$factory = new \WP_UnitTest_Factory;
+			
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title'  => 'Test Render Metabox',
+					'post_type'   => 'post',
+					'post_status' => 'publish'
+				)
+			);
+			
 			$this->expectOutputString( 'This is foo.' );
 
-			$this->_controller->render_metabox( $this->_post, $metabox, 'foo', 'bar', 'baz' );
+			$this->_controller->render_metabox( get_post( $post_id ), $metabox, 'foo', 'bar', 'baz' );
 		}
 
 		/**
