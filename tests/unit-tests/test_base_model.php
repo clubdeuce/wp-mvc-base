@@ -29,6 +29,7 @@ namespace WPMVCB\Testing
 			//create the model
 			$this->_model = new TestStubBaseModel(
 				'/home/foo/plugin.php',
+				'home/foo',
 				'/home/foo/app',
 				'/home/foo/base',
 				'http://example.com/foo',
