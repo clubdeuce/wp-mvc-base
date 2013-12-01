@@ -166,15 +166,17 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 */
 		public function add()
 		{
-			add_meta_box(
-				$this->id,
-				$this->title,
-				$this->callback,
-				$this->post_type,
-				$this->context,
-				$this->priority,
-				$this->callback_args
-			);
+			foreach( $this->post_type as $post_type ) {
+				add_meta_box(
+					$this->id,
+					$this->title,
+					$this->callback,
+					$post_type,
+					$this->context,
+					$this->priority,
+					$this->callback_args
+				);
+			}
 		}
 
 		/**
@@ -185,7 +187,9 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 */
 		public function remove()
 		{
-			remove_meta_box( $this->id, $this->post_type, $this->context );
+			foreach( $this->post_type as $post_type ) {
+				remove_meta_box( $this->id, $post_type, $this->context );
+			}
 		}
 
 		/**
@@ -225,15 +229,15 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		}
 
 		/**
-		 * set the title
+		 * set the post types
 		 *
-		 * @param string $post_type
+		 * @param array $post_type
 		 * @return void
 		 * @since 0.1
 		 */
-		public function set_post_type( $post_type )
+		public function set_post_type( array $post_types )
 		{
-			$this->post_type = $post_type;
+			$this->post_type = $post_types;
 		}
 
 		/**

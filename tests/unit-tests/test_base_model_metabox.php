@@ -20,7 +20,7 @@ namespace WPMVCB\Testing
 				'my-super-cool-metabox',
 				'My Super Cool Metabox',
 				'my_super_cool_callback',
-				'my_super_cool_posttype',
+				array( 'my_super_cool_posttype' ),
 				'normal',
 				'default',
 				array( 'foo' => 'bar' )
@@ -31,9 +31,18 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_metabox, 'add' ), 'Method does not exist' );
 			$this->_metabox->add();
-			global $wp_meta_boxes;
 			
-			$this->assertArrayHasKey( 'my-super-cool-metabox', $wp_meta_boxes['my_super_cool_posttype']['normal']['default'] );
+			$this->assertMetaboxExists(
+				array(
+					'my-super-cool-metabox',
+					'My Super Cool Metabox',
+					'my_super_cool_callback',
+					'my_super_cool_posttype',
+					'normal',
+					'default',
+					array( 'foo' => 'bar' )
+				)
+			);
 		}
 
 		/**
@@ -46,6 +55,18 @@ namespace WPMVCB\Testing
 			$this->assertTrue( method_exists( $this->_metabox, 'remove' ), 'Method does not exist' );
 			
 			$this->_metabox->add();
+			$this->assertMetaboxExists(
+				array(
+					'my-super-cool-metabox',
+					'My Super Cool Metabox',
+					'my_super_cool_callback',
+					'my_super_cool_posttype',
+					'normal',
+					'default',
+					array( 'foo' => 'bar' )
+				)
+			);
+			
 			$this->_metabox->remove();
 			
 			$this->assertFalse( is_array(  $wp_meta_boxes['my_super_cool_posttype']['normal']['default']['my-super-cool-metabox'] ), 'Metabox not removed' );
@@ -70,10 +91,10 @@ namespace WPMVCB\Testing
 			$this->assertEquals( 'my_super_cool_callback', $this->_metabox->get_callback() );
 		}
 		
-		public function testMethodGetPostType()
+		public function testMethodGetPostTypes()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'get_post_type' ), 'Method does not exist' );
-			$this->assertEquals( 'my_super_cool_posttype', $this->_metabox->get_post_type() );
+			$this->assertTrue( method_exists( $this->_metabox, 'get_post_types' ), 'Method does not exist' );
+			$this->assertEquals( array( 'my_super_cool_posttype' ), $this->_metabox->get_post_types() );
 		}
 		
 		public function testMethodGetContext()
@@ -125,13 +146,13 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @depends testMethodGetPostType
+		 * @depends testMethodGetPostTypes
 		 */
-		public function testMethodSetPostType()
+		public function testMethodSetPostTypes()
 		{
 			$this->assertTrue( method_exists( $this->_metabox, 'set_post_type' ), 'Method does not exist' );
-			$this->_metabox->set_post_type( 'flibbertygibbet' );
-			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_post_type() );
+			$this->_metabox->set_post_type( array( 'flibbertygibbet' ) );
+			$this->assertEquals( array( 'flibbertygibbet' ), $this->_metabox->get_post_types() );
 		}
 		
 		/**
@@ -179,7 +200,7 @@ namespace WPMVCB\Testing
 				'my-super-cool-metabox',
 				'My Super Cool Metabox',
 				'my_super_cool_callback',
-				'my_super_cool_posttype',
+				array( 'my_super_cool_posttype' ),
 				'flibbertygibbet',
 				'default',
 				array( 'foo' => 'bar' )
@@ -203,7 +224,7 @@ namespace WPMVCB\Testing
 				'my-super-cool-metabox',
 				'My Super Cool Metabox',
 				'my_super_cool_callback',
-				'my_super_cool_posttype',
+				array( 'my_super_cool_posttype' ),
 				'normal',
 				'flibbertygibbet',
 				array( 'foo' => 'bar' )
