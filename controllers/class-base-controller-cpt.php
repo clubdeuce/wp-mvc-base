@@ -176,6 +176,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 */
 		public function add_meta_boxes()
 		{
+			global $post;
+			
 			if ( isset( $this->_cpt_models ) && is_array( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
 					if ( $metaboxes = $cpt->get_metaboxes( $post, $this->_txtdomain ) ) {
@@ -208,7 +210,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			foreach( $this->_cpt_models as $cpt ) {
 				$scripts = $cpt->get_admin_scripts();
 				
-				if ( isset( $scripts ) ) {
+				if ( isset( $scripts ) && is_array( $scripts ) ) {
 					foreach( $scripts as $script ) {
 						wp_register_script(
 							$script->get_handle(),
@@ -233,7 +235,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			foreach( $this->_cpt_models as $cpt ) {
 				$scripts = $cpt->get_scripts();
 				
-				if ( isset( $scripts ) ) {
+				if ( isset( $scripts ) && is_array( $scripts ) ) {
 					foreach( $scripts as $script ) {
 						wp_register_script(
 							$script->get_handle(),
