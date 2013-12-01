@@ -80,17 +80,21 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 *
 		 * Use this function to initialize class variables, require necessary files, etc.
 		 *
-		 * @param string $slug The post type slug.
-		 * @param string $singular The singular post type name in lower case (e.g. Book).
-		 * @param string $plural The plural post type name in lower case (e.g. Books).
-		 * @param string $uri The plugin uri.
-		 * @param string $txtdomain The plugin text domain.
-		 * @return void
+		 * @param string $slug             The post type slug.
+		 * @param string $singular         The singular post type name in lower case (e.g. Book).
+		 * @param string $plural           The plural post type name in lower case (e.g. Books).
+		 * @param string $main_plugin_file The absolute path to the main plugin file.
+		 * @param string $plugin_path      The absolute path to the plugin directory
+		 * @param string $app_path         The absolute path to the plugin app directory.
+		 * @param string $base_path        The absolute path to the plugin base directory.
+		 * @param string $uri              The uri to the plugin app directory.
+		 * @param string $txtdomain        The plugint text domain.
 		 * @access public
 		 * @since 0.1
 		 */
-		public function __construct( $slug, $singular, $plural, $uri = '', $txtdomain = 'wpmvcb' )
+		public function __construct( $slug, $singular, $plural, $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain = null )
 		{
+			parent::__construct( $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain );
 			$this->_slug     = $slug;
 			$this->_singular = $singular;
 			$this->_plural   = $plural;
