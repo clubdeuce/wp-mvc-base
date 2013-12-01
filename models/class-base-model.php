@@ -188,9 +188,10 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @param string $txtdomain
 		 * @since 0.1
 		 */
-		public function __construct(  $main_plugin_file, $app_path, $base_path, $uri, $txtdomain = null )
+		public function __construct(  $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain = null )
 		{
 			$this->_main_plugin_file = $main_plugin_file;
+			$this->_path             = trailingslashit( $plugin_path );
 			$this->_app_path         = trailingslashit( $app_path );
 			$this->_base_path        = trailingslashit( $base_path );
 			$this->_uri              = trailingslashit( $uri );
