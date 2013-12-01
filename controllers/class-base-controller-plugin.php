@@ -74,7 +74,13 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 				);
 			}
 			
-			parent::__construct();
+			parent::__construct(
+				$model->get_main_plugin_file(),
+				$model->get_app_path(),
+				$model->get_base_path(),
+				$model->get_uri(),
+				$model->get_textdomain()
+			);
 			
 			$this->plugin_model = $model;
 			
