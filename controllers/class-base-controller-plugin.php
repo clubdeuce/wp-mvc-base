@@ -173,7 +173,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			//register the scripts
 			$scripts = $this->plugin_model->get_admin_scripts();
 			
-			if ( isset( $scripts ) ) {
+			if ( isset( $scripts ) && is_array( $scripts ) ) {
 				foreach ( $scripts as $script ) {
 					wp_enqueue_script(
 						$script->get_handle(),
