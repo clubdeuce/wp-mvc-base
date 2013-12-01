@@ -41,11 +41,14 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 * @param string $txtdomain The plugin text domain.
 		 * @since WPMVCBase 0.1
 		 */
-		public function __construct( $txtdomain )
-		{
-			$this->_txtdomain = $txtdomain;
-			
+		public function __construct( array $cpt_models = null )
+		{	
 			parent::__construct();
+			
+			if ( isset( $cpt_models ) ) {
+				$this->_cpt_models = $cpt_models;
+			}
+			
 			add_action( 'init',                  array( &$this, 'register' ) );
 			add_filter( 'post_updated_messages', array( &$this, 'post_updated_messages' ) );
 		}
