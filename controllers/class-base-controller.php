@@ -210,6 +210,11 @@ if ( ! class_exists( 'Base_Controller' ) ):
 					return;
 				}
 				
+				if ( file_exists( $this->_app_path . 'views/' . $metabox['args']['view'] ) ) {
+					include $this->_app_path . 'views/' . $metabox['args']['view'];
+					return;
+				}
+				
 				if ( ! file_exists( $metabox['args']['view'] ) ) {
 					printf(
 						__( 'The view file %s for metabox id %s does not exist', 'wpmvcb' ),
