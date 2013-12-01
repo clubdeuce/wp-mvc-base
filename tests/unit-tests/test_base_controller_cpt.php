@@ -251,7 +251,7 @@ namespace WPMVCB\Testing
 		{
 			$cpt_model = $this->_createStubCptModel();
 			$this->_controller->add_model( $cpt_model );
-			$this->assertFalse( false === has_action( 'post_updated_messages', array( $cpt_model, 'get_post_updated_messages' ) ) );
+			$this->assertFalse( false === has_action( 'post_updated_messages', array( $this->_controller, 'post_updated_messages' ) ) );
 		}
 
 		/**
