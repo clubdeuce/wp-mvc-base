@@ -71,23 +71,21 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @since 0.1
 		 * @see Base_Model_Metabox
 		 */
-		public function add_meta_boxes( $metaboxes )
+		public function add_meta_boxes( array $metaboxes )
 		{
 			global $post;
 
-			if ( is_array( $metaboxes ) ) {
-				foreach ( $metaboxes as $metabox ) {
-					foreach( $metabox->get_post_types() as $post_type ) {
-						add_meta_box( 
-							$metabox->get_id(),
-							$metabox->get_title(),
-							is_null( $metabox->get_callback() ) ? array( &$this, 'render_metabox' ): $metabox->get_callback(),
-							$post_type,
-							$metabox->get_context(),
-							$metabox->get_priority(),
-							$metabox->get_callback_args()
-						);
-					}
+			foreach ( $metaboxes as $metabox ) {
+				foreach( $metabox->get_post_types() as $post_type ) {
+					add_meta_box( 
+						$metabox->get_id(),
+						$metabox->get_title(),
+						is_callable( $metabox->get_callback() ) ? $metabox->get_callback() : array( &$this, 'render_metabox' ),
+						$post_type,
+						$metabox->get_context(),
+						$metabox->get_priority(),
+						$metabox->get_callback_args()
+					);
 				}
 			}
 		}
