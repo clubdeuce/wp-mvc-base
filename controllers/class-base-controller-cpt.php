@@ -179,19 +179,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			if ( isset( $this->_cpt_models ) && is_array( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
 					if ( $metaboxes = $cpt->get_metaboxes( $post, $this->_txtdomain ) ) {
-						foreach ( $metaboxes as $metabox ) {
-							foreach( $metabox->get_post_types() as $post_type ) {
-								add_meta_box( 
-									$metabox->get_id(),
-									$metabox->get_title(),
-									$metabox->get_callback(),
-									$post_type,
-									$metabox->get_context(),
-									$metabox->get_priority(),
-									$metabox->get_callback_args()
-								);
-							}
-						}
+						parent::add_meta_boxes( $metaboxes );
 					}
 				}
 			}
