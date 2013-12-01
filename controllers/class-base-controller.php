@@ -47,7 +47,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @return void
 		 * @since WPMVCBase 0.1
 		 */
-		public function add_shortcodes( $shortcodes )
+		public function add_shortcodes( array $shortcodes )
 		{
 			if ( ! is_array( $shortcodes ) ) {
 				return new WP_Error(
@@ -98,7 +98,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @return void|object WP_Error object on failure.
 		 * @since WPMVCBase 0.3
 		 */
-		public function enqueue_scripts( $scripts )
+		public function enqueue_scripts( array $scripts )
 		{
 			
 			if ( ! is_array( $scripts ) ) {
