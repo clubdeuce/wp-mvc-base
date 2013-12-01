@@ -20,7 +20,7 @@ namespace WPMVCB\Testing
 	 * @internal
 	 * @since 0.1
 	 */
-	class TestBaseModel extends WPMVCB_Test_Case
+	class testBaseModel extends WPMVCB_Test_Case
 	{
 		public function SetUp()
 		{
