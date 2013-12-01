@@ -204,5 +204,24 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 				parent::enqueue_scripts( $scripts );
 			}
 		}
+		
+		/**
+		 * Add metaboxes for the plugin model
+		 *
+		 * @uses Base_Model_plugin::get_metaboxes
+		 * @uses Base_Controller::add_metaboxes
+		 * @internal
+		 * @since WPMVCBase 0.3
+		 */
+		public function add_meta_boxes()
+		{
+			global $post;
+			
+			$metaboxes = $this->plugin_model->get_metaboxes( $post );
+			
+			if ( is_array( $metaboxes ) ) {
+				parent::add_meta_boxes( $metaboxes );
+			}
+		}
 	}
 }	// ! class_exists( 'Base_Controller_Plugin' )
