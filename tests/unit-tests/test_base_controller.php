@@ -22,7 +22,13 @@ namespace WPMVCB\Testing
 			$this->_mock_path = trailingslashit( \org\bovigo\vfs\vfsStream::url( 'test_dir' ) );
 			$this->_filesystem = \org\bovigo\vfs\vfsStreamWrapper::getRoot();
 
-			$this->_controller = new \Base_Controller();
+			$this->_controller = new \Base_Controller(
+				'/home/foo/plugin.php',
+				'/home/foo/app',
+				'/home/foo/base',
+				'http://example.com/foo',
+				'footextdomain'
+			);
 		}
 
 		public function tearDown()
