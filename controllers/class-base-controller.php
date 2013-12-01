@@ -205,49 +205,34 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @todo move the filter into the add function
 		 * @since 0.1
 		 */
-		public function render_metabox( $post, $metabox )
+		public function render_metabox( WP_Post $post, $metabox )
 		{
-			//get elements required for this particular view
-			$metabox = apply_filters( 'filter_metabox_callback_args', $metabox, $post );
-
-			//add the uri
-			$metabox['args']['uri'] = $this->uri;
-
-			if ( isset( $this->nonce_action ) && isset( $this->nonce_name ) ):
-				//generate a nonce
-				$nonce = wp_nonce_field( $this->nonce_action, $this->nonce_name, true, false );
-			endif;
-
-			if ( isset( $this->txtdomain ) ):
-				$txtdomain = $this->txtdomain;
-			else :
-				$txtdomain = '';
-			endif;
-
 			//Is a view file specified for this metabox?
-			if ( isset( $metabox['args']['view'] ) ) :
-				if ( file_exists( $metabox['args']['view'] ) ) :
-					//require the appropriate view for this metabox
-					include_once( $metabox['args']['view'] );
-				else :
-					trigger_error(
-						sprintf(
-							__( 'The view file %s for metabox id %s does not exist', $this->txtdomain ),
-							$metabox['args']['view'],
-							$metabox['id']
-						),
-						E_USER_WARNING
-					);
-				endif;
-			else :
-				trigger_error(
-					sprintf(
-						__( 'No view specified in the callback arguments for metabox id %s', $this->txtdomain ),
+			if ( isset( $metabox['args']['view'] ) ) {
+				if ( file_exists( $metabox['args']['view'] ) ) {
+				
+					//include view for this metabox
+					include $metabox['args']['view'];
+					return;
+				}
+				
+				if ( ! file_exists( $metabox['args']['view'] ) ) {
+					printf(
+						__( 'The view file %s for metabox id %s does not exist', 'wpmvcb' ),
+						$metabox['args']['view'],
 						$metabox['id']
-					),
-					E_USER_WARNING
+					);
+					return;
+				}
+			}
+			
+			if ( ! isset( $metabox['args']['view'] ) ) {
+				printf(
+					__( 'No view specified in the callback arguments for metabox id %s', 'wpmvcb' ),
+					$metabox['id']
 				);
-			endif;
+				return;
+			}
 		}
 		
 		/**
