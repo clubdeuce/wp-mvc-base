@@ -17,7 +17,7 @@ namespace WPMVCB\Testing
 		public function setUp()
 		{
 			parent::setUp();
-			$this->_controller = new \Base_Controller_CPT( 'footxtdomain' );
+			$this->_controller = new \Base_Controller_CPT();
 		}
 
 		public function tearDown()
@@ -55,15 +55,17 @@ namespace WPMVCB\Testing
 		public function testPropertyCptModelsExists()
 		{
 			$this->assertClassHasAttribute( '_cpt_models', '\Base_Controller_CPT' );
-		}
-		
-		/**
-		 * @covers Base_Controller_CPT::__construct
-		 */
-		public function testPropertyTxtdomainExists()
-		{
-			$this->assertClassHasAttribute( '_txtdomain', '\Base_Controller_CPT' );
-			$this->assertSame( 'footxtdomain', $this->getReflectionPropertyValue( $this->_controller, '_txtdomain' ) );
+			
+			//create a stub model
+			$cpt_model = $this->_createStubCptModel();
+			
+			//create a new controller
+			$controller = new \Base_Controller_CPT( array( $cpt_model ) );
+			
+			$this->assertEquals(
+				array( $cpt_model ),
+				$this->getReflectionPropertyValue( $controller, '_cpt_models' )
+			);
 		}
 		
 		public function testActionExistsWpEnqueueScripts()
@@ -72,6 +74,15 @@ namespace WPMVCB\Testing
 				false === has_action( 'wp_enqueue_scripts', array( &$this->_controller, 'wp_enqueue_scripts' ) ),
 				'wp_enqueue_scripts not hooked'
 			);
+		}
+		
+		/**
+		 * @covers Base_Controller_CPT::__construct
+		 * @expectedException PHPUnit_Framework_Error
+		 */
+		public function testConstructorFailWrongObjectType()
+		{
+			$controller = new \Base_Controller_CPT( '\StdClass' );
 		}
 		
 		/**
