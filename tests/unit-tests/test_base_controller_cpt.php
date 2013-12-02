@@ -67,15 +67,6 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Controller_CPT::__construct
-		 * @expectedException PHPUnit_Framework_Error
-		 */
-		public function testConstructorFailWrongObjectType()
-		{
-			$controller = new \Base_Controller_CPT( '\StdClass' );
-		}
-		
-		/**
-		 * @covers Base_Controller_CPT::__construct
 		 */
 		public function testActionExistsAdminEnqueueScripts()
 		{
