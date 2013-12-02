@@ -46,7 +46,9 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			parent::__construct();
 			
 			if ( isset( $cpt_models ) ) {
-				$this->_cpt_models = $cpt_models;
+				foreach( $cpt_models as $cpt ) {
+					$this->_cpt_models[ $cpt->get_slug() ] = $cpt;
+				}
 			}
 			
 			add_action( 'init',                  array( &$this, 'register' ) );
