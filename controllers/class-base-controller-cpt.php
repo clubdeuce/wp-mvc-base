@@ -38,10 +38,9 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * The class constructor.
 		 *
-		 * @param string $txtdomain The plugin text domain.
 		 * @since WPMVCBase 0.1
 		 */
-		public function __construct( array $cpt_models = null )
+		public function __construct()
 		{	
 			parent::__construct();
 			
