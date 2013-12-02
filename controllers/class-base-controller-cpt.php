@@ -59,6 +59,11 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		public function add_model( Base_Model_Cpt $model )
 		{	
 			$this->_cpt_models[ $model->get_slug() ] = $model;
+			
+			if ( method_exists( $model, 'save_post' ) ) {
+				add_action( 'save_post', array( &$model, 'save_post' ) );
+			}
+			
 			return $this->_cpt_models;
 		}
 
