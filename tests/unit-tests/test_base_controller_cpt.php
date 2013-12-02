@@ -110,19 +110,12 @@ namespace WPMVCB\Testing
 
 		/**
 		 * @covers Base_Controller_CPT::add_model
+		 * @expectedException PHPUnit_Framework_Error
 		 * @depends testMethodAddModelExists
 		 */
 		public function testMethodAddModelFail()
 		{
-			$model = new \StdClass();
-			$this->assertEquals(
-				new \WP_Error(
-					'invalid object type',
-					'Base_Controller_CPT::add_model expects an object of type Base_Model_CPT',
-					$model
-				),
-				$this->_controller->add_model( $model )
-			);
+			$this->_controller->add_model( new \StdClass );
 		}
 
 		/**
@@ -132,42 +125,6 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'register' ), __( 'Method does not exist', 'wmvcb' ) );
 			$this->assertFalse( false === has_action( 'init', array( $this->_controller, 'register' ) ) );
-		}
-
-		/**
-		 * @covers Base_Controller_CPT::add_model
-		 * @depends testMethodAddModel
-		 */
-		public function testActionThePostExists()
-		{
-			$this->_controller->add_model( $this->_createStubCptModel(), 'foo', 'bar', 'baz' );
-			$this->assertFalse( false === has_action( 'the_post', 'foo' ), __( 'Action the_post callback not registered', 'wpmvcb' ) );
-
-		}
-
-		/**
-		 * @covers Base_Controller_CPT::add_model
-		 * @depends testMethodAddModel
-		 */
-		public function testActionSavePostExists()
-		{
-			$cpt_model = $this->_createStubCptModel();
-			$cpt_model->expects( $this->any() )
-			          ->method( 'bar' )
-			          ->will( $this->returnValue( 'barback' ) );
-
-			$this->_controller->add_model( $cpt_model, 'foo', 'bar', 'baz' );
-			$this->assertFalse( false === has_action( 'save_post', 'bar' ) );
-		}
-
-		/**
-		 * @covers Base_Controller_CPT::add_model
-		 * @depends testMethodAddModel
-		 */
-		public function testActionDeletePostExists()
-		{
-			$this->_controller->add_model( $this->_createStubCptModel(), 'foo', 'bar', 'baz' );
-			$this->assertFalse( false === has_action( 'delete_post', 'baz' ) );
 		}
 
 		/**
