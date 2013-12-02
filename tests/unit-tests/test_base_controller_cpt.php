@@ -52,26 +52,9 @@ namespace WPMVCB\Testing
 			return $cpt_model;
 		}
 		
-		/**
-		 * @covers Base_Controller_CPT::__construct
-		 */
 		public function testPropertyCptModelsExists()
 		{
 			$this->assertClassHasAttribute( '_cpt_models', '\Base_Controller_CPT' );
-			
-			//create a stub model
-			$cpt_model = $this->_createStubCptModel();
-			$cpt_model->expects( $this->any() )
-			          ->method( 'get_slug' )
-			          ->will( $this->returnValue( 'fooslug' ) );
-			           
-			//create a new controller
-			$controller = new \Base_Controller_CPT( array( $cpt_model ) );
-			
-			$this->assertEquals(
-				array( 'fooslug' => $cpt_model ),
-				$this->getReflectionPropertyValue( $controller, '_cpt_models' )
-			);
 		}
 		
 		public function testActionExistsWpEnqueueScripts()

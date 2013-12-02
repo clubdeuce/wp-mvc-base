@@ -58,33 +58,14 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 * Add a cpt model to this controller.
 		 *
 		 * @param object $model The Base_Model_CPT for this controller.
-		 * @return void|object WP_Error object on failure.
+		 * @return array $_cpt_models
 		 * @access public
 		 * @since 0.3
 		 */
-		public function add_model( $model, $the_post = null, $save_post = null, $delete_post = null )
-		{
-			if ( ! is_a( $model, 'Base_Model_CPT' ) ) {
-				return new WP_Error(
-					'invalid object type',
-					sprintf( __( '%s::%s expects an object of type Base_Model_CPT', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
-					$model
-				);
-			}
-			
+		public function add_model( Base_Model_Cpt $model )
+		{	
 			$this->_cpt_models[ $model->get_slug() ] = $model;
-
-			if ( isset( $the_post ) ) {
-				add_action( 'the_post', $the_post );
-			}
-
-			if ( isset( $save_post ) ) {
-				add_action( 'save_post', $save_post );
-			}
-
-			if ( isset( $delete_post ) ) {
-				add_action( 'delete_post', $delete_post );
-			}
+			return $this->_cpt_models;
 		}
 
 		/**
