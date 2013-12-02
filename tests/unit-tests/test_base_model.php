@@ -408,5 +408,170 @@ namespace WPMVCB\Testing
 			$this->assertTrue( method_exists( $this->_model, 'get_shortcodes' ) );
 			$this->assertFalse( $this->_model->get_shortcodes() );
 		}
+		
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostForPost()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'post',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 1 );
+
+			$this->assertTrue(
+				$this->_model->authenticate_post(
+					$post_id,
+					'post',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostForPage()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'page',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 1 );
+
+			$this->assertTrue(
+				$this->_model->authenticate_post(
+					$post_id,
+					'page',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostUserCannotEditPage()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'page',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 0 );
+
+			$this->assertEmpty(
+				$this->_model->authenticate_post(
+					$post_id,
+					'page',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostUserCannotEditPost()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'post',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 0 );
+
+			$this->assertEmpty(
+				$this->_model->authenticate_post(
+					$post_id,
+					'post',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostNoNonce()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'page',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 1 );
+
+			$this->assertEmpty(
+				$this->_model->authenticate_post(
+					$post_id,
+					'page',
+					array(),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostDoingAutosave()
+		{
+			$this->assertTrue( method_exists( $this->_model, 'authenticate_post' ) );
+
+			define( 'DOING_AUTOSAVE', true );
+
+			$this->assertEmpty(
+				$this->_model->authenticate_post(
+					$post_id,
+					'page',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
 	}
 }

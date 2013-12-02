@@ -408,5 +408,51 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				$callback
 			);
 		}
+		
+		/**
+		 * WP save_post action authenticator.
+		 *
+		 * This method verifies an autosave is not in progress, the current user can edit the post being submitted,
+		 * and that a valid nonce is present.
+		 *
+		 * @param string $post_id      The WP post id.
+		 * @param string $post_type    The post type.
+		 * @param object $post_data    The POSTed data.
+		 * @param string $nonce_name   The name of the nonce.
+		 * @param string $nonce_action The nonce action.
+		 * @internal
+		 * @access public
+		 * @since 0.1
+		 */
+		public function authenticate_post( $post_id, $post_type, $post_data, $nonce_name, $nonce_action )
+		{
+
+			// verify if this is an auto save routine.
+			// If it is our form has not been submitted, so we dont want to do anything
+			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+				return;
+			}
+
+			// We need to check if the current user is authorised to do this action.
+			switch ( $post_type ) {
+				case 'page':
+					if ( ! current_user_can( 'edit_page', $post_id ) ) {
+						return;
+					}
+				default:
+					if ( ! current_user_can( 'edit_post', $post_id ) ) {
+						return;
+					}
+			}
+
+			// Third we need to check if the user intended to change this value.
+			if ( ! isset( $post_data[ $nonce_name ] ) || ! wp_verify_nonce( $post_data[ $nonce_name ], $nonce_action ) ) {
+				return;
+			}
+
+			return true;
+		}
+
+
 	}
 endif;
