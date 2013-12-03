@@ -16,7 +16,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	 * @version 0.2
 	 * @since WPMVCBase 0.1
 	 */
-	class Base_Model_CPT extends Base_Model
+	abstract class Base_Model_CPT extends Base_Model
 	{
 		/**
 		 * The cpt slug. Used to register the post type.
@@ -92,15 +92,16 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @access public
 		 * @since 0.1
 		 */
-		public function __construct( $slug, $singular, $plural, $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain = null )
+		public function __construct( $slug, $singular, $plural, $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain = 'wpmvcb' )
 		{
-			parent::__construct( $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain );
 			$this->_slug     = $slug;
 			$this->_singular = $singular;
 			$this->_plural   = $plural;
 			$this->_uri      = $uri;
-	
+			
 			$this->_init_labels( $txtdomain );
+			
+			parent::__construct( $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain );
 		}
 		
 		/**
