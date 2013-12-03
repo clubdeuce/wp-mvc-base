@@ -44,8 +44,9 @@ namespace WPMVCB\Testing
 						 		'get_singular',
 						 		'get_plural',
 						 		'get_scripts',
-						 		'get_admin_scripts' 
-						 	) 
+						 		'get_admin_scripts',
+						 		'save_post'
+						 	)
 						 )
 						 ->getMock();
 			          
@@ -101,11 +102,16 @@ namespace WPMVCB\Testing
 			$cpt_model->expects( $this->any() )
 			          ->method( 'get_slug' )
 			          ->will( $this->returnValue( 'fooslug' ) );
+			          
+			$cpt_model->expects( $this->any() )
+			          ->method( 'save_post' )
+			          ->will( $this->returnValue( 'bar' ) );
 
 			$expected = array( 'fooslug' => $cpt_model );
 
 			$this->_controller->add_model( $cpt_model );
 			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_controller, '_cpt_models' ) );
+			$this->assertFalse( false === has_action( 'save_post', array( &$cpt_model, 'save_post' ) ) );
 		}
 
 		/**
