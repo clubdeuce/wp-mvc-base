@@ -20,7 +20,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 	 * @version 0.2
 	 * @since 0.2
 	 */
-	class Base_Model_Plugin extends Base_Model
+	abstract class Base_Model_Plugin extends Base_Model
 	{
 		/**
 		 * The plugin slug.
