@@ -95,6 +95,23 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		protected $_uri;
 
 		/**
+		 * The uri to the js assets.
+		 *
+		 * @var string
+		 * @access protected
+		 * @since 0.1
+		 */
+		protected $_js_uri;
+
+		/**
+		 * The uri to the css assets.
+		 *
+		 * @var string
+		 * @access protected
+		 * @since 0.1
+		 */
+		protected $_css_uri;
+
 		/**
 		 * The plugin text domain
 		 *
@@ -196,7 +213,21 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			$this->_base_path        = trailingslashit( $base_path );
 			$this->_uri              = trailingslashit( $uri );
 			$this->_txtdomain        = $txtdomain;
+			
+			$this->_init();
 		}
+		
+		/**
+		 * Initialize the child class.
+		 *
+		 * Use this function to set properties for your child class.
+		 *
+		 * @access protected
+		 * @abstract
+		 * @return void
+		 * @since 0.3
+		 */
+		abstract protected function _init();
 		
 		/**
 		 * Get the frontend CSS.
