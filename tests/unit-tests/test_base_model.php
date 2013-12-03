@@ -3,17 +3,7 @@ namespace WPMVCB\Testing
 {
 	require_once WPMVCB_SRC_DIR . '/helpers/class-base-helpers.php';
 	require_once WPMVCB_SRC_DIR . '/models/class-base-model.php';
-	
-	/**
-	 * Base Model Test Stub
-	 *
-	 * @internal
-	 * @since 0.1
-	 */
-	class TestStubBaseModel extends \Base_Model
-	{
-	}
-	
+		
 	/**
 	 * Base Model Test Class
 	 *
@@ -26,8 +16,7 @@ namespace WPMVCB\Testing
 		{
 			parent::setUp();
 			
-			//create the model
-			$this->_model = new TestStubBaseModel(
+			$args = array(
 				'/home/foo/plugin.php',
 				'home/foo',
 				'/home/foo/app',
@@ -35,6 +24,11 @@ namespace WPMVCB\Testing
 				'http://example.com/foo',
 				'footextdomain'
 			);
+			
+			//create the model
+			$this->_model = $this->getMockBuilder( '\Base_Model' )
+			                     ->setConstructorArgs( $args )
+			                     ->getMockForAbstractClass();
 		}
 		
 		public function tearDown()
