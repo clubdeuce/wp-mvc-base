@@ -29,7 +29,7 @@ namespace WPMVCB\Testing
 
 		public function tearDown()
 		{
-			unset( $this->_model );
+			unset( $this->model );
 		}
 		
 		/**
@@ -38,7 +38,7 @@ namespace WPMVCB\Testing
 		public function testAttributeExistsSlug()
 		{
 			$this->assertClassHasAttribute( 'slug', '\Base_Model_Plugin' );
-			$this->assertEquals( 'foo', $this->getReflectionPropertyValue( $this->_model, 'slug' ) );
+			$this->assertEquals( 'foo', $this->getReflectionPropertyValue( $this->model, 'slug' ) );
 		}
 		
 		/**
@@ -47,7 +47,7 @@ namespace WPMVCB\Testing
 		public function testAttributeExistsVersion()
 		{
 			$this->assertClassHasAttribute( 'version', '\Base_Model_Plugin' );
-			$this->assertEquals( '1.0.1', $this->getReflectionPropertyValue( $this->_model, 'version' ) );
+			$this->assertEquals( '1.0.1', $this->getReflectionPropertyValue( $this->model, 'version' ) );
 		}
 		
 		/**
@@ -56,7 +56,7 @@ namespace WPMVCB\Testing
 		public function testAttributeExistsPath()
 		{
 			$this->assertClassHasAttribute( '_path', '\Base_Model_Plugin' );
-			$this->assertEquals( dirname( __FILE__ ) . '/' , $this->getReflectionPropertyValue( $this->_model, '_path' ) );
+			$this->assertEquals( dirname( __FILE__ ) . '/' , $this->getReflectionPropertyValue( $this->model, '_path' ) );
 		}
 		
 		/**
@@ -65,7 +65,7 @@ namespace WPMVCB\Testing
 		public function testAttributeExistsAppPath()
 		{
 			$this->assertClassHasAttribute( '_app_path', '\Base_Model_Plugin' );
-			$this->assertEquals( dirname( __FILE__ ) . '/app/', $this->getReflectionPropertyValue( $this->_model, '_app_path' ) );
+			$this->assertEquals( dirname( __FILE__ ) . '/app/', $this->getReflectionPropertyValue( $this->model, '_app_path' ) );
 		}
 		
 		/**
@@ -74,7 +74,7 @@ namespace WPMVCB\Testing
 		public function testAttributeExistsBasePath()
 		{
 			$this->assertClassHasAttribute( '_base_path', '\Base_Model_Plugin' );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/' , $this->getReflectionPropertyValue( $this->_model, '_base_path' ) );
+			$this->assertEquals( dirname( __FILE__ ) . '/base/' , $this->getReflectionPropertyValue( $this->model, '_base_path' ) );
 		}
 		
 		/**
@@ -83,7 +83,7 @@ namespace WPMVCB\Testing
 		public function testAttributeExistsMainPluginFile()
 		{
 			$this->assertClassHasAttribute( '_main_plugin_file', '\Base_Model_Plugin' );
-			$this->assertEquals( __FILE__, $this->getReflectionPropertyValue( $this->_model, '_main_plugin_file' ) );
+			$this->assertEquals( __FILE__, $this->getReflectionPropertyValue( $this->model, '_main_plugin_file' ) );
 		}
 		
 		/**
@@ -92,7 +92,7 @@ namespace WPMVCB\Testing
 		public function testAttributeExistsUri()
 		{
 			$this->assertClassHasAttribute( '_uri', '\Base_Model_Plugin' );
-			$this->assertEquals( 'http://example.com/', $this->getReflectionPropertyValue( $this->_model, '_uri' ) );
+			$this->assertEquals( 'http://example.com/', $this->getReflectionPropertyValue( $this->model, '_uri' ) );
 		}
 		
 		/**
@@ -101,7 +101,7 @@ namespace WPMVCB\Testing
 		public function testAttributeExistsTxtdomain()
 		{
 			$this->assertClassHasAttribute( '_txtdomain', '\Base_Model_Plugin' );
-			$this->assertEquals( 'bar', $this->getReflectionPropertyValue( $this->_model, '_txtdomain' ) );
+			$this->assertEquals( 'bar', $this->getReflectionPropertyValue( $this->model, '_txtdomain' ) );
 		}
 
 		public function testAttributeExistsHelpTabs()
@@ -139,8 +139,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetSlug()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_slug' ) );
-			$this->assertEquals( 'foo', $this->_model->get_slug() );
+			$this->assertTrue( method_exists( $this->model, 'get_slug' ) );
+			$this->assertEquals( 'foo', $this->model->get_slug() );
 		}
 
 		/**
@@ -148,8 +148,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetVersion()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_version' ) );
-			$this->assertEquals( '1.0.1', $this->_model->get_version() );
+			$this->assertTrue( method_exists( $this->model, 'get_version' ) );
+			$this->assertEquals( '1.0.1', $this->model->get_version() );
 		}
 
 		/**
@@ -159,8 +159,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodMainPluginFile()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'main_plugin_file' ) );
-			$this->assertEquals( __FILE__, $this->_model->main_plugin_file() );
+			$this->assertTrue( method_exists( $this->model, 'main_plugin_file' ) );
+			$this->assertEquals( __FILE__, $this->model->main_plugin_file() );
 		}
 
 		/**
@@ -168,8 +168,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetMainPluginFile()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_main_plugin_file' ) );
-			$this->assertEquals( __FILE__, $this->_model->get_main_plugin_file() );
+			$this->assertTrue( method_exists( $this->model, 'get_main_plugin_file' ) );
+			$this->assertEquals( __FILE__, $this->model->get_main_plugin_file() );
 		}
 
 		/**
@@ -177,8 +177,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetPath()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_path' ) );
-			$this->assertEquals( trailingslashit( dirname( __FILE__ ) ), $this->_model->get_path() );
+			$this->assertTrue( method_exists( $this->model, 'get_path' ) );
+			$this->assertEquals( trailingslashit( dirname( __FILE__ ) ), $this->model->get_path() );
 		}
 
 		/**
@@ -186,8 +186,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetAppPath()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_app_path' ) );
-			$this->assertEquals( trailingslashit( dirname( __FILE__ ) ) . 'app/', $this->_model->get_app_path() );
+			$this->assertTrue( method_exists( $this->model, 'get_app_path' ) );
+			$this->assertEquals( trailingslashit( dirname( __FILE__ ) ) . 'app/', $this->model->get_app_path() );
 		}
 
 		/**
@@ -195,8 +195,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetAppControllersPath()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_app_controllers_path' ) );
-			$this->assertEquals( trailingslashit( dirname( __FILE__ ) ) .'app/controllers/', $this->_model->get_app_controllers_path() );
+			$this->assertTrue( method_exists( $this->model, 'get_app_controllers_path' ) );
+			$this->assertEquals( trailingslashit( dirname( __FILE__ ) ) .'app/controllers/', $this->model->get_app_controllers_path() );
 		}
 
 		/**
@@ -204,8 +204,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetAppModelsPath()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_app_models_path' ) );
-			$this->assertEquals(dirname( __FILE__ ) .'/app/models/', $this->_model->get_app_models_path() );
+			$this->assertTrue( method_exists( $this->model, 'get_app_models_path' ) );
+			$this->assertEquals(dirname( __FILE__ ) .'/app/models/', $this->model->get_app_models_path() );
 		}
 
 		/**
@@ -213,8 +213,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetAppViewsPath()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_app_views_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) .'/app/views/', $this->_model->get_app_views_path() );
+			$this->assertTrue( method_exists( $this->model, 'get_app_views_path' ) );
+			$this->assertEquals( dirname( __FILE__ ) .'/app/views/', $this->model->get_app_views_path() );
 		}
 
 		/**
@@ -222,8 +222,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetBasePath()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_base_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/', $this->_model->get_base_path() );
+			$this->assertTrue( method_exists( $this->model, 'get_base_path' ) );
+			$this->assertEquals( dirname( __FILE__ ) . '/base/', $this->model->get_base_path() );
 		}
 
 		/**
@@ -231,8 +231,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetBaseControllersPath()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_base_controllers_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/controllers/', $this->_model->get_base_controllers_path() );
+			$this->assertTrue( method_exists( $this->model, 'get_base_controllers_path' ) );
+			$this->assertEquals( dirname( __FILE__ ) . '/base/controllers/', $this->model->get_base_controllers_path() );
 		}
 
 		/**
@@ -240,8 +240,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetBaseModelsPath()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_base_models_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/models/', $this->_model->get_base_models_path() );
+			$this->assertTrue( method_exists( $this->model, 'get_base_models_path' ) );
+			$this->assertEquals( dirname( __FILE__ ) . '/base/models/', $this->model->get_base_models_path() );
 		}
 
 		/**
@@ -249,8 +249,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetBaseViewsPath()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_base_views_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/views/', $this->_model->get_base_views_path() );
+			$this->assertTrue( method_exists( $this->model, 'get_base_views_path' ) );
+			$this->assertEquals( dirname( __FILE__ ) . '/base/views/', $this->model->get_base_views_path() );
 		}
 
 		/**
@@ -258,8 +258,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetUri()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_uri' ) );
-			$this->assertEquals( 'http://example.com/', $this->_model->get_uri() );
+			$this->assertTrue( method_exists( $this->model, 'get_uri' ) );
+			$this->assertEquals( 'http://example.com/', $this->model->get_uri() );
 		}
 
 		/**
@@ -267,8 +267,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetTextdomain()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_textdomain' ) );
-			$this->assertEquals( 'bar', $this->_model->get_textdomain() );
+			$this->assertTrue( method_exists( $this->model, 'get_textdomain' ) );
+			$this->assertEquals( 'bar', $this->model->get_textdomain() );
 		}
 	}
 }

@@ -110,11 +110,11 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 			parent::__construct( $file, $plugin_path, $app_path, $base_path, $uri, $txtdomain );
 			$this->slug             = $slug;
 			$this->version          = $version;
-			$this->js_uri           = $this->_uri . 'js/';
-			$this->css_uri          = $this->_uri . 'css/';
+			$this->js_uri           = $this->uri . 'js/';
+			$this->css_uri          = $this->uri . 'css/';
 			
 			if ( ! class_exists( 'Helper_Functions' ) ) {
-				require_once(  $this->_base_path . '/helpers/class-base-helpers.php' );
+				require_once(  $this->base_path . '/helpers/class-base-helpers.php' );
 			}
 		}
 		
@@ -155,7 +155,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 			$helper = new Helper_Functions();
 			$helper->deprecated( __FUNCTION__, 'get_main_plugin_file', $this->txtdomain );
 
-			return $this->_main_plugin_file;
+			return $this->main_plugin_file;
 		}
 
 		/**
@@ -167,7 +167,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_main_plugin_file()
 		{
-			return $this->_main_plugin_file;
+			return $this->main_plugin_file;
 		}
 		
 		/**
@@ -191,7 +191,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_app_path()
 		{
-			return $this->_app_path;
+			return $this->app_path;
 		}
 		
 		/**
@@ -203,7 +203,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_app_controllers_path()
 		{
-			return $this->_app_path . 'controllers/';
+			return $this->app_path . 'controllers/';
 		}
 		
 		/**
@@ -215,7 +215,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_app_models_path()
 		{
-			return $this->_app_path . 'models/';
+			return $this->app_path . 'models/';
 		}
 		
 		/**
@@ -226,7 +226,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_app_views_path()
 		{
-			return $this->_app_path . 'views/';
+			return $this->app_path . 'views/';
 		}
 		
 		/**
@@ -238,7 +238,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_path()
 		{
-			return $this->_base_path;
+			return $this->base_path;
 		}
 		
 		/**
@@ -250,7 +250,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_controllers_path()
 		{
-			return $this->_base_path . 'controllers/';
+			return $this->base_path . 'controllers/';
 		}
 		
 		/**
@@ -262,7 +262,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_models_path()
 		{
-			return $this->_base_path . 'models/';
+			return $this->base_path . 'models/';
 		}
 		
 		/**
@@ -274,7 +274,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_base_views_path()
 		{
-			return $this->_base_path . 'views/';
+			return $this->base_path . 'views/';
 		}
 		
 		/**
@@ -285,7 +285,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_uri()
 		{
-			return $this->_uri;
+			return $this->uri;
 		}
 
 		/**
@@ -297,7 +297,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 */
 		public function get_textdomain()
 		{
-			return $this->_txtdomain;
+			return $this->txtdomain;
 		}
 	}
 endif;

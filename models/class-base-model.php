@@ -54,7 +54,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access protected
 		 * @since 0.1
 		 */
-		protected $_path;
+		protected $path;
 
 		/**
 		 * The plugin app path.
@@ -63,7 +63,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access protected
 		 * @since 0.1
 		 */
-		protected $_app_path;
+		protected $app_path;
 
 		/**
 		 * The base directory path.
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access protected
 		 * @since 0.1
 		 */
-		protected $_base_path;
+		protected $base_path;
 
 		/**
 		 * The absoulte path to the main plugin file.
@@ -81,7 +81,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access protected
 		 * @since 0.1
 		 */
-		protected $_main_plugin_file;
+		protected $main_plugin_file;
 
 		/**
 		  * The plugin uri.
@@ -92,7 +92,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		  * @access protected
 		  * @since 0.1
 		  */
-		protected $_uri;
+		protected $uri;
 
 		/**
 		 * The uri to the js assets.
@@ -101,7 +101,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access protected
 		 * @since 0.1
 		 */
-		protected $_js_uri;
+		protected $js_uri;
 
 		/**
 		 * The uri to the css assets.
@@ -110,7 +110,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access protected
 		 * @since 0.1
 		 */
-		protected $_css_uri;
+		protected $css_uri;
 
 		/**
 		 * The plugin text domain
@@ -119,7 +119,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access protected
 		 * @since 0.1
 		 */
-		protected $_txtdomain;
+		protected $txtdomain;
 		
 		/**
 		 * The plugin css files
@@ -207,14 +207,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function __construct(  $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain = null )
 		{
-			$this->_main_plugin_file = $main_plugin_file;
-			$this->_path             = trailingslashit( $plugin_path );
-			$this->_app_path         = trailingslashit( $app_path );
-			$this->_base_path        = trailingslashit( $base_path );
-			$this->_uri              = trailingslashit( $uri );
-			$this->_txtdomain        = $txtdomain;
+			$this->main_plugin_file = $main_plugin_file;
+			$this->path             = trailingslashit( $plugin_path );
+			$this->app_path         = trailingslashit( $app_path );
+			$this->base_path        = trailingslashit( $base_path );
+			$this->uri              = trailingslashit( $uri );
+			$this->txtdomain        = $txtdomain;
 			
-			$this->_init();
+			$this->init();
 		}
 		
 		/**
@@ -227,7 +227,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @return void
 		 * @since 0.3
 		 */
-		abstract protected function _init();
+		abstract protected function init();
 		
 		/**
 		 * Get the frontend CSS.
@@ -300,10 +300,16 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function get_metaboxes()
 		{
+			global $post;
+			
+			if ( ! isset( $this->metaboxes ) && method_exists( $this, 'init_metaboxes' ) ) {
+				$this->init_metaboxes( $post, $this->txtdomain );
+			}
+			
 			if ( isset( $this->metaboxes ) ) {
 				return $this->metaboxes;
 			}
-			
+				
 			return false;
 		}
 
@@ -326,7 +332,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the cpt help screen tabs.
 		 *
-		 * @return array|FALSE $_help_tabs if set, FALSE if not.
+		 * @return array|FALSE $help_tabs if set, FALSE if not.
 		 * @access public
 		 * @deprecated
 		 * @since 0.1
@@ -334,7 +340,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		public function get_help_screen()
 		{
 			//warn the user about deprecated function use
-			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', $this->_txtdomain );
+			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', $this->txtdomain );
 			
 			//and point to the replacement function
 			return $this->get_help_tabs();
@@ -397,7 +403,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function add_help_tab( $handle, $help_tab )
 		{
-			if ( ! is_array( $this->_help_tabs ) ) {
+			if ( ! is_array( $this->help_tabs ) ) {
 				$this->help_tabs = array();
 			}
 			
