@@ -48,7 +48,7 @@ namespace WPMVCB\Testing
 						 		'save_post'
 						 	)
 						 )
-						 ->getMock();
+						 ->getMockForAbstractClass();
 			          
 			return $cpt_model;
 		}

@@ -18,18 +18,22 @@ namespace WPMVCB\Testing
 
 		public function setUp()
 		{
-			$this->_factory = new \WP_UnitTest_Factory;
-			$this->_cpt = new \Base_Model_CPT(
+			$args = array(
 				'fooslug',
 				'Book',
 				'Books',
-				'/home/foo/fooplugin.php',
+				'/home/foo/fooplugin.php', 
 				'/home/foo/',
 				'/home/foo/app/',
 				'/home/foo/base/',
 				'http://my-super-cool-site.com/',
 				'footxtdomain'
 			);
+			
+			$this->_factory = new \WP_UnitTest_Factory;
+			$this->_cpt = $this->getMockBuilder( '\Base_Model_CPT' )
+			                   ->setConstructorArgs( $args )
+			                   ->getMockForAbstractClass();
 
 			$this->_post = get_post(
 				$this->_factory->post->create_object(

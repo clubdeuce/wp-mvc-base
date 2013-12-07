@@ -25,6 +25,10 @@ namespace WPMVCB\Testing
 				'http://example.com',
 				'bar'
 			);
+			
+			$this->model = $this->getMockBuilder( '\Base_Model_Plugin' )
+			                     ->setConstructorArgs( $args )
+			                     ->getMockForAbstractClass();
 		}
 
 		public function tearDown()
