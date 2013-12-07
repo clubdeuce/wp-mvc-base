@@ -111,7 +111,6 @@ namespace WPMVCB\Testing
 
 			$this->_controller->add_model( $cpt_model );
 			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_controller, '_cpt_models' ) );
-			$this->assertFalse( false === has_action( 'save_post', array( &$cpt_model, 'save_post' ) ) );
 		}
 
 		/**
