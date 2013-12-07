@@ -33,7 +33,15 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @since 0.1
 		 */
 		private $title;
-
+		
+		/**
+		 * The admin screens on which to display this help tab.
+		 * 
+		 * @var array
+		 * @since 1.0
+		 */
+		private $screens;
+		
 		/**
 		 * The help tab content.
 		 *
@@ -63,14 +71,15 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		/**
 		 * The class constructor.
 		 *
-		 * @param string $title The help tab title.
-		 * @param string $id The help tab id.
-		 * @param string $content The help tab content. If null, the callback will be used to populate the content.
-		 * @param string|array $callback The help tab callback. If null, the view will be used to populate the content.
-		 * @param string $view The absolute path to the view file used to render this help tab. Must be set if $content and $callback are null.
+		 * @param string       $title     The help tab title.
+		 * @param string       $id        The help tab id.
+		 * @param array        $screens   The screens on which to add the help screen tab.
+		 * @param string       $content   The help tab content. If null, the callback will be used to populate the content.
+		 * @param string|array $callback  The help tab callback. If null, the view will be used to populate the content.
+		 * @param string       $view      The absolute path to the view file used to render this help tab. Must be set if $content and $callback are null.
 		 * @since 0.1
 		 */
-		public function __construct( $title, $id, $content = null, $callback = null, $view = null )
+		public function __construct( $title, $id, array $screens, $content = null, $callback = null, $view = null )
 		{
 			if ( ! isset( $content ) && ! isset( $callback ) && ! isset( $view ) ) {
 				trigger_error(
@@ -81,6 +90,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 			
 			$this->id       = $id;
 			$this->title    = $title;
+			$this->screens  = $screens;
 			$this->content  = $content;
 			$this->callback = $callback;
 			$this->view     = $view;
@@ -121,7 +131,22 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		{
 			return $this->id;
 		}
-
+		
+		/**
+		 * Get the help tab screens.
+		 *
+		 * @return array $screens
+		 * @since 1.0
+		 */
+		public function get_screens()
+		{
+			if ( isset( $this->screens ) ) {
+				return $this->screens;
+			}
+			
+			return false;
+		}
+		
 		/**
 		 * Set the help tab callback.
 		 *

@@ -13,6 +13,7 @@ namespace WPMVCB\Testing
 			$this->tab = new \Base_Model_Help_Tab(
 				'My Test Tab',
 				'test-tab',
+				array( 'load-post-new.php' ),
 				'Here is some test tab content',
 				array( &$this, 'help_tab_callback' )
 			);
@@ -23,21 +24,22 @@ namespace WPMVCB\Testing
 			//implemented, but does nothing
 		}
 		
+		/**
+		 * @expectedException        PHPUnit_Framework_Error
+		 * @expectedExceptionMessage You must specify either the help tab content, a callback function, or a view to use for the help tab
+		 */
 		public function testMissingParamsError()
 		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error' );
-			$tab = new \Base_Model_Help_Tab( 'Empty Tab', 'empty-tab' );
+			$tab = new \Base_Model_Help_Tab( 'Empty Tab', 'empty-tab', array( 'foo.php' ) );
 		}
 		
+		/**
+		 * @expectedException        PHPUnit_Framework_Error
+		 * @expectedExceptionMessage You must specify either the help tab content, a callback function, or a view to use for the help tab
+		 */
 		public function testMissingParamsMessage()
 		{
-			@$tab = new \Base_Model_Help_Tab( 'Empty Tab', 'empty-tab' );
-			$error = error_get_last();
-			
-			$this->assertEquals(
-				'You must specify either the help tab content, a callback function, or a view to use for the help tab', 
-				$error['message']
-			);
+			$tab = new \Base_Model_Help_Tab( 'Empty Tab', 'empty-tab', array( 'foo.php' ) );
 		}
 		
 		public function testAttributeIdExists()
@@ -48,6 +50,11 @@ namespace WPMVCB\Testing
 		public function testAttributeTitleExists()
 		{
 			$this->assertClassHasAttribute( 'title', 'Base_Model_Help_Tab' );
+		}
+		
+		public function testAttributeScreensExists()
+		{
+			$this->assertClassHasAttribute( 'screens', 'Base_Model_Help_Tab' );
 		}
 		
 		public function testAttributeContentExists()
@@ -75,6 +82,12 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'get_title' ) );
 			$this->assertEquals( 'My Test Tab', $this->tab->get_title() );
+		}
+		
+		public function testMethodGetScreens()
+		{
+			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'get_screens' ) );
+			$this->assertEquals( array( 'load-post-new.php' ), $this->tab->get_screens() );
 		}
 		
 		public function testMethodSetCallbackExists()
