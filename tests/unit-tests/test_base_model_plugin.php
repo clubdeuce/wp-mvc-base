@@ -15,7 +15,7 @@ namespace WPMVCB\Testing
 	{
 		public function setUp()
 		{
-			$this->_model = new \Base_Model_Plugin(
+			$args = array(
 				'foo', 
 				'1.0.1',
 				__FILE__,
@@ -154,125 +154,6 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->model, 'get_version' ) );
 			$this->assertEquals( '1.0.1', $this->model->get_version() );
-		}
-
-		/**
-		 * expectedException PHPUnit_Framework_Error
-		 * expectedExceptionMessage DEPRECATED: The function main_plugin_file is deprecated. Please use get_main_plugin_file instead.
-		 * @covers Base_Model_Plugin::main_plugin_file
-		 */
-		public function testMethodMainPluginFile()
-		{
-			$this->assertTrue( method_exists( $this->model, 'main_plugin_file' ) );
-			$this->assertEquals( __FILE__, $this->model->main_plugin_file() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_main_plugin_file
-		 */
-		public function testMethodGetMainPluginFile()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_main_plugin_file' ) );
-			$this->assertEquals( __FILE__, $this->model->get_main_plugin_file() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_path
-		 */
-		public function testMethodGetPath()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_path' ) );
-			$this->assertEquals( trailingslashit( dirname( __FILE__ ) ), $this->model->get_path() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_app_path
-		 */
-		public function testMethodGetAppPath()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_app_path' ) );
-			$this->assertEquals( trailingslashit( dirname( __FILE__ ) ) . 'app/', $this->model->get_app_path() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_app_controllers_path
-		 */
-		public function testMethodGetAppControllersPath()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_app_controllers_path' ) );
-			$this->assertEquals( trailingslashit( dirname( __FILE__ ) ) .'app/controllers/', $this->model->get_app_controllers_path() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_app_models_path
-		 */
-		public function testMethodGetAppModelsPath()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_app_models_path' ) );
-			$this->assertEquals(dirname( __FILE__ ) .'/app/models/', $this->model->get_app_models_path() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_app_views_path
-		 */
-		public function testMethodGetAppViewsPath()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_app_views_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) .'/app/views/', $this->model->get_app_views_path() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_base_path
-		 */
-		public function testMethodGetBasePath()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_base_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/', $this->model->get_base_path() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_base_controllers_path
-		 */
-		public function testMethodGetBaseControllersPath()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_base_controllers_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/controllers/', $this->model->get_base_controllers_path() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_base_models_path
-		 */
-		public function testMethodGetBaseModelsPath()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_base_models_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/models/', $this->model->get_base_models_path() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_base_views_path
-		 */
-		public function testMethodGetBaseViewsPath()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_base_views_path' ) );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/views/', $this->model->get_base_views_path() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_uri
-		 */
-		public function testMethodGetUri()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_uri' ) );
-			$this->assertEquals( 'http://example.com/', $this->model->get_uri() );
-		}
-
-		/**
-		 * @covers Base_Model_Plugin::get_textdomain
-		 */
-		public function testMethodGetTextdomain()
-		{
-			$this->assertTrue( method_exists( $this->model, 'get_textdomain' ) );
-			$this->assertEquals( 'bar', $this->model->get_textdomain() );
 		}
 	}
 }

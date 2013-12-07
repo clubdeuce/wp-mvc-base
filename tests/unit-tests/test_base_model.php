@@ -18,7 +18,7 @@ namespace WPMVCB\Testing
 			
 			$args = array(
 				'/home/foo/plugin.php',
-				'home/foo',
+				'/home/foo',
 				'/home/foo/app',
 				'/home/foo/base',
 				'http://example.com/foo',
@@ -94,6 +94,125 @@ namespace WPMVCB\Testing
 				'footextdomain',
 				$this->getReflectionPropertyValue( $this->model, 'txtdomain' )
 			);
+		}
+		
+		/**
+		 * expectedException PHPUnit_Framework_Error
+		 * expectedExceptionMessage DEPRECATED: The function main_plugin_file is deprecated. Please use get_main_plugin_file instead.
+		 * @covers Base_Model::main_plugin_file
+		 */
+		public function testMethodMainPluginFile()
+		{
+			$this->assertTrue( method_exists( $this->model, 'main_plugin_file' ) );
+			$this->assertEquals( '/home/foo/plugin.php', $this->model->main_plugin_file() );
+		}
+
+		/**
+		 * @covers Base_Model::get_main_plugin_file
+		 */
+		public function testMethodGetMainPluginFile()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_main_plugin_file' ) );
+			$this->assertEquals( '/home/foo/plugin.php', $this->model->get_main_plugin_file() );
+		}
+
+		/**
+		 * @covers Base_Model::get_path
+		 */
+		public function testMethodGetPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_path' ) );
+			$this->assertEquals( '/home/foo/', $this->model->get_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_app_path
+		 */
+		public function testMethodGetAppPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_app_path' ) );
+			$this->assertEquals( '/home/foo/app/', $this->model->get_app_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_app_controllers_path
+		 */
+		public function testMethodGetAppControllersPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_app_controllers_path' ) );
+			$this->assertEquals( '/home/foo/app/controllers/', $this->model->get_app_controllers_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_app_models_path
+		 */
+		public function testMethodGetAppModelsPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_app_models_path' ) );
+			$this->assertEquals( '/home/foo/app/models/', $this->model->get_app_models_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_app_views_path
+		 */
+		public function testMethodGetAppViewsPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_app_views_path' ) );
+			$this->assertEquals( '/home/foo/app/views/', $this->model->get_app_views_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_base_path
+		 */
+		public function testMethodGetBasePath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_base_path' ) );
+			$this->assertEquals( '/home/foo/base/', $this->model->get_base_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_base_controllers_path
+		 */
+		public function testMethodGetBaseControllersPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_base_controllers_path' ) );
+			$this->assertEquals( '/home/foo/base/controllers/', $this->model->get_base_controllers_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_base_models_path
+		 */
+		public function testMethodGetBaseModelsPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_base_models_path' ) );
+			$this->assertEquals( '/home/foo/base/models/', $this->model->get_base_models_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_base_views_path
+		 */
+		public function testMethodGetBaseViewsPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_base_views_path' ) );
+			$this->assertEquals( '/home/foo/base/views/', $this->model->get_base_views_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_uri
+		 */
+		public function testMethodGetUri()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_uri' ) );
+			$this->assertEquals( 'http://example.com/foo', $this->model->get_uri() );
+		}
+
+		/**
+		 * @covers Base_Model::get_textdomain
+		 */
+		public function testMethodGetTextdomain()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_textdomain' ) );
+			$this->assertEquals( 'footextdomain', $this->model->get_textdomain() );
 		}
 		
 		/**
