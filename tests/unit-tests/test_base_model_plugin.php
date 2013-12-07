@@ -59,8 +59,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testAttributeExistsPath()
 		{
-			$this->assertClassHasAttribute( '_path', '\Base_Model_Plugin' );
-			$this->assertEquals( dirname( __FILE__ ) . '/' , $this->getReflectionPropertyValue( $this->model, '_path' ) );
+			$this->assertClassHasAttribute( 'path', '\Base_Model_Plugin' );
+			$this->assertEquals( dirname( __FILE__ ) . '/' , $this->getReflectionPropertyValue( $this->model, 'path' ) );
 		}
 		
 		/**
@@ -68,8 +68,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testAttributeExistsAppPath()
 		{
-			$this->assertClassHasAttribute( '_app_path', '\Base_Model_Plugin' );
-			$this->assertEquals( dirname( __FILE__ ) . '/app/', $this->getReflectionPropertyValue( $this->model, '_app_path' ) );
+			$this->assertClassHasAttribute( 'app_path', '\Base_Model_Plugin' );
+			$this->assertEquals( dirname( __FILE__ ) . '/app/', $this->getReflectionPropertyValue( $this->model, 'app_path' ) );
 		}
 		
 		/**
@@ -77,8 +77,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testAttributeExistsBasePath()
 		{
-			$this->assertClassHasAttribute( '_base_path', '\Base_Model_Plugin' );
-			$this->assertEquals( dirname( __FILE__ ) . '/base/' , $this->getReflectionPropertyValue( $this->model, '_base_path' ) );
+			$this->assertClassHasAttribute( 'base_path', '\Base_Model_Plugin' );
+			$this->assertEquals( dirname( __FILE__ ) . '/base/' , $this->getReflectionPropertyValue( $this->model, 'base_path' ) );
 		}
 		
 		/**
@@ -86,8 +86,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testAttributeExistsMainPluginFile()
 		{
-			$this->assertClassHasAttribute( '_main_plugin_file', '\Base_Model_Plugin' );
-			$this->assertEquals( __FILE__, $this->getReflectionPropertyValue( $this->model, '_main_plugin_file' ) );
+			$this->assertClassHasAttribute( 'main_plugin_file', '\Base_Model_Plugin' );
+			$this->assertEquals( __FILE__, $this->getReflectionPropertyValue( $this->model, 'main_plugin_file' ) );
 		}
 		
 		/**
@@ -95,8 +95,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testAttributeExistsUri()
 		{
-			$this->assertClassHasAttribute( '_uri', '\Base_Model_Plugin' );
-			$this->assertEquals( 'http://example.com/', $this->getReflectionPropertyValue( $this->model, '_uri' ) );
+			$this->assertClassHasAttribute( 'uri', '\Base_Model_Plugin' );
+			$this->assertEquals( 'http://example.com/', $this->getReflectionPropertyValue( $this->model, 'uri' ) );
 		}
 		
 		/**
@@ -104,8 +104,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testAttributeExistsTxtdomain()
 		{
-			$this->assertClassHasAttribute( '_txtdomain', '\Base_Model_Plugin' );
-			$this->assertEquals( 'bar', $this->getReflectionPropertyValue( $this->model, '_txtdomain' ) );
+			$this->assertClassHasAttribute( 'txtdomain', '\Base_Model_Plugin' );
+			$this->assertEquals( 'bar', $this->getReflectionPropertyValue( $this->model, 'txtdomain' ) );
 		}
 
 		public function testAttributeExistsHelpTabs()

@@ -16,7 +16,7 @@ namespace WPMVCB\Testing
 		{
 			parent::setUp();
 
-			$this->_model = $this
+			$this->model = $this
 				->getMockBuilder( '\Base_Model_Settings' )
 				->disableOriginalConstructor()
 				->setMethods(
@@ -29,21 +29,21 @@ namespace WPMVCB\Testing
 				)
 				->getMockForAbstractClass();
 
-			$this->_controller = $this
+			$this->controller = $this
 				->getMockBuilder( '\Base_Controller_Settings' )
-				->setConstructorArgs( array( $this->_model ) )
+				->setConstructorArgs( array( $this->model ) )
 				->setMethods( null )
 				->getMock();
 		}
 
 		public function tearDown()
 		{
-			remove_action( 'admin_init', array( $this->_controller, 'add_settings_sections' ) );
-			remove_action( 'admin_init', array( $this->_controller, 'add_settings_fields' ) );
-			remove_action( 'admin_init', array( $this->_controller, 'register_options' ) );
-			remove_action( 'admin_menu', array( $this->_controller, 'add_menu_pages' ) );
-			unset( $this->_model );
-			unset( $this->_controller );
+			remove_action( 'admin_init', array( $this->controller, 'add_settings_sections' ) );
+			remove_action( 'admin_init', array( $this->controller, 'add_settings_fields' ) );
+			remove_action( 'admin_init', array( $this->controller, 'register_options' ) );
+			remove_action( 'admin_menu', array( $this->controller, 'add_menu_pages' ) );
+			unset( $this->model );
+			unset( $this->controller );
 		}
 
 		/**
@@ -52,7 +52,7 @@ namespace WPMVCB\Testing
 		 * @param object $object The fixture object.
 		 * @since 0.2
 		 */
-		private function _tearDown( $object )
+		private function destroy( $object )
 		{
 			remove_action( 'admin_init', array( $object, 'add_settings_sections' ) );
 			remove_action( 'admin_init', array( $object, 'add_settings_fields' ) );
@@ -61,13 +61,13 @@ namespace WPMVCB\Testing
 			unset( $object );
 		}
 
-		private function _mockFilesystem()
+		private function mockFilesystem()
 		{
 			//set up our virtual filesystem
 			\org\bovigo\vfs\vfsStreamWrapper::register();
 			\org\bovigo\vfs\vfsStreamWrapper::setRoot( new \org\bovigo\vfs\vfsStreamDirectory( 'test_dir' ) );
-			$this->_mock_path = trailingslashit( \org\bovigo\vfs\vfsStream::url( 'test_dir' ) );
-			$this->_filesystem = \org\bovigo\vfs\vfsStreamWrapper::getRoot();
+			$this->mock_path = trailingslashit( \org\bovigo\vfs\vfsStream::url( 'test_dir' ) );
+			$this->filesystem = \org\bovigo\vfs\vfsStreamWrapper::getRoot();
 		}
 
 		public function testAttibuteExistsModel()
@@ -77,57 +77,57 @@ namespace WPMVCB\Testing
 
 		public function testMethodConstructSetModel()
 		{
-			$controller = new \Base_Controller_Settings( $this->_model );
-			$this->assertSame( $this->_model, $this->getReflectionPropertyValue( $controller, 'model' ) );
-			$this->_tearDown( $controller );
+			$controller = new \Base_Controller_Settings( $this->model );
+			$this->assertSame( $this->model, $this->getReflectionPropertyValue( $controller, 'model' ) );
+			$this->tearDown( $controller );
 		}
 
 		public function testActionExistsAdminInitAddSettingsSections()
 		{
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_settings_sections' )
 				->will( $this->returnValue( array() ) );
 
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			$this->assertFalse( false === has_action( 'admin_init', array( $controller, 'add_settings_sections' ) ) );
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		public function testActionExistsAdminInitAddSettingsFields()
 		{
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_settings_fields' )
 				->will( $this->returnValue( array() ) );
 
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			$this->assertFalse( false === has_action( 'admin_init', array( $controller, 'add_settings_fields' ) ) );
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		public function testActionExistsAdminInitRegisterOptions()
 		{
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_options' )
 				->will( $this->returnValue( array() ) );
 
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			$this->assertFalse( false === has_action( 'admin_init', array( $controller, 'register_options' ) ) );
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		public function testActionExistsAdminMenuAddMenuPages()
 		{
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_pages' )
 				->will( $this->returnValue( array() ) );
 
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			$this->assertFalse( false === has_action( 'admin_menu', array( $controller, 'add_menu_pages' ) ) );
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		/**
@@ -140,18 +140,18 @@ namespace WPMVCB\Testing
 		{
 			global $new_whitelist_options;
 
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_options' )
 				->will( $this->returnValue( array( 'foo' => array( 'option_group' => 'bar', 'option_name' => 'baz' ) ) ) );
 
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			$this->assertTrue( method_exists( $controller, 'register_options' ) );
 			$controller->register_options();
 
 			$this->assertArrayHasKey( 'bar', $new_whitelist_options );
 			$this->assertSame( array( 'baz' ), $new_whitelist_options['bar'] );
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		/**
@@ -162,7 +162,7 @@ namespace WPMVCB\Testing
 		{
 			global $wp_settings_sections;
 
-			$this->assertTrue( method_exists( $this->_controller, 'add_settings_sections' ) );
+			$this->assertTrue( method_exists( $this->controller, 'add_settings_sections' ) );
 
 			//set up a settings section
 			$section = array(
@@ -175,13 +175,13 @@ namespace WPMVCB\Testing
 			);
 
 			//set up the stub settings model
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_settings_sections' )
 				->will( $this->returnValue( $section ) );
 
 			//create a new controller
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			$controller->add_settings_sections();
 
 			$this->assertArrayHasKey( 'foopage', $wp_settings_sections );
@@ -193,7 +193,7 @@ namespace WPMVCB\Testing
 				$wp_settings_sections['foopage']['foosection']['callback']
 			);
 
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		/**
@@ -204,7 +204,7 @@ namespace WPMVCB\Testing
 		{
 			global $wp_settings_fields;
 
-			$this->assertTrue( method_exists( $this->_controller, 'add_settings_fields' ) );
+			$this->assertTrue( method_exists( $this->controller, 'add_settings_fields' ) );
 
 			$fields = array(
 				'foofield' => array(
@@ -216,12 +216,12 @@ namespace WPMVCB\Testing
 				)
 			);
 
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_settings_fields' )
 				->will( $this->returnValue( $fields ) );
 
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			$controller->add_settings_fields();
 
 			$this->assertArrayHasKey( 'foopage', $wp_settings_fields );
@@ -245,30 +245,30 @@ namespace WPMVCB\Testing
 		public function testMethodAddMenuPagesMenu()
 		{
 			$this->markTestIncomplete( 'Not yet implemented' );
-			$this->assertTrue( method_exists( $this->_controller, 'add_menu_pages' ) );
+			$this->assertTrue( method_exists( $this->controller, 'add_menu_pages' ) );
 
 			//set up a page object stub
 			require_once WPMVCB_SRC_DIR . '/models/class-base-model-menu-page.php';
 
 			$page = new \Base_Model_Menu_Page();
-			$this->setReflectionPropertyValue( $page, '_page_title', 'foo_title' );
-			$this->setReflectionPropertyValue( $page, '_menu_title', 'Foo Title' );
-			$this->setReflectionPropertyValue( $page, '_capability', 'manage_options' );
-			$this->setReflectionPropertyValue( $page, '_menu_slug', 'foo-slug' );
+			$this->setReflectionPropertyValue( $page, 'page_title', 'foo_title' );
+			$this->setReflectionPropertyValue( $page, 'menu_title', 'Foo Title' );
+			$this->setReflectionPropertyValue( $page, 'capability', 'manage_options' );
+			$this->setReflectionPropertyValue( $page, 'menu_slug', 'foo-slug' );
 
 			//set up the model
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_pages' )
 				->will( $this->returnValue( array( 0 => $page ) ) );
 
 			//add the page to the model
-			$this->setReflectionPropertyValue( $this->_model, 'pages', array( 'foo-page' => $page ) );
+			$this->setReflectionPropertyValue( $this->model, 'pages', array( 'foo-page' => $page ) );
 			
 			wp_set_current_user( 0 );
 			
 			//create the settings controller
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			$this->assertTrue( $controller->add_menu_pages() );
 
 			//get a reflection of the model pages property
@@ -276,8 +276,8 @@ namespace WPMVCB\Testing
 			$pages = $this->getReflectionPropertyValue( $model, 'pages' );
 
 			$this->assertArrayHasKey( 'foo-page', $pages );
-			$this->assertEquals( 'toplevel_page_foo-slug', $this->getReflectionPropertyValue( $pages['foo-page'], '_hook_suffix' ) );
-			$this->_tearDown( $controller );
+			$this->assertEquals( 'toplevel_page_foo-slug', $this->getReflectionPropertyValue( $pages['foo-page'], 'hook_suffix' ) );
+			$this->tearDown( $controller );
 		}
 
 		/**
@@ -285,31 +285,31 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodAddMenuPagesMenuError()
 		{
-			$this->assertTrue( method_exists( $this->_controller, 'add_menu_pages' ) );
+			$this->assertTrue( method_exists( $this->controller, 'add_menu_pages' ) );
 
 			//set up a page object stub
 			require_once WPMVCB_SRC_DIR . '/models/class-base-model-menu-page.php';
 
 			$page = new \Base_Model_Menu_Page();
-			$this->setReflectionPropertyValue( $page, '_parent_slug', 'general' );
-			$this->setReflectionPropertyValue( $page, '_page_title', 'foo_title' );
-			$this->setReflectionPropertyValue( $page, '_menu_title', 'Foo Title' );
-			$this->setReflectionPropertyValue( $page, '_capability', 'foo_capability' );
-			$this->setReflectionPropertyValue( $page, '_menu_slug', 'foo-slug' );
+			$this->setReflectionPropertyValue( $page, 'parent_slug', 'general' );
+			$this->setReflectionPropertyValue( $page, 'page_title', 'foo_title' );
+			$this->setReflectionPropertyValue( $page, 'menu_title', 'Foo Title' );
+			$this->setReflectionPropertyValue( $page, 'capability', 'foo_capability' );
+			$this->setReflectionPropertyValue( $page, 'menu_slug', 'foo-slug' );
 
 			//set up the model
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_pages' )
 				->will( $this->returnValue( array( 0 => $page ) ) );
 
 			//add the page to the model
-			$this->setReflectionPropertyValue( $this->_model, 'pages', array( 'foo-page' => $page ) );
+			$this->setReflectionPropertyValue( $this->model, 'pages', array( 'foo-page' => $page ) );
 			
 			wp_set_current_user( 0 );
 			
 			//create the settings controller
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			
 			$this->assertEquals(
 				new \WP_Error(
@@ -320,12 +320,12 @@ namespace WPMVCB\Testing
 				$controller->add_menu_pages()
 			);
 			
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		public function testMethodExistsRenderOptionsPage()
 		{
-			$this->assertTrue( method_exists( $this->_controller, 'render_options_page' ) );
+			$this->assertTrue( method_exists( $this->controller, 'render_options_page' ) );
 		}
 
 		/**
@@ -339,12 +339,12 @@ namespace WPMVCB\Testing
 			set_current_screen( 'foopage' );
 			$pages = array( 'foopage' => array( 'view' => 'fooview.php' ) );
 
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_pages' )
 				->will( $this->returnValue( $pages ) );
 
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 			$this->assertFileExists( WPMVCB_SRC_DIR . '/views/base_options_page.php' );
 
 			ob_start();
@@ -358,7 +358,7 @@ namespace WPMVCB\Testing
 			//$this->assertSame( $expected, $output );
 			$this->assertSame( $expected, $output );
 
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		/**
@@ -369,13 +369,13 @@ namespace WPMVCB\Testing
 		public function testMethodRenderOptionsPageViewExists()
 		{
 			//set up mock filesystem
-			$this->_mockFilesystem();
+			$this->mockFilesystem();
 
 			//create a mock view file
-			$handle = fopen( $this->_mock_path . '/view.php', 'w' );
+			$handle = fopen( $this->mock_path . '/view.php', 'w' );
 			fwrite($handle, 'foobar');
 			fclose( $handle );
-			$this->assertTrue( $this->_filesystem->hasChild( 'view.php' ) );
+			$this->assertTrue( $this->filesystem->hasChild( 'view.php' ) );
 
 			//set the WP_Screen object
 			set_current_screen( 'foopage' );
@@ -383,17 +383,17 @@ namespace WPMVCB\Testing
 			//set up a page object
 			$pages = array(
 				'foopage' => array(
-					'view' => $this->_mock_path . '/view.php'
+					'view' => $this->mock_path . '/view.php'
 				)
 			);
 
 			//set up the settings model stub
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_pages' )
 				->will( $this->returnValue( $pages ) );
 
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 
 			//get the actual output
 			ob_start();
@@ -402,12 +402,12 @@ namespace WPMVCB\Testing
 
 			//assert they are the same
 			$this->assertSame( 'foobar', $output );
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		public function testMethodExistsRenderSettingsSection()
 		{
-			$this->assertTrue( method_exists( $this->_controller, 'render_settings_section' ) );
+			$this->assertTrue( method_exists( $this->controller, 'render_settings_section' ) );
 		}
 
 		/**
@@ -425,20 +425,20 @@ namespace WPMVCB\Testing
 			);
 
 			//set up the stub settings model
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_settings_sections' )
 				->will( $this->returnValue( $section ) );
 
 			//create a new controller
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 
 			ob_start();
 			$controller->render_settings_section( array( 'id' => 'foosection' ) );
 			$output = ob_get_clean();
 
 			$this->assertSame( 'Foo content', $output );
-			$this->_tearDown( $controller );
+			$this->tearDown( $controller );
 		}
 
 		/**
@@ -450,15 +450,15 @@ namespace WPMVCB\Testing
 			//set up our virtual filesystem
 			\org\bovigo\vfs\vfsStreamWrapper::register();
 			\org\bovigo\vfs\vfsStreamWrapper::setRoot( new \org\bovigo\vfs\vfsStreamDirectory( 'test_dir' ) );
-			$this->_mock_path = trailingslashit( \org\bovigo\vfs\vfsStream::url( 'test_dir' ) );
-			$this->_filesystem = \org\bovigo\vfs\vfsStreamWrapper::getRoot();
+			$this->mock_path = trailingslashit( \org\bovigo\vfs\vfsStream::url( 'test_dir' ) );
+			$this->filesystem = \org\bovigo\vfs\vfsStreamWrapper::getRoot();
 
 			//set up a view file
-			$this->_mockFilesystem();
-			$handle = fopen( $this->_mock_path . '/view.php', 'w' );
+			$this->mockFilesystem();
+			$handle = fopen( $this->mock_path . '/view.php', 'w' );
 			fwrite($handle, 'foobar');
 			fclose( $handle );
-			$this->assertTrue( $this->_filesystem->hasChild( 'view.php' ) );
+			$this->assertTrue( $this->filesystem->hasChild( 'view.php' ) );
 
 			//set up a settings section
 			$section =  array(
@@ -466,21 +466,21 @@ namespace WPMVCB\Testing
 				'callback' => null,
 				'page'     => 'foopage',
 				'content'  => 'Foo content',
-				'view'     => $this->_mock_path . '/view.php'
+				'view'     => $this->mock_path . '/view.php'
 			);
 
 			//set up the stub settings model
-			$this->_model
+			$this->model
 				->expects( $this->any() )
 				->method( 'get_settings_sections' )
 				->will( $this->returnValue( $section ) );
 
 			//create a new controller
-			$controller = new \Base_Controller_Settings( $this->_model );
+			$controller = new \Base_Controller_Settings( $this->model );
 
 			//get the expected output
 			ob_start();
-			include $this->_mock_path . '/view.php';
+			include $this->mock_path . '/view.php';
 			$expected = ob_get_clean();
 
 			ob_start();
@@ -488,14 +488,14 @@ namespace WPMVCB\Testing
 			$output = ob_get_clean();
 
 			$this->assertSame( $expected, $output );
-			unset( $this->_mock_path );
-			unset( $this->_filesystem );
-			$this->_tearDown( $controller );
+			unset( $this->mock_path );
+			unset( $this->filesystem );
+			$this->tearDown( $controller );
 		}
 
 		public function testMethodExistsRenderSettingsField()
 		{
-			$this->assertTrue( method_exists( $this->_controller, 'render_settings_field' ) );
+			$this->assertTrue( method_exists( $this->controller, 'render_settings_field' ) );
 		}
 
 		/**
@@ -507,7 +507,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodFailRenderSettingsFieldNoType()
 		{
-			$this->_controller->render_settings_field( array( 'type' => null, 'id' => 'bar', 'name' => 'baz' ) );
+			$this->controller->render_settings_field( array( 'type' => null, 'id' => 'bar', 'name' => 'baz' ) );
 		}
 
 		/**
@@ -519,7 +519,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodFailRenderSettingsFieldNoId()
 		{
-			$this->_controller->render_settings_field( array( 'type' => 'foo', 'id' => null, 'name' => 'baz' ) );
+			$this->controller->render_settings_field( array( 'type' => 'foo', 'id' => null, 'name' => 'baz' ) );
 		}
 
 		/**
@@ -531,7 +531,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodFailRenderSettingsFieldNoName()
 		{
-			$this->_controller->render_settings_field( array( 'type' => 'foo', 'id' => 'bar', 'name' => null ) );
+			$this->controller->render_settings_field( array( 'type' => 'foo', 'id' => 'bar', 'name' => null ) );
 		}
 
 		/**
@@ -550,7 +550,7 @@ namespace WPMVCB\Testing
 				'value'		=> 'my-super-cool-value',
 			);
 
-			$this->_controller->render_settings_field( $field );
+			$this->controller->render_settings_field( $field );
 		}
 
 		/**
@@ -571,7 +571,7 @@ namespace WPMVCB\Testing
 			$expected = '<input type="text" id="my-super-cool-field" name="my_super_cool_field" value="foo" placeholder="Enter some value" />bar';
 
 			$this->expectOutputString( $expected );
-			$this->_controller->render_settings_field( $field );
+			$this->controller->render_settings_field( $field );
 		}
 
 		/**
@@ -580,11 +580,11 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodReturnInputText()
 		{
-			$this->_mockFilesystem();
-			$handle = fopen( $this->_mock_path . '/view.php', 'w' );
+			$this->mockFilesystem();
+			$handle = fopen( $this->mock_path . '/view.php', 'w' );
 			fwrite($handle, 'foobar');
 			fclose( $handle );
-			$this->assertTrue( $this->_filesystem->hasChild( 'view.php' ) );
+			$this->assertTrue( $this->filesystem->hasChild( 'view.php' ) );
 
 			$field = array(
 				'type' => 'text',
@@ -592,12 +592,12 @@ namespace WPMVCB\Testing
 				'name' => 'my_super_cool_field',
 				'value' => 'foo',
 				'placeholder' => 'Enter some value',
-				'after' => $this->_mock_path . '/view.php'
+				'after' => $this->mock_path . '/view.php'
 			);
 
 			$expected = '<input type="text" id="my-super-cool-field" name="my_super_cool_field" value="foo" placeholder="Enter some value" />foobar';
 
-			$this->assertSame( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
+			$this->assertSame( $expected, $this->controller->render_settings_field( $field, 'noecho' ) );
 		}
 
 		/**
@@ -616,7 +616,7 @@ namespace WPMVCB\Testing
 			$expected = '<input type="checkbox" id="my-super-cool-checkbox" name="my_super_cool_checkbox" value="1" />';
 
 			$this->expectOutputString( $expected );
-			$this->_controller->render_settings_field( $field );
+			$this->controller->render_settings_field( $field );
 		}
 
 		/**
@@ -634,7 +634,7 @@ namespace WPMVCB\Testing
 
 			$expected = '<input type="checkbox" id="my-super-cool-checkbox" name="my_super_cool_checkbox" value="1" />';
 
-			$this->assertSame( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
+			$this->assertSame( $expected, $this->controller->render_settings_field( $field, 'noecho' ) );
 		}
 
 		/**
@@ -653,7 +653,7 @@ namespace WPMVCB\Testing
 			$expected = '<input type="checkbox" id="my-super-cool-checkbox" name="my_super_cool_checkbox" value="1" checked />';
 
 			$this->expectOutputString( $expected );
-			$this->_controller->render_settings_field( $field );
+			$this->controller->render_settings_field( $field );
 		}
 
 		/**
@@ -671,7 +671,7 @@ namespace WPMVCB\Testing
 
 			$expected = '<input type="checkbox" id="my-super-cool-checkbox" name="my_super_cool_checkbox" value="1" checked />';
 
-			$this->assertSame( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
+			$this->assertSame( $expected, $this->controller->render_settings_field( $field, 'noecho' ) );
 		}
 
 		/**
@@ -693,7 +693,7 @@ namespace WPMVCB\Testing
 			$expected = '<select id="my-super-cool-select" name="my_super_cool_select"><option value="">Select…</option><option value="my_super_cool_option" >My Super Cool Option</option></select>';
 
 			$this->expectOutputString( $expected );
-			$this->_controller->render_settings_field( $field );
+			$this->controller->render_settings_field( $field );
 		}
 
 		/**
@@ -714,7 +714,7 @@ namespace WPMVCB\Testing
 
 			$expected = '<select id="my-super-cool-select" name="my_super_cool_select"><option value="">Select…</option><option value="my_super_cool_option" >My Super Cool Option</option></select>';
 
-			$this->assertSame( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
+			$this->assertSame( $expected, $this->controller->render_settings_field( $field, 'noecho' ) );
 		}
 
 		/**
@@ -731,7 +731,7 @@ namespace WPMVCB\Testing
 			);
 			$expected = '<textarea id="my-super-cool-textarea" name="my_super_cool_textarea" >My textarea content</textarea>';
 			$this->expectOutputString( $expected );
-			$this->_controller->render_settings_field( $field, 'echo' );
+			$this->controller->render_settings_field( $field, 'echo' );
 		}
 
 		/**
@@ -747,7 +747,7 @@ namespace WPMVCB\Testing
 				'value'		=> 'My textarea content'
 			);
 			$expected = '<textarea id="my-super-cool-textarea" name="my_super_cool_textarea" >My textarea content</textarea>';
-			$this->assertSame( $expected, $this->_controller->render_settings_field( $field, 'noecho' ) );
+			$this->assertSame( $expected, $this->controller->render_settings_field( $field, 'noecho' ) );
 		}
 	}
 }
