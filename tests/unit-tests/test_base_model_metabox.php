@@ -16,11 +16,11 @@ namespace WPMVCB\Testing
 		public function SetUp()
 		{
 			parent::setUp();
-			$this->_metabox = new \Base_Model_Metabox(
+			$this->metabox = new \Base_Model_Metabox(
 				'my-super-cool-metabox',
 				'My Super Cool Metabox',
 				'my_super_cool_callback',
-				'my_super_cool_posttype',
+				array( 'my_super_cool_posttype' ),
 				'normal',
 				'default',
 				array( 'foo' => 'bar' )
@@ -29,11 +29,20 @@ namespace WPMVCB\Testing
 		
 		public function testMethodAdd()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'add' ), 'Method does not exist' );
-			$this->_metabox->add();
-			global $wp_meta_boxes;
+			$this->assertTrue( method_exists( $this->metabox, 'add' ), 'Method does not exist' );
+			$this->metabox->add();
 			
-			$this->assertArrayHasKey( 'my-super-cool-metabox', $wp_meta_boxes['my_super_cool_posttype']['normal']['default'] );
+			$this->assertMetaboxExists(
+				array(
+					'my-super-cool-metabox',
+					'My Super Cool Metabox',
+					'my_super_cool_callback',
+					'my_super_cool_posttype',
+					'normal',
+					'default',
+					array( 'foo' => 'bar' )
+				)
+			);
 		}
 
 		/**
@@ -43,10 +52,22 @@ namespace WPMVCB\Testing
 		{
 			global $wp_meta_boxes;
 			
-			$this->assertTrue( method_exists( $this->_metabox, 'remove' ), 'Method does not exist' );
+			$this->assertTrue( method_exists( $this->metabox, 'remove' ), 'Method does not exist' );
 			
-			$this->_metabox->add();
-			$this->_metabox->remove();
+			$this->metabox->add();
+			$this->assertMetaboxExists(
+				array(
+					'my-super-cool-metabox',
+					'My Super Cool Metabox',
+					'my_super_cool_callback',
+					'my_super_cool_posttype',
+					'normal',
+					'default',
+					array( 'foo' => 'bar' )
+				)
+			);
+			
+			$this->metabox->remove();
 			
 			$this->assertFalse( is_array(  $wp_meta_boxes['my_super_cool_posttype']['normal']['default']['my-super-cool-metabox'] ), 'Metabox not removed' );
 		}
@@ -54,44 +75,44 @@ namespace WPMVCB\Testing
 		
 		public function testMethodGetId()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'get_id' ), 'Method does not exist' );
-			$this->assertEquals( 'my-super-cool-metabox', $this->_metabox->get_id(), 'ID Incorrect' );
+			$this->assertTrue( method_exists( $this->metabox, 'get_id' ), 'Method does not exist' );
+			$this->assertEquals( 'my-super-cool-metabox', $this->metabox->get_id(), 'ID Incorrect' );
 		}
 		
 		public function testMethodGetTitle()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'get_title' ), 'Method does not exist' );
-			$this->assertEquals( 'My Super Cool Metabox', $this->_metabox->get_title(), 'Title Incorrect' );
+			$this->assertTrue( method_exists( $this->metabox, 'get_title' ), 'Method does not exist' );
+			$this->assertEquals( 'My Super Cool Metabox', $this->metabox->get_title(), 'Title Incorrect' );
 		}
 		
 		public function testMethodGetCallback()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'get_callback' ), 'Method does not exist' );
-			$this->assertEquals( 'my_super_cool_callback', $this->_metabox->get_callback() );
+			$this->assertTrue( method_exists( $this->metabox, 'get_callback' ), 'Method does not exist' );
+			$this->assertEquals( 'my_super_cool_callback', $this->metabox->get_callback() );
 		}
 		
-		public function testMethodGetPostType()
+		public function testMethodGetPostTypes()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'get_post_type' ), 'Method does not exist' );
-			$this->assertEquals( 'my_super_cool_posttype', $this->_metabox->get_post_type() );
+			$this->assertTrue( method_exists( $this->metabox, 'get_post_types' ), 'Method does not exist' );
+			$this->assertEquals( array( 'my_super_cool_posttype' ), $this->metabox->get_post_types() );
 		}
 		
 		public function testMethodGetContext()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'get_context' ), 'Method does not exist' );
-			$this->assertEquals( 'normal', $this->_metabox->get_context() );
+			$this->assertTrue( method_exists( $this->metabox, 'get_context' ), 'Method does not exist' );
+			$this->assertEquals( 'normal', $this->metabox->get_context() );
 		}
 		
 		public function testMethodGetPriority()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'get_priority' ), 'Method does not exist' );
-			$this->assertEquals( 'default', $this->_metabox->get_priority() );
+			$this->assertTrue( method_exists( $this->metabox, 'get_priority' ), 'Method does not exist' );
+			$this->assertEquals( 'default', $this->metabox->get_priority() );
 		}
 		
 		public function testMethodGetCallbackArgs()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'get_callback_args' ), 'Method does not exist' );
-			$this->assertEquals( array( 'foo' => 'bar' ), $this->_metabox->get_callback_args() );
+			$this->assertTrue( method_exists( $this->metabox, 'get_callback_args' ), 'Method does not exist' );
+			$this->assertEquals( array( 'foo' => 'bar' ), $this->metabox->get_callback_args() );
 		}
 		
 		/**
@@ -99,9 +120,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetId()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'set_id' ), 'Method does not exist' );
-			$this->_metabox->set_id( 'flibbertygibbet' );
-			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_id() );
+			$this->assertTrue( method_exists( $this->metabox, 'set_id' ), 'Method does not exist' );
+			$this->metabox->set_id( 'flibbertygibbet' );
+			$this->assertEquals( 'flibbertygibbet', $this->metabox->get_id() );
 		}
 		
 		/**
@@ -109,9 +130,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetTitle()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'set_title' ), 'Method does not exist' );
-			$this->_metabox->set_title( 'flibbertygibbet' );
-			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_title() );
+			$this->assertTrue( method_exists( $this->metabox, 'set_title' ), 'Method does not exist' );
+			$this->metabox->set_title( 'flibbertygibbet' );
+			$this->assertEquals( 'flibbertygibbet', $this->metabox->get_title() );
 		}
 		
 		/**
@@ -119,19 +140,19 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetCallback()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'set_callback' ), 'Method does not exist' );
-			$this->_metabox->set_callback( 'flibbertygibbet' );
-			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_callback() );
+			$this->assertTrue( method_exists( $this->metabox, 'set_callback' ), 'Method does not exist' );
+			$this->metabox->set_callback( 'flibbertygibbet' );
+			$this->assertEquals( 'flibbertygibbet', $this->metabox->get_callback() );
 		}
 		
 		/**
-		 * @depends testMethodGetPostType
+		 * @depends testMethodGetPostTypes
 		 */
-		public function testMethodSetPostType()
+		public function testMethodSetPostTypes()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'set_post_type' ), 'Method does not exist' );
-			$this->_metabox->set_post_type( 'flibbertygibbet' );
-			$this->assertEquals( 'flibbertygibbet', $this->_metabox->get_post_type() );
+			$this->assertTrue( method_exists( $this->metabox, 'set_post_type' ), 'Method does not exist' );
+			$this->metabox->set_post_type( array( 'flibbertygibbet' ) );
+			$this->assertEquals( array( 'flibbertygibbet' ), $this->metabox->get_post_types() );
 		}
 		
 		/**
@@ -139,9 +160,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetContext()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'set_context' ), 'Method does not exist' );
-			$this->_metabox->set_context( 'side' );
-			$this->assertEquals( 'side', $this->_metabox->get_context() );
+			$this->assertTrue( method_exists( $this->metabox, 'set_context' ), 'Method does not exist' );
+			$this->metabox->set_context( 'side' );
+			$this->assertEquals( 'side', $this->metabox->get_context() );
 		}
 		
 		/**
@@ -149,9 +170,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetPriority()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'set_priority' ), 'Method does not exist' );
-			$this->_metabox->set_priority( 'low' );
-			$this->assertEquals( 'low', $this->_metabox->get_priority() );
+			$this->assertTrue( method_exists( $this->metabox, 'set_priority' ), 'Method does not exist' );
+			$this->metabox->set_priority( 'low' );
+			$this->assertEquals( 'low', $this->metabox->get_priority() );
 		}
 		
 		/**
@@ -159,9 +180,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetCallbackArgs()
 		{
-			$this->assertTrue( method_exists( $this->_metabox, 'set_callback_args' ), 'Method does not exist' );
-			$this->_metabox->set_callback_args( array( 'flibbertygibbet' => 'mtzlplck' ) );
-			$this->assertEquals( array( 'flibbertygibbet' => 'mtzlplck' ), $this->_metabox->get_callback_args() );
+			$this->assertTrue( method_exists( $this->metabox, 'set_callback_args' ), 'Method does not exist' );
+			$this->metabox->set_callback_args( array( 'flibbertygibbet' => 'mtzlplck' ) );
+			$this->assertEquals( array( 'flibbertygibbet' => 'mtzlplck' ), $this->metabox->get_callback_args() );
 		}
 		
 		/**
@@ -179,7 +200,7 @@ namespace WPMVCB\Testing
 				'my-super-cool-metabox',
 				'My Super Cool Metabox',
 				'my_super_cool_callback',
-				'my_super_cool_posttype',
+				array( 'my_super_cool_posttype' ),
 				'flibbertygibbet',
 				'default',
 				array( 'foo' => 'bar' )
@@ -203,7 +224,7 @@ namespace WPMVCB\Testing
 				'my-super-cool-metabox',
 				'My Super Cool Metabox',
 				'my_super_cool_callback',
-				'my_super_cool_posttype',
+				array( 'my_super_cool_posttype' ),
 				'normal',
 				'flibbertygibbet',
 				array( 'foo' => 'bar' )

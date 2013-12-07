@@ -28,7 +28,7 @@ namespace WPMVCB\Testing
 			$this->_model = $this
 				->getMockBuilder( '\Base_Model_Plugin' )
 				->disableOriginalConstructor()
-				->getMock();
+				->getMockForAbstractClass();
 
 			//set up our controller
 			$this->_controller = $this
@@ -132,7 +132,7 @@ namespace WPMVCB\Testing
 			$model = $this->getMockBuilder( '\Base_Model_Plugin' )
 			              ->disableOriginalConstructor()
 			              ->setMethods( array( 'get_scripts' ) )
-			              ->getMock();
+			              ->getMockForAbstractClass();
 			              
 			$model->expects( $this->any() )
 			      ->method( 'get_scripts' )
@@ -169,7 +169,7 @@ namespace WPMVCB\Testing
 			$script = $this->getMockBuilder( '\Base_Model_JS_Object' )
 			               ->disableOriginalConstructor()
 			               ->setMethods( array( 'get_handle', 'get_src', 'get_deps', 'get_version', 'get_in_footer' ) )
-			               ->getMock();
+			               ->getMockForAbstractClass();
 			
 			$script->expects( $this->any() )
 			       ->method( 'get_handle' )
@@ -194,7 +194,7 @@ namespace WPMVCB\Testing
 			$model = $this->getMockBuilder( '\Base_Model_Plugin' )
 			              ->disableOriginalConstructor()
 			              ->setMethods( array( 'get_admin_scripts', 'get_textdomain', 'get_uri' ) )
-			              ->getMock();
+			              ->getMockForAbstractClass();
 			              
 			$model->expects( $this->any() )
 			      ->method( 'get_admin_scripts' )

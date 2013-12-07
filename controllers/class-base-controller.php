@@ -33,8 +33,53 @@ if ( ! class_exists( 'Base_Controller' ) ):
 	 */
 	class Base_Controller
 	{
+		/**
+		 * The absolute path to the main plugin file. Ends with a slash.
+		 * 
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_main_plugin_file;
+		
+		/**
+		 * The absolute path to the plugin app path. Ends with a slash.
+		 * 
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_app_path;
+		
+		/**
+		 * The absolute path to the WPMVC Base path. Ends with a slash.
+		 * 
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_base_path;
+		
+		/**
+		 * The uri to the plugin directory. Ends with a slash.
+		 *
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_uri;
+		
+		/**
+		 * The plugin text domain.
+		 *
+		 * @var   string
+		 * @since 0.3
+		 */
+		protected $_txtdomain;
+		
+		/**
+		 * The class constructor
+		 *
+		 * @since 0.1
+		 */
 		public function __construct()
-		{
+		{	
 			add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
 			add_action( 'add_meta_boxes',        array( &$this, 'add_meta_boxes' ) );
@@ -47,7 +92,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @return void
 		 * @since WPMVCBase 0.1
 		 */
-		public function add_shortcodes( $shortcodes )
+		public function add_shortcodes( array $shortcodes )
 		{
 			if ( ! is_array( $shortcodes ) ) {
 				return new WP_Error(
@@ -71,23 +116,21 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @since 0.1
 		 * @see Base_Model_Metabox
 		 */
-		public function add_meta_boxes( $metaboxes )
+		public function add_meta_boxes( array $metaboxes )
 		{
 			global $post;
 
-			if ( is_array( $metaboxes ) ) {
-				foreach ( $metaboxes as $metabox ) {
-					foreach( $metabox->get_post_types() as $post_type ) {
-						add_meta_box( 
-							$metabox->get_id(),
-							$metabox->get_title(),
-							is_null( $metabox->get_callback() ) ? array( &$this, 'render_metabox' ): $metabox->get_callback(),
-							$post_type,
-							$metabox->get_context(),
-							$metabox->get_priority(),
-							$metabox->get_callback_args()
-						);
-					}
+			foreach ( $metaboxes as $metabox ) {
+				foreach( $metabox->get_post_types() as $post_type ) {
+					add_meta_box( 
+						$metabox->get_id(),
+						$metabox->get_title(),
+						is_callable( $metabox->get_callback() ) ? $metabox->get_callback() : array( &$this, 'render_metabox' ),
+						$post_type,
+						$metabox->get_context(),
+						$metabox->get_priority(),
+						$metabox->get_callback_args()
+					);
 				}
 			}
 		}
@@ -100,7 +143,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @return void|object WP_Error object on failure.
 		 * @since WPMVCBase 0.3
 		 */
-		public function enqueue_scripts( $scripts )
+		public function enqueue_scripts( array $scripts )
 		{
 			
 			if ( ! is_array( $scripts ) ) {
@@ -156,88 +199,39 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @todo move the filter into the add function
 		 * @since 0.1
 		 */
-		public function render_metabox( $post, $metabox )
+		public function render_metabox( WP_Post $post, $metabox )
 		{
-			//get elements required for this particular view
-			$metabox = apply_filters( 'filter_metabox_callback_args', $metabox, $post );
-
-			//add the uri
-			$metabox['args']['uri'] = $this->uri;
-
-			if ( isset( $this->nonce_action ) && isset( $this->nonce_name ) ):
-				//generate a nonce
-				$nonce = wp_nonce_field( $this->nonce_action, $this->nonce_name, true, false );
-			endif;
-
-			if ( isset( $this->txtdomain ) ):
-				$txtdomain = $this->txtdomain;
-			else :
-				$txtdomain = '';
-			endif;
-
 			//Is a view file specified for this metabox?
-			if ( isset( $metabox['args']['view'] ) ) :
-				if ( file_exists( $metabox['args']['view'] ) ) :
-					//require the appropriate view for this metabox
-					include_once( $metabox['args']['view'] );
-				else :
-					trigger_error(
-						sprintf(
-							__( 'The view file %s for metabox id %s does not exist', $this->txtdomain ),
-							$metabox['args']['view'],
-							$metabox['id']
-						),
-						E_USER_WARNING
-					);
-				endif;
-			else :
-				trigger_error(
-					sprintf(
-						__( 'No view specified in the callback arguments for metabox id %s', $this->txtdomain ),
+			if ( isset( $metabox['args']['view'] ) ) {
+				if ( file_exists( $metabox['args']['view'] ) ) {
+				
+					//include view for this metabox
+					include $metabox['args']['view'];
+					return;
+				}
+				
+				if ( file_exists( $this->_app_path . 'views/' . $metabox['args']['view'] ) ) {
+					include $this->_app_path . 'views/' . $metabox['args']['view'];
+					return;
+				}
+				
+				if ( ! file_exists( $metabox['args']['view'] ) ) {
+					printf(
+						__( 'The view file %s for metabox id %s does not exist', 'wpmvcb' ),
+						$metabox['args']['view'],
 						$metabox['id']
-					),
-					E_USER_WARNING
+					);
+					return;
+				}
+			}
+			
+			if ( ! isset( $metabox['args']['view'] ) ) {
+				printf(
+					__( 'No view specified in the callback arguments for metabox id %s', 'wpmvcb' ),
+					$metabox['id']
 				);
-			endif;
-		}
-		
-		/**
-		 * WP save_post action authenticator.
-		 *
-		 * @param string $post_id The WP post id.
-		 * @param string $post_type The post type.
-		 * @param object $post_data The POSTed data.
-		 * @internal
-		 * @access public
-		 * @since 0.1
-		 */
-		public function authenticate_post( $post_id, $post_type, $post_data, $nonce_name, $nonce_action )
-		{
-
-			// verify if this is an auto save routine.
-			// If it is our form has not been submitted, so we dont want to do anything
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				return;
 			}
-
-			// We need to check if the current user is authorised to do this action.
-			switch ( $post_type ) {
-				case 'page':
-					if ( ! current_user_can( 'edit_page', $post_id ) ) {
-						return;
-					}
-				default:
-					if ( ! current_user_can( 'edit_post', $post_id ) ) {
-						return;
-					}
-			}
-
-			// Third we need to check if the user intended to change this value.
-			if ( ! isset( $post_data[ $nonce_name ] ) || ! wp_verify_nonce( $post_data[ $nonce_name ], $nonce_action ) ) {
-				return;
-			}
-
-			return true;
-		}
+		}		
 	}
 endif;

@@ -5,12 +5,12 @@ namespace WPMVCB\Testing
 	
 	class testBaseModelHelpTab extends WPMVCB_Test_Case
 	{
-		private $_tab;
+		private $tab;
 		
 		public function setUp()
 		{
 			parent::setUp();
-			$this->_tab = new \Base_Model_Help_Tab(
+			$this->tab = new \Base_Model_Help_Tab(
 				'My Test Tab',
 				'test-tab',
 				'Here is some test tab content',
@@ -42,39 +42,39 @@ namespace WPMVCB\Testing
 		
 		public function testAttributeIdExists()
 		{
-			$this->assertClassHasAttribute( '_id', 'Base_Model_Help_Tab' );
+			$this->assertClassHasAttribute( 'id', 'Base_Model_Help_Tab' );
 		}
 		
 		public function testAttributeTitleExists()
 		{
-			$this->assertClassHasAttribute( '_title', 'Base_Model_Help_Tab' );
+			$this->assertClassHasAttribute( 'title', 'Base_Model_Help_Tab' );
 		}
 		
 		public function testAttributeContentExists()
 		{
-			$this->assertClassHasAttribute( '_content', 'Base_Model_Help_Tab' );
+			$this->assertClassHasAttribute( 'content', 'Base_Model_Help_Tab' );
 		}
 		
 		public function testAttributeCallbackExists()
 		{
-			$this->assertClassHasAttribute( '_callback', 'Base_Model_Help_Tab' );
+			$this->assertClassHasAttribute( 'callback', 'Base_Model_Help_Tab' );
 		}
 		
 		public function testAttributeViewExists()
 		{
-			$this->assertClassHasAttribute( '_view', 'Base_Model_Help_Tab' );
+			$this->assertClassHasAttribute( 'view', 'Base_Model_Help_Tab' );
 		}
 		
 		public function testMethodGetId()
 		{
 			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'get_id' ) );
-			$this->assertEquals( 'test-tab', $this->_tab->get_id() );
+			$this->assertEquals( 'test-tab', $this->tab->get_id() );
 		}
 		
 		public function testMethodGetTitle()
 		{
 			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'get_title' ) );
-			$this->assertEquals( 'My Test Tab', $this->_tab->get_title() );
+			$this->assertEquals( 'My Test Tab', $this->tab->get_title() );
 		}
 		
 		public function testMethodSetCallbackExists()
@@ -88,7 +88,7 @@ namespace WPMVCB\Testing
 		public function testMethodSetCallbackError()
 		{
 			$this->setExpectedException( 'PHPUnit_Framework_Error' );
-			$this->_tab->set_callback( 'foo' );
+			$this->tab->set_callback( 'foo' );
 		}
 		
 		/**
@@ -96,7 +96,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testSetCallbackMessage()
 		{
-			@$this->_tab->set_callback( 'foo' );
+			@$this->tab->set_callback( 'foo' );
 			$error = error_get_last();
 			$this->assertEquals( 'A valid callback function must be specified', $error['message'] );
 		}
@@ -106,16 +106,16 @@ namespace WPMVCB\Testing
 		 */
 		public function testSetCallback()
 		{
-			$this->assertTrue( $this->_tab->set_callback( array( &$this, 'mock_callback' ) ) );
-			$this->assertEquals( array( &$this, 'mock_callback' ), $this->getReflectionPropertyValue( $this->_tab, '_callback' ) );
+			$this->assertTrue( $this->tab->set_callback( array( &$this, 'mock_callback' ) ) );
+			$this->assertEquals( array( &$this, 'mock_callback' ), $this->getReflectionPropertyValue( $this->tab, 'callback' ) );
 		}
 		
 		public function testMethodSetContent()
 		{
 			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'set_content' ) );
 			
-			$this->_tab->set_content( 'foo' );
-			$this->assertEquals( 'foo', $this->getReflectionPropertyValue( $this->_tab, '_content' ) );
+			$this->tab->set_content( 'foo' );
+			$this->assertEquals( 'foo', $this->getReflectionPropertyValue( $this->tab, 'content' ) );
 		}
 		
 		public function testAdd()

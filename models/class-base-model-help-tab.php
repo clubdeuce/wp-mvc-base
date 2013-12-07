@@ -24,7 +24,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
 		 * @since 0.1
 		 */
-		private $_id;
+		private $id;
 
 		/**
 		 * The help tab title.
@@ -32,7 +32,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @var string
 		 * @since 0.1
 		 */
-		private $_title;
+		private $title;
 
 		/**
 		 * The help tab content.
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @var string
 		 * @since 0.1
 		 */
-		private $_content;
+		private $content;
 
 		/**
 		 * The help tab callback function.
@@ -48,7 +48,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @var string|array
 		 * @since 0.1
 		 */
-		private $_callback;
+		private $callback;
 
 		/**
 		 * The help tab view file.
@@ -58,7 +58,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @var string
 		 * @since 0.1
 		 */
-		private $_view;
+		private $view;
 
 		/**
 		 * The class constructor.
@@ -79,11 +79,11 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 				);
 			}
 			
-			$this->_id       = $id;
-			$this->_title    = $title;
-			$this->_content  = $content;
-			$this->_callback = $callback;
-			$this->_view     = $view;
+			$this->id       = $id;
+			$this->title    = $title;
+			$this->content  = $content;
+			$this->callback = $callback;
+			$this->view     = $view;
 		}
 
 		/**
@@ -94,12 +94,12 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function add()
 		{
-			if ( is_null( $this->_callback ) && file_exists( $this->_view ) ) {
+			if ( is_null( $this->callback ) && file_exists( $this->view ) ) {
 				ob_start();
-				require_once( $this->_view );
-				$this->_content = ob_get_clean();
+				require_once( $this->view );
+				$this->content = ob_get_clean();
 			}
-			get_current_screen()->add_help_tab( array( 'id' => $this->_id, 'title' => $this->_title, 'content' => $this->_content ) );
+			get_current_screen()->add_help_tab( array( 'id' => $this->id, 'title' => $this->title, 'content' => $this->content ) );
 		}
 
 		/**
@@ -109,7 +109,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function get_title()
 		{
-			return $this->_title;
+			return $this->title;
 		}
 
 		/**
@@ -119,7 +119,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function get_id()
 		{
-			return $this->_id;
+			return $this->id;
 		}
 
 		/**
@@ -139,7 +139,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 				return false;
 			endif;
 
-			$this->_callback = $callback;
+			$this->callback = $callback;
 
 			return true;
 		}
@@ -152,7 +152,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function set_content( $content )
 		{
-			$this->_content = $content;
+			$this->content = $content;
 		}
 	}
 endif;

@@ -10,7 +10,7 @@ namespace WPMVCB\Testing
 	 * @internal
 	 */
 
-	class BaseControllerTest extends WPMVCB_Test_Case
+	class testBaseController extends WPMVCB_Test_Case
 	{
 		public function setUp()
 		{
@@ -22,7 +22,13 @@ namespace WPMVCB\Testing
 			$this->_mock_path = trailingslashit( \org\bovigo\vfs\vfsStream::url( 'test_dir' ) );
 			$this->_filesystem = \org\bovigo\vfs\vfsStreamWrapper::getRoot();
 
-			$this->_controller = new \Base_Controller();
+			$this->_controller = new \Base_Controller(
+				'/home/foo/plugin.php',
+				'/home/foo/app',
+				'/home/foo/base',
+				'http://example.com/foo',
+				'footextdomain'
+			);
 		}
 
 		public function tearDown()
@@ -85,17 +91,11 @@ namespace WPMVCB\Testing
 		/**
 		 * @covers Base_Controller::add_shortcodes
 		 * @depends testMethodExistsAddShortcodes
+		 * @expectedException PHPUnit_Framework_Error
 		 */
 		public function testMethodAddShortcodesNonArray()
 		{
-			$this->assertEquals(
-				new \WP_Error(
-					'non-array',
-					'Base_Controller::add_shortcodes expects an array',
-					'foo'
-				),
-				$this->_controller->add_shortcodes( 'foo' )
-			);
+				$this->_controller->add_shortcodes( 'foo' );
 		}
 		
 		/**
@@ -207,8 +207,6 @@ namespace WPMVCB\Testing
 
 		/**
 		 * @depends testMethodExistsRenderMetabox
-		 * @expectedException PHPUnit_Framework_Error
-		 * @expectedExceptionMessage No view specified in the callback arguments for metabox id test-metabox
 		 * @covers Base_Controller::render_metabox
 		 */
 		public function testRenderMetaboxNoViewSpecified()
@@ -217,14 +215,24 @@ namespace WPMVCB\Testing
 				'id' => 'test-metabox',
 				'args' => array()
 			);
-
-			$this->_controller->render_metabox( $this->_post, $metabox );
+			
+			//set up a post object 
+			$factory = new \WP_UnitTest_Factory;
+			
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title'  => 'Test Render Metabox',
+					'post_type'   => 'post',
+					'post_status' => 'publish'
+				)
+			);
+			
+			$this->expectOutputString( 'No view specified in the callback arguments for metabox id test-metabox' );
+			$this->_controller->render_metabox( get_post( $post_id ), $metabox );
 		}
 
 		/**
 		 * @depends testMethodExistsRenderMetabox
-		 * @expectedException PHPUnit_Framework_Error
-		 * @expectedExceptionMessage The view file foo.php for metabox id test-metabox does not exist
 		 * @covers Base_Controller::render_metabox
 		 */
 		public function testRenderMetaboxViewNonexistent()
@@ -235,15 +243,27 @@ namespace WPMVCB\Testing
 					'view' => 'foo.php'
 				)
 			);
-
-			$this->_controller->render_metabox( $this->_post, $metabox );
+			
+			//set up a post object 
+			$factory = new \WP_UnitTest_Factory;
+			
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title'  => 'Test Render Metabox',
+					'post_type'   => 'post',
+					'post_status' => 'publish'
+				)
+			);
+			
+			$this->expectOutputString( 'The view file foo.php for metabox id test-metabox does not exist' );
+			$this->_controller->render_metabox( get_post( $post_id ), $metabox );
 		}
 
 		/**
 		 * @depends testMethodExistsRenderMetabox
 		 * @covers Base_Controller::render_metabox
 		 */
-		public function testRenderMetabox()
+		public function testMethodRenderMetabox()
 		{
 			//create our mock view directory
 			mkdir( $this->_mock_path . 'app/views', 0755, true );
@@ -254,187 +274,29 @@ namespace WPMVCB\Testing
 			fwrite( $handle, 'This is foo.' );
 			fclose( $handle );
 			$this->assertFileExists( $this->_mock_path . 'app/views/foo.php' );
-
+			
+			//set up a metabx
 			$metabox = array(
 				'id' => 'test-metabox',
 				'args' => array(
 					'view' =>  $this->_mock_path . 'app/views/foo.php'
 				)
 			);
-
-			//set up class attributes necessary for the function
-			$this->_controller->nonce_name = 'foo_nonce_name';
-			$this->_controller->nonce_action = 'foo_nonce_action';
-			$this->_controller->txtdomain = 'foo_txtdomain';
-
+			
+			//set up a post object 
+			$factory = new \WP_UnitTest_Factory;
+			
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title'  => 'Test Render Metabox',
+					'post_type'   => 'post',
+					'post_status' => 'publish'
+				)
+			);
+			
 			$this->expectOutputString( 'This is foo.' );
 
-			$this->_controller->render_metabox( $this->_post, $metabox, 'foo', 'bar', 'baz' );
-		}
-
-		/**
-		 * @covers Base_Controller::authenticate_post
-		 */
-		public function testMethodAuthenticatePostForPost()
-		{
-			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
-			$factory = new \WP_UnitTest_Factory;
-
-			$post_id = $factory->post->create_object(
-				array(
-					'post_title' => 'Test Post',
-					'post_type' => 'post',
-					'post_status' => 'publish'
-				)
-			);
-
-			wp_set_current_user( 1 );
-
-			$this->assertTrue(
-				$this->_controller->authenticate_post(
-					$post_id,
-					'post',
-					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
-					'foo_name',
-					'foo_action'
-				)
-			);
-		}
-
-		/**
-		 * @covers Base_Controller::authenticate_post
-		 */
-		public function testMethodAuthenticatePostForPage()
-		{
-			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
-			$factory = new \WP_UnitTest_Factory;
-
-			$post_id = $factory->post->create_object(
-				array(
-					'post_title' => 'Test Post',
-					'post_type' => 'page',
-					'post_status' => 'publish'
-				)
-			);
-
-			wp_set_current_user( 1 );
-
-			$this->assertTrue(
-				$this->_controller->authenticate_post(
-					$post_id,
-					'page',
-					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
-					'foo_name',
-					'foo_action'
-				)
-			);
-		}
-
-		/**
-		 * @covers Base_Controller::authenticate_post
-		 */
-		public function testMethodAuthenticatePostUserCannotEditPage()
-		{
-			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
-			$factory = new \WP_UnitTest_Factory;
-
-			$post_id = $factory->post->create_object(
-				array(
-					'post_title' => 'Test Post',
-					'post_type' => 'page',
-					'post_status' => 'publish'
-				)
-			);
-
-			wp_set_current_user( 0 );
-
-			$this->assertEmpty(
-				$this->_controller->authenticate_post(
-					$post_id,
-					'page',
-					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
-					'foo_name',
-					'foo_action'
-				)
-			);
-		}
-
-		/**
-		 * @covers Base_Controller::authenticate_post
-		 */
-		public function testMethodAuthenticatePostUserCannotEditPost()
-		{
-			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
-			$factory = new \WP_UnitTest_Factory;
-
-			$post_id = $factory->post->create_object(
-				array(
-					'post_title' => 'Test Post',
-					'post_type' => 'post',
-					'post_status' => 'publish'
-				)
-			);
-
-			wp_set_current_user( 0 );
-
-			$this->assertEmpty(
-				$this->_controller->authenticate_post(
-					$post_id,
-					'post',
-					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
-					'foo_name',
-					'foo_action'
-				)
-			);
-		}
-
-		/**
-		 * @covers Base_Controller::authenticate_post
-		 */
-		public function testMethodAuthenticatePostNoNonce()
-		{
-			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
-			$factory = new \WP_UnitTest_Factory;
-
-			$post_id = $factory->post->create_object(
-				array(
-					'post_title' => 'Test Post',
-					'post_type' => 'page',
-					'post_status' => 'publish'
-				)
-			);
-
-			wp_set_current_user( 1 );
-
-			$this->assertEmpty(
-				$this->_controller->authenticate_post(
-					$post_id,
-					'page',
-					array(),
-					'foo_name',
-					'foo_action'
-				)
-			);
-		}
-
-		/**
-		 * @covers Base_Controller::authenticate_post
-		 */
-		public function testMethodAuthenticatePostDoingAutosave()
-		{
-			$this->assertTrue( method_exists( $this->_controller, 'authenticate_post' ) );
-
-			define( 'DOING_AUTOSAVE', true );
-
-			$this->assertEmpty(
-				$this->_controller->authenticate_post(
-					$post_id,
-					'page',
-					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
-					'foo_name',
-					'foo_action'
-				)
-			);
+			$this->_controller->render_metabox( get_post( $post_id ), $metabox, 'foo', 'bar', 'baz' );
 		}
 		
 		/**
@@ -488,20 +350,14 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * In this test, we pass an non-arrat to the method.
+		 * In this test, we pass an non-array to the method.
 		 *
 		 * @covers Base_Controller::enqueue_scripts
+		 * @expectedException PHPUnit_Framework_Error
 		 */
 		public function testMethodEnqueueScriptsNonArray()
 		{
-			$this->assertEquals(
-				new \WP_Error(
-					'non-array',
-					'Base_Controller::enqueue_scripts expects an array',
-					'foo'
-				),
-				$this->_controller->enqueue_scripts( 'foo' )
-			);
+			$this->_controller->enqueue_scripts( 'foo' );
 		}
 		
 		/**

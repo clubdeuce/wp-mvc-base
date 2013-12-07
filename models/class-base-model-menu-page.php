@@ -15,7 +15,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var string
 		 * @since 0.2
 		 */
-		private $_parent_slug;
+		private $parent_slug;
 
 		/**
 		 * The text to be displayed in the title tags of the page when the menu is selected.
@@ -23,7 +23,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var string
 		 * @since 0.2
 		 */
-		private $_page_title;
+		private $page_title;
 
 		/**
 		 * The text to be used for the menu item.
@@ -31,7 +31,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var string
 		 * @since 0.2
 		 */
-		private $_menu_title;
+		private $menu_title;
 
 		/**
 		 * The capability required for this menu to be displayed to the user.
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @since 0.2
 		 * @link http://codex.wordpress.org/Roles_and_Capabilities
 		 */
-		private $_capability;
+		private $capability;
 
 		/**
 		 * The slug name to refer to this menu by (should be unique for this menu).
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var string
 		 * @since 0.2
 		 */
-		private $_menu_slug;
+		private $menu_slug;
 
 		/**
 		 * The function to be called to output the content for this page.
@@ -62,7 +62,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var string|array
 		 * @since 0.2
 		 */
-		private $_callback;
+		private $callback;
 
 		/**
 		 * The url to the icon to be used for this menu.
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var string
 		 * @since 0.2
 		 */
-		private $_icon_url;
+		private $icon_url;
 
 		/**
 		 * The position in the menu order this menu should appear.
@@ -90,7 +90,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var string
 		 * @since 0.2
 		 */
-		private $_position;
+		private $position;
 
 		/**
 		 * The javascripts used on this page.
@@ -101,7 +101,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @since 0.2
 		 * @see Base_Model_JS_Object
 		 */
-		private $_admin_scripts;
+		private $admin_scripts;
 
 		/**
 		 * The CSS used on this page.
@@ -109,7 +109,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var array
 		 * @since 0.2
 		 */
-		private $_admin_css;
+		private $admin_css;
 
 		/**
 		 * The help tabs for this page.
@@ -120,7 +120,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @since 0.2
 		 * @see Base_Model_Help_Tabs
 		 */
-		private $_help_tabs;
+		private $help_tabs;
 
 		/**
 		 * The name of the view file used to render the page.
@@ -131,7 +131,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var string
 		 * @since 0.2
 		 */
-		private $_view;
+		private $view;
 
 		/**
 		 * The hook suffix assigned by WordPress when the page is added.
@@ -139,7 +139,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * @var string
 		 * @since 0.2
 		 */
-		private $_hook_suffix;
+		private $hook_suffix;
 
 		/**
 		 * Set the _parent_slug property.
@@ -149,7 +149,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_parent_slug( $slug )
 		{
-			$this->_parent_slug = $slug;
+			$this->parent_slug = $slug;
 		}
 
 		/**
@@ -160,8 +160,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_parent_slug()
 		{
-			if ( isset( $this->_parent_slug ) ) {
-				return $this->_parent_slug;
+			if ( isset( $this->parent_slug ) ) {
+				return $this->parent_slug;
 			}
 		}
 
@@ -173,7 +173,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_page_title( $page_title )
 		{
-			$this->_page_title = $page_title;
+			$this->page_title = $page_title;
 		}
 
 		/**
@@ -184,8 +184,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_page_title()
 		{
-			if ( isset( $this->_page_title ) ) {
-				return $this->_page_title;
+			if ( isset( $this->page_title ) ) {
+				return $this->page_title;
 			}
 		}
 
@@ -197,7 +197,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_menu_title( $title )
 		{
-			$this->_menu_title = $title;
+			$this->menu_title = $title;
 		}
 
 		/**
@@ -208,8 +208,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_menu_title()
 		{
-			if ( isset( $this->_menu_title ) ) {
-				return $this->_menu_title;
+			if ( isset( $this->menu_title ) ) {
+				return $this->menu_title;
 			}
 		}
 
@@ -221,7 +221,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_capability( $capability )
 		{
-			$this->_capability = $capability;
+			$this->capability = $capability;
 		}
 
 		/**
@@ -232,8 +232,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_capability()
 		{
-			if ( isset( $this->_capability ) ) {
-				return $this->_capability;
+			if ( isset( $this->capability ) ) {
+				return $this->capability;
 			}
 		}
 
@@ -245,7 +245,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_menu_slug( $slug )
 		{
-			$this->_menu_slug = $slug;
+			$this->menu_slug = $slug;
 		}
 
 		/**
@@ -256,8 +256,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_menu_slug()
 		{
-			if ( isset( $this->_menu_slug ) ) {
-				return $this->_menu_slug;
+			if ( isset( $this->menu_slug ) ) {
+				return $this->menu_slug;
 			}
 		}
 
@@ -269,7 +269,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_callback( $callback )
 		{
-			$this->_callback = $callback;
+			$this->callback = $callback;
 		}
 
 		/**
@@ -280,8 +280,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_callback()
 		{
-			if ( isset( $this->_callback ) ) {
-				return $this->_callback;
+			if ( isset( $this->callback ) ) {
+				return $this->callback;
 			}
 		}
 
@@ -293,7 +293,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_icon_url( $icon_url )
 		{
-			$this->_icon_url = $icon_url;
+			$this->icon_url = $icon_url;
 		}
 
 		/**
@@ -304,8 +304,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_icon_url()
 		{
-			if ( isset( $this->_icon_url ) ) {
-				return $this->_icon_url;
+			if ( isset( $this->icon_url ) ) {
+				return $this->icon_url;
 			}
 		}
 
@@ -317,7 +317,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_position( $position )
 		{
-			$this->_position = $position;
+			$this->position = $position;
 		}
 
 		/**
@@ -328,8 +328,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_position()
 		{
-			if ( isset( $this->_position ) ) {
-				return $this->_position;
+			if ( isset( $this->position ) ) {
+				return $this->position;
 			}
 		}
 
@@ -341,7 +341,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_admin_scripts( $admin_scripts )
 		{
-			$this->_admin_scripts = $admin_scripts;
+			$this->admin_scripts = $admin_scripts;
 		}
 
 		/**
@@ -352,8 +352,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_admin_scripts()
 		{
-			if ( isset( $this->_admin_scripts ) ) {
-				return $this->_admin_scripts;
+			if ( isset( $this->admin_scripts ) ) {
+				return $this->admin_scripts;
 			}
 		}
 
@@ -365,7 +365,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_admin_css( $admin_css )
 		{
-			$this->_admin_css = $admin_css;
+			$this->admin_css = $admin_css;
 		}
 
 		/**
@@ -376,8 +376,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_admin_css()
 		{
-			if ( isset( $this->_admin_css ) ) {
-				return $this->_admin_css;
+			if ( isset( $this->admin_css ) ) {
+				return $this->admin_css;
 			}
 		}
 
@@ -389,7 +389,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_help_tabs( $help_tabs )
 		{
-			$this->_help_tabs = $help_tabs;
+			$this->help_tabs = $help_tabs;
 		}
 
 		/**
@@ -400,8 +400,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_help_tabs()
 		{
-			if ( isset( $this->_help_tabs ) ) {
-				return $this->_help_tabs;
+			if ( isset( $this->help_tabs ) ) {
+				return $this->help_tabs;
 			}
 		}
 
@@ -413,7 +413,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function set_view( $view )
 		{
-			$this->_view = $view;
+			$this->view = $view;
 		}
 
 		/**
@@ -424,8 +424,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_view()
 		{
-			if ( isset( $this->_view ) ) {
-				return $this->_view;
+			if ( isset( $this->view ) ) {
+				return $this->view;
 			}
 		}
 
@@ -437,8 +437,8 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function get_hook_suffix()
 		{
-			if ( isset( $this->_hook_suffix ) ) {
-				return $this->_hook_suffix;
+			if ( isset( $this->hook_suffix ) ) {
+				return $this->hook_suffix;
 			}
 		}
 
@@ -452,12 +452,12 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 */
 		public function add()
 		{
-			if ( isset( $this->_parent_slug ) ) {
-				$this->_hook_suffix = add_submenu_page( $this->_parent_slug, $this->_page_title, $this->_menu_title, $this->_capability, $this->_menu_slug, $this->_callback );
+			if ( isset( $this->parent_slug ) ) {
+				$this->hook_suffix = add_submenu_page( $this->parent_slug, $this->page_title, $this->menu_title, $this->capability, $this->menu_slug, $this->callback );
 				return $this->hook_suffix;
 			}
 			
-			$this->_hook_suffix = add_menu_page( $this->_page_title, $this->_menu_title, $this->_capability, $this->_menu_slug, $this->_callback, $this->_icon_url, $this->_position );
+			$this->hook_suffix = add_menu_page( $this->page_title, $this->menu_title, $this->capability, $this->menu_slug, $this->callback, $this->icon_url, $this->position );
 			
 			return $this->hook_suffix;
 		}

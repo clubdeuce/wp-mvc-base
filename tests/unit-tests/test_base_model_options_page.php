@@ -17,77 +17,77 @@ namespace WPMVCB\Testing
 			parent::setUp();
 
 			//set up the test class
-			$this->_options_page = new \Base_Model_Menu_Page();
+			$this->options_page = new \Base_Model_Menu_Page();
 		}
 
 		public function testPropertyParentSlugExists()
 		{
-			$this->assertClassHasAttribute( '_parent_slug', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'parent_slug', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyPageTitleExists()
 		{
-			$this->assertClassHasAttribute( '_page_title', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'page_title', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyMenuTitleExists()
 		{
-			$this->assertClassHasAttribute( '_menu_title', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'menu_title', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyCapabilityExists()
 		{
-			$this->assertClassHasAttribute( '_capability', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'capability', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyMenuSlugExists()
 		{
-			$this->assertClassHasAttribute( '_menu_slug', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'menu_slug', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyCallbackExists()
 		{
-			$this->assertClassHasAttribute( '_callback', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'callback', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyIconUrlExists()
 		{
-			$this->assertClassHasAttribute( '_icon_url', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'icon_url', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyPositionExists()
 		{
-			$this->assertClassHasAttribute( '_position', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'position', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyAdminScriptsExists()
 		{
-			$this->assertClassHasAttribute( '_admin_scripts', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'admin_scripts', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyAdminCssExists()
 		{
-			$this->assertClassHasAttribute( '_admin_css', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'admin_css', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyHelpTabsExists()
 		{
-			$this->assertClassHasAttribute( '_help_tabs', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'help_tabs', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyViewExists()
 		{
-			$this->assertClassHasAttribute( '_view', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'view', '\Base_Model_Menu_Page' );
 		}
 
 		public function testPropertyHookSuffixExists()
 		{
-			$this->assertClassHasAttribute( '_hook_suffix', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'hook_suffix', '\Base_Model_Menu_Page' );
 		}
 
 		public function testMethodSetParentSlugExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_parent_slug' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_parent_slug' ) );
 		}
 
 		/**
@@ -95,9 +95,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetParentSlug()
 		{
-			$this->_options_page->set_parent_slug( 'settings' );
+			$this->options_page->set_parent_slug( 'settings' );
 
-			$this->assertEquals( 'settings', $this->getReflectionPropertyValue( $this->_options_page, '_parent_slug' ) );
+			$this->assertEquals( 'settings', $this->getReflectionPropertyValue( $this->options_page, 'parent_slug' ) );
 		}
 
 		public function testMethodGetParentSlugExists()
@@ -112,15 +112,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetParentSlug()
 		{
-			$this->assertNull( $this->_options_page->get_parent_slug() );
+			$this->assertNull( $this->options_page->get_parent_slug() );
 
-			$this->_options_page->set_parent_slug( 'settings' );
-			$this->assertEquals( 'settings', $this->_options_page->get_parent_slug() );
+			$this->options_page->set_parent_slug( 'settings' );
+			$this->assertEquals( 'settings', $this->options_page->get_parent_slug() );
 		}
 
 		public function testMethodSetPageTitleExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_page_title' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_page_title' ) );
 		}
 
 		/**
@@ -128,9 +128,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetPageTitle()
 		{
-			$this->_options_page->set_page_title( 'My Page Title' );
+			$this->options_page->set_page_title( 'My Page Title' );
 
-			$this->assertEquals( 'My Page Title', $this->getReflectionPropertyValue( $this->_options_page, '_page_title' ) );
+			$this->assertEquals( 'My Page Title', $this->getReflectionPropertyValue( $this->options_page, 'page_title' ) );
 		}
 
 		public function testMethodGetPageTitleExists()
@@ -145,15 +145,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetPageTitle()
 		{
-			$this->assertNull( $this->_options_page->get_page_title() );
+			$this->assertNull( $this->options_page->get_page_title() );
 
-			$this->_options_page->set_page_title( 'My Page Title' );
-			$this->assertEquals( 'My Page Title', $this->_options_page->get_page_title() );
+			$this->options_page->set_page_title( 'My Page Title' );
+			$this->assertEquals( 'My Page Title', $this->options_page->get_page_title() );
 		}
 
 		public function testMethodSetMenuTitleExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_menu_title' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_menu_title' ) );
 		}
 
 		/**
@@ -161,13 +161,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetMenuTitle()
 		{
-			$this->_options_page->set_menu_title( 'My Menu Page' );
-			$this->assertEquals( 'My Menu Page', $this->getReflectionPropertyValue( $this->_options_page, '_menu_title' ) );
+			$this->options_page->set_menu_title( 'My Menu Page' );
+			$this->assertEquals( 'My Menu Page', $this->getReflectionPropertyValue( $this->options_page, 'menu_title' ) );
 		}
 
 		public function testMethodGetMenuTitleExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_menu_title' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_menu_title' ) );
 		}
 
 		/**
@@ -177,15 +177,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetMenuTitle()
 		{
-			$this->assertNull( $this->_options_page->get_menu_title() );
+			$this->assertNull( $this->options_page->get_menu_title() );
 
-			$this->_options_page->set_menu_title( 'My Menu Page' );
-			$this->assertEquals( 'My Menu Page', $this->_options_page->get_menu_title() );
+			$this->options_page->set_menu_title( 'My Menu Page' );
+			$this->assertEquals( 'My Menu Page', $this->options_page->get_menu_title() );
 		}
 
 		public function testMethodSetCapabilityExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_capability' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_capability' ) );
 		}
 
 		/**
@@ -193,13 +193,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetCapability()
 		{
-			$this->_options_page->set_capability( 'manage_posts' );
-			$this->assertEquals( 'manage_posts', $this->getReflectionPropertyValue( $this->_options_page, '_capability' ) );
+			$this->options_page->set_capability( 'manage_posts' );
+			$this->assertEquals( 'manage_posts', $this->getReflectionPropertyValue( $this->options_page, 'capability' ) );
 		}
 
 		public function testMethodGetCapabilityExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_capability' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_capability' ) );
 		}
 
 		/**
@@ -209,15 +209,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetCapability()
 		{
-			$this->assertNull( $this->_options_page->get_capability() );
+			$this->assertNull( $this->options_page->get_capability() );
 
-			$this->_options_page->set_capability( 'manage_posts' );
-			$this->assertEquals( 'manage_posts', $this->_options_page->get_capability() );
+			$this->options_page->set_capability( 'manage_posts' );
+			$this->assertEquals( 'manage_posts', $this->options_page->get_capability() );
 		}
 
 		public function testMethodSetMenuSlugExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_menu_slug' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_menu_slug' ) );
 		}
 
 		/**
@@ -225,13 +225,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetMenuSlug()
 		{
-			$this->_options_page->set_menu_slug( 'my_menu_slug' );
-			$this->assertEquals( 'my_menu_slug', $this->getReflectionPropertyValue( $this->_options_page, '_menu_slug' ) );
+			$this->options_page->set_menu_slug( 'my_menu_slug' );
+			$this->assertEquals( 'my_menu_slug', $this->getReflectionPropertyValue( $this->options_page, 'menu_slug' ) );
 		}
 
 		public function testMethodGetMenuSlugExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_menu_slug' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_menu_slug' ) );
 		}
 
 		/**
@@ -241,15 +241,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetMenuSlug()
 		{
-			$this->assertNull( $this->_options_page->get_menu_slug() );
+			$this->assertNull( $this->options_page->get_menu_slug() );
 
-			$this->_options_page->set_menu_slug( 'my_menu_slug' );
-			$this->assertEquals( 'my_menu_slug', $this->_options_page->get_menu_slug() );
+			$this->options_page->set_menu_slug( 'my_menu_slug' );
+			$this->assertEquals( 'my_menu_slug', $this->options_page->get_menu_slug() );
 		}
 
 		public function testMethodSetCallbackExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_callback' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_callback' ) );
 		}
 
 		/**
@@ -257,13 +257,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetCallback()
 		{
-			$this->_options_page->set_callback( 'my_callback' );
-			$this->assertEquals( 'my_callback', $this->getReflectionPropertyValue( $this->_options_page, '_callback' ) );
+			$this->options_page->set_callback( 'my_callback' );
+			$this->assertEquals( 'my_callback', $this->getReflectionPropertyValue( $this->options_page, 'callback' ) );
 		}
 
 		public function testMethodGetCallbackExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_callback' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_callback' ) );
 		}
 
 		/**
@@ -273,15 +273,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetCallback()
 		{
-			$this->assertNull( $this->_options_page->get_callback() );
+			$this->assertNull( $this->options_page->get_callback() );
 
-			$this->_options_page->set_callback( 'my_callback' );
-			$this->assertEquals( 'my_callback', $this->_options_page->get_callback() );
+			$this->options_page->set_callback( 'my_callback' );
+			$this->assertEquals( 'my_callback', $this->options_page->get_callback() );
 		}
 
 		public function testMethodSetIconUrlExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_icon_url' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_icon_url' ) );
 		}
 
 		/**
@@ -289,13 +289,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetIconUrl()
 		{
-			$this->_options_page->set_icon_url( 'my_icon_url' );
-			$this->assertEquals( 'my_icon_url', $this->getReflectionPropertyValue( $this->_options_page, '_icon_url' ) );
+			$this->options_page->set_icon_url( 'my_icon_url' );
+			$this->assertEquals( 'my_icon_url', $this->getReflectionPropertyValue( $this->options_page, 'icon_url' ) );
 		}
 
 		public function testMethodGetIconUrlExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_icon_url' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_icon_url' ) );
 		}
 
 		/**
@@ -305,15 +305,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetIconUrl()
 		{
-			$this->assertNull( $this->_options_page->get_icon_url() );
+			$this->assertNull( $this->options_page->get_icon_url() );
 
-			$this->_options_page->set_icon_url( 'my_icon_url' );
-			$this->assertEquals( 'my_icon_url', $this->_options_page->get_icon_url() );
+			$this->options_page->set_icon_url( 'my_icon_url' );
+			$this->assertEquals( 'my_icon_url', $this->options_page->get_icon_url() );
 		}
 
 		public function testMethodSetPositionExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_position' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_position' ) );
 		}
 
 		/**
@@ -321,13 +321,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetPosition()
 		{
-			$this->_options_page->set_position( 'my_position' );
-			$this->assertEquals( 'my_position', $this->getReflectionPropertyValue( $this->_options_page, '_position' ) );
+			$this->options_page->set_position( 'my_position' );
+			$this->assertEquals( 'my_position', $this->getReflectionPropertyValue( $this->options_page, 'position' ) );
 		}
 
 		public function testMethodGetPositionExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_position' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_position' ) );
 		}
 
 		/**
@@ -337,15 +337,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetPosition()
 		{
-			$this->assertNull( $this->_options_page->get_position() );
+			$this->assertNull( $this->options_page->get_position() );
 
-			$this->_options_page->set_position( 'my_position' );
-			$this->assertEquals( 'my_position', $this->_options_page->get_position() );
+			$this->options_page->set_position( 'my_position' );
+			$this->assertEquals( 'my_position', $this->options_page->get_position() );
 		}
 
 		public function testMethodSetAdminScriptsExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_admin_scripts' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_admin_scripts' ) );
 		}
 
 		/**
@@ -353,13 +353,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetAdminScripts()
 		{
-			$this->_options_page->set_admin_scripts( 'my_admin_scripts' );
-			$this->assertEquals( 'my_admin_scripts', $this->getReflectionPropertyValue( $this->_options_page, '_admin_scripts' ) );
+			$this->options_page->set_admin_scripts( 'my_admin_scripts' );
+			$this->assertEquals( 'my_admin_scripts', $this->getReflectionPropertyValue( $this->options_page, 'admin_scripts' ) );
 		}
 
 		public function testMethodGetAdminScriptsExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_admin_scripts' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_admin_scripts' ) );
 		}
 
 		/**
@@ -369,15 +369,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetAdminScripts()
 		{
-			$this->assertNull( $this->_options_page->get_admin_scripts() );
+			$this->assertNull( $this->options_page->get_admin_scripts() );
 
-			$this->_options_page->set_admin_scripts( 'my_admin_scripts' );
-			$this->assertEquals( 'my_admin_scripts', $this->_options_page->get_admin_scripts() );
+			$this->options_page->set_admin_scripts( 'my_admin_scripts' );
+			$this->assertEquals( 'my_admin_scripts', $this->options_page->get_admin_scripts() );
 		}
 
 		public function testMethodSetAdminCssExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_admin_css' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_admin_css' ) );
 		}
 
 		/**
@@ -385,13 +385,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetAdminCss()
 		{
-			$this->_options_page->set_admin_css( 'my_admin_css' );
-			$this->assertEquals( 'my_admin_css', $this->getReflectionPropertyValue( $this->_options_page, '_admin_css' ) );
+			$this->options_page->set_admin_css( 'my_admin_css' );
+			$this->assertEquals( 'my_admin_css', $this->getReflectionPropertyValue( $this->options_page, 'admin_css' ) );
 		}
 
 		public function testMethodGetAdminCssExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_admin_css' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_admin_css' ) );
 		}
 
 		/**
@@ -401,15 +401,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetAdminCss()
 		{
-			$this->assertNull( $this->_options_page->get_admin_css() );
+			$this->assertNull( $this->options_page->get_admin_css() );
 
-			$this->_options_page->set_admin_css( 'my_admin_css' );
-			$this->assertEquals( 'my_admin_css', $this->_options_page->get_admin_css() );
+			$this->options_page->set_admin_css( 'my_admin_css' );
+			$this->assertEquals( 'my_admin_css', $this->options_page->get_admin_css() );
 		}
 
 		public function testMethodSetHelpTabsExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_help_tabs' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_help_tabs' ) );
 		}
 
 		/**
@@ -417,13 +417,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetHelpTabs()
 		{
-			$this->_options_page->set_help_tabs( 'my_help_tabs' );
-			$this->assertEquals( 'my_help_tabs', $this->getReflectionPropertyValue( $this->_options_page, '_help_tabs' ) );
+			$this->options_page->set_help_tabs( 'my_help_tabs' );
+			$this->assertEquals( 'my_help_tabs', $this->getReflectionPropertyValue( $this->options_page, 'help_tabs' ) );
 		}
 
 		public function testMethodGetHelpTabsExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_help_tabs' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_help_tabs' ) );
 		}
 
 		/**
@@ -433,15 +433,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetHelpTabs()
 		{
-			$this->assertNull( $this->_options_page->get_help_tabs() );
+			$this->assertNull( $this->options_page->get_help_tabs() );
 
-			$this->_options_page->set_help_tabs( 'my_help_tabs' );
-			$this->assertEquals( 'my_help_tabs', $this->_options_page->get_help_tabs() );
+			$this->options_page->set_help_tabs( 'my_help_tabs' );
+			$this->assertEquals( 'my_help_tabs', $this->options_page->get_help_tabs() );
 		}
 
 		public function testMethodSetViewExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'set_view' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'set_view' ) );
 		}
 
 		/**
@@ -449,13 +449,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetView()
 		{
-			$this->_options_page->set_view( 'my_view' );
-			$this->assertEquals( 'my_view', $this->getReflectionPropertyValue( $this->_options_page, '_view' ) );
+			$this->options_page->set_view( 'my_view' );
+			$this->assertEquals( 'my_view', $this->getReflectionPropertyValue( $this->options_page, 'view' ) );
 		}
 
 		public function testMethodGetViewExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_view' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_view' ) );
 		}
 
 		/**
@@ -465,15 +465,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetView()
 		{
-			$this->assertNull( $this->_options_page->get_view() );
+			$this->assertNull( $this->options_page->get_view() );
 
-			$this->_options_page->set_view( 'my_view' );
-			$this->assertEquals( 'my_view', $this->_options_page->get_view() );
+			$this->options_page->set_view( 'my_view' );
+			$this->assertEquals( 'my_view', $this->options_page->get_view() );
 		}
 
 		public function testMethodGetHookSuffixExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'get_hook_suffix' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'get_hook_suffix' ) );
 		}
 
 		/**
@@ -481,15 +481,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetHookSuffix()
 		{
-			$this->assertNull( $this->_options_page->get_hook_suffix() );
+			$this->assertNull( $this->options_page->get_hook_suffix() );
 
-			$this->setReflectionPropertyValue( $this->_options_page, '_hook_suffix', 'my_hook_suffix' );
-			$this->assertEquals( 'my_hook_suffix', $this->_options_page->get_hook_suffix() );
+			$this->setReflectionPropertyValue( $this->options_page, 'hook_suffix', 'my_hook_suffix' );
+			$this->assertEquals( 'my_hook_suffix', $this->options_page->get_hook_suffix() );
 		}
 
 		public function testMethodAddExists()
 		{
-			$this->assertTrue( method_exists( $this->_options_page, 'add' ) );
+			$this->assertTrue( method_exists( $this->options_page, 'add' ) );
 		}
 
 		/**

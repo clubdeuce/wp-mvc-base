@@ -63,14 +63,14 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		private $callback;
 
 		/**
-		 * the post type to which this metabox applies
+		 * the post types to which this metabox applies
 		 *
 		 * The type of Write screen on which to show the edit screen section ('post', 'page', 'link', 'attachment' or 'custom_post_type' where custom_post_type is the custom post type slug)
 		 * @package WPMVCBase\Models
-		 * @var string
+		 * @var array
 		 * @since 0.1
 		 */
-		private $post_type = 'post';
+		private $post_type = array( 'post' );
 
 		/**
 		 * the metabox context
@@ -140,7 +140,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * @return void
 		 * @since 0.1
 		 */
-		public function __construct( $id, $title, $callback, $post_type, $context, $priority, $callback_args = array() )
+		public function __construct( $id, $title, $callback, array $post_type, $context, $priority, $callback_args = array() )
 		{
 			$this->id            = $id;
 			$this->title         = $title;
@@ -166,15 +166,17 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 */
 		public function add()
 		{
-			add_meta_box(
-				$this->id,
-				$this->title,
-				$this->callback,
-				$this->post_type,
-				$this->context,
-				$this->priority,
-				$this->callback_args
-			);
+			foreach( $this->post_type as $post_type ) {
+				add_meta_box(
+					$this->id,
+					$this->title,
+					$this->callback,
+					$post_type,
+					$this->context,
+					$this->priority,
+					$this->callback_args
+				);
+			}
 		}
 
 		/**
@@ -185,7 +187,9 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 */
 		public function remove()
 		{
-			remove_meta_box( $this->id, $this->post_type, $this->context );
+			foreach( $this->post_type as $post_type ) {
+				remove_meta_box( $this->id, $post_type, $this->context );
+			}
 		}
 
 		/**
@@ -225,15 +229,15 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		}
 
 		/**
-		 * set the title
+		 * set the post types
 		 *
-		 * @param string $post_type
+		 * @param array $post_type
 		 * @return void
 		 * @since 0.1
 		 */
-		public function set_post_type( $post_type )
+		public function set_post_type( array $post_types )
 		{
-			$this->post_type = $post_type;
+			$this->post_type = $post_types;
 		}
 
 		/**
@@ -311,7 +315,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * @return string $post_type
 		 * @since 0.1
 		 */
-		public function get_post_type()
+		public function get_post_types()
 		{
 			return $this->post_type;
 		}
