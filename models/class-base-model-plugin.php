@@ -84,8 +84,8 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 * $my_plugin_model = new Base_Model_Plugin(
 		 *		'my_plugin_slug',
 		 *		'1.1.5',
-		 *		plugin_dir_path( __FILE__ ),
 		 *		__FILE__,
+		 *		plugin_dir_path( __FILE__ ),
 		 *		plugin_dir_uri( __FILE__ ),
 		 *		'my_text_domain'
 		 * }
