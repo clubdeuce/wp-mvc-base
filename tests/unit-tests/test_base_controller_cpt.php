@@ -1,6 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
+	require_once WPMVCB_SRC_DIR . '/models/class-base-model-cpt.php';
 	require_once( WPMVCB_SRC_DIR . '/controllers/class-base-controller.php' );
 	require_once( WPMVCB_SRC_DIR . '/controllers/class-base-controller-cpt.php' );
 

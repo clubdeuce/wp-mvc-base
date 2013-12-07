@@ -203,7 +203,7 @@ namespace WPMVCB\Testing
 		public function testMethodGetUri()
 		{
 			$this->assertTrue( method_exists( $this->model, 'get_uri' ) );
-			$this->assertEquals( 'http://example.com/foo', $this->model->get_uri() );
+			$this->assertEquals( 'http://example.com/foo/', $this->model->get_uri() );
 		}
 
 		/**
