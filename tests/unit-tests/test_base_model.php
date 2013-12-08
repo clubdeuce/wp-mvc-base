@@ -3,37 +3,216 @@ namespace WPMVCB\Testing
 {
 	require_once WPMVCB_SRC_DIR . '/helpers/class-base-helpers.php';
 	require_once WPMVCB_SRC_DIR . '/models/class-base-model.php';
-	
-	/**
-	 * Base Model Test Stub
-	 *
-	 * @internal
-	 * @since 0.1
-	 */
-	class TestStubBaseModel extends \Base_Model
-	{
-		public function __construct()
-		{
-		}
-	}
-	
+		
 	/**
 	 * Base Model Test Class
 	 *
 	 * @internal
 	 * @since 0.1
 	 */
-	class TestBaseModel extends WPMVCB_Test_Case
+	class testBaseModel extends WPMVCB_Test_Case
 	{
 		public function SetUp()
 		{
 			parent::setUp();
-			$this->_model = new TestStubBaseModel;
+			
+			$args = array(
+				'/home/foo/plugin.php',
+				'/home/foo',
+				'/home/foo/app',
+				'/home/foo/base',
+				'http://example.com/foo',
+				'footextdomain'
+			);
+			
+			//create the model
+			$this->model = $this->getMockBuilder( '\Base_Model' )
+			                     ->setConstructorArgs( $args )
+			                     ->getMockForAbstractClass();
 		}
 		
 		public function tearDown()
 		{
-			unset( $this->_model );
+			unset( $this->model );
+		}
+		
+		/**
+		 * @covers Base_Model::__construct
+		 */
+		public function testPropertyMainPluginFile()
+		{
+			$this->assertClassHasAttribute( 'main_plugin_file', '\Base_Model' );
+			$this->assertEquals(
+				'/home/foo/plugin.php',
+				$this->getReflectionPropertyValue( $this->model, 'main_plugin_file' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Model::__construct
+		 */
+		public function testPropertyAppPath()
+		{
+			$this->assertClassHasAttribute( 'app_path', '\Base_Model' );
+			$this->assertEquals(
+				'/home/foo/app/',
+				$this->getReflectionPropertyValue( $this->model, 'app_path' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Model::__construct
+		 */
+		public function testPropertyBasePath()
+		{
+			$this->assertClassHasAttribute( 'base_path', '\Base_Model' );
+			$this->assertEquals(
+				'/home/foo/base/',
+				$this->getReflectionPropertyValue( $this->model, 'base_path' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Model::__construct
+		 */
+		public function testPropertyUri()
+		{
+			$this->assertClassHasAttribute( 'uri', '\Base_Model' );
+			$this->assertEquals(
+				'http://example.com/foo/',
+				$this->getReflectionPropertyValue( $this->model, 'uri' )
+			);
+		}
+		
+		/**
+		 * @covers Base_Model::__construct
+		 */
+		public function testPropertyTxtdomain()
+		{
+			$this->assertClassHasAttribute( 'txtdomain', '\Base_Model' );
+			$this->assertEquals(
+				'footextdomain',
+				$this->getReflectionPropertyValue( $this->model, 'txtdomain' )
+			);
+		}
+		
+		/**
+		 * expectedException PHPUnit_Framework_Error
+		 * expectedExceptionMessage DEPRECATED: The function main_plugin_file is deprecated. Please use get_main_plugin_file instead.
+		 * @covers Base_Model::main_plugin_file
+		 */
+		public function testMethodMainPluginFile()
+		{
+			$this->assertTrue( method_exists( $this->model, 'main_plugin_file' ) );
+			$this->assertEquals( '/home/foo/plugin.php', $this->model->main_plugin_file() );
+		}
+
+		/**
+		 * @covers Base_Model::get_main_plugin_file
+		 */
+		public function testMethodGetMainPluginFile()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_main_plugin_file' ) );
+			$this->assertEquals( '/home/foo/plugin.php', $this->model->get_main_plugin_file() );
+		}
+
+		/**
+		 * @covers Base_Model::get_path
+		 */
+		public function testMethodGetPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_path' ) );
+			$this->assertEquals( '/home/foo/', $this->model->get_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_app_path
+		 */
+		public function testMethodGetAppPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_app_path' ) );
+			$this->assertEquals( '/home/foo/app/', $this->model->get_app_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_app_controllers_path
+		 */
+		public function testMethodGetAppControllersPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_app_controllers_path' ) );
+			$this->assertEquals( '/home/foo/app/controllers/', $this->model->get_app_controllers_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_app_models_path
+		 */
+		public function testMethodGetAppModelsPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_app_models_path' ) );
+			$this->assertEquals( '/home/foo/app/models/', $this->model->get_app_models_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_app_views_path
+		 */
+		public function testMethodGetAppViewsPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_app_views_path' ) );
+			$this->assertEquals( '/home/foo/app/views/', $this->model->get_app_views_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_base_path
+		 */
+		public function testMethodGetBasePath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_base_path' ) );
+			$this->assertEquals( '/home/foo/base/', $this->model->get_base_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_base_controllers_path
+		 */
+		public function testMethodGetBaseControllersPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_base_controllers_path' ) );
+			$this->assertEquals( '/home/foo/base/controllers/', $this->model->get_base_controllers_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_base_models_path
+		 */
+		public function testMethodGetBaseModelsPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_base_models_path' ) );
+			$this->assertEquals( '/home/foo/base/models/', $this->model->get_base_models_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_base_views_path
+		 */
+		public function testMethodGetBaseViewsPath()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_base_views_path' ) );
+			$this->assertEquals( '/home/foo/base/views/', $this->model->get_base_views_path() );
+		}
+
+		/**
+		 * @covers Base_Model::get_uri
+		 */
+		public function testMethodGetUri()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_uri' ) );
+			$this->assertEquals( 'http://example.com/foo/', $this->model->get_uri() );
+		}
+
+		/**
+		 * @covers Base_Model::get_textdomain
+		 */
+		public function testMethodGetTextdomain()
+		{
+			$this->assertTrue( method_exists( $this->model, 'get_textdomain' ) );
+			$this->assertEquals( 'footextdomain', $this->model->get_textdomain() );
 		}
 		
 		/**
@@ -42,12 +221,12 @@ namespace WPMVCB\Testing
 		public function testMethodGetCss()
 		{
 			$this->assertClassHasAttribute( 'css', '\Base_Model' );
-			$this->assertTrue( method_exists( $this->_model, 'get_css' ) );
-			$this->setReflectionPropertyValue( $this->_model, 'css', array( 'foo_css' => array( 'handle' => 'bar_css' ) ) );
+			$this->assertTrue( method_exists( $this->model, 'get_css' ) );
+			$this->setReflectionPropertyValue( $this->model, 'css', array( 'foo_css' => array( 'handle' => 'bar_css' ) ) );
 			
 			$this->assertEquals(
 				array( 'foo_css' => array( 'handle' => 'bar_css' ) ),
-				$this->_model->get_css( 'http://my-super-cool-site' )
+				$this->model->get_css( 'http://my-super-cool-site' )
 			);
 		}
 		
@@ -56,8 +235,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetCssEmpty()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_css' ) );
-			$this->assertFalse( $this->_model->get_css() );
+			$this->assertTrue( method_exists( $this->model, 'get_css' ) );
+			$this->assertFalse( $this->model->get_css() );
 		}
 		
 		/**
@@ -66,11 +245,11 @@ namespace WPMVCB\Testing
 		public function testMethodGetAdminCss()
 		{
 			$this->assertClassHasAttribute( 'admin_css', '\Base_Model' );
-			$this->assertTrue( method_exists( $this->_model, 'get_admin_css' ) );
-			$this->setReflectionPropertyValue( $this->_model, 'admin_css', array( 'foo_admin_css' => array( 'handle' => 'bar_admin_css' ) ) );
+			$this->assertTrue( method_exists( $this->model, 'get_admin_css' ) );
+			$this->setReflectionPropertyValue( $this->model, 'admin_css', array( 'foo_admin_css' => array( 'handle' => 'bar_admin_css' ) ) );
 			$this->assertEquals(
 				array( 'foo_admin_css' => array( 'handle' => 'bar_admin_css' ) ),
-				$this->_model->get_admin_css( 'http://my-super-cool-site' )
+				$this->model->get_admin_css( 'http://my-super-cool-site' )
 			);
 		}
 		
@@ -79,8 +258,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetAdminCssEmpty()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_admin_css' ) );
-			$this->assertFalse( $this->_model->get_admin_css() );
+			$this->assertTrue( method_exists( $this->model, 'get_admin_css' ) );
+			$this->assertFalse( $this->model->get_admin_css() );
 		}
 		
 		/**
@@ -89,13 +268,13 @@ namespace WPMVCB\Testing
 		public function testMethodGetScripts()
 		{
 			$this->assertClassHasAttribute( 'scripts', '\Base_Model' );
-			$this->assertTrue( method_exists( $this->_model, 'get_scripts' ) );
+			$this->assertTrue( method_exists( $this->model, 'get_scripts' ) );
 			//global $post;
 			
-			$this->setReflectionPropertyValue( $this->_model, 'scripts', array ( 'foo_scripts' => 'bar_scripts' ) );
+			$this->setReflectionPropertyValue( $this->model, 'scripts', array ( 'foo_scripts' => 'bar_scripts' ) );
 			$this->assertEquals(
 				array ( 'foo_scripts' => 'bar_scripts' ),
-				$this->_model->get_scripts()
+				$this->model->get_scripts()
 			);
 		}
 		
@@ -104,8 +283,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetScriptsEmpty()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_scripts' ) );
-			$this->assertFalse( $this->_model->get_scripts() );
+			$this->assertTrue( method_exists( $this->model, 'get_scripts' ) );
+			$this->assertFalse( $this->model->get_scripts() );
 		}
 		
 		/**
@@ -114,13 +293,13 @@ namespace WPMVCB\Testing
 		public function testMethodGetAdminScripts()
 		{
 			$this->assertClassHasAttribute( 'admin_scripts', '\Base_Model' );
-			$this->assertTrue( method_exists( $this->_model, 'get_admin_scripts' ) );
+			$this->assertTrue( method_exists( $this->model, 'get_admin_scripts' ) );
 			
 			//global $post;
-			$this->setReflectionPropertyValue( $this->_model, 'admin_scripts', array( 'foo_admin_scripts' => 'bar_admin_scripts' ) );
+			$this->setReflectionPropertyValue( $this->model, 'admin_scripts', array( 'foo_admin_scripts' => 'bar_admin_scripts' ) );
 			$this->assertEquals(
 				array( 'foo_admin_scripts' => 'bar_admin_scripts' ),
-				$this->_model->get_admin_scripts()
+				$this->model->get_admin_scripts()
 			);
 		}
 		
@@ -129,8 +308,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetAdminScriptsEmpty()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_admin_scripts' ) );
-			$this->assertFalse( $this->_model->get_admin_scripts() );
+			$this->assertTrue( method_exists( $this->model, 'get_admin_scripts' ) );
+			$this->assertFalse( $this->model->get_admin_scripts() );
 		}
 		
 		/**
@@ -139,15 +318,15 @@ namespace WPMVCB\Testing
 		public function testMethodAddMetabox()
 		{
 			$this->assertClassHasAttribute( 'metaboxes', '\Base_Model' );
-			$this->assertTrue( method_exists( $this->_model, 'add_metabox' ) );
+			$this->assertTrue( method_exists( $this->model, 'add_metabox' ) );
 			$stub = $this->getMockBuilder( 'Base_Model_Metabox' )
 						 ->disableOriginalConstructor()
 						 ->getMock();
 						 
-			$this->_model->add_metabox( 'foo', $stub );
+			$this->model->add_metabox( 'foo', $stub );
 			$this->assertEquals(
 				array( 'foo' => $stub ),
-				$this->getReflectionPropertyValue( $this->_model, 'metaboxes' )
+				$this->getReflectionPropertyValue( $this->model, 'metaboxes' )
 			);
 		}
 		
@@ -158,14 +337,14 @@ namespace WPMVCB\Testing
 		{
 			$foo = new \StdClass;
 			
-			$this->assertTrue( method_exists( $this->_model, 'add_metabox') );
+			$this->assertTrue( method_exists( $this->model, 'add_metabox') );
 			$this->assertEquals(
 				new \WP_Error(
 					'fail',
 					'Base_Model::add_metabox expects a Base_Model_Metabox object as the second parameter',
 					$foo
 				),
-				$this->_model->add_metabox( 'foo', $foo )
+				$this->model->add_metabox( 'foo', $foo )
 			);
 		}
 		
@@ -175,14 +354,14 @@ namespace WPMVCB\Testing
 		public function testMethodGetMetaboxes()
 		{
 			$this->assertClassHasAttribute( 'metaboxes', '\Base_Model' );
-			$this->assertTrue( method_exists( $this->_model, 'get_metaboxes' ) );
+			$this->assertTrue( method_exists( $this->model, 'get_metaboxes' ) );
 			
 			$stub = $this->getMockBuilder( '\Base_Model_Metabox' )
 						 ->disableOriginalConstructor()
 						 ->getMock();
-			$this->setReflectionPropertyValue( $this->_model, 'metaboxes', array( 'foo' => $stub ) );
+			$this->setReflectionPropertyValue( $this->model, 'metaboxes', array( 'foo' => $stub ) );
 			
-			$this->assertEquals( array( 'foo' => $stub ), $this->_model->get_metaboxes( 'bar', 'baz') );
+			$this->assertEquals( array( 'foo' => $stub ), $this->model->get_metaboxes( 'bar', 'baz') );
 		}
 		
 		/**
@@ -190,8 +369,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetmetaboxesEmpty()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_metaboxes' ) );
-			$this->assertFalse( $this->_model->get_metaboxes() );
+			$this->assertTrue( method_exists( $this->model, 'get_metaboxes' ) );
+			$this->assertFalse( $this->model->get_metaboxes() );
 		}
 		
 		/**
@@ -200,17 +379,17 @@ namespace WPMVCB\Testing
 		public function testMethodAddHelpTab()
 		{
 			$this->assertClassHasAttribute( 'help_tabs', '\Base_Model' );
-			$this->assertTrue( method_exists( $this->_model, 'add_help_tab' ) );
+			$this->assertTrue( method_exists( $this->model, 'add_help_tab' ) );
 			//set up our mock help tab object
 			$stub = $this->getMockBuilder( '\Base_Model_Help_Tab' )
 						 ->disableOriginalConstructor()
 						 ->getMock();
 			
-			$this->_model->add_help_tab( 'foo', $stub );
+			$this->model->add_help_tab( 'foo', $stub );
 			
 			$this->assertEquals( 
 				array( 'foo' => $stub ),
-				$this->getReflectionPropertyValue( $this->_model, 'help_tabs' )
+				$this->getReflectionPropertyValue( $this->model, 'help_tabs' )
 			);
 		}
 		
@@ -220,7 +399,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodAddHelpTabFail()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'add_help_tab' ) );
+			$this->assertTrue( method_exists( $this->model, 'add_help_tab' ) );
 			
 			$tab = new \StdClass;
 			
@@ -230,7 +409,7 @@ namespace WPMVCB\Testing
 					'Base_Model::add_help_tab expects a Base_Model_Help_Tab object as the second parameter',
 					$tab
 				),
-				$this->_model->add_help_tab( 'foo', $tab )
+				$this->model->add_help_tab( 'foo', $tab )
 			);
 		}
 		
@@ -240,16 +419,16 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetHelpScreen()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_help_screen' ) );
+			$this->assertTrue( method_exists( $this->model, 'get_help_screen' ) );
 			$stub = $this->getMockBuilder( 'Base_Model_Help_Tab' )
 						 ->disableOriginalConstructor()
 						 ->getMock();
 			
-			$this->_model->add_help_tab( 'foo', $stub );
+			$this->model->add_help_tab( 'foo', $stub );
 			
 			$this->assertEquals(
 				array( 'foo' => $stub ),
-				$this->_model->get_help_screen()
+				$this->model->get_help_screen()
 			);
 		}
 		
@@ -259,7 +438,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetHelpScreenError()
 		{
-			@$this->_model->get_help_screen( __FILE__, 'my-super-cool-text-domain' );
+			@$this->model->get_help_screen( __FILE__, 'my-super-cool-text-domain' );
 			$error = error_get_last();
 			$this->assertEquals(
 				'DEPRECATED: The function get_help_screen is deprecated. Please use get_help_tabs instead.',
@@ -272,13 +451,13 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetHelpTabs()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_help_tabs' ) );
+			$this->assertTrue( method_exists( $this->model, 'get_help_tabs' ) );
 			
-			$this->setReflectionPropertyValue( $this->_model, 'help_tabs', array( 'foo' => 1 , 'bar' => 2 ) );
+			$this->setReflectionPropertyValue( $this->model, 'help_tabs', array( 'foo' => 1 , 'bar' => 2 ) );
 			
 			$this->assertEquals( 
 				array( 'foo' => 1, 'bar' => 2 ),
-				$this->_model->get_help_tabs()
+				$this->model->get_help_tabs()
 			);
 		}
 		
@@ -287,8 +466,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetHelpTabsEmpty()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_help_tabs' ) );
-			$this->assertFalse( $this->_model->get_help_tabs() );
+			$this->assertTrue( method_exists( $this->model, 'get_help_tabs' ) );
+			$this->assertFalse( $this->model->get_help_tabs() );
 		}
 		
 		/**
@@ -297,9 +476,9 @@ namespace WPMVCB\Testing
 		public function testMethodAddShortcode()
 		{
 			$this->assertClassHasAttribute( 'shortcodes', '\Base_Model' );
-			$this->assertTrue( method_exists( $this->_model, 'add_shortcode' ) );
+			$this->assertTrue( method_exists( $this->model, 'add_shortcode' ) );
 			
-			$this->assertTrue( $this->_model->add_shortcode( 'foo', array( &$this, 'testMethodGetHelpTabs' ) ) );
+			$this->assertTrue( $this->model->add_shortcode( 'foo', array( &$this, 'testMethodGetHelpTabs' ) ) );
 		}
 		
 		/**
@@ -307,7 +486,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodAddShortcodeFail()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'add_shortcode' ) );
+			$this->assertTrue( method_exists( $this->model, 'add_shortcode' ) );
 			
 			$this->assertEquals(
 				new \WP_Error(
@@ -315,7 +494,7 @@ namespace WPMVCB\Testing
 					'Base_Model::add_shortcode expects a valid callback.',
 					'foocallback'
 				),
-				$this->_model->add_shortcode( 'fooshortcode', 'foocallback' )
+				$this->model->add_shortcode( 'fooshortcode', 'foocallback' )
 			);	
 		}
 		
@@ -324,14 +503,14 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetShortcodes()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_shortcodes' ) );
+			$this->assertTrue( method_exists( $this->model, 'get_shortcodes' ) );
 			$this->setReflectionPropertyValue(
-				$this->_model,
+				$this->model,
 				'shortcodes',
 				array('fooshortcode' => array( &$this, 'testMethodAddShortcode' ) ) 
 			);
 			
-			$this->assertEquals( array( 'fooshortcode' => array( &$this, 'testMethodAddShortcode' ) ), $this->_model->get_shortcodes() );
+			$this->assertEquals( array( 'fooshortcode' => array( &$this, 'testMethodAddShortcode' ) ), $this->model->get_shortcodes() );
 		}
 		
 		/**
@@ -339,8 +518,173 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetShortcodesEmpty()
 		{
-			$this->assertTrue( method_exists( $this->_model, 'get_shortcodes' ) );
-			$this->assertFalse( $this->_model->get_shortcodes() );
+			$this->assertTrue( method_exists( $this->model, 'get_shortcodes' ) );
+			$this->assertFalse( $this->model->get_shortcodes() );
+		}
+		
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostForPost()
+		{
+			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'post',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 1 );
+
+			$this->assertTrue(
+				$this->model->authenticate_post(
+					$post_id,
+					'post',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostForPage()
+		{
+			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'page',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 1 );
+
+			$this->assertTrue(
+				$this->model->authenticate_post(
+					$post_id,
+					'page',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostUserCannotEditPage()
+		{
+			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'page',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 0 );
+
+			$this->assertEmpty(
+				$this->model->authenticate_post(
+					$post_id,
+					'page',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostUserCannotEditPost()
+		{
+			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'post',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 0 );
+
+			$this->assertEmpty(
+				$this->model->authenticate_post(
+					$post_id,
+					'post',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostNoNonce()
+		{
+			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
+			$factory = new \WP_UnitTest_Factory;
+
+			$post_id = $factory->post->create_object(
+				array(
+					'post_title' => 'Test Post',
+					'post_type' => 'page',
+					'post_status' => 'publish'
+				)
+			);
+
+			wp_set_current_user( 1 );
+
+			$this->assertEmpty(
+				$this->model->authenticate_post(
+					$post_id,
+					'page',
+					array(),
+					'foo_name',
+					'foo_action'
+				)
+			);
+		}
+
+		/**
+		 * @covers Base_Model::authenticate_post
+		 */
+		public function testMethodAuthenticatePostDoingAutosave()
+		{
+			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
+
+			define( 'DOING_AUTOSAVE', true );
+
+			$this->assertEmpty(
+				$this->model->authenticate_post(
+					$post_id,
+					'page',
+					array( 'foo_name' => wp_create_nonce( 'foo_action' ) ),
+					'foo_name',
+					'foo_action'
+				)
+			);
 		}
 	}
 }

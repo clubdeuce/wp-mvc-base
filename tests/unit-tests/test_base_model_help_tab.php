@@ -5,122 +5,69 @@ namespace WPMVCB\Testing
 	
 	class testBaseModelHelpTab extends WPMVCB_Test_Case
 	{
-		private $_tab;
+		private $tab;
 		
 		public function setUp()
 		{
 			parent::setUp();
-			$this->_tab = new \Base_Model_Help_Tab(
+			$this->tab = new \Base_Model_Help_Tab(
 				'My Test Tab',
 				'test-tab',
-				'Here is some test tab content',
-				array( &$this, 'help_tab_callback' )
+				array( 'load-post-new.php' ),
+				'Here is some test tab content'
 			);
 		}
 		
-		public function mock_callback()
+		/**
+		 * @expectedException        PHPUnit_Framework_Error
+		 */
+		public function testPagesNotArray()
 		{
-			//implemented, but does nothing
+			$tab = new \Base_Model_Help_Tab( 'Empty Tab', 'empty-tab', 'foo.php' );
 		}
-		
-		public function testMissingParamsError()
-		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error' );
-			$tab = new \Base_Model_Help_Tab( 'Empty Tab', 'empty-tab' );
-		}
-		
-		public function testMissingParamsMessage()
-		{
-			@$tab = new \Base_Model_Help_Tab( 'Empty Tab', 'empty-tab' );
-			$error = error_get_last();
-			
-			$this->assertEquals(
-				'You must specify either the help tab content, a callback function, or a view to use for the help tab', 
-				$error['message']
-			);
-		}
-		
+				
 		public function testAttributeIdExists()
 		{
-			$this->assertClassHasAttribute( '_id', 'Base_Model_Help_Tab' );
+			$this->assertClassHasAttribute( 'id', 'Base_Model_Help_Tab' );
 		}
 		
 		public function testAttributeTitleExists()
 		{
-			$this->assertClassHasAttribute( '_title', 'Base_Model_Help_Tab' );
+			$this->assertClassHasAttribute( 'title', 'Base_Model_Help_Tab' );
+		}
+		
+		public function testAttributeScreensExists()
+		{
+			$this->assertClassHasAttribute( 'screens', 'Base_Model_Help_Tab' );
 		}
 		
 		public function testAttributeContentExists()
 		{
-			$this->assertClassHasAttribute( '_content', 'Base_Model_Help_Tab' );
-		}
-		
-		public function testAttributeCallbackExists()
-		{
-			$this->assertClassHasAttribute( '_callback', 'Base_Model_Help_Tab' );
-		}
-		
-		public function testAttributeViewExists()
-		{
-			$this->assertClassHasAttribute( '_view', 'Base_Model_Help_Tab' );
+			$this->assertClassHasAttribute( 'content', 'Base_Model_Help_Tab' );
 		}
 		
 		public function testMethodGetId()
 		{
 			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'get_id' ) );
-			$this->assertEquals( 'test-tab', $this->_tab->get_id() );
+			$this->assertEquals( 'test-tab', $this->tab->get_id() );
 		}
 		
 		public function testMethodGetTitle()
 		{
 			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'get_title' ) );
-			$this->assertEquals( 'My Test Tab', $this->_tab->get_title() );
+			$this->assertEquals( 'My Test Tab', $this->tab->get_title() );
 		}
 		
-		public function testMethodSetCallbackExists()
+		public function testMethodGetScreens()
 		{
-			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'set_callback' ) );
+			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'get_screens' ) );
+			$this->assertEquals( array( 'load-post-new.php' ), $this->tab->get_screens() );
 		}
 		
-		/**
-		 * @depends testMethodSetCallbackExists
-		 */
-		public function testMethodSetCallbackError()
+		public function testMethodGetContent()
 		{
-			$this->setExpectedException( 'PHPUnit_Framework_Error' );
-			$this->_tab->set_callback( 'foo' );
-		}
-		
-		/**
-		 * @depends testMethodSetCallbackExists
-		 */
-		public function testSetCallbackMessage()
-		{
-			@$this->_tab->set_callback( 'foo' );
-			$error = error_get_last();
-			$this->assertEquals( 'A valid callback function must be specified', $error['message'] );
-		}
-		
-		/**
-		 * @depends testMethodSetCallbackExists
-		 */
-		public function testSetCallback()
-		{
-			$this->assertTrue( $this->_tab->set_callback( array( &$this, 'mock_callback' ) ) );
-			$this->assertEquals( array( &$this, 'mock_callback' ), $this->getReflectionPropertyValue( $this->_tab, '_callback' ) );
-		}
-		
-		public function testMethodSetContent()
-		{
-			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'set_content' ) );
-			
-			$this->_tab->set_content( 'foo' );
-			$this->assertEquals( 'foo', $this->getReflectionPropertyValue( $this->_tab, '_content' ) );
-		}
-		
-		public function testAdd()
-		{
-			$this->markTestIncomplete( 'This test not yet implemented' );
+			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'get_content' ) );
+			$this->assertEquals( 'Here is some test tab content', $this->tab->get_content() );
 		}
 	}
 }

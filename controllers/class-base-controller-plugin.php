@@ -74,7 +74,13 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 				);
 			}
 			
-			parent::__construct();
+			parent::__construct(
+				$model->get_main_plugin_file(),
+				$model->get_app_path(),
+				$model->get_base_path(),
+				$model->get_uri(),
+				$model->get_textdomain()
+			);
 			
 			$this->plugin_model = $model;
 			
@@ -173,7 +179,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			//register the scripts
 			$scripts = $this->plugin_model->get_admin_scripts();
 			
-			if ( isset( $scripts ) ) {
+			if ( isset( $scripts ) && is_array( $scripts ) ) {
 				foreach ( $scripts as $script ) {
 					wp_enqueue_script(
 						$script->get_handle(),
@@ -202,6 +208,25 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			
 			if ( isset( $scripts ) && is_array( $scripts ) ) {
 				parent::enqueue_scripts( $scripts );
+			}
+		}
+		
+		/**
+		 * Add metaboxes for the plugin model
+		 *
+		 * @uses Base_Model_plugin::get_metaboxes
+		 * @uses Base_Controller::add_metaboxes
+		 * @internal
+		 * @since WPMVCBase 0.3
+		 */
+		public function add_meta_boxes()
+		{
+			global $post;
+			
+			$metaboxes = $this->plugin_model->get_metaboxes( $post );
+			
+			if ( is_array( $metaboxes ) ) {
+				parent::add_meta_boxes( $metaboxes );
 			}
 		}
 	}

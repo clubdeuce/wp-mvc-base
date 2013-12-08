@@ -24,7 +24,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
 		 * @since 0.1
 		 */
-		private $_id;
+		private $id;
 
 		/**
 		 * The help tab title.
@@ -32,74 +32,39 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 * @var string
 		 * @since 0.1
 		 */
-		private $_title;
-
+		private $title;
+		
+		/**
+		 * The admin screens on which to display this help tab.
+		 * 
+		 * @var array
+		 * @since 1.0
+		 */
+		private $screens;
+		
 		/**
 		 * The help tab content.
 		 *
 		 * @var string
 		 * @since 0.1
 		 */
-		private $_content;
-
-		/**
-		 * The help tab callback function.
-		 *
-		 * @var string|array
-		 * @since 0.1
-		 */
-		private $_callback;
-
-		/**
-		 * The help tab view file.
-		 *
-		 * This must be an absolute path to the view file.
-		 *
-		 * @var string
-		 * @since 0.1
-		 */
-		private $_view;
+		private $content;
 
 		/**
 		 * The class constructor.
 		 *
-		 * @param string $title The help tab title.
-		 * @param string $id The help tab id.
-		 * @param string $content The help tab content. If null, the callback will be used to populate the content.
-		 * @param string|array $callback The help tab callback. If null, the view will be used to populate the content.
-		 * @param string $view The absolute path to the view file used to render this help tab. Must be set if $content and $callback are null.
+		 * @param string       $title     The help tab title.
+		 * @param string       $id        The help tab id.
+		 * @param array        $screens   The screens on which to add the help screen tab.
+		 * @param string       $content   The help tab content. If null, the callback will be used to populate the content.
 		 * @since 0.1
 		 */
-		public function __construct( $title, $id, $content = null, $callback = null, $view = null )
+		public function __construct( $title, $id, array $screens, $content )
 		{
-			if ( ! isset( $content ) && ! isset( $callback ) && ! isset( $view ) ) {
-				trigger_error(
-					'You must specify either the help tab content, a callback function, or a view to use for the help tab',
-					E_USER_WARNING
-				);
-			}
-			
-			$this->_id       = $id;
-			$this->_title    = $title;
-			$this->_content  = $content;
-			$this->_callback = $callback;
-			$this->_view     = $view;
-		}
-
-		/**
-		 * Add this help tab to the current screen.
-		 *
-		 * @link http://codex.wordpress.org/Function_Reference/add_help_tab
-		 * @since 0.1
-		 */
-		public function add()
-		{
-			if ( is_null( $this->_callback ) && file_exists( $this->_view ) ) {
-				ob_start();
-				require_once( $this->_view );
-				$this->_content = ob_get_clean();
-			}
-			get_current_screen()->add_help_tab( array( 'id' => $this->_id, 'title' => $this->_title, 'content' => $this->_content ) );
+			$this->id       = $id;
+			$this->title    = $title;
+			$this->screens  = $screens;
+			$this->content  = $content;
 		}
 
 		/**
@@ -109,7 +74,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function get_title()
 		{
-			return $this->_title;
+			return $this->title;
 		}
 
 		/**
@@ -119,40 +84,30 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function get_id()
 		{
-			return $this->_id;
+			return $this->id;
 		}
-
+		
 		/**
-		 * Set the help tab callback.
+		 * Get the help tab screens.
 		 *
-		 * @param string|array $callback The help tab callback.
-		 * @since 0.1
+		 * @return array $screens
+		 * @since 1.0
 		 */
-		public function set_callback( $callback )
+		public function get_screens()
 		{
-			if ( ! is_callable( $callback ) ):
-				trigger_error(
-					__( 'A valid callback function must be specified', 'wp-mvc-base' ),
-					E_USER_WARNING
-				);
-
-				return false;
-			endif;
-
-			$this->_callback = $callback;
-
-			return true;
+			return $this->screens;
 		}
 
 		/**
 		 * Set the help tab content.
 		 *
-		 * @param string $content The help tab content.
+		 * @return string $content
 		 * @since 0.1
 		 */
-		public function set_content( $content )
+		
+		public function get_content()
 		{
-			$this->_content = $content;
+			return $this->content;
 		}
 	}
 endif;

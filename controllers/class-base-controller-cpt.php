@@ -36,24 +36,14 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		protected $_cpt_models;
 		
 		/**
-		 * The plugin text domain.
-		 * 
-		 * @var string
-		 * @since WPMVCBase 0.3
-		 */
-		protected $_txtdomain;
-		
-		/**
 		 * The class constructor.
 		 *
-		 * @param string $txtdomain The plugin text domain.
 		 * @since WPMVCBase 0.1
 		 */
-		public function __construct( $txtdomain )
-		{
-			$this->_txtdomain = $txtdomain;
-			
+		public function __construct()
+		{	
 			parent::__construct();
+			
 			add_action( 'init',                  array( &$this, 'register' ) );
 			add_filter( 'post_updated_messages', array( &$this, 'post_updated_messages' ) );
 		}
@@ -62,35 +52,36 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 * Add a cpt model to this controller.
 		 *
 		 * @param object $model The Base_Model_CPT for this controller.
-		 * @return void|object WP_Error object on failure.
+		 * @return array $_cpt_models
 		 * @access public
 		 * @since 0.3
 		 */
-		public function add_model( $model, $the_post = null, $save_post = null, $delete_post = null )
-		{
-			if ( ! is_a( $model, 'Base_Model_CPT' ) ) {
-				return new WP_Error(
-					'invalid object type',
-					sprintf( __( '%s::%s expects an object of type Base_Model_CPT', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
-					$model
-				);
+		public function add_model( Base_Model_Cpt $model )
+		{	
+			$this->_cpt_models[ $model->get_slug() ] = $model;
+			
+			//register a save_post action
+			if ( method_exists( $model, 'save_post' ) ) {
+				add_action( 'save_post', array( &$model, 'save_post' ) );
 			}
 			
-			$this->_cpt_models[ $model->get_slug() ] = $model;
-
-			if ( isset( $the_post ) ) {
-				add_action( 'the_post', $the_post );
+			//register the help tabs
+			$tabs = $model->get_help_tabs();
+			
+			if ( isset( $tabs ) && is_array( $tabs ) ) {
+				foreach( $tabs as $tab ) {
+					//get the screens on which to load the help tab
+					$screens = $tab->get_screens();
+					if ( isset( $screens ) && is_array( $screens ) ) {
+						//register the help tab for each screen
+						foreach( $screens as $screen ) {
+							add_action ( $screen, array( &$this, 'render_help_tabs' ) );
+						}
+					}
+				}
 			}
-
-			if ( isset( $save_post ) ) {
-				add_action( 'save_post', $save_post );
-			}
-
-			if ( isset( $delete_post ) ) {
-				add_action( 'delete_post', $delete_post );
-			}
-
-			add_action( 'post_updated_messages', array( &$model, 'get_post_updated_messages' ) );
+			
+			return $this->_cpt_models;
 		}
 
 		/**
@@ -176,22 +167,12 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 */
 		public function add_meta_boxes()
 		{
+			global $post;
+			
 			if ( isset( $this->_cpt_models ) && is_array( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
 					if ( $metaboxes = $cpt->get_metaboxes( $post, $this->_txtdomain ) ) {
-						foreach ( $metaboxes as $metabox ) {
-							foreach( $metabox->get_post_types() as $post_type ) {
-								add_meta_box( 
-									$metabox->get_id(),
-									$metabox->get_title(),
-									$metabox->get_callback(),
-									$post_type,
-									$metabox->get_context(),
-									$metabox->get_priority(),
-									$metabox->get_callback_args()
-								);
-							}
-						}
+						parent::add_meta_boxes( $metaboxes );
 					}
 				}
 			}
@@ -208,7 +189,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			foreach( $this->_cpt_models as $cpt ) {
 				$scripts = $cpt->get_admin_scripts();
 				
-				if ( isset( $scripts ) ) {
+				if ( isset( $scripts ) && is_array( $scripts ) ) {
 					foreach( $scripts as $script ) {
 						wp_register_script(
 							$script->get_handle(),
@@ -233,7 +214,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			foreach( $this->_cpt_models as $cpt ) {
 				$scripts = $cpt->get_scripts();
 				
-				if ( isset( $scripts ) ) {
+				if ( isset( $scripts ) && is_array( $scripts ) ) {
 					foreach( $scripts as $script ) {
 						wp_register_script(
 							$script->get_handle(),
@@ -242,6 +223,28 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 							$script->get_ver(),
 							$script->get_in_footer()
 						);
+					}
+				}
+			}
+		}
+		
+		/**
+		 * Render the help tabs for the attached cpts
+		 *
+		 * @since 1.0
+		 */
+		public function render_help_tabs()
+		{
+			$screen = get_current_screen();
+			
+			foreach( $this->_cpt_models as $cpt ) {
+				if ( $screen->post_type == $cpt->get_slug() ) {
+					$tabs = $cpt->get_help_tabs();
+					
+					if ( isset( $tabs ) && is_array( $tabs ) ) {
+						foreach( $tabs as $tab ) {
+							parent::render_help_tab( $tab );
+						}
 					}
 				}
 			}

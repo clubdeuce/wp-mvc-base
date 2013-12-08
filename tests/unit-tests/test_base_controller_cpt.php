@@ -1,6 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
+	require_once WPMVCB_SRC_DIR . '/models/class-base-model-cpt.php';
 	require_once( WPMVCB_SRC_DIR . '/controllers/class-base-controller.php' );
 	require_once( WPMVCB_SRC_DIR . '/controllers/class-base-controller-cpt.php' );
 
@@ -12,12 +13,12 @@ namespace WPMVCB\Testing
 	 * @since WPMVCBase 0.1
 	 * @internal
 	 */
-	class TestBaseControllerCpt extends WPMVCB_Test_Case
+	class testBaseControllerCpt extends WPMVCB_Test_Case
 	{
 		public function setUp()
 		{
 			parent::setUp();
-			$this->_controller = new \Base_Controller_CPT( 'footxtdomain' );
+			$this->_controller = new \Base_Controller_CPT();
 		}
 
 		public function tearDown()
@@ -44,10 +45,11 @@ namespace WPMVCB\Testing
 						 		'get_singular',
 						 		'get_plural',
 						 		'get_scripts',
-						 		'get_admin_scripts' 
-						 	) 
+						 		'get_admin_scripts',
+						 		'save_post'
+						 	)
 						 )
-						 ->getMock();
+						 ->getMockForAbstractClass();
 			          
 			return $cpt_model;
 		}
@@ -55,15 +57,6 @@ namespace WPMVCB\Testing
 		public function testPropertyCptModelsExists()
 		{
 			$this->assertClassHasAttribute( '_cpt_models', '\Base_Controller_CPT' );
-		}
-		
-		/**
-		 * @covers Base_Controller_CPT::__construct
-		 */
-		public function testPropertyTxtdomainExists()
-		{
-			$this->assertClassHasAttribute( '_txtdomain', '\Base_Controller_CPT' );
-			$this->assertSame( 'footxtdomain', $this->getReflectionPropertyValue( $this->_controller, '_txtdomain' ) );
 		}
 		
 		public function testActionExistsWpEnqueueScripts()
@@ -110,6 +103,10 @@ namespace WPMVCB\Testing
 			$cpt_model->expects( $this->any() )
 			          ->method( 'get_slug' )
 			          ->will( $this->returnValue( 'fooslug' ) );
+			          
+			$cpt_model->expects( $this->any() )
+			          ->method( 'save_post' )
+			          ->will( $this->returnValue( 'bar' ) );
 
 			$expected = array( 'fooslug' => $cpt_model );
 
@@ -119,19 +116,12 @@ namespace WPMVCB\Testing
 
 		/**
 		 * @covers Base_Controller_CPT::add_model
+		 * @expectedException PHPUnit_Framework_Error
 		 * @depends testMethodAddModelExists
 		 */
 		public function testMethodAddModelFail()
 		{
-			$model = new \StdClass();
-			$this->assertEquals(
-				new \WP_Error(
-					'invalid object type',
-					'Base_Controller_CPT::add_model expects an object of type Base_Model_CPT',
-					$model
-				),
-				$this->_controller->add_model( $model )
-			);
+			$this->_controller->add_model( new \StdClass );
 		}
 
 		/**
@@ -141,42 +131,6 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_controller, 'register' ), __( 'Method does not exist', 'wmvcb' ) );
 			$this->assertFalse( false === has_action( 'init', array( $this->_controller, 'register' ) ) );
-		}
-
-		/**
-		 * @covers Base_Controller_CPT::add_model
-		 * @depends testMethodAddModel
-		 */
-		public function testActionThePostExists()
-		{
-			$this->_controller->add_model( $this->_createStubCptModel(), 'foo', 'bar', 'baz' );
-			$this->assertFalse( false === has_action( 'the_post', 'foo' ), __( 'Action the_post callback not registered', 'wpmvcb' ) );
-
-		}
-
-		/**
-		 * @covers Base_Controller_CPT::add_model
-		 * @depends testMethodAddModel
-		 */
-		public function testActionSavePostExists()
-		{
-			$cpt_model = $this->_createStubCptModel();
-			$cpt_model->expects( $this->any() )
-			          ->method( 'bar' )
-			          ->will( $this->returnValue( 'barback' ) );
-
-			$this->_controller->add_model( $cpt_model, 'foo', 'bar', 'baz' );
-			$this->assertFalse( false === has_action( 'save_post', 'bar' ) );
-		}
-
-		/**
-		 * @covers Base_Controller_CPT::add_model
-		 * @depends testMethodAddModel
-		 */
-		public function testActionDeletePostExists()
-		{
-			$this->_controller->add_model( $this->_createStubCptModel(), 'foo', 'bar', 'baz' );
-			$this->assertFalse( false === has_action( 'delete_post', 'baz' ) );
 		}
 
 		/**
@@ -251,7 +205,7 @@ namespace WPMVCB\Testing
 		{
 			$cpt_model = $this->_createStubCptModel();
 			$this->_controller->add_model( $cpt_model );
-			$this->assertFalse( false === has_action( 'post_updated_messages', array( $cpt_model, 'get_post_updated_messages' ) ) );
+			$this->assertFalse( false === has_action( 'post_updated_messages', array( $this->_controller, 'post_updated_messages' ) ) );
 		}
 
 		/**

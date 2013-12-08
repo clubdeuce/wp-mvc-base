@@ -12,12 +12,12 @@ namespace WPMVCB\Testing
 	 */
 	class testBaseModelJsObject extends WPMVCB_Test_Case
 	{
-		private $_script;
+		private $script;
 		
 		public function setUp()
 		{
 			parent::setUp();
-			$this->_script = new \Base_Model_JS_Object(
+			$this->script = new \Base_Model_JS_Object(
 				'my-super-cool-script',
 				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
 				array( 'jquery', 'my-super-cool-framework' ),
@@ -31,7 +31,7 @@ namespace WPMVCB\Testing
 		public function tearDown()
 		{
 			wp_deregister_script( 'my-super-cool-script' );
-			unset( $this->_script );
+			unset( $this->script );
 		}
 		
 		/**
@@ -39,8 +39,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertyHandle()
 		{
-			$this->assertClassHasAttribute( '_handle', '\Base_Model_JS_Object' );
-			$this->assertSame( 'my-super-cool-script', $this->getReflectionPropertyValue( $this->_script, '_handle' ) );
+			$this->assertClassHasAttribute( 'handle', '\Base_Model_JS_Object' );
+			$this->assertSame( 'my-super-cool-script', $this->getReflectionPropertyValue( $this->script, 'handle' ) );
 		}
 		
 		/**
@@ -48,10 +48,10 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertySrc()
 		{
-			$this->assertClassHasAttribute( '_src', '\Base_Model_JS_Object' );
+			$this->assertClassHasAttribute( 'src', '\Base_Model_JS_Object' );
 			$this->assertSame(
 				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
-				$this->getReflectionPropertyValue( $this->_script, '_src' )
+				$this->getReflectionPropertyValue( $this->script, 'src' )
 			);
 		}
 		
@@ -60,10 +60,10 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertyDeps()
 		{
-			$this->assertClassHasAttribute( '_deps', '\Base_Model_JS_Object' );
+			$this->assertClassHasAttribute( 'deps', '\Base_Model_JS_Object' );
 			$this->assertSame(
 				array( 'jquery', 'my-super-cool-framework' ),
-				$this->getReflectionPropertyValue( $this->_script, '_deps' )
+				$this->getReflectionPropertyValue( $this->script, 'deps' )
 			);
 		}
 		
@@ -72,10 +72,10 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertyVer()
 		{
-			$this->assertClassHasAttribute( '_version', '\Base_Model_JS_Object' );
+			$this->assertClassHasAttribute( 'version', '\Base_Model_JS_Object' );
 			$this->assertSame(
 				true,
-				$this->getReflectionPropertyValue( $this->_script, '_version' )
+				$this->getReflectionPropertyValue( $this->script, 'version' )
 			);
 		}
 		
@@ -84,10 +84,10 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertyInFooter()
 		{
-			$this->assertClassHasAttribute( '_in_footer', '\Base_Model_JS_Object' );
+			$this->assertClassHasAttribute( 'in_footer', '\Base_Model_JS_Object' );
 			$this->assertSame(
 				true,
-				$this->getReflectionPropertyValue( $this->_script, '_in_footer' )
+				$this->getReflectionPropertyValue( $this->script, 'in_footer' )
 			);
 		}
 		
@@ -96,10 +96,10 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertyLocalizationVar()
 		{
-			$this->assertClassHasAttribute( '_localization_var', '\Base_Model_JS_Object' );
+			$this->assertClassHasAttribute( 'localization_var', '\Base_Model_JS_Object' );
 			$this->assertSame(
 				'mySuperCoolL10n',
-				$this->getReflectionPropertyValue( $this->_script, '_localization_var' )
+				$this->getReflectionPropertyValue( $this->script, 'localization_var' )
 			);
 		}
 		
@@ -108,10 +108,10 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertyLocalizationArgs()
 		{
-			$this->assertClassHasAttribute( '_localization_args', '\Base_Model_JS_Object' );
+			$this->assertClassHasAttribute( 'localization_args', '\Base_Model_JS_Object' );
 			$this->assertSame(
 				array( 'foo' => 'bar' ),
-				$this->getReflectionPropertyValue( $this->_script, '_localization_args' )
+				$this->getReflectionPropertyValue( $this->script, 'localization_args' )
 			);
 		}
 		
@@ -123,7 +123,7 @@ namespace WPMVCB\Testing
 			global $wp_scripts;
 			
 			$this->assertTrue( method_exists( 'Base_Model_JS_Object', 'register' ), 'Method register does not exist' );
-			$this->_script->register();
+			$this->script->register();
 			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'registered' ) );
 			$this->assertEquals(
 				'my-super-cool-script',
@@ -153,7 +153,7 @@ namespace WPMVCB\Testing
 		public function testMethodEnqueue()
 		{
 			$this->assertTrue( method_exists( 'Base_Model_JS_Object', 'enqueue' ) );
-			$this->_script->enqueue();
+			$this->script->enqueue();
 			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'enqueued' ) );
 		}
 		
@@ -174,7 +174,7 @@ namespace WPMVCB\Testing
 				true
 			);
 			
-			$this->_script->localize();
+			$this->script->localize();
 			
 			$script = $wp_scripts->query( 'my-super-cool-script' );
 			$this->assertEquals( 'var mySuperCoolL10n = {"foo":"bar"};', $script->extra['data'] );
@@ -208,7 +208,7 @@ namespace WPMVCB\Testing
 			);
 			
 			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'enqueued', 'Script not dequeued' ) );
-			$this->_script->dequeue();
+			$this->script->dequeue();
 			$this->assertFalse( wp_script_is( 'my-super-cool-script', 'enqueued', 'Script not dequeued' ) );
 		}
 		
@@ -226,7 +226,7 @@ namespace WPMVCB\Testing
 				true
 			);
 			$this->assertTrue( wp_script_is( 'my-super-cool-script', 'registered' ), 'Script not registered' );
-			$this->_script->deregister();
+			$this->script->deregister();
 			$this->assertFalse( wp_script_is( 'my-super-cool-script', 'registered' ), 'Script not deregistered' );
 		}
 		
@@ -235,8 +235,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetHandle()
 		{
-			$this->assertTrue( method_exists( $this->_script, 'get_handle' ) );
-			$this->assertEquals( 'my-super-cool-script', $this->_script->get_handle() );
+			$this->assertTrue( method_exists( $this->script, 'get_handle' ) );
+			$this->assertEquals( 'my-super-cool-script', $this->script->get_handle() );
 		}
 		
 		/**
@@ -244,10 +244,10 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetSrc()
 		{
-			$this->assertTrue( method_exists( $this->_script, 'get_src' ) );
+			$this->assertTrue( method_exists( $this->script, 'get_src' ) );
 			$this->assertEquals(
 				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
-				$this->_script->get_src()
+				$this->script->get_src()
 			);
 		}
 		
@@ -256,8 +256,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetDeps()
 		{
-			$this->assertTrue( method_exists( $this->_script, 'get_deps' ) );
-			$this->assertEquals( array( 'jquery', 'my-super-cool-framework' ), $this->_script->get_deps()
+			$this->assertTrue( method_exists( $this->script, 'get_deps' ) );
+			$this->assertEquals( array( 'jquery', 'my-super-cool-framework' ), $this->script->get_deps()
 			);
 		}
 		
@@ -266,8 +266,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetVersion()
 		{
-			$this->assertTrue( method_exists( $this->_script, 'get_version' ) );
-			$this->assertEquals( true, $this->_script->get_version()
+			$this->assertTrue( method_exists( $this->script, 'get_version' ) );
+			$this->assertEquals( true, $this->script->get_version()
 			);
 		}
 		
@@ -276,8 +276,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetInFooter()
 		{
-			$this->assertTrue( method_exists( $this->_script, 'get_in_footer' ) );
-			$this->assertEquals( true, $this->_script->get_in_footer()
+			$this->assertTrue( method_exists( $this->script, 'get_in_footer' ) );
+			$this->assertEquals( true, $this->script->get_in_footer()
 			);
 		}
 		
@@ -286,8 +286,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetLocalizationVar()
 		{
-			$this->assertTrue( method_exists( $this->_script, 'get_localization_var' ) );
-			$this->assertEquals( 'mySuperCoolL10n', $this->_script->get_localization_var() );
+			$this->assertTrue( method_exists( $this->script, 'get_localization_var' ) );
+			$this->assertEquals( 'mySuperCoolL10n', $this->script->get_localization_var() );
 		}
 		
 		/**
@@ -295,12 +295,12 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetLocalizationVarEmpty()
 		{
-			$this->assertTrue( method_exists( $this->_script, 'get_localization_var' ) );
+			$this->assertTrue( method_exists( $this->script, 'get_localization_var' ) );
 			
 			//ensure the property is empty
-			$this->setReflectionPropertyValue( $this->_script, '_localization_var', null );
+			$this->setReflectionPropertyValue( $this->script, 'localization_var', null );
 			
-			$this->assertFalse( $this->_script->get_localization_var() );
+			$this->assertFalse( $this->script->get_localization_var() );
 		}
 		
 		/**
@@ -308,8 +308,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetLocalizationArgs()
 		{
-			$this->assertTrue( method_exists( $this->_script, 'get_localization_args' ) );
-			$this->assertEquals( array( 'foo' => 'bar' ), $this->_script->get_localization_args() );
+			$this->assertTrue( method_exists( $this->script, 'get_localization_args' ) );
+			$this->assertEquals( array( 'foo' => 'bar' ), $this->script->get_localization_args() );
 		}
 		
 		/**
@@ -317,12 +317,12 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetLocalizationArgsEmpty()
 		{
-			$this->assertTrue( method_exists( $this->_script, 'get_localization_args' ) );
+			$this->assertTrue( method_exists( $this->script, 'get_localization_args' ) );
 			
 			//ensure the property is empty
-			$this->setReflectionPropertyValue( $this->_script, '_localization_args', null );
+			$this->setReflectionPropertyValue( $this->script, 'localization_args', null );
 			
-			$this->assertFalse( $this->_script->get_localization_args() );
+			$this->assertFalse( $this->script->get_localization_args() );
 		}
 	}
 }

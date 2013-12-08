@@ -12,14 +12,28 @@ namespace WPMVCB\Testing
 
 	class testBaseModelCpt extends WPMVCB_Test_Case
 	{
-		private $_factory;
-		private $_cpt;
-		private $_post;
+		protected $factory;
+		private $cpt;
+		private $post;
 
 		public function setUp()
 		{
+			$args = array(
+				'fooslug',
+				'Book',
+				'Books',
+				'/home/foo/fooplugin.php', 
+				'/home/foo/',
+				'/home/foo/app/',
+				'/home/foo/base/',
+				'http://my-super-cool-site.com/',
+				'footxtdomain'
+			);
+			
 			$this->_factory = new \WP_UnitTest_Factory;
-			$this->_cpt = new \Base_Model_CPT( 'fooslug', 'Book', 'Books', 'http://my-super-cool-site.com', 'footxtdomain' );
+			$this->_cpt = $this->getMockBuilder( '\Base_Model_CPT' )
+			                   ->setConstructorArgs( $args )
+			                   ->getMockForAbstractClass();
 
 			$this->_post = get_post(
 				$this->_factory->post->create_object(
@@ -70,8 +84,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertySlug()
 		{
-			$this->assertClassHasAttribute( '_slug', '\Base_Model_CPT' );
-			$this->assertSame( 'fooslug', $this->getReflectionPropertyValue( $this->_cpt, '_slug' ) );
+			$this->assertClassHasAttribute( 'slug', '\Base_Model_CPT' );
+			$this->assertSame( 'fooslug', $this->getReflectionPropertyValue( $this->_cpt, 'slug' ) );
 		}
 		
 		/**
@@ -79,8 +93,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertySingular()
 		{
-			$this->assertClassHasAttribute( '_singular', '\Base_Model_CPT' );
-			$this->assertSame( 'Book', $this->getReflectionPropertyValue( $this->_cpt, '_singular' ) );
+			$this->assertClassHasAttribute( 'singular', '\Base_Model_CPT' );
+			$this->assertSame( 'Book', $this->getReflectionPropertyValue( $this->_cpt, 'singular' ) );
 		}
 		
 		/**
@@ -88,12 +102,12 @@ namespace WPMVCB\Testing
 		 */
 		public function testPropertyPlural()
 		{
-			$this->assertClassHasAttribute( '_plural', '\Base_Model_CPT' );
-			$this->assertSame( 'Books', $this->getReflectionPropertyValue( $this->_cpt, '_plural' ) );
+			$this->assertClassHasAttribute( 'plural', '\Base_Model_CPT' );
+			$this->assertSame( 'Books', $this->getReflectionPropertyValue( $this->_cpt, 'plural' ) );
 		}
 		
 		/**
-		 * @covers Base_Model_CPT::_init_labels
+		 * @covers Base_Model_CPT::init_labels
 		 */
 		public function testInitLabels()
 		{
@@ -113,10 +127,10 @@ namespace WPMVCB\Testing
 				'not_found_in_trash' => 'No books found in Trash'
 			);
 
-			$this->assertClassHasAttribute( '_labels', '\Base_Model_CPT' );
-			$this->assertTrue( method_exists( $this->_cpt, '_init_labels' ) );
-			$this->reflectionMethodInvokeArgs( $this->_cpt, '_init_labels', 'footxtdomain' );
-			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_cpt, '_labels' ) );
+			$this->assertClassHasAttribute( 'labels', '\Base_Model_CPT' );
+			$this->assertTrue( method_exists( $this->_cpt, 'init_labels' ) );
+			$this->reflectionMethodInvokeArgs( $this->_cpt, 'init_labels', 'footxtdomain' );
+			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_cpt, 'labels' ) );
 		}
 		
 		/**
@@ -142,7 +156,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetSlug()
 		{
-			$this->assertClassHasAttribute( '_slug', '\Base_Model_CPT' );
+			$this->assertClassHasAttribute( 'slug', '\Base_Model_CPT' );
 			$this->assertTrue( method_exists( $this->_cpt, 'get_slug' ) );
 			$this->assertEquals( 'fooslug', $this->_cpt->get_slug() );
 		}
@@ -154,7 +168,7 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( $this->_cpt, 'set_args' ) );
 			$this->_cpt->set_args( array( 'foo' => 'bar' ) );
-			$this->assertEquals( array( 'foo' => 'bar' ), $this->getReflectionPropertyValue( $this->_cpt, '_args' ) );
+			$this->assertEquals( array( 'foo' => 'bar' ), $this->getReflectionPropertyValue( $this->_cpt, 'args' ) );
 		}
 
 		/**
@@ -175,7 +189,7 @@ namespace WPMVCB\Testing
 		public function testMethodGetArgs()
 		{
 			$this->assertTrue( method_exists( $this->_cpt, 'get_args' ) );
-			$this->setReflectionPropertyValue( $this->_cpt, '_args', array( 'foo' => 'bar' ) );
+			$this->setReflectionPropertyValue( $this->_cpt, 'args', array( 'foo' => 'bar' ) );
 			$this->assertEquals( array( 'foo' => 'bar' ), $this->_cpt->get_args( array( 'foo' => 'bar' ) ) );
 		}
 
