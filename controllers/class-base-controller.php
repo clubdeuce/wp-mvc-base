@@ -1,11 +1,4 @@
 <?php
-/**
- * The base controller.
- *
- * @author Daryl Lozupone <daryl@actionhook.com>
- * @since WPMVCBase 0.1
- */
-
 /*
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,57 +19,63 @@ if ( ! class_exists( 'Base_Controller' ) ):
 	/**
 	 * The base controller.
 	 *
-	 * @package WPMVCBase\Controllers
+	 * @package  WPMVCBase\Controllers
 	 * @abstract
-	 * @version 0.1
-	 * @since WP_Base 0.3
+	 * @version  0.2
+	 * @since WPMVCBase 0.2
 	 */
 	class Base_Controller
 	{
 		/**
 		 * The absolute path to the main plugin file. Ends with a slash.
 		 * 
-		 * @var   string
-		 * @since 0.3
+		 * @var    string
+		 * @access protected
+		 * @since  WPMVCBase 0.2
 		 */
 		protected $_main_plugin_file;
 		
 		/**
 		 * The absolute path to the plugin app path. Ends with a slash.
 		 * 
-		 * @var   string
-		 * @since 0.3
+		 * @var    string
+		 * @access protected
+		 * @since  WPMVCBase 0.2
 		 */
 		protected $_app_path;
 		
 		/**
 		 * The absolute path to the WPMVC Base path. Ends with a slash.
 		 * 
-		 * @var   string
-		 * @since 0.3
+		 * @var    string
+		 * @access protected
+		 * @since  WPMVCBase 0.2
 		 */
 		protected $_base_path;
 		
 		/**
 		 * The uri to the plugin directory. Ends with a slash.
 		 *
-		 * @var   string
-		 * @since 0.3
+		 * @var    string
+		 * @access protected
+		 * @since  WPMVCBase 0.2
 		 */
 		protected $_uri;
 		
 		/**
 		 * The plugin text domain.
 		 *
-		 * @var   string
-		 * @since 0.3
+		 * @var    string
+		 * @access protected
+		 * @since  WPMVCBase 0.2
 		 */
 		protected $_txtdomain;
 		
 		/**
 		 * The class constructor
 		 *
-		 * @since 0.1
+		 * @access protected
+		 * @since WPMVCBase 0.1
 		 */
 		public function __construct()
 		{	
@@ -88,9 +87,9 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		/**
 		 * Add shortcodes to WP.
 		 *
-		 * @param array $shortcodes
+		 * @param  array $shortcodes
 		 * @return void
-		 * @since WPMVCBase 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function add_shortcodes( array $shortcodes )
 		{
@@ -110,11 +109,11 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		/**
 		 * The WP add_meta_boxes action callback
 		 *
-		 * @param array $metaboxes Array containing Base_Model_Metabox objects.
+		 * @param    array $metaboxes Array containing Base_Model_Metabox objects.
 		 * @internal
-		 * @access public
-		 * @since 0.1
-		 * @see Base_Model_Metabox
+		 * @access   public
+		 * @since    WPMVCBase 0.1
+		 * @see      Base_Model_Metabox
 		 */
 		public function add_meta_boxes( array $metaboxes )
 		{
@@ -138,10 +137,9 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		/**
 		 * Enqueue scripts.
 		 *
-		 * @uses wp_enqueue_script
-		 * @param array $scripts Array containing Base_Model_JS objects
+		 * @param  array $scripts Array containing Base_Model_JS objects
 		 * @return void|object WP_Error object on failure.
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
 		public function enqueue_scripts( array $scripts )
 		{
@@ -189,15 +187,15 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 *
 		 * This function serves as the callback for a metabox.
 		 *
-		 * @param object $post The WP post object.
-		 * @param object $metabox The WP_Metabox object to be rendered.
-		 * @param string $txtdomain The plugin text domain.
-		 * @param string $nonce_action The plugin nonce action.
-		 * @param string $nonce_name The plugin nonce name.
+		 * @param    object $post The WP post object.
+		 * @param    object $metabox The WP_Metabox object to be rendered.
+		 * @param    string $txtdomain The plugin text domain.
+		 * @param    string $nonce_action The plugin nonce action.
+		 * @param    string $nonce_name The plugin nonce name.
 		 * @internal
-		 * @access public
-		 * @todo move the filter into the add function
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
+		 * @todo     move the filter into the add function
 		 */
 		public function render_metabox( WP_Post $post, $metabox )
 		{
@@ -238,6 +236,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * Render a help tab.
 		 *
 		 * @param object Base_Model_Help_Tab
+		 * access public
 		 * @since 1.0
 		 */
 		public function render_help_tab( Base_Model_Help_Tab $tab )
