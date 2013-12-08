@@ -1,10 +1,19 @@
 <?php
+ /*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
 
-/**
- * the base CPT class model
- *
- * @author Daryl Lozupone <daryl@actionhook.com>
- */
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 require_once 'class-base-model.php';
 
@@ -14,7 +23,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	 *
 	 * @package WPMVCBase\Models
 	 * @version 0.2
-	 * @since WPMVCBase 0.1
+	 * @since   WPMVCBase 0.1
 	 */
 	abstract class Base_Model_CPT extends Base_Model
 	{
@@ -23,25 +32,25 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 *
 		 * @var string
 		 * @access protected
-		 * @since 0.1
+		 * @since WPMVCBase 0.1
 		 */
 		protected $slug;
 		
 		/**
 		 * The cpt singular name, e.g. Book.
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since 0.3
+		 * @since  WPMVCBase 0.2
 		 */
 		protected $singular;
 		
 		/**
 		 * The cpt plural name, e.g. Books.
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since 0.3
+		 * @since  WPMVCBase 0.2
 		 *
 		 */
 		protected $plural;
@@ -49,29 +58,29 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * The CPT labels.
 		 * 
-		 * @var array
+		 * @var    array
 		 * @access protected
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $labels;
 		
 		/**
 		 * The arguments passed to register_post_type.
 		 *
-		 * @var array
+		 * @var    array
 		 * @access protected
-		 * @since 0.1
-		 * @link http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 * @since  WPMVCBase 0.1
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
 		 */
 		protected $args;
 	
 		/**
 		 * The CPT post updated/deleted/etc messages.
 		 *
-		 * @var array
+		 * @var    array
 		 * @access protected
-		 * @since 0.1
-		 * @link http://codex.wordpress.org/Function_Reference/register_post_type
+		 * @since  WPMVCBase 0.1
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type
 		 */
 		protected $messages;
 	
@@ -80,17 +89,17 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 *
 		 * Use this function to initialize class variables, require necessary files, etc.
 		 *
-		 * @param string $slug             The post type slug.
-		 * @param string $singular         The singular post type name in lower case (e.g. Book).
-		 * @param string $plural           The plural post type name in lower case (e.g. Books).
-		 * @param string $main_plugin_file The absolute path to the main plugin file.
-		 * @param string $plugin_path      The absolute path to the plugin directory
-		 * @param string $app_path         The absolute path to the plugin app directory.
-		 * @param string $base_path        The absolute path to the plugin base directory.
-		 * @param string $uri              The uri to the plugin app directory.
-		 * @param string $txtdomain        The plugint text domain.
+		 * @param  string $slug             The post type slug.
+		 * @param  string $singular         The singular post type name in lower case (e.g. Book).
+		 * @param  string $plural           The plural post type name in lower case (e.g. Books).
+		 * @param  string $main_plugin_file The absolute path to the main plugin file.
+		 * @param  string $plugin_path      The absolute path to the plugin directory
+		 * @param  string $app_path         The absolute path to the plugin app directory.
+		 * @param  string $base_path        The absolute path to the plugin base directory.
+		 * @param  string $uri              The uri to the plugin app directory.
+		 * @param  string $txtdomain        The plugint text domain.
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function __construct( $slug, $singular, $plural, $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain = 'wpmvcb' )
 		{
@@ -107,8 +116,8 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * Initialize the CPT labels property.
 		 *
-		 * @return void
-		 * @since 0.1
+		 * @access protected
+		 * @since  WPMVCBase 0.1
 		 */
 		protected function init_labels( $txtdomain )
 		{
@@ -133,7 +142,8 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * Get the singular label
 		 *
 		 * @return string $singular
-		 * @since WPMVCBase 0.3
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_singular()
 		{
@@ -144,7 +154,8 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * Get the plural label.
 		 *
 		 * @return string $plural
-		 * @since WPMVCBase 0.3
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_plural()
 		{
@@ -156,7 +167,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 *
 		 * @return string $slug
 		 * @access public
-		 * @since 0.1
+		 * @since WPMVCBase 0.1
 		 */
 		public function get_slug()
 		{
@@ -167,9 +178,10 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * Get the cpt arguments.
 		 *
 		 * If this property is not explicitly set in the child class, some default values will be returned.
+		 *
 		 * @return array $args
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_args()
 		{
@@ -199,9 +211,10 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * Set the $args property
 		 *
-		 * @param array $args
+		 * @param  array $args
 		 * @return bool|object TRUE on success, WP_Error object on failure.
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function set_args( $args )
 		{	
