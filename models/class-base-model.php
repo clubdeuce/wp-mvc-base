@@ -480,6 +480,10 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function get_help_tabs()
 		{
+			if ( ! isset( $this->help_tabs ) && method_exists( $this, 'init_help_tabs' ) ) {
+				$this->init_help_tabs();
+			}
+			
 			if ( isset( $this->help_tabs ) ) {
 				return $this->help_tabs;
 			}
