@@ -21,8 +21,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 	 * The base custom post type controller.
 	 *
 	 * @package WPMVCBase\Controllers
-	 * @version 0.1
-	 * @since WPMVCBase 0.2
+	 * @version 0.2
+	 * @since   WPMVCBase 0.2
 	 */
 	class Base_Controller_CPT extends Base_Controller
 	{
