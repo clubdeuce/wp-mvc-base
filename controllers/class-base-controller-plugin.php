@@ -109,7 +109,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		}
 
 		/**
-		 * Render admin notices for this screen.
+		 * Render admin notices for admin screens.
 		 *
 		 * @internal
 		 * @access public
@@ -117,13 +117,19 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 */
 		public function admin_notice()
 		{
-			$screen = get_current_screen();
+			$current_screen = get_current_screen();
 			$notices = $this->plugin_model->get_admin_notices();
 			
 			if ( isset ( $notices ) ) {
-				foreach ( $notices as $key => $notice ) {
-					if ( $key == $screen->id ) {
-						echo $notice;
+				foreach ( $notices as $notice ) {
+					$screens = $notice->get_screens();
+					
+					if ( is_array( $screens ) && in_array( $current_screen->id, $screens ) ) {
+						echo $notice->get_message();
+					}
+					
+					if ( 'all' == $screens ) {
+						echo $notice->get_message();
 					}
 				}
 			}

@@ -38,14 +38,14 @@ if ( ! class_exists( 'Base_Model_Admin_Notice' ) ) {
 		 * @var array
 		 * @since 1.0
 		 */
-		private $screens = array();
+		private $screens;
 		
 		/**
 		 * The class constructor.
 		 *
 		 * @param string $type The notice type. Either 'updated' or 'error'.
 		 * @param string $message The notice message.
-		 * @param array $screens The WP screen id's on which to display this notice. Defaults to all screens.
+		 * @param array $screens The WP screen id's on which to display this notice. If not set, notice appears on all screens.
 		 * @since 1.0
 		 */
 		public function __construct( $type, $message, array $screens = null )
@@ -84,7 +84,7 @@ if ( ! class_exists( 'Base_Model_Admin_Notice' ) ) {
 		/**
 		 * Get the screen(s) on which to apply this notice.
 		 *
-		 * @return array $screens
+		 * @return array|string $screens An array of the screens or the string 'all' for all screens.
 		 * @since 1.0
 		 */
 		public function get_screens()
