@@ -60,8 +60,25 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		{	
 			$this->_cpt_models[ $model->get_slug() ] = $model;
 			
+			//register a save_post action
 			if ( method_exists( $model, 'save_post' ) ) {
 				add_action( 'save_post', array( &$model, 'save_post' ) );
+			}
+			
+			//register the help tabs
+			$tabs = $model->get_help_tabs();
+			
+			if ( isset( $tabs ) && is_array( $tabs ) ) {
+				foreach( $tabs as $tab ) {
+					//get the screens on which to load the help tab
+					$screens = $tab->get_screens();
+					if ( isset( $screens ) && is_array( $screens ) ) {
+						//register the help tab for each screen
+						foreach( $screens as $screen ) {
+							add_action ( $screen, array( &$this, 'render_help_tabs' ) );
+						}
+					}
+				}
 			}
 			
 			return $this->_cpt_models;
@@ -206,6 +223,28 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 							$script->get_ver(),
 							$script->get_in_footer()
 						);
+					}
+				}
+			}
+		}
+		
+		/**
+		 * Render the help tabs for the attached cpts
+		 *
+		 * @since 1.0
+		 */
+		public function render_help_tabs()
+		{
+			$screen = get_current_screen();
+			
+			foreach( $this->_cpt_models as $cpt ) {
+				if ( $screen->post_type == $cpt->get_slug() ) {
+					$tabs = $cpt->get_help_tabs();
+					
+					if ( isset( $tabs ) && is_array( $tabs ) ) {
+						foreach( $tabs as $tab ) {
+							parent::render_help_tab( $tab );
+						}
 					}
 				}
 			}

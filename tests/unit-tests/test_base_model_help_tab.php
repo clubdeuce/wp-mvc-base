@@ -64,5 +64,10 @@ namespace WPMVCB\Testing
 			$this->assertEquals( array( 'load-post-new.php' ), $this->tab->get_screens() );
 		}
 		
+		public function testMethodGetContent()
+		{
+			$this->assertTrue( method_exists( 'Base_Model_Help_Tab', 'get_content' ) );
+			$this->assertEquals( 'Here is some test tab content', $this->tab->get_content() );
+		}
 	}
 }

@@ -95,11 +95,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		 */
 		public function get_screens()
 		{
-			if ( isset( $this->screens ) ) {
-				return $this->screens;
-			}
-			
-			return false;
+			return $this->screens;
 		}
 
 		/**
@@ -111,11 +107,7 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		
 		public function get_content()
 		{
-			if( isset( $this->content ) ) {
-				return	$content;
-			}
-			
-			return false;
+			return $this->content;
 		}
 	}
 endif;
