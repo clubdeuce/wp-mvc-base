@@ -1,12 +1,4 @@
 <?php
-/**
- * The base model.
- *
- * @package WPMVCBase\Models
- * @author Daryl Lozupone <daryl@actionhook.com>
- * @since WPMVCBase 0.1
- */
-
 /*
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -30,18 +22,18 @@ if ( ! class_exists( 'Base_Model' ) ) :
 	 * This class serves as the base for other models provided by the framework. It contains the properties and
 	 * and methods required by other models.
 	 *
-	 * @package WPMVCBase\Models
+	 * @package  WPMVCBase\Models
 	 * @internal
-	 * @since WPMVCBase 0.1
+	 * @since    WPMVCBase 0.1
 	 */
 	abstract class Base_Model
 	{
 		/**
 		 * The class version
 		 *
-		 * @package WPMVCBase\Models
-		 * @var string
-		 * @since 0.2
+		 * @var    string
+		 * @access private
+		 * @since WPMVCBase 0.2
 		 */
 		private $version = '0.2';
 		
@@ -50,74 +42,72 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * This is the base directory for the plugin ( e.g. /home/user/public_html/wp-content/plugins/my-plugin ).
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $path;
 
 		/**
 		 * The plugin app path.
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $app_path;
 
 		/**
 		 * The base directory path.
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $base_path;
 
 		/**
 		 * The absoulte path to the main plugin file.
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $main_plugin_file;
 
 		/**
 		  * The plugin uri.
 		  *
-		  * @category Controllers
-		  * @package WPMVCBase
-		  * @var string
+		  * @var    string
 		  * @access protected
-		  * @since 0.1
+		  * @since  WPMVCBase 0.1
 		  */
 		protected $uri;
 
 		/**
 		 * The uri to the js assets.
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $js_uri;
 
 		/**
 		 * The uri to the css assets.
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $css_uri;
 
 		/**
 		 * The plugin text domain
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $txtdomain;
 		
@@ -126,9 +116,9 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * An array containing css used by the model.
 		 *
-		 * @package WPMVCBase\Models
-		 * @var array
-		 * @since 0.1
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $css;
 
@@ -137,9 +127,9 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * An array containing css used by the model on admin pages
 		 *
-		 * @package WPMVCBase\Models
-		 * @var array
-		 * @since 0.1
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $admin_css;
 
@@ -148,10 +138,10 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * An array containing a collection of javascript objects used by the model on the frontend.
 		 *
-		 * @package WPMVCBase\Models
-		 * @see WPMVCBase\Models\Base Model JS Object
-		 * @var array
-		 * @since 0.1
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.1
+		 * @see    WPMVCBase\Models\Base Model JS Object
 		 */
 		protected $scripts;
 
@@ -160,19 +150,19 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * An array containing a collection of javascript objects used by the model on admin pages.
 		 *
-		 * @package WPMVCBase\Models
-		 * @var array
-		 * @since 0.1
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $admin_scripts;
 
 		/**
 		 * Metaboxes required by this model.
 		 *
-		 * @package WPMVCBase\Models
-		 * @var array Contains an array of WP_Base_Metabox objects
-		 * @see WPMVCBase\Models\Base_Model_Metabox
-		 * @since 0.1
+		 * @var    array Contains an array of WP_Base_Metabox objects
+		 * @access protected
+		 * @since  WPMVCBase 0.1
+		 * @see    WPMVCBase\Models\Base_Model_Metabox
 		 */
 		protected $metaboxes;
 
@@ -181,17 +171,19 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * This is a collection of Base_Model_Help_Tab objects.
 		 *
-		 * @var array
-		 * @since 0.2
-		 * @see Base_Model_Help_Tabs
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.2
+		 * @see    Base_Model_Help_Tabs
 		 */
 		protected $help_tabs;
 
 		/**
 		 * The model's shortcodes.
 		 *
-		 * @var array
-		 * @since 0.2
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.2
 		 */
 		protected $shortcodes;
 		
@@ -199,21 +191,24 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * The model's admin notices.
 		 *
 		 * This is a collection of Base_Model_Admin_Notice objects.
-		 * @var array
-		 * since 0.3
-		 * @see Base_Model_Admin_Notice
+		 *
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.2
+		 * @see    Base_Model_Admin_Notice
 		 */
 		protected $admin_notices;
 		
 		/**
 		 * The class constructor.
 		 *
-		 * @param string $main_plugin_file
-		 * @param string $app_path
-		 * @param string $base_path
-		 * @param string $uri
-		 * @param string $txtdomain
-		 * @since 0.1
+		 * @param  string $main_plugin_file
+		 * @param  string $app_path
+		 * @param  string $base_path
+		 * @param  string $uri
+		 * @param  string $txtdomain
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function __construct(  $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain = null )
 		{
@@ -232,20 +227,20 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * Use this function to set properties for your child class.
 		 *
-		 * @access protected
 		 * @abstract
-		 * @return void
-		 * @since 0.3
+		 * @return    void
+		 * @access    protected
+		 * @since     WPMVCBase 0.2
 		 */
 		abstract protected function init();
 		
 		/**
 		 * Get the main plugin file.
 		 *
-		 * @return string The absolute path to the main plugin file.
-		 * @access public
+		 * @return      string The absolute path to the main plugin file.
+		 * @access      public
 		 * @deprecated
-		 * @since 0.1
+		 * @since       WPMVCBase 0.1
 		 */
 		public function main_plugin_file()
 		{
@@ -260,7 +255,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string The absolute path to the main plugin file.
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_main_plugin_file()
 		{
@@ -272,7 +267,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string The plugin path.
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_path()
 		{
@@ -284,7 +279,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string $app_path
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_app_path()
 		{
@@ -296,7 +291,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string $app_controllers_path
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_app_controllers_path()
 		{
@@ -308,7 +303,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string $app_models_path
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_app_models_path()
 		{
@@ -319,7 +314,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * Get the plugin app views path.
 		 *
 		 * @return string $app_views_path
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_app_views_path()
 		{
@@ -331,7 +327,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string $base_path
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_base_path()
 		{
@@ -343,7 +339,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string $base_controllers_path
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_base_controllers_path()
 		{
@@ -355,7 +351,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string $base_models_path
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_base_models_path()
 		{
@@ -367,7 +363,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string $base_views_path
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_base_views_path()
 		{
@@ -378,7 +374,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * Get the plugin uri.
 		 *
 		 * @return string The plugin uri.
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_uri()
 		{
@@ -390,7 +387,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return string $txtdomain
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_textdomain()
 		{
@@ -400,9 +397,9 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the frontend CSS.
 		 *
-		 * @package WPMVCBase\Models
 		 * @return array\bool $css if set, FALSE if not.
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_css()
 		{
@@ -416,9 +413,9 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the admin CSS.
 		 *
-		 * @package WPMVCBase\Models
 		 * @return array|bool $admin_css if set, FALSE if not.
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_admin_css()
 		{
@@ -433,7 +430,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * Get the front end javascripts.
 		 *
 		 * @return array $scripts if set, FALSE if not.
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_scripts()
 		{
@@ -448,7 +446,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * Get the admin javascripts.
 		 *
 		 * @return array|bool $admin_scripts if set, FALSE if not.
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_admin_scripts()
 		{
@@ -463,8 +462,9 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * Get the model's metaboxes.
 		 *
 		 * @return array|bool $metaboxes if set, FALSE if not.
-		 * @see WP_Metabox
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
+		 * @see    WP_Metabox
 		 */
 		public function get_metaboxes()
 		{	
@@ -484,7 +484,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 *
 		 * @return array|bool $help_tabs if set, FALSE if not.
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_help_tabs()
 		{
@@ -502,10 +502,10 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the cpt help screen tabs.
 		 *
-		 * @return array|FALSE $help_tabs if set, FALSE if not.
-		 * @access public
+		 * @return      array|FALSE $help_tabs if set, FALSE if not.
+		 * @access      public
 		 * @deprecated
-		 * @since 0.1
+		 * @since       WPMVCBase 0.1
 		 */
 		public function get_help_screen()
 		{
@@ -520,7 +520,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * Get the model's shortcodes.
 		 *
 		 * @return array|bool $shortcodes if set, FALSE if not.
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_shortcodes()
 		{
@@ -534,11 +535,12 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Add a metabox.
 		 *
-		 * @param string $handle The metabox handle.
-		 * @param object $metabox A metabox object.
+		 * @param  string $handle The metabox handle.
+		 * @param  object $metabox A metabox object.
 		 * @return bool|object TRUE on success, WP_Error on failure.
-		 * @see Base_Model_Metabox
-		 * @since 0.1
+		 * @access public
+		 * @see    Base_Model_Metabox
+		 * @since  WPMVCBase 0.1
 		 */
 		public function add_metabox( $handle, $metabox )
 		{
@@ -565,11 +567,12 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Add a help tab object.
 		 *
-		 * @param string $handle The help tab handle.
-		 * @param object $help_tab The Base_Model_Help_Tab object.
+		 * @param  string $handle The help tab handle.
+		 * @param  object $help_tab The Base_Model_Help_Tab object.
 		 * @return bool|object TRUE on success, WP_Error on failure.
-		 * @since 0.2
-		 * @see Base_Model_Help_Tab
+		 * @access public
+		 * @since  WPMVCBase 0.2
+		 * @see    Base_Model_Help_Tab
 		 */
 		public function add_help_tab( $handle, $help_tab )
 		{
@@ -593,10 +596,11 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Add a shortcode object.
 		 *
-		 * @param string $shortcode The shortcode name.
-		 * @param string $callback The shortcode callback handler.
+		 * @param  string $shortcode The shortcode name.
+		 * @param  string $callback The shortcode callback handler.
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function add_shortcode( $shortcode, $callback )
 		{
@@ -622,14 +626,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * This method verifies an autosave is not in progress, the current user can edit the post being submitted,
 		 * and that a valid nonce is present.
 		 *
-		 * @param string $post_id      The WP post id.
-		 * @param string $post_type    The post type.
-		 * @param object $post_data    The POSTed data.
-		 * @param string $nonce_name   The name of the nonce.
-		 * @param string $nonce_action The nonce action.
+		 * @param    string $post_id      The WP post id.
+		 * @param    string $post_type    The post type.
+		 * @param    object $post_data    The POSTed data.
+		 * @param    string $nonce_name   The name of the nonce.
+		 * @param    string $nonce_action The nonce action.
 		 * @internal
-		 * @access public
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
 		 */
 		public function authenticate_post( $post_id, $post_type, $post_data, $nonce_name, $nonce_action )
 		{
@@ -660,6 +664,13 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			return true;
 		}
 		
+		/**
+		 * Get the admin notices attached to this model.
+		 *
+		 * @return array|bool
+		 * @access public
+		 * @since  WPMVCBase 0.2
+		 */
 		public function get_admin_notices()
 		{
 			if ( isset( $this->admin_notices ) ) {
