@@ -1,28 +1,23 @@
 <?php
+ /*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
 
-/**
- * The metabox object model.
- *
- * @author Daryl Lozupone <daryl@actionhook.com>
- *
- */
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 if ( ! class_exists( 'Base_Model_Metabox' ) ):
 	/**
 	 * The base metabox object model.
-	 *
-	 * Example:
-	 * <code>
-	 * $sample_metabox = new Base_Model_Metabox(
-	 *		'sample_metabox',
-	 *		__( 'Sample Metabox', 'mytextdomain' ),
-	 *		'my_callback', //set this to null to use default plugin render_metabox callback
-	 *		'post',
-	 *		'normal',
-	 *		'default'
-	 * );
-	 * $sample_metabox->add();
-	 * </code>
 	 *
 	 * @package WPMVCBase\Models
 	 * @version 0.1
@@ -35,8 +30,9 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 *
 		 * HTML 'id' attribute of the edit screen section
 		 *
-		 * @var string
-		 * @since 0.1
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.1
 		 */
 		private $id = 'sample_metabox';
 
@@ -45,20 +41,22 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 *
 		 * Title of the edit screen section, visible to user
 		 *
-		 * @package WPMVCBase\Models
-		 * @var string
-		 * @since 0.1
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.1
 		 */
 		private $title = 'Sample Metabox';
 
 		/**
 		 * the metabox callback
 		 *
-		 * Function that prints out the HTML for the edit screen section. The function name as a string, or, within a class, an array to call one of the class's methods.
-		 * The callback function will recieve up to two parameters, the post object and the Base_Model_Metabox->callback_args.
-		 * @package WPMVCBase\Models
-		 * @var string
-		 * @since 0.1
+		 * Function that prints out the HTML for the edit screen section. The function name as a string, or, 
+		 * within a class, an array to call one of the class's methods. The callback function will 
+		 * recieve up to two parameters, the post object and the Base_Model_Metabox->callback_args.
+		 *
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.1
 		 */
 		private $callback;
 
@@ -66,9 +64,10 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * the post types to which this metabox applies
 		 *
 		 * The type of Write screen on which to show the edit screen section ('post', 'page', 'link', 'attachment' or 'custom_post_type' where custom_post_type is the custom post type slug)
-		 * @package WPMVCBase\Models
-		 * @var array
-		 * @since 0.1
+		 *
+		 * @var    array
+		 * @access private
+		 * @since  WPMVCBase 0.1
 		 */
 		private $post_type = array( 'post' );
 
@@ -78,8 +77,9 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * The part of the page where the edit screen section should be shown.
 		 * Valid values are 'normal', 'advanced', or 'side'.
 		 *
-		 * @var string
-		 * @since 0.1
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.1
 		 */
 		private $context = 'normal';
 
@@ -89,9 +89,9 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * The priority within the context where the boxes should be shown.
 		 * Valid values are 'high', 'core', 'default', or 'low'.
 		 *
-		 * @package WPMVCBase\Models
-		 * @var string
-		 * @since 0.1
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.1
 		 */
 		private $priority = 'default';
 
@@ -122,23 +122,37 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * }
 		 * </code>
 		 *
-		 * @var array
-		 * @since 0.1
+		 * @var    array
+		 * @access private
+		 * @since  WPMVCBase 0.1
 		 */
 		private $callback_args = array();
 
 		/**
-		 * the class constructor
+		 * The class constructor.
 		 *
-		 * @param string $id
-		 * @param string $title
-		 * @param string $callback
-		 * @param string $post_type
-		 * @param string $context
-		 * @param string $priority
-		 * @param array $callback_args
-		 * @return void
-		 * @since 0.1
+		 * Example:
+		 * <code>
+		 * $sample_metabox = new Base_Model_Metabox(
+		 *      'sample_metabox',
+		 *      __( 'Sample Metabox', 'mytextdomain' ),
+		 *      'my_callback', //set this to null to use default plugin render_metabox callback
+		 *      array( 'post', 'page', 'my-custom-cpt',
+		 *      'post',
+		 *      'normal',
+		 *      'default'
+		 * );
+		 * </code>
+		 *
+		 * @param  string $id
+		 * @param  string $title
+		 * @param  string $callback
+		 * @param  array  $post_type
+		 * @param  string $context
+		 * @param  string $priority
+		 * @param  array  $callback_args
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function __construct( $id, $title, $callback, array $post_type, $context, $priority, $callback_args = array() )
 		{
@@ -162,7 +176,8 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * Add the metabox
 		 *
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function add()
 		{
@@ -183,7 +198,8 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * remove the metabox
 		 *
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function remove()
 		{
@@ -195,9 +211,10 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the id
 		 *
-		 * @param string $id
+		 * @param  string $id
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function set_id( $id )
 		{
@@ -207,9 +224,10 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the title
 		 *
-		 * @param string $title
+		 * @param  string $title
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function set_title( $title )
 		{
@@ -219,9 +237,10 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the callback function
 		 *
-		 * @param string $callback
+		 * @param  string $callback
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function set_callback( $callback )
 		{
@@ -231,9 +250,10 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the post types
 		 *
-		 * @param array $post_type
+		 * @param  array $post_type
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function set_post_type( array $post_types )
 		{
@@ -243,9 +263,10 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the context
 		 *
-		 * @param string $context
+		 * @param  string $context
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function set_context( $context )
 		{
@@ -255,9 +276,10 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the priority
 		 *
-		 * @param string $priority
+		 * @param  string $priority
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function set_priority( $priority )
 		{
@@ -267,9 +289,10 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * set the callback_args
 		 *
-		 * @param array $callback_args
+		 * @param  array $callback_args
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function set_callback_args( $callback_args )
 		{
@@ -280,7 +303,8 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * get the metabox id
 		 *
 		 * @return string $id
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_id()
 		{
@@ -291,7 +315,8 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * get the metabox title
 		 *
 		 * @return string $id
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_title()
 		{
@@ -302,7 +327,8 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * get the metabox callback
 		 *
 		 * @return string $callback
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_callback()
 		{
@@ -313,7 +339,8 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * get the metabox post_type
 		 *
 		 * @return string $post_type
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_post_types()
 		{
@@ -324,7 +351,8 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * get the metabox context
 		 *
 		 * @return string $context
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_context()
 		{
@@ -335,7 +363,8 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * get the metabox priority
 		 *
 		 * @return string $priority
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_priority()
 		{
@@ -346,7 +375,8 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * get the metabox callback_args
 		 *
 		 * @return array $callback_args
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_callback_args()
 		{
