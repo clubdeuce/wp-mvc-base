@@ -1,11 +1,4 @@
 <?php
-/**
- * The base plugin controller.
- *
- * @author Daryl Lozupone <daryl@actionhook.com>
- * @since WPMVCBase 0.1
- */
-
 /*
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -28,42 +21,28 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 	/**
 	 * The base plugin controller.
 	 *
-	 * @package WPMVCBase\Controllers
+	 * @package  WPMVCBase\Controllers
 	 * @abstract
-	 * @version 0.2
-	 * @since WP_Base 0.1
+	 * @version  0.2
+	 * @since    WPMVCBase 0.1
 	 */
 	abstract class Base_Controller_Plugin extends Base_Controller
 	{
 		/**
 		 * The plugin model.
 		 *
-		 * @var object
-		 * @since 0.2
+		 * @var    object
+		 * @access protected
+		 * @since  WPMVCBase 0.2
 		 */
 		protected $plugin_model;
 
 		/**
-		 * The class constructor
+		 * The class constructor.
 		 *
-		 * Example when called from the main plugin file:
-		 * <code>
-		 * $my_plugin_controller = new Base_Controller_Plugin(
-		 *		'my_plugin_slug',
-		 *		'1.1.5',
-		 *		plugin_dir_path( __FILE__ ),
-		 *		__FILE__,
-		 *		plugin_dir_uri( __FILE__ ),
-		 *		'my_text_domain'
-		 * }
-		 * </code>
-		 *
-		 * @category Controllers
-		 * @package WPMVCBase
-		 *
-		 * @param object $model The plugin model.
+		 * @param  object $model The plugin model.
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function __construct( $model )
 		{
@@ -98,8 +77,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 * Load the plugin text domain.
 		 *
 		 * @internal
-		 * @access public
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
 		 */
 		public function load_text_domain()
 		{
@@ -112,8 +91,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 * Render admin notices for admin screens.
 		 *
 		 * @internal
-		 * @access public
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
 		 */
 		public function admin_notice()
 		{
@@ -138,10 +117,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		/**
 		 * The WP load-{$page} action callback
 		 *
-		 * @package WP Models
 		 * @internal
-		 * @access public
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
 		 */
 		public function load_admin_page()
 		{
@@ -172,15 +150,15 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		/**
 		 * Enqueue scripts and styles for admin pages
 		 *
-		 * @param string $hook The WP page hook.
-		 * @uses globalHelper_Functions::enqueue_styles() to enqueue the styles.
-		 * @uses Helper_Functions::enqueue_scripts() to enqueue the scripts.
-		 * @uses Base_Model_Plugin::get_admin_css() to retrieve the admin css.
-		 * @uses Base_Model_Plugin::get_admin_scripts() to retrieve the admin scripts.
+		 * @param    string $hook The WP page hook.
+		 * @uses     Helper_Functions::enqueue_styles
+		 * @uses     Helper_Functions::enqueue_scripts
+		 * @uses     Base_Model_Plugin::get_admin_css
+		 * @uses     Base_Model_Plugin::get_admin_scripts
 		 * @internal
-		 * @access public
-		 * @since 0.1
-		 * @todo modify this function to enqueue scripts based on wp_screen object
+		 * @access   public
+		 * @since    WPMVCBase 0.1
+		 * @todo     modify this function to enqueue scripts based on wp_screen object
 		 */
 		public function admin_enqueue_scripts( $hook )
 		{
@@ -204,13 +182,13 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		}
 
 		/**
-		 * Enqueue scripts and styles for frontend pages
+		 * Enqueue scripts and styles for frontend pages.
 		 *
-		 * @uses Base_Model_Plugin::get_scripts()
-		 * @uses Base_Contoller::enqueue_scripts()
+		 * @uses     Base_Model_Plugin::get_scripts
+		 * @uses     Base_Contoller::enqueue_scripts
 		 * @internal
-		 * @access public
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
 		 */
 		public function wp_enqueue_scripts()
 		{
@@ -223,12 +201,13 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		}
 		
 		/**
-		 * Add metaboxes for the plugin model
+		 * Add metaboxes for the plugin model.
 		 *
-		 * @uses Base_Model_plugin::get_metaboxes
-		 * @uses Base_Controller::add_metaboxes
+		 * @uses     Base_Model_plugin::get_metaboxes
+		 * @uses     Base_Controller::add_metaboxes
 		 * @internal
-		 * @since WPMVCBase 0.3
+		 * @access   public
+		 * @since    WPMVCBase 0.2
 		 */
 		public function add_meta_boxes()
 		{
@@ -244,9 +223,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		/**
 		 * Hook actions for the help tabs for the plugin model.
 		 *
-		 * @uses Base_Model_Plugin::get_help_tabs
-		 * @uses Base_Model_Help_Tab::get_screens
-		 * @since WPMVCBase 0.3
+		 * @uses  Base_Model_Plugin::get_help_tabs
+		 * @uses  Base_Model_Help_Tab::get_screens
+		 * @since WPMVCBase 0.2
 		 */
 		protected function init_help_tabs()
 		{
@@ -267,9 +246,9 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		/**
 		 * Render the help tabs for the plugin model.
 		 *
-		 * @uses Base_Model_Plugin::get_help_tabs
-		 * @uses Base_Controller_Plugin::render_help_tab
-		 * @since WPMVCBase 1.0
+		 * @uses  Base_Model_Plugin::get_help_tabs
+		 * @uses  Base_Controller_Plugin::render_help_tab
+		 * @since WPMVCBase 0.2
 		 */
 		public function render_help_tabs()
 		{
