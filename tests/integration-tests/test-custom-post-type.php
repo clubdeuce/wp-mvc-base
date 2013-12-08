@@ -18,7 +18,7 @@ namespace WPMVCB\Testing
 			//implemented, but does nothing
 		}
 		
-		protected function init_metaboxes( $txtdomain )
+		protected function init_metaboxes()
 		{
 			$this->metaboxes = array(
 			'book_metabox' => new \Base_Model_Metabox(
