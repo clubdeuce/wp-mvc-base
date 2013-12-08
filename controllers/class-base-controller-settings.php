@@ -1,4 +1,20 @@
 <?php
+ /*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 	include_once 'class-base-controller.php';
 
@@ -6,22 +22,25 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 	 * The base settings controller class.
 	 *
 	 * @package WPMVCBase\Controllers
-	 * @since 0.2
+	 * @version 0.2
+	 * @since   WPMVCBase 0.2
 	 */
 	class Base_Controller_Settings extends Base_Controller
 	{
 		/**
 		 * The settings model.
 		 *
-		 * @var object Base_Settings_Model
-		 * @since 0.2
+		 * @var   object Base_Settings_Model
+		 * @since WPMVCBase 0.2
 		 */
 		protected $model;
 
 		/**
 		 * The class constructor.
 		 *
-		 * @since 0.2
+		 * @param  object $model The Base_Model_Settings object.
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function __construct( Base_Model_Settings $model )
 		{
@@ -48,8 +67,8 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 * Register options.
 		 *
 		 * @internal
-		 * @access public
-		 * @since 0.2
+		 * @access   public
+		 * @since    WPMVCBase 0.2
 		 */
 		public function register_options()
 		{
@@ -68,12 +87,12 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		/**
 		 * Add the menu pages.
 		 *
-		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
-		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
-		 * @return bool|object TRUE on success, WP_Error on failure.
+		 * @return   bool|object TRUE on success, WP_Error on failure.
 		 * @internal
-		 * @access public
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
+		 * @link     http://codex.wordpress.org/Function_Reference/add_menu_page
+		 * @link     http://codex.wordpress.org/Function_Reference/add_submenu_page
 		 */
 		public function add_menu_pages()
 		{
@@ -116,8 +135,8 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 * Add the settings sections.
 		 *
 		 * @internal
-		 * @access public
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
 		 */
 		public function add_settings_sections()
 		{
@@ -140,8 +159,8 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 * Add the settings fields.
 		 *
 		 * @internal
-		 * @access public
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
 		 */
 		public function add_settings_fields()
 		{
@@ -169,13 +188,13 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 * the options page template defined in the page object if it exists, otherwise it will use a generic
 		 * template included in this package (views/base_options_page.php).
 		 *
-		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
-		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
-		 * @link http://codex.wordpress.org/Function_Reference/add_options_page
 		 * @internal
-		 * @access public
-		 * @since 0.1
-		 * @todo Modify this to use get_current_screen()
+		 * @access   public
+		 * @since    WPMVCBase 0.1
+		 * @link     http://codex.wordpress.org/Function_Reference/add_menu_page
+		 * @link     http://codex.wordpress.org/Function_Reference/add_submenu_page
+		 * @link     http://codex.wordpress.org/Function_Reference/add_options_page
+		 * @todo     Modify this to use get_current_screen()
 		 */
 		public function render_options_page()
 		{
@@ -212,11 +231,11 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 *
 		 * This function can be used as a generic callback for add_settings_sections().
 		 *
-		 * @param object $section The section object.
-		 * @link http://codex.wordpress.org/Function_Reference/add_settings_section
+		 * @param    object $section The section object.
 		 * @internal
-		 * @access public
-		 * @since 0.1
+		 * @access   public
+		 * @since    WPMVCBase 0.1
+		 * @link     http://codex.wordpress.org/Function_Reference/add_settings_section
 		 */
 		public function render_settings_section( $section )
 		{
@@ -244,11 +263,11 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		/**
 		 * A generic add_settings_field() callback function.
 		 *
-		 * @param array $args The settings field arguments.
-		 * @param string $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
-		 * @return string|void void on ECHO, HTML string on any other $echo value.
+		 * @param  array       $args The settings field arguments.
+		 * @param  string      $echo Either echo the output (echo) or return it (any other value). Default is 'echo'.
+		 * @return string|void       void on ECHO, HTML string on any other $echo value.
 		 * @access public
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function render_settings_field( $args, $echo = 'echo' )
 		{
