@@ -649,7 +649,15 @@ if ( ! class_exists( 'Base_Model' ) ) :
 
 			return true;
 		}
-
+		
+		public function get_admin_notices()
+		{
+			if ( isset( $this->admin_notices ) ) {
+				return $this->admin_notices;
+			}
+			
+			return false;
+		}
 
 	}
 endif;
