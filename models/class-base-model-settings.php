@@ -1,11 +1,19 @@
 <?php
-/**
- * The base settings model.
- *
- * @package WPMVCBase\Models
- * @author Daryl Lozupone <daryl@actionhook.com>
- * @since WPMVCBase 0.1
- */
+ /*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 if ( ! class_exists( 'Base_Model_Settings' ) ):
 	/**
@@ -13,15 +21,16 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 	 *
 	 * @package WPMVCBase\Models
 	 * @version 0.1
-	 * @since WPMVCBase 0.1
+	 * @since   WPMVCBase 0.1
 	 */
 	abstract class Base_Model_Settings
 	{
 		/**
 		 * The class version
 		 *
-		 * @var string
-		 * @since 0.1
+		 * @var  string
+		 * @access private
+		 * @since WPMVCBase 0.1
 		 */
 		private $version = '0.2';
 
@@ -39,9 +48,10 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * );
 		 * </code>
 		 *
-		 * @var array
-		 * @since 0.1
-		 * @link http://codex.wordpress.org/Function_Reference/register_setting#Parameters
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.1
+		 * @link   http://codex.wordpress.org/Function_Reference/register_setting#Parameters
 		 */
 		protected $options;
 
@@ -70,9 +80,10 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * If the parent_slug property is specified, the page will be added using the WP add_submenu_page function.
 		 * Otherwise add_menu_page will be used, thus creating a top-level menu page.
 		 *
-		 * @var array
-		 * @since 0.1
-		 * @see Base_Model_Menu_Page
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.1
+		 * @see    Base_Model_Menu_Page
 		 */
 		protected $pages;
 
@@ -102,9 +113,10 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * MVC principles, as this forces the model to break encapsulation.
 		 * This is necessary given the WP Settings API procedural nature.
 		 *
-		 * @var array
-		 * @since 0.1
-		 * @link http://codex.wordpress.org/Function_Reference/add_settings_section
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.1
+		 * @link   http://codex.wordpress.org/Function_Reference/add_settings_section
 		 */
 		protected $settings_sections;
 
@@ -137,9 +149,10 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * If set to any other value, the named function will be used. This method goes against strict MVC principles, as this forces the model
 		 * to break encapsulation. This is necessary given the WP Settings API procedural nature.
 		 *
-		 * @var array
-		 * @since 0.1
-		 * @link http://codex.wordpress.org/Function_Reference/add_settings_field
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.1
+		 * @link   http://codex.wordpress.org/Function_Reference/add_settings_field
 		 */
 		protected $settings_fields;
 
@@ -148,19 +161,21 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 *
 		 * This property contains key/value pairs of the plugin options and their current values.
 		 *
-		 * @var array
-		 * @since 0.1
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $settings;
 
 		/**
 		 * The class constructor.
 		 *
-		 * @param string $uri The plugin base uri.
-		 * @param string $path The plugin absoulte path.
-		 * @param string $txtdomain The plugin text domain. Used to localize section/field headings, titles, etc.
+		 * @param  string $uri The plugin base uri.
+		 * @param  string $path The plugin absoulte path.
+		 * @param  string $txtdomain The plugin text domain. Used to localize section/field headings, titles, etc.
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function __construct( $uri, $path, $txtdomain )
 		{
@@ -171,21 +186,24 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Initialize all class properties.
 		 *
-		 * @param string $uri The plugin base uri.
-		 * @param string $path The plugin absoulte path.
-		 * @param string $txtdomain The plugin text domain. Used to localize section/field headings, titles, etc.
-		 * @codeCoverageIgnore
-		 * @since 0.1
+		 * @param  string $uri The plugin base uri.
+		 * @param  string $path The plugin absoulte path.
+		 * @param  string $txtdomain The plugin text domain. Used to localize section/field headings, titles, etc.
+		 * @access public
+		 * @abstract
+		 * @since  WPMVCBase 0.1
 		 */
 		abstract protected function init( $uri, $path, $txtdomain );
 
 		/**
 		 * Initialize the settings property.
 		 *
-		 * This function loads all existing settings from the wp_options table for the options specified in the $options property.
+		 * This function loads all existing settings from the wp_options table for 
+		 * the options specified in the $options property.
 		 *
 		 * @return void
-		 * @since 0.1
+		 * @access protected
+		 * @since  WPMVCBase 0.1
 		 */
 		protected function init_settings()
 		{
@@ -205,7 +223,8 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * Get the options.
 		 *
 		 * @return array $options
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_options()
 		{
@@ -216,7 +235,8 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * Get the menu pages.
 		 *
 		 * @return array $menu_pages
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_pages()
 		{
@@ -226,9 +246,10 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Get the settings sections.
 		 *
-		 * @param string $key The setting section key. If specfied, the function will return that one section.
-		 * @return array|bool The settings section(s) on success, FALSE on non-existence of the section.
-		 * @since 0.1
+		 * @param  string      $key The setting section key. If specfied, the function will return that one section.
+		 * @return array|bool       The settings section(s) on success, FALSE on non-existence of the section.
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_settings_sections( $key = null )
 		{
@@ -247,8 +268,9 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Get the settings fields.
 		 *
-		 * @return array $settings_fields
-		 * @since 0.1
+		 * @return  array $settings_fields
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_settings_fields()
 		{
@@ -258,10 +280,11 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Set a page's properties
 		 *
-		 * @param string $key The page key.
-		 * @param array $args The page elements.
-		 * @return bool TRUE if page key exists, FALSE otherwise.
-		 * @since 0.1
+		 * @param  string $key  The page key.
+		 * @param  array  $args The page elements.
+		 * @return bool         TRUE if page key exists, FALSE otherwise.
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function edit_page( $key, $args )
 		{
@@ -277,10 +300,11 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Set a section's properties
 		 *
-		 * @param string $key The settings section key.
-		 * @param array $args The section elements.
+		 * @param  string $key The settings section key.
+		 * @param  array $args The section elements.
 		 * @return bool TRUE if section key exists, FALSE otherwise.
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function edit_settings_section( $key, $args )
 		{
@@ -296,10 +320,16 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Get the plugin settings.
 		 *
-		 * @param string $option_name The option name. Required if $option is specified. Default NULL.
-		 * @param string $option_element The option element name. Default NULL.
-		 * @return array|string|bool Array containing setting(s), the option value (or default) if an element is specified (but does not exist), FALSE on non-existence of setting default.
-		 * @since 0.1
+		 * This function will return either:
+		 *     an array containing setting(s),
+		 *     the option value (or default) if an element is specified (but does not exist), or
+		 *     FALSE on non-existence of setting default.
+		 *
+		 * @param  string             $option_name    The option name. Required if $option is specified. Default NULL.
+		 * @param  string             $option_element The option element name. Default NULL.
+		 * @return array|string|bool 
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function get_settings( $option_name = null, $option_element = null )
 		{
@@ -348,8 +378,9 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Add an option.
 		 *
-		 * @param array $option
-		 * @since 0.2
+		 * @param  array $option
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function add_option( $option )
 		{
@@ -377,9 +408,10 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Add a settings section.
 		 *
-		 * @param array $section The section to be added.
+		 * @param  array $section The section to be added.
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function add_settings_section( $section )
 		{
@@ -408,9 +440,10 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		/**
 		 * Add a settings field.
 		 *
-		 * @param array $settings The fields to be added.
+		 * @param  array $settings The fields to be added.
 		 * @return void
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function add_settings_field( $field )
 		{
@@ -442,9 +475,10 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * Assumes all values are text strings. You can overwrite this function by including a function
 		 * using the same name in the child class.
 		 *
-		 * @param array $input The POSTed data.
+		 * @param  array $input The POSTed data.
 		 * @return array $input The modified POST data.
-		 * @since 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function sanitize_input( $input )
 		{
