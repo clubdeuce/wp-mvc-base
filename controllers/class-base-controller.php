@@ -232,6 +232,25 @@ if ( ! class_exists( 'Base_Controller' ) ):
 				);
 				return;
 			}
-		}		
+		}
+		
+		/**
+		 * Render a help tab.
+		 *
+		 * @param object Base_Model_Help_Tab
+		 * @since 1.0
+		 */
+		public function render_help_tab( Base_Model_Help_Tab $tab )
+		{
+			$screen = get_current_screen();
+			
+			$screen->add_help_tab( 
+				array( 
+					'id'      => $tab->get_id(),
+					'title'   => $tab->get_title(),
+					'content' => $tab->get_content()
+				)
+			);
+		}
 	}
 endif;
