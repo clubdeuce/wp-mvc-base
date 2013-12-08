@@ -51,24 +51,6 @@ if ( ! class_exists( 'Base_Model_Help_Tab' ) ):
 		private $content;
 
 		/**
-		 * The help tab callback function.
-		 *
-		 * @var string|array
-		 * @since 0.1
-		 */
-		private $callback;
-
-		/**
-		 * The help tab view file.
-		 *
-		 * This must be an absolute path to the view file.
-		 *
-		 * @var string
-		 * @since 0.1
-		 */
-		private $view;
-
-		/**
 		 * The class constructor.
 		 *
 		 * @param string       $title     The help tab title.
