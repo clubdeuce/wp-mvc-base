@@ -1,35 +1,53 @@
 <?php
+ /*
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 	/**
 	 * The base options page model.
 	 *
 	 * @package WPMVCBase\Models
-	 * @since 0.2
+	 * @since WPMVCBase 0.2
 	 */
 	class Base_Model_Menu_Page
 	{
 		/**
 		 * The The slug name for the parent menu item.
 		 *
-		 * @var string
-		 * @since 0.2
+		 * @var    string
+		 * @access private
+		 * @since WPMVCBase 0.2
 		 */
 		private $parent_slug;
 
 		/**
 		 * The text to be displayed in the title tags of the page when the menu is selected.
 		 *
-		 * @var string
-		 * @since 0.2
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.2
 		 */
 		private $page_title;
 
 		/**
 		 * The text to be used for the menu item.
 		 *
-		 * @var string
-		 * @since 0.2
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.2
 		 */
 		private $menu_title;
 
@@ -37,7 +55,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * The capability required for this menu to be displayed to the user.
 		 *
 		 * @var string
-		 * @since 0.2
+		 * @since WPMVCBase 0.2
 		 * @link http://codex.wordpress.org/Roles_and_Capabilities
 		 */
 		private $capability;
@@ -48,8 +66,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * If you want to NOT duplicate the parent menu item, you need to set the name of the
 		 * $menu_slug exactly the same as the parent slug.
 		 *
-		 * @var string
-		 * @since 0.2
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.2
 		 */
 		private $menu_slug;
 
@@ -59,8 +78,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * You can specify a function here, or leave it unset. If unset, the plugin controller will use
 		 * the default render_options_page() method.
 		 *
-		 * @var string|array
-		 * @since 0.2
+		 * @var    string|array
+		 * @access private
+		 * @since  WPMVCBase 0.2
 		 */
 		private $callback;
 
@@ -73,8 +93,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * <br> tag instead of <img>. This can be used for more advanced formating via CSS, such as
 		 * changing icon on hover.
 		 *
-		 * @var string
-		 * @since 0.2
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.2
 		 */
 		private $icon_url;
 
@@ -87,8 +108,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * conflict can be reduced by using decimal instead of integer values, e.g. 63.3 instead of 63
 		 * (Note: Use quotes in code, IE '63.3').
 		 *
-		 * @var string
-		 * @since 0.2
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.2
 		 */
 		private $position;
 
@@ -97,17 +119,19 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 *
 		 * This is a collection of Base_Model_JS_Objects.
 		 *
-		 * @var array
-		 * @since 0.2
-		 * @see Base_Model_JS_Object
+		 * @var    array
+		 * @since  WPMVCBase 0.2
+		 * @access private
+		 * @see    Base_Model_JS_Object
 		 */
 		private $admin_scripts;
 
 		/**
 		 * The CSS used on this page.
 		 *
-		 * @var array
-		 * @since 0.2
+		 * @var    array
+		 * @access private
+		 * @since  WPMVCBase 0.2
 		 */
 		private $admin_css;
 
@@ -116,9 +140,10 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 *
 		 * This is a collection of Base_Model_Help_Tab objects.
 		 *
-		 * @var array
-		 * @since 0.2
-		 * @see Base_Model_Help_Tabs
+		 * @var    array
+		 * @access private
+		 * @since  WPMVCBase 0.2
+		 * @see    Base_Model_Help_Tabs
 		 */
 		private $help_tabs;
 
@@ -128,24 +153,27 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * This file must be present in the app/views folder. If not set ( or set and not present),
 		 * a PHP warning will occur and the plugin controller will use a default view.
 		 *
-		 * @var string
-		 * @since 0.2
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.2
 		 */
 		private $view;
 
 		/**
 		 * The hook suffix assigned by WordPress when the page is added.
 		 *
-		 * @var string
-		 * @since 0.2
+		 * @var    string
+		 * @access private
+		 * @since  WPMVCBase 0.2
 		 */
 		private $hook_suffix;
 
 		/**
-		 * Set the _parent_slug property.
+		 * Set the parent_slug property.
 		 *
-		 * @param $slug
-		 * @since 0.2
+		 * @param  $slug
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_parent_slug( $slug )
 		{
@@ -153,10 +181,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _parent_slug property.
+		 * Get the parent_slug property.
 		 *
 		 * @return string|void
-		 * @since 0.2
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_parent_slug()
 		{
@@ -168,8 +197,9 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Set the _page_title property.
 		 *
-		 * @param string $page_title
-		 * @since 0.2
+		 * @param  string $page_title
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_page_title( $page_title )
 		{
@@ -177,10 +207,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _page_title property.
+		 * Get the page_title property.
 		 *
 		 * @return string|void
-		 * @since 0.2
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_page_title()
 		{
@@ -190,10 +221,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _menu_title property.
+		 * Set the menu_title property.
 		 *
-		 * @param string $title
-		 * @since 0.2
+		 * @param  string $title
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_menu_title( $title )
 		{
@@ -201,10 +233,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _menu_title property.
+		 * Get the menu_title property.
 		 *
 		 * @return string|void
-		 * @since 0.2
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_menu_title()
 		{
@@ -214,10 +247,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _capability property.
+		 * Set the capability property.
 		 *
-		 * @param string $capability
-		 * @since 0.2
+		 * @param  string $capability
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_capability( $capability )
 		{
@@ -225,10 +259,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _capability property.
+		 * Get the capability property.
 		 *
 		 * @return string|void
-		 * @since 0.2
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_capability()
 		{
@@ -238,10 +273,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _menu_slug property.
+		 * Set the menu_slug property.
 		 *
-		 * @param string $slug
-		 * @since 0.2
+		 * @param  string $slug
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_menu_slug( $slug )
 		{
@@ -249,10 +285,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _menu_slug property.
+		 * Get the menu_slug property.
 		 *
-		 * @return string|null
-		 * @since 0.2
+		 * @return string $menu_slug
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_menu_slug()
 		{
@@ -262,10 +299,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _callback property.
+		 * Set the callback property.
 		 *
-		 * @param string $callback
-		 * @since 0.2
+		 * @param  string $callback
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_callback( $callback )
 		{
@@ -273,10 +311,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _callback property.
+		 * Get the callback property.
 		 *
-		 * @return string|null
-		 * @since 0.2
+		 * @return string $callback
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_callback()
 		{
@@ -286,10 +325,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _callback property.
+		 * Set the icon_url property.
 		 *
-		 * @param string $icon_url
-		 * @since 0.2
+		 * @param  string $icon_url
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_icon_url( $icon_url )
 		{
@@ -297,10 +337,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _icon_url property.
+		 * Get the icon_url property.
 		 *
-		 * @return string|void
-		 * @since 0.2
+		 * @return string
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_icon_url()
 		{
@@ -310,10 +351,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _position property.
+		 * Set the position property.
 		 *
-		 * @param string $position
-		 * @since 0.2
+		 * @param  string $position
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_position( $position )
 		{
@@ -321,10 +363,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _position property.
+		 * Get the position property.
 		 *
-		 * @return string|void
-		 * @since 0.2
+		 * @return string
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_position()
 		{
@@ -334,10 +377,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _admin_scripts property.
+		 * Set the admin_scripts property.
 		 *
-		 * @param string $admin_scripts
-		 * @since 0.2
+		 * @param  string $admin_scripts
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_admin_scripts( $admin_scripts )
 		{
@@ -345,10 +389,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _admin_scripts property.
+		 * Get the admin_scripts property.
 		 *
-		 * @return string|void
-		 * @since 0.2
+		 * @return string
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_admin_scripts()
 		{
@@ -358,10 +403,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _admin_css property.
+		 * Set the admin_css property.
 		 *
-		 * @param string $admin_css
-		 * @since 0.2
+		 * @param  string $admin_css
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_admin_css( $admin_css )
 		{
@@ -369,10 +415,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _admin_css property.
+		 * Get the admin_css property.
 		 *
-		 * @return string|void
-		 * @since 0.2
+		 * @return string
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_admin_css()
 		{
@@ -382,10 +429,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _help_tabs property.
+		 * Set the help_tabs property.
 		 *
 		 * @param string $help_tabs
-		 * @since 0.2
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_help_tabs( $help_tabs )
 		{
@@ -393,10 +441,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _help_tabs property.
+		 * Get the help_tabs property.
 		 *
 		 * @return string|null
-		 * @since 0.2
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_help_tabs()
 		{
@@ -406,10 +455,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Set the _view property.
+		 * Set the view property.
 		 *
-		 * @param string $view
-		 * @since 0.2
+		 * @param  string $view
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function set_view( $view )
 		{
@@ -417,10 +467,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _view property.
+		 * Get the view property.
 		 *
-		 * @return string|void
-		 * @since 0.2
+		 * @return string
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_view()
 		{
@@ -430,10 +481,11 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		}
 
 		/**
-		 * Get the _hook_suffix property.
+		 * Get the hook_suffix property.
 		 *
 		 * @return string|void
-		 * @since 0.2
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function get_hook_suffix()
 		{
@@ -446,9 +498,10 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		 * Add the options page
 		 *
 		 * @return string|false The hook suffix on success, FALSE if user does not have required capability.
-		 * @since 0.2
-		 * @link http://codex.wordpress.org/Function_Reference/add_menu_page
-		 * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
+		 * @access public
+		 * @since  WPMVCBase 0.2
+		 * @link   http://codex.wordpress.org/Function_Reference/add_menu_page
+		 * @link   http://codex.wordpress.org/Function_Reference/add_submenu_page
 		 */
 		public function add()
 		{

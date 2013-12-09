@@ -21,24 +21,25 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 	 * The base custom post type controller.
 	 *
 	 * @package WPMVCBase\Controllers
-	 * @version 0.1
-	 * @since WPMVCBase 0.3
+	 * @version 0.2
+	 * @since   WPMVCBase 0.2
 	 */
 	class Base_Controller_CPT extends Base_Controller
 	{
 		/**
 		 * The attached custom post type models.
 		 *
-		 * @var array
+		 * @var    array
 		 * @access protected
-		 * @since 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $_cpt_models;
 		
 		/**
 		 * The class constructor.
 		 *
-		 * @since WPMVCBase 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
 		public function __construct()
 		{	
@@ -51,10 +52,10 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * Add a cpt model to this controller.
 		 *
-		 * @param object $model The Base_Model_CPT for this controller.
-		 * @return array $_cpt_models
+		 * @param  object         $model The Base_Model_CPT for this controller.
+		 * @return array          $_cpt_models
 		 * @access public
-		 * @since 0.3
+		 * @since  WPMVCBase 0.2
 		 */
 		public function add_model( Base_Model_Cpt $model )
 		{	
@@ -87,10 +88,10 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * Register this post type.
 		 *
-		 * @return array An array for each post type containing the registered post type object on success, WP_Error object on failure
+		 * @return array An array containing the registered post type objects on success, WP_Error object on failure
 		 * @access public
-		 * @since 0.3
-		 * @link http://codex.wordpress.org/Function_Reference/register_post_type
+		 * @since  WPMVCBase 0.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type
 		 */
 		public function register()
 		{
@@ -105,12 +106,12 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * Filter to ensure the CPT labels are displayed when user updates the CPT
 		 *
-		 * @param array $messages The existing messages array.
-		 * @return array $messages The updated messages array.
+		 * @param    array $messages The existing messages array.
+		 * @return   array $messages The updated messages array.
 		 * @internal
-		 * @access public
-		 * @since 0.1
-		 * @link http://codex.wordpress.org/Plugin_API/Filter_Reference
+		 * @access   public
+		 * @since    WPMVCBase 0.1
+		 * @link     http://codex.wordpress.org/Plugin_API/Filter_Reference
 		 */
 		public function post_updated_messages( $messages )
 		{
@@ -163,7 +164,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * Add the metaboxes necessary for the custom post types.
 		 *
-		 * @since WPMVCBase 0.3
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function add_meta_boxes()
 		{
@@ -181,8 +183,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * The admin_enqueue_scripts_callback.
 		 *
-		 * @return void
-		 * @since 0.3
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function admin_enqueue_scripts()
 		{
@@ -206,8 +208,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * The wp_enqueue_scripts_callback.
 		 *
-		 * @return void
-		 * @since 0.3
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function wp_enqueue_scripts()
 		{
@@ -231,7 +233,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * Render the help tabs for the attached cpts
 		 *
-		 * @since 1.0
+		 * @access public
+		 * @since  WPMVCBase 0.2
 		 */
 		public function render_help_tabs()
 		{
