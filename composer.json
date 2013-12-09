@@ -3,13 +3,13 @@
 		"type": "library",
 		"description": "MVC style framework for WordPress plugin development",
 		"keywords": ["wordpress","mvc","plugins"],
-		"homepage": "https://github.com/dlozupone/wp-mvc-base",
+		"homepage": "https://github.com/clubduece/wp-mvc-base",
 		"license": "GPLv2.0",
 		"authors": [
 		{
             		"name": "Daryl Lozupone",
-            		"email": "daryl@actionhoook.com",
-			"role": "Developer"
+            		"email": "daryl@clubduece.com",
+					"role": "Developer"
         	}
     	],
 	"require": {
