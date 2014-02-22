@@ -95,6 +95,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 */
 		public function register()
 		{
+			$return = array();
+			
 			if ( isset( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
 					$return[ $cpt->get_slug() ] = register_post_type( $cpt->get_slug(), $cpt->get_args() );
