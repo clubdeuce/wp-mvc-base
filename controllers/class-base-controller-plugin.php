@@ -83,7 +83,11 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		public function load_text_domain()
 		{
 			if ( is_dir( $this->plugin_model->get_path() . '/languages/' ) ) {
-				load_plugin_textdomain( $this->txtdomain, false, $this->path . '/languages/' );
+				load_plugin_textdomain(
+					$this->plugin_model->get_txtdomain(),
+					false,
+					$this->plugin_model->get_path() . '/languages/'
+				);
 			}
 		}
 
