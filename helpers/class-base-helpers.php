@@ -105,7 +105,7 @@ public static function enqueue_scripts( $scripts )
 		 * @since 0.1
 		 */
 		public static function get_local_directory_contents( $directory )
-		{
+		{	
 			if ( is_dir( $directory ) ) {
 				if ( $files = scandir( $directory ) ) {
 					foreach ( $files as $entry ) {
@@ -117,7 +117,7 @@ public static function enqueue_scripts( $scripts )
 						);
 					}
 				}
-
+				
 				return $contents;
 			}
 		}
