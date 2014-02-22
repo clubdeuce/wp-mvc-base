@@ -1,6 +1,6 @@
 WP MVC Base 
 ===========
-TravisCI: [![Build Status](https://travis-ci.org/dlozupone/wp-mvc-base.png?branch=master)](https://travis-ci.org/dlozupone/wp-mvc-base)
+TravisCI: [![Build Status](https://travis-ci.org/clubduece/wp-mvc-base.png?branch=master)](https://travis-ci.org/clubduece/wp-mvc-base)
 
 Codeship: [![Codeship Status for dlozupone/wp-mvc-base](https://www.codeship.io/projects/37ad2be0-ba59-0130-20ed-4a00a7a8cd08/status?branch=master)](https://www.codeship.io/projects/4388)
 
