@@ -4,6 +4,8 @@ TravisCI: [![Build Status](https://travis-ci.org/dlozupone/wp-mvc-base.png?branc
 
 Codeship: [![Codeship Status for dlozupone/wp-mvc-base](https://www.codeship.io/projects/37ad2be0-ba59-0130-20ed-4a00a7a8cd08/status?branch=master)](https://www.codeship.io/projects/4388)
 
+Scrutinizer-CI: [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/clubduece/wp-mvc-base/badges/quality-score.png?s=a5f60231e6ef2f88ee35a8471379063100e0420d)](https://scrutinizer-ci.com/g/clubduece/wp-mvc-base/)
+
 Coveralls: [![Coverage Status](https://coveralls.io/repos/dlozupone/wp-mvc-base/badge.png?branch=master)](https://coveralls.io/r/dlozupone/wp-mvc-base?branch=master)
 
 VersionEye: [![Dependency Status](https://www.versioneye.com/user/projects/51ed3d7d632bac3b890035eb/badge.png)](https://www.versioneye.com/user/projects/51ed3d7d632bac3b890035eb)
