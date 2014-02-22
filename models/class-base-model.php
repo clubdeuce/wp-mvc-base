@@ -646,15 +646,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			}
 
 			// We need to check if the current user is authorised to do this action.
-			switch ( $post_type ) {
-				case 'page':
-					if ( ! current_user_can( 'edit_page', $post_id ) ) {
-						return;
-					}
-				default:
-					if ( ! current_user_can( 'edit_post', $post_id ) ) {
-						return;
-					}
+			if ( 'page' == $post_type ) {
+				if ( ! current_user_can( 'edit_page', $post_id ) ) {
+					return;
+				}
+			}
+			
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return;
 			}
 
 			// Third we need to check if the user intended to change this value.
