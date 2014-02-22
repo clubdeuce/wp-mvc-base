@@ -108,6 +108,7 @@ public static function enqueue_scripts( $scripts )
 		{	
 			if ( is_dir( $directory ) ) {
 				if ( $files = scandir( $directory ) ) {
+					$contents = array();
 					foreach ( $files as $entry ) {
 						$filetype   = wp_check_filetype( $entry );
 						$contents[] = array(
