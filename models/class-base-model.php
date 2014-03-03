@@ -469,10 +469,6 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function get_metaboxes()
 		{	
-			if ( ! isset( $this->metaboxes ) && method_exists( $this, 'init_metaboxes' ) ) {
-				$this->init_metaboxes();
-			}
-			
 			if ( isset( $this->metaboxes ) ) {
 				return $this->metaboxes;
 			}
@@ -488,11 +484,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @since  WPMVCBase 0.1
 		 */
 		public function get_help_tabs()
-		{
-			if ( ! isset( $this->help_tabs ) && method_exists( $this, 'init_help_tabs' ) ) {
-				$this->init_help_tabs();
-			}
-			
+		{	
 			if ( isset( $this->help_tabs ) ) {
 				return $this->help_tabs;
 			}
