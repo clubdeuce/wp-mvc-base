@@ -114,10 +114,6 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 			$this->version          = $version;
 			$this->js_uri           = $this->uri . 'js/';
 			$this->css_uri          = $this->uri . 'css/';
-			
-			if ( ! class_exists( 'Helper_Functions' ) ) {
-				require_once(  $this->base_path . '/helpers/class-base-helpers.php' );
-			}
 		}
 		
 		/**
