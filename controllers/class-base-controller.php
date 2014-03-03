@@ -87,20 +87,12 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		/**
 		 * Add shortcodes to WP.
 		 *
-		 * @param  array $shortcodes
+		 * @param  array $shortcodes An array of key/value pairs containing the shortcode as key and the callback function as value.
 		 * @return WP_Error|null
 		 * @since  WPMVCBase 0.1
 		 */
 		public function add_shortcodes( array $shortcodes )
-		{
-			if ( ! is_array( $shortcodes ) ) {
-				return new WP_Error(
-					'non-array',
-					sprintf( __( '%s::%s expects an array', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
-					$shortcodes
-				);
-			}
-			
+		{	
 			foreach ( $shortcodes as $key => $shortcode ) {
 				add_shortcode( $key, $shortcode );
 			}
@@ -142,16 +134,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @since  WPMVCBase 0.3
 		 */
 		public function enqueue_scripts( array $scripts )
-		{
-			
-			if ( ! is_array( $scripts ) ) {
-				return new WP_Error(
-					'non-array',
-					sprintf( __( '%s::%s expects an array', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
-					$scripts
-				);
-			}
-			
+		{	
 			foreach ( $scripts as $key => $script ) {
 				if( is_a( $script, 'Base_Model_JS_Object' ) ) {
 					wp_enqueue_script(
