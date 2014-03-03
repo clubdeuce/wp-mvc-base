@@ -1,8 +1,8 @@
 WP MVC Base 
 ===========
-TravisCI: [![Build Status](https://travis-ci.org/dlozupone/wp-mvc-base.png?branch=master)](https://travis-ci.org/dlozupone/wp-mvc-base)
+TravisCI: [![Build Status](https://travis-ci.org/clubduece/wp-mvc-base.png?branch=master)](https://travis-ci.org/clubduece/wp-mvc-base)
 
-Codeship: [![Codeship Status for dlozupone/wp-mvc-base](https://www.codeship.io/projects/37ad2be0-ba59-0130-20ed-4a00a7a8cd08/status?branch=master)](https://www.codeship.io/projects/4388)
+Scrutinizer-CI: [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/clubduece/wp-mvc-base/badges/quality-score.png?s=a5f60231e6ef2f88ee35a8471379063100e0420d)](https://scrutinizer-ci.com/g/clubduece/wp-mvc-base/)
 
 Coveralls: [![Coverage Status](https://coveralls.io/repos/dlozupone/wp-mvc-base/badge.png?branch=master)](https://coveralls.io/r/dlozupone/wp-mvc-base?branch=master)
 
@@ -25,4 +25,3 @@ There are various ways you can contribute to the project:
 3. Send us documentation updates via Pull Request
 3. Translate WP MVC Base into other languages
 4. Provide feedback and suggestions for [enhancements](https://github.com/dlozupone/wp-mvc-base/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)
-5. Join the conversation on [HipChat](http://www.hipchat.com/gfNbMkzCX)!
