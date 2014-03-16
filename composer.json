@@ -40,6 +40,6 @@
 	    "satooshi/php-coveralls": "dev-master",
 	    "sebastianbergmann/phpcov": "1.1.0",
 	    "mikey179/vfsStream": "1.2.0",
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "4.0.*"
 	}
 }
