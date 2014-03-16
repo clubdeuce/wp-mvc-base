@@ -52,7 +52,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * Add a cpt model to this controller.
 		 *
-		 * @param  object         $model The Base_Model_CPT for this controller.
+		 * @param  Base_Model_CPT         $model The Base_Model_CPT for this controller.
 		 * @return array          $_cpt_models
 		 * @access public
 		 * @since  WPMVCBase 0.2
@@ -95,6 +95,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 */
 		public function register()
 		{
+			$return = array();
+			
 			if ( isset( $this->_cpt_models ) ) {
 				foreach ( $this->_cpt_models as $cpt ) {
 					$return[ $cpt->get_slug() ] = register_post_type( $cpt->get_slug(), $cpt->get_args() );

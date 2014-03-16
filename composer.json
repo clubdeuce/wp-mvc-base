@@ -1,17 +1,17 @@
 {
 	"name": "wpmvcbase/wpmvcbase",
-		"type": "library",
-		"description": "MVC style framework for WordPress plugin development",
-		"keywords": ["wordpress","mvc","plugins"],
-		"homepage": "https://github.com/clubduece/wp-mvc-base",
-		"license": "GPLv2.0",
-		"authors": [
+	"type": "library",
+	"description": "MVC style framework for WordPress plugin development",
+	"keywords": ["wordpress","mvc","plugins"],
+	"homepage": "https://github.com/clubduece/wp-mvc-base",
+	"license": "GPLv2.0",
+	"authors": [
 		{
-            		"name": "Daryl Lozupone",
-            		"email": "daryl@clubduece.com",
-					"role": "Developer"
-        	}
-    	],
+			"name": "Daryl Lozupone",
+			"email": "daryl@clubduece.com",
+			"role": "Developer"
+    	}
+	],
 	"require": {
 		"php": ">=5.2"
 	},

@@ -38,7 +38,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		/**
 		 * The class constructor.
 		 *
-		 * @param  object $model The Base_Model_Settings object.
+		 * @param  Base_Model_Settings $model The Base_Model_Settings object.
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
@@ -271,6 +271,8 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 */
 		public function render_settings_field( $args, $echo = 'echo' )
 		{
+			$html = ''; 
+			
 			if ( ! isset( $args['type'] ) || ! isset( $args['id'] ) || ! isset( $args['name'] ) ) {
 				trigger_error( __( 'The settings field type, id and name must be set', 'wpmvcb' ), E_USER_WARNING );
 			}

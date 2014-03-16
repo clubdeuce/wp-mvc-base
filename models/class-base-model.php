@@ -207,6 +207,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @param  string $base_path
 		 * @param  string $uri
 		 * @param  string $txtdomain
+		 * @param string $plugin_path
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
@@ -468,10 +469,6 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 */
 		public function get_metaboxes()
 		{	
-			if ( ! isset( $this->metaboxes ) && method_exists( $this, 'init_metaboxes' ) ) {
-				$this->init_metaboxes();
-			}
-			
 			if ( isset( $this->metaboxes ) ) {
 				return $this->metaboxes;
 			}
@@ -487,11 +484,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @since  WPMVCBase 0.1
 		 */
 		public function get_help_tabs()
-		{
-			if ( ! isset( $this->help_tabs ) && method_exists( $this, 'init_help_tabs' ) ) {
-				$this->init_help_tabs();
-			}
-			
+		{	
 			if ( isset( $this->help_tabs ) ) {
 				return $this->help_tabs;
 			}
@@ -645,15 +638,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			}
 
 			// We need to check if the current user is authorised to do this action.
-			switch ( $post_type ) {
-				case 'page':
-					if ( ! current_user_can( 'edit_page', $post_id ) ) {
-						return;
-					}
-				default:
-					if ( ! current_user_can( 'edit_post', $post_id ) ) {
-						return;
-					}
+			if ( 'page' == $post_type ) {
+				if ( ! current_user_can( 'edit_page', $post_id ) ) {
+					return;
+				}
+			}
+			
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				return;
 			}
 
 			// Third we need to check if the user intended to change this value.

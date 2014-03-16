@@ -79,7 +79,7 @@ public static function enqueue_scripts( $scripts )
 		 * @package WPMVCBase\Helper Functions
 		 * @param string $target The directory absolute path.
 		 * @param bool $index Create an index.php in the directory (default true).
-		 * @param octal $permissions The directory permissions (default 0755 ).
+		 * @param integer $permissions The directory permissions (default 0755 ).
 		 * @since 0.1
 		 */
 		public static function create_directory( $target, $index = true, $permissions = 0755 )
@@ -105,9 +105,10 @@ public static function enqueue_scripts( $scripts )
 		 * @since 0.1
 		 */
 		public static function get_local_directory_contents( $directory )
-		{
+		{	
 			if ( is_dir( $directory ) ) {
 				if ( $files = scandir( $directory ) ) {
+					$contents = array();
 					foreach ( $files as $entry ) {
 						$filetype   = wp_check_filetype( $entry );
 						$contents[] = array(
@@ -117,7 +118,7 @@ public static function enqueue_scripts( $scripts )
 						);
 					}
 				}
-
+				
 				return $contents;
 			}
 		}
@@ -163,7 +164,7 @@ public static function enqueue_scripts( $scripts )
 		 *
 		 * @package WPMVCBase\Helper Functions
 		 * @param string $file The absolute path to the file.
-		 * @return TRUE on success, FALSE on failure.
+		 * @return boolean|null on success, FALSE on failure.
 		 * @deprecated
 		 * @since 0.1
 		 */
@@ -203,6 +204,7 @@ public static function enqueue_scripts( $scripts )
 		 *
 		 * @internal
 		 * @since 0.2
+		 * @param string $replacement
 		 */
 		public function deprecated( $deprecated, $replacement, $txtdomain = '' )
 		{

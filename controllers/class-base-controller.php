@@ -87,20 +87,12 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		/**
 		 * Add shortcodes to WP.
 		 *
-		 * @param  array $shortcodes
-		 * @return void
+		 * @param  array $shortcodes An array of key/value pairs containing the shortcode as key and the callback function as value.
+		 * @return WP_Error|null
 		 * @since  WPMVCBase 0.1
 		 */
 		public function add_shortcodes( array $shortcodes )
-		{
-			if ( ! is_array( $shortcodes ) ) {
-				return new WP_Error(
-					'non-array',
-					sprintf( __( '%s::%s expects an array', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
-					$shortcodes
-				);
-			}
-			
+		{	
 			foreach ( $shortcodes as $key => $shortcode ) {
 				add_shortcode( $key, $shortcode );
 			}
@@ -138,20 +130,11 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * Enqueue scripts.
 		 *
 		 * @param  array $scripts Array containing Base_Model_JS objects
-		 * @return void|object WP_Error object on failure.
+		 * @return WP_Error|null WP_Error object on failure.
 		 * @since  WPMVCBase 0.3
 		 */
 		public function enqueue_scripts( array $scripts )
-		{
-			
-			if ( ! is_array( $scripts ) ) {
-				return new WP_Error(
-					'non-array',
-					sprintf( __( '%s::%s expects an array', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
-					$scripts
-				);
-			}
-			
+		{	
 			foreach ( $scripts as $key => $script ) {
 				if( is_a( $script, 'Base_Model_JS_Object' ) ) {
 					wp_enqueue_script(
@@ -189,9 +172,6 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 *
 		 * @param    object $post The WP post object.
 		 * @param    object $metabox The WP_Metabox object to be rendered.
-		 * @param    string $txtdomain The plugin text domain.
-		 * @param    string $nonce_action The plugin nonce action.
-		 * @param    string $nonce_name The plugin nonce name.
 		 * @internal
 		 * @access   public
 		 * @since    WPMVCBase 0.1
