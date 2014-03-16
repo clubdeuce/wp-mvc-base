@@ -1,5 +1,5 @@
 {
-	"name": "wpmvcbase/wpmvcbase",
+	"name": "clubduece/wpmvcbase",
 	"type": "library",
 	"description": "MVC style framework for WordPress plugin development",
 	"keywords": ["wordpress","mvc","plugins"],
@@ -7,7 +7,7 @@
 	"license": "GPLv2.0",
 	"authors": [
 		{
-			"name": "Daryl Lozupone",
+			"name": "ClubDuece",
 			"email": "daryl@clubduece.com",
 			"role": "Developer"
     	}
