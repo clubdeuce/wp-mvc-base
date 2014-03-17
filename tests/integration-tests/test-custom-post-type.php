@@ -117,6 +117,7 @@ namespace WPMVCB\Testing
 		public function testMethodGetHelpTabs()
 		{
 			$this->model->get_help_tabs();
+			$this->markTestIncomplete( 'Not yet implemented' );
 		}
 	}
 }
