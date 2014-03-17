@@ -95,7 +95,7 @@ namespace WPMVCB\Testing
 		public function testMethodGetMetaboxes()
 		{
 			//This test currently fails.
-			$this-markTestIncomplete();
+			$this->markTestIncomplete();
 			
 			$expected = array(
 				'book_metabox' => new \Base_Model_Metabox(
