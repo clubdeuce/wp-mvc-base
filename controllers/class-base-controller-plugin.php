@@ -103,7 +103,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			$current_screen = get_current_screen();
 			$notices = $this->plugin_model->get_admin_notices();
 			
-			if ( isset ( $notices ) ) {
+			if ( isset ( $notices ) && is_array( $notices ) ) {
 				foreach ( $notices as $notice ) {
 					$screens = $notice->get_screens();
 					
