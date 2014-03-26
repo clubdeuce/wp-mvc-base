@@ -33,7 +33,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @access protected
 		 * @since  WPMVCBase 0.2
 		 */
-		protected $_main_plugin_file;
+		protected $main_plugin_file;
 		
 		/**
 		 * The absolute path to the plugin app path. Ends with a slash.
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @access protected
 		 * @since  WPMVCBase 0.2
 		 */
-		protected $_app_path;
+		protected $app_path;
 		
 		/**
 		 * The absolute path to the WPMVC Base path. Ends with a slash.
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @access protected
 		 * @since  WPMVCBase 0.2
 		 */
-		protected $_base_path;
+		protected $base_path;
 		
 		/**
 		 * The uri to the plugin directory. Ends with a slash.
@@ -60,7 +60,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @access protected
 		 * @since  WPMVCBase 0.2
 		 */
-		protected $_uri;
+		protected $uri;
 		
 		/**
 		 * The plugin text domain.
@@ -69,7 +69,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * @access protected
 		 * @since  WPMVCBase 0.2
 		 */
-		protected $_txtdomain;
+		protected $txtdomain;
 		
 		/**
 		 * The class constructor
