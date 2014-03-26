@@ -33,7 +33,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 * @access protected
 		 * @since  WPMVCBase 0.1
 		 */
-		protected $_cpt_models;
+		protected $cpt_models;
 		
 		/**
 		 * The class constructor.
