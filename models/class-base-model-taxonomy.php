@@ -15,6 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+require_once 'class-base-model.php';
 
 if ( ! class_exists( 'Base_Model_Taxonomy' ) ) {
 	/**
@@ -26,53 +27,53 @@ if ( ! class_exists( 'Base_Model_Taxonomy' ) ) {
 	 * @filesource models/class-base-model-taxonomy.php
 	 * @since      WPMVCB 0.3
 	 */
-	class Base_Model_Taxonomy extends Base_Model
+	abstract class Base_Model_Taxonomy extends Base_Model
 	{
 		/**
 		 * The taxonomy slug.
 		 * 
-		 * @access private
+		 * @access protected
 		 * @var    string
 		 * @since  0.3
 		 */
-		private $slug;
+		protected $slug;
 		
 		/**
 		 * The post types to which this taxonomy is applied.
 		 * 
-		 * @access private
+		 * @access protected
 		 * @var    array
 		 * @since  0.3
 		 */
-		private $object_types = null;
+		protected $object_types = null;
 		
 		/**
 		 * The taxonomy arguments passed to register_taxonomy().
 		 * 
-		 * @access private
+		 * @access protected
 		 * @var    array
 		 * @since  0.3
 		 * @link   http://codex.wordpress.org/Function_Reference/register_taxonomy#Arguments
 		 */
-		private $args;
+		protected $args;
 		
 		/**
 		 * The singular name for the taxonomy (e.g. book genre).
 		 * 
-		 * @access private
+		 * @access protected
 		 * @var    string
 		 * @since  0.3
 		 */
-		private $singular;
+		protected $singular;
 		
 		/**
 		 * The plural name for the taxonomy (e.g. book genres).
 		 * 
-		 * @access private
+		 * @access protected
 		 * @var    string
 		 * @since  0.3
 		 */
-		private $plural;
+		protected $plural;
 		
 		/**
 		 * Get the slug.
@@ -113,12 +114,12 @@ if ( ! class_exists( 'Base_Model_Taxonomy' ) ) {
 		/**
 		 * Get the labels.
 		 * 
-		 * @access public
-		 * @param  string $txtdomain The text domain used for translations.
-		 * @return array             An array containint key/value pairs for the taxonomy labels.
+		 * @access private
+		 * @param  string  $txtdomain The text domain used for translations.
+		 * @return array              An array containint key/value pairs for the taxonomy labels.
 		 * @since  0.3
 		 */
-		public function get_labels( $txtdomain )
+		protected function get_labels( $txtdomain )
 		{
 			return array(
 				'name'              => $this->plural,
