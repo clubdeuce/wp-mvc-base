@@ -402,7 +402,6 @@ namespace WPMVCB\Testing
 
 			//assert they are the same
 			$this->assertSame( 'foobar', $output );
-			$this->tearDown( $controller );
 		}
 
 		public function testMethodExistsRenderSettingsSection()
