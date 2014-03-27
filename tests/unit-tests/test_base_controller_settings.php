@@ -741,12 +741,13 @@ namespace WPMVCB\Testing
 		public function testMethodReturnTextarea()
 		{
 			$field = array(
-				'type'		=> 'textarea',
-				'id'		=> 'my-super-cool-textarea',
-				'name'		=> 'my_super_cool_textarea',
-				'value'		=> 'My textarea content'
+				'type'		  => 'textarea',
+				'id'		  => 'my-super-cool-textarea',
+				'name'		  => 'my_super_cool_textarea',
+				'value'		  => 'My textarea content',
+				'placeholder' => 'foo placeholder'
 			);
-			$expected = '<textarea id="my-super-cool-textarea" name="my_super_cool_textarea" >My textarea content</textarea>';
+			$expected = '<textarea id="my-super-cool-textarea" name="my_super_cool_textarea" placeholder="foo placeholder">My textarea content</textarea>';
 			$this->assertSame( $expected, $this->controller->render_settings_field( $field, 'noecho' ) );
 		}
 	}
