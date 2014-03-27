@@ -1,4 +1,4 @@
-# WP MVC Base Test Suite [![Build Status](https://secure.travis-ci.org/dlozupone/wp-mvc-base.png?branch=master)](http://travis-ci.org/dlozupone/wp-mvc-base)
+# WP MVC Base Test Suite [![Build Status](https://secure.travis-ci.org/dlozupone/wp-mvc-base.png?branch=master)](http://travis-ci.org/dlozupone/wp-mvc-base) [![Coverage Status](https://coveralls.io/repos/clubduece/wp-mvc-base/badge.png?branch=master)](https://coveralls.io/r/clubduece/wp-mvc-base?branch=master)
 
 Version: 1.0
 
