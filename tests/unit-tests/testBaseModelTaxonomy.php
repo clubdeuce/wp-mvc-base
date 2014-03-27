@@ -25,7 +25,7 @@ namespace WPMVCB\Testing\UnitTests
 		
 		public function setUp()
 		{
-			$this->model = new \Base_Model_Taxonomy();
+			$this->model = new stubTaxonomy('foo','bar','baz','foobar','foobaz');
 		}
 		
 		public function tearDown()
@@ -45,7 +45,7 @@ namespace WPMVCB\Testing\UnitTests
 		}
 		
 		/**
-		 * @covers Base_Model_Taxonomy::get_objeect_types
+		 * @covers Base_Model_Taxonomy::get_object_types
 		 */
 		public function testMethodGetObjectTypes()
 		{
@@ -67,35 +67,25 @@ namespace WPMVCB\Testing\UnitTests
 		}
 		
 		/**
-		 * @covers Base_Model_Taxonomy::get_singular
-		 */
-		public function testMethodGetSingular()
-		{
-			$this->assertTrue(method_exists($this->model, 'get_singular'), 'Method get_singular() does not exist');
-			
-			$this->setReflectionPropertyValue($this->model, 'singular', 'foo singular');
-			$this->assertEquals('foo singular', $this->model->get_singular());
-		}
-		
-		/**
-		 * @covers Base_Model_Taxonomy::get_plural
-		 */
-		public function testMethodGetPlural()
-		{
-			$this->assertTrue(method_exists($this->model, 'get_plural'), 'Method get_plural() does not exist');
-			
-			$this->setReflectionPropertyValue($this->model, 'plural', 'foo plural');
-			$this->assertEquals('foo plural', $this->model->get_plural());
-		}
-		/**
 		 * @covers Base_Model_Taxonomy::get_labels
 		 */
 		public function testMethodGetLabels()
 		{
 			$this->assertTrue(method_exists($this->model, 'get_labels'), 'Method get_labels() does not exist');
 			
-			$this->setReflectionPropertyValue($this->model, 'labels', 'foo labels');
-			$this->assertEquals('foo slug', $this->model->get_slug());
+			$this->markTestIncomplete();
+			$labels = $this->reflectionMethodInvokeArgs($this->model, 'get_labels', array('footxtdomain'));
+			$this->assertEquals('foo slug', $labels);
+		}
+	}
+	
+	class stubTaxonomy extends \Base_Model_Taxonomy
+	{
+		public function init()
+		{
+			$this->singular = 'foo single';
+			$this->plural   = 'foo plural';
+			$this->slug     = 'foo slug';
 		}
 	}
 }
