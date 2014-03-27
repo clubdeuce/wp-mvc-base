@@ -337,7 +337,7 @@ namespace WPMVCB\Testing
 		public function testMethodRenderOptionsPageNoView()
 		{
 			set_current_screen( 'foopage' );
-			$pages = array( 'foopage' => array( 'view' => 'fooview.php' ) );
+			$pages = array( 'foopage' => array( 'menu_slug' => 'foo-options-page', 'page_title' => 'Foo Options Page', 'view' => 'fooview.php' ) );
 
 			$this->model
 				->expects( $this->any() )
@@ -346,7 +346,10 @@ namespace WPMVCB\Testing
 
 			$controller = new \Base_Controller_Settings( $this->model );
 			$this->assertFileExists( WPMVCB_SRC_DIR . '/views/base_options_page.php' );
-
+			
+			$page = $pages['foopage'];
+			$this->txtdomain = 'footxtdomain';
+			
 			ob_start();
 			include WPMVCB_SRC_DIR . '/views/base_options_page.php';
 			$expected = ob_get_clean();
@@ -357,8 +360,6 @@ namespace WPMVCB\Testing
 
 			//$this->assertSame( $expected, $output );
 			$this->assertSame( $expected, $output );
-
-			$this->tearDown( $controller );
 		}
 
 		/**
