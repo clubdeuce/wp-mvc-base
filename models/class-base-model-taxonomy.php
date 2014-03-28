@@ -132,7 +132,7 @@ if ( ! class_exists( 'Base_Model_Taxonomy' ) ) {
 				'update_item'       => sprintf( __( 'Update %s', $txtdomain ), $this->singular ),
 				'add_new_item'      => sprintf( __( 'Add New %s', $txtdomain ), $this->singular ),
 				'new_item_name'     => sprintf( __( 'New %s Name', $txtdomain ), $this->singular ),
-				'menu_name'         => $this->singular,
+				'menu_name'         => $this->plural,
 			);
 		}
 	}
