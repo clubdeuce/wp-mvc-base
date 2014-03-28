@@ -100,6 +100,16 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			if ( isset( $this->cpt_models ) ) {
 				foreach ( $this->cpt_models as $cpt ) {
 					$return[ $cpt->get_slug() ] = register_post_type( $cpt->get_slug(), $cpt->get_args() );
+					
+					$taxonomies = $cpt->get_taxonomies();
+					if ( isset( $taxonomies ) ) {
+						foreach ( $taxonomies as $taxonomy ) {
+							if ( ! taxonomy_exists( $taxonomy->get_slug() ) ) {
+								register_taxonomy( $taxonomy->get_slug(), null, $taxonomy->get_args() );
+							}
+							register_taxonomy_for_object_type( $taxonomy->get_slug(), $cpt->get_slug() );
+						}
+					}
 				}
 			}
 			return $return;

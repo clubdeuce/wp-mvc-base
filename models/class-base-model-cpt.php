@@ -83,6 +83,15 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type
 		 */
 		protected $messages;
+		
+		/**
+		 * The taxonomies attached to this post type.
+		 * 
+		 * @access private
+		 * @var    array
+		 * @since  0.1
+		 */
+		private $taxonomies;
 	
 		/**
 		 * The class constructor.
@@ -229,6 +238,30 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 			
 			$this->args = $args;
 			return true;			
+		}
+		
+		/**
+		 * Add a taxonomy to the model.
+		 * 
+		 * @access public
+		 * @param  Base_Model_Taxonomy $taxonomy The taxonomy model.
+		 * @since  0.3
+		 */
+		public function add_taxonomy( $taxonomy )
+		{
+			$this->taxonomies[ $taxonomy->get_slug() ] = $taxonomy;
+		}
+		
+		/**
+		 * Get the taxonomies attached to this model.
+		 * 
+		 * @access public
+		 * @return array  $taxonomies
+		 * @since  0.3
+		 */
+		public function get_taxonomies()
+		{
+			return $this->taxonomies;
 		}
 	}
 endif;
