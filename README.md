@@ -27,7 +27,7 @@ There are various ways you can contribute to the project:
 4. Provide feedback and suggestions for [enhancements](https://github.com/dlozupone/wp-mvc-base/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open)
 
 ## Changelog ##
-# Version 0.3.1 #
+### Version 0.3.1 ###
 
 + Bug
     + [WPMVCB-36] - Fix label for custom post type published message
