@@ -144,7 +144,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 						4 => sprintf( __( '%s updated.', $this->txtdomain ), $cpt->get_singular() ),
 						/* translators: %2$s: date and time of the revision */
 						5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %s', $this->txtdomain ), $cpt->get_singular(), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-						6 => sprintf( __( '%s published. <a href="%s">View book</a>', $this->txtdomain ), $cpt->get_singular(), esc_url( get_permalink( $post->ID ) ) ),
+						6 => sprintf( __( '%1$s published. <a href="%2$s">View %1$s</a>', $this->txtdomain ), $cpt->get_singular(), esc_url( get_permalink( $post->ID ) ) ),
 						7 => sprintf( __( '%s saved.', $this->txtdomain ), $cpt->get_singular() ),
 						8 => sprintf(
 							__( '%1$s submitted. <a target="_blank" href="%3$s">Preview %2$s</a>', $this->txtdomain ),
