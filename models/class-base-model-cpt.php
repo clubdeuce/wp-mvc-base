@@ -247,7 +247,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @param  Base_Model_Taxonomy $taxonomy The taxonomy model.
 		 * @since  0.3
 		 */
-		public function add_taxonomy( $taxonomy )
+		public function add_taxonomy( Base_Model_Taxonomy $taxonomy )
 		{
 			$this->taxonomies[ $taxonomy->get_slug() ] = $taxonomy;
 		}
