@@ -31,7 +31,7 @@ namespace WPMVCB\Testing
 			);
 			
 			$this->_factory = new \WP_UnitTest_Factory;
-			$this->_cpt = $this->getMockBuilder( '\Base_Model_CPT' )
+			$this->cpt = $this->getMockBuilder( '\Base_Model_CPT' )
 			                   ->setConstructorArgs( $args )
 			                   ->getMockForAbstractClass();
 
@@ -47,7 +47,7 @@ namespace WPMVCB\Testing
 
 		protected function init_args()
 		{
-			$this->_cpt->set_args (
+			$this->cpt->set_args (
 				array(
 					'description'         	=> __( 'Books', 'my-super-cool-text-domain' ),
 					'labels'              	=> $labels,
@@ -85,7 +85,7 @@ namespace WPMVCB\Testing
 		public function testPropertySlug()
 		{
 			$this->assertClassHasAttribute( 'slug', '\Base_Model_CPT' );
-			$this->assertSame( 'fooslug', $this->getReflectionPropertyValue( $this->_cpt, 'slug' ) );
+			$this->assertSame( 'fooslug', $this->getReflectionPropertyValue( $this->cpt, 'slug' ) );
 		}
 		
 		/**
@@ -94,7 +94,7 @@ namespace WPMVCB\Testing
 		public function testPropertySingular()
 		{
 			$this->assertClassHasAttribute( 'singular', '\Base_Model_CPT' );
-			$this->assertSame( 'Book', $this->getReflectionPropertyValue( $this->_cpt, 'singular' ) );
+			$this->assertSame( 'Book', $this->getReflectionPropertyValue( $this->cpt, 'singular' ) );
 		}
 		
 		/**
@@ -103,7 +103,7 @@ namespace WPMVCB\Testing
 		public function testPropertyPlural()
 		{
 			$this->assertClassHasAttribute( 'plural', '\Base_Model_CPT' );
-			$this->assertSame( 'Books', $this->getReflectionPropertyValue( $this->_cpt, 'plural' ) );
+			$this->assertSame( 'Books', $this->getReflectionPropertyValue( $this->cpt, 'plural' ) );
 		}
 		
 		/**
@@ -128,9 +128,9 @@ namespace WPMVCB\Testing
 			);
 
 			$this->assertClassHasAttribute( 'labels', '\Base_Model_CPT' );
-			$this->assertTrue( method_exists( $this->_cpt, 'init_labels' ) );
-			$this->reflectionMethodInvokeArgs( $this->_cpt, 'init_labels', 'footxtdomain' );
-			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->_cpt, 'labels' ) );
+			$this->assertTrue( method_exists( $this->cpt, 'init_labels' ) );
+			$this->reflectionMethodInvokeArgs( $this->cpt, 'init_labels', 'footxtdomain' );
+			$this->assertEquals( $expected, $this->getReflectionPropertyValue( $this->cpt, 'labels' ) );
 		}
 		
 		/**
@@ -138,8 +138,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetSingular()
 		{
-			$this->assertTrue( method_exists( $this->_cpt, 'get_singular' ), 'get_singular() does not exist' );
-			$this->assertSame( 'Book', $this->_cpt->get_singular() );
+			$this->assertTrue( method_exists( $this->cpt, 'get_singular' ), 'get_singular() does not exist' );
+			$this->assertSame( 'Book', $this->cpt->get_singular() );
 		}
 		
 		/**
@@ -147,8 +147,8 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetPlural()
 		{
-			$this->assertTrue( method_exists( $this->_cpt, 'get_plural' ), 'get_plural() does not exist' );
-			$this->assertSame( 'Books', $this->_cpt->get_plural() );
+			$this->assertTrue( method_exists( $this->cpt, 'get_plural' ), 'get_plural() does not exist' );
+			$this->assertSame( 'Books', $this->cpt->get_plural() );
 		}
 		
 		/**
@@ -157,8 +157,8 @@ namespace WPMVCB\Testing
 		public function testMethodGetSlug()
 		{
 			$this->assertClassHasAttribute( 'slug', '\Base_Model_CPT' );
-			$this->assertTrue( method_exists( $this->_cpt, 'get_slug' ) );
-			$this->assertEquals( 'fooslug', $this->_cpt->get_slug() );
+			$this->assertTrue( method_exists( $this->cpt, 'get_slug' ) );
+			$this->assertEquals( 'fooslug', $this->cpt->get_slug() );
 		}
 
 		/**
@@ -166,9 +166,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetArgs()
 		{
-			$this->assertTrue( method_exists( $this->_cpt, 'set_args' ) );
-			$this->_cpt->set_args( array( 'foo' => 'bar' ) );
-			$this->assertEquals( array( 'foo' => 'bar' ), $this->getReflectionPropertyValue( $this->_cpt, 'args' ) );
+			$this->assertTrue( method_exists( $this->cpt, 'set_args' ) );
+			$this->cpt->set_args( array( 'foo' => 'bar' ) );
+			$this->assertEquals( array( 'foo' => 'bar' ), $this->getReflectionPropertyValue( $this->cpt, 'args' ) );
 		}
 
 		/**
@@ -176,10 +176,10 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodSetArgsNonArray()
 		{
-			$this->assertTrue( method_exists( $this->_cpt, 'set_args' ) );
+			$this->assertTrue( method_exists( $this->cpt, 'set_args' ) );
 			$this->assertEquals(
 				new \WP_Error( 'FAIL', 'Base_Model_CPT::set_args expects an array', 'foo' ),
-				$this->_cpt->set_args( 'foo' )
+				$this->cpt->set_args( 'foo' )
 			);
 		}
 
@@ -188,9 +188,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetArgs()
 		{
-			$this->assertTrue( method_exists( $this->_cpt, 'get_args' ) );
-			$this->setReflectionPropertyValue( $this->_cpt, 'args', array( 'foo' => 'bar' ) );
-			$this->assertEquals( array( 'foo' => 'bar' ), $this->_cpt->get_args( array( 'foo' => 'bar' ) ) );
+			$this->assertTrue( method_exists( $this->cpt, 'get_args' ) );
+			$this->setReflectionPropertyValue( $this->cpt, 'args', array( 'foo' => 'bar' ) );
+			$this->assertEquals( array( 'foo' => 'bar' ), $this->cpt->get_args( array( 'foo' => 'bar' ) ) );
 		}
 
 		/**
@@ -200,7 +200,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetArgsDefaults()
 		{
-			$this->assertTrue( method_exists( $this->_cpt, 'get_args' ) );
+			$this->assertTrue( method_exists( $this->cpt, 'get_args' ) );
 			
 			$expected = array(
 				'description'         	=> 'Books',
@@ -234,7 +234,7 @@ namespace WPMVCB\Testing
 				'rewrite' 			  	=> array( 'slug' => 'fooslug' ),
 			);
 			
-			$this->assertSame( $expected, $this->_cpt->get_args() );
+			$this->assertSame( $expected, $this->cpt->get_args() );
 		}
 	}
 } //namespace
