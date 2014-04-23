@@ -304,7 +304,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @since  0.3.2
 		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
 		 */
-		protected $has_archive;
+		protected $rewrite;
 
 		/**
 		 * The custom post type query_var key
