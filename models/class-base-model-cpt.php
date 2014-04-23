@@ -73,7 +73,263 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
 		 */
 		protected $args;
-	
+
+		/**
+		 * The custom post type description
+		 * 
+		 * A short descriptive summary of what the post type is. 
+		 * 
+		 * @var    string
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $description = '';
+
+		/**
+		 * Public property
+		 * 
+		 * Whether a post type is intended to be used publicly either via the admin interface or by front-end users.
+		 * 
+		 * @var    bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $public = false;
+
+		/**
+		 * Whether to exclude posts with this post type from front end search results.
+		 * 
+		 * @var    bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $exclude_from_search;
+
+		
+		/**
+		 * Whether queries can be performed on the front end as part of parse_request().
+		 * 
+		 * @var    bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $publicly_queryable;
+
+		/**
+		 * Show in admin dashboard?
+		 * 
+		 * Whether to generate a default UI for managing this post type in the admin.
+		 * 
+		 * @var    bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $show_ui;
+
+		/**
+		 * The show_in_nav_menus property
+		 * 
+		 * Whether post_type is available for selection in navigation menus. 
+		 * 
+		 * @var    bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $show_in_nav_menus;
+
+		/**
+		 * The show_in_menu property
+		 * 
+		 * Where to show the post type in the admin menu. show_ui must be true.
+		 * 
+		 * @var    bool|string
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $show_in_menu;
+
+		/**
+		 * The show_in_menu_bar property
+		 * 
+		 * Whether to make this post type available in the WordPress admin bar.
+		 * 
+		 * @var    bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $show_in_admin_bar;
+
+		/**
+		 * The menu_position property
+		 * 
+		 * Whether to make this post type available in the WordPress admin bar.
+		 * 
+		 * @var    int
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $menu_position = null;
+
+		/**
+		 * The menu_icon property
+		 * 
+		 * The url to the icon to be used for this menu or the name of the icon from the iconfont
+		 * 
+		 * @var    string
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $menu_icon;
+
+		/**
+		 * The capability_type property
+		 * 
+		 * The string to use to build the read, edit, and delete capabilities.
+		 * 
+		 * @var    string|array
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $capability_type;
+
+		/**
+		 * The capabilities property
+		 * 
+		 * The string to use to build the read, edit, and delete capabilities.
+		 * 
+		 * @var    array
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $capabilities;
+
+		/**
+		 * The map_meta_cap property
+		 * 
+		 * Whether to use the internal default meta capability handling.
+		 * 
+		 * @var    bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $map_meta_cap = null;
+
+		/**
+		 * The hierarchical property
+		 * 
+		 * Whether the post type is hierarchical (e.g. page). Allows Parent to be specified.
+		 * The 'supports' parameter should contain 'page-attributes' to show the parent select box on the editor page. 
+		 * 
+		 * @var    bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $hierarchical = null;
+
+		/**
+		 * The supports property
+		 * 
+		 * An alias for calling add_post_type_support() directly. As of WordPress 3.5, boolean false can be
+		 * passed as value instead of an array to prevent default (title and editor) behavior. 
+		 * 
+		 * @var    array|bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $supports = array( 'title', 'editor' );
+
+		/**
+		 * The custom post type metabox callback
+		 * 
+		 * An alias for calling add_post_type_support() directly. As of WordPress 3.5, boolean false can be
+		 * passed as value instead of an array to prevent default (title and editor) behavior. 
+		 * 
+		 * @var    callback
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $register_meta_box_cb;
+
+		/**
+		 * The custom post type taxonomies
+		 * 
+		 * An array of registered taxonomies like category or post_tag that will be used with this post type.
+		 * This can be used in lieu of calling register_taxonomy_for_object_type() directly. Custom taxonomies
+		 * still need to be registered with register_taxonomy().  
+		 * 
+		 * @var    array
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $taxonomies;
+
+		/**
+		 * The has_archive property
+		 * 
+		 * Enables post type archives. Will use the first parameter passed into register_post_type()
+		 * as archive slug by default.   
+		 * 
+		 * @var    bool|string
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $has_archive;
+
+		/**
+		 * Enable rewrite for custom post type
+		 * 
+		 * Triggers the handling of rewrites for this post type. To prevent rewrites, set to false.
+		 * Default: true and use $post_type as slug 
+		 * 
+		 * @var    bool|array
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $has_archive;
+
+		/**
+		 * The custom post type query_var key
+		 * 
+		 * Default: true - set to first parameter passed into register_post_type() 
+		 * 
+		 * @var    string
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $query_var;
+
+		/**
+		 * Is the post type exportable?
+		 * 
+		 * Default: true
+		 * 
+		 * @var    bool
+		 * @access protected
+		 * @since  0.3.2
+		 * @link   http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 */
+		protected $can_export;
+
 		/**
 		 * The CPT post updated/deleted/etc messages.
 		 *
