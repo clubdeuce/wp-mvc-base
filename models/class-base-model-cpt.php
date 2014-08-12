@@ -30,9 +30,9 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 		/**
 		 * The cpt slug. Used to register the post type.
 		 *
-		 * @var string
+		 * @var    string
 		 * @access protected
-		 * @since WPMVCBase 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		protected $slug;
 		
