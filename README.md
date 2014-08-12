@@ -6,7 +6,7 @@ Scrutinizer-CI: [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/clubd
 
 Coveralls: [![Coverage Status](https://coveralls.io/repos/clubduece/wp-mvc-base/badge.png?branch=master)](https://coveralls.io/r/clubduece/wp-mvc-base?branch=master)
 
-VersionEye: [![Dependency Status](https://www.versioneye.com/user/projects/51ed3d7d632bac3b890035eb/badge.png)](https://www.versioneye.com/user/projects/51ed3d7d632bac3b890035eb)
+VersionEye: [![Dependency Status](https://www.versioneye.com/user/projects/533aeeea7bae4be7ee000050/badge.svg?style=flat)](https://www.versioneye.com/user/projects/533aeeea7bae4be7ee000050)
 
 The purpose of this project is to create a base, mvc-style framework for rapid WordPress plugin development. To that end, this framework includes models for custom post types, metaboxes, screen help tabs, etc.
 
