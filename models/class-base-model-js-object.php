@@ -130,7 +130,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( $handle, $src = null, $deps = array(), $version = false, $in_footer = false, $localization_var = array(), $localization_args = array() )
+		public function __construct( $handle, $src = null, $deps = array(), $version = false, $in_footer = false, $localization_var = '', $localization_args = array() )
 		{
 			$this->handle            = $handle;
 			$this->src               = $src;
