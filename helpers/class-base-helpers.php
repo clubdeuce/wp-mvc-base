@@ -204,6 +204,7 @@ public static function enqueue_scripts( $scripts )
 		 *
 		 * @internal
 		 * @since 0.2
+		 * @param string $deprecated
 		 * @param string $replacement
 		 */
 		public function deprecated( $deprecated, $replacement, $txtdomain = '' )
