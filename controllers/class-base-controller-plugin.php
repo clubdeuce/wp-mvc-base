@@ -154,7 +154,6 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		/**
 		 * Enqueue scripts and styles for admin pages
 		 *
-		 * @param    string $hook The WP page hook.
 		 * @uses     Helper_Functions::enqueue_styles
 		 * @uses     Helper_Functions::enqueue_scripts
 		 * @uses     Base_Model_Plugin::get_admin_css
@@ -164,11 +163,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 * @since    WPMVCBase 0.1
 		 * @todo     modify this function to enqueue scripts based on wp_screen object
 		 */
-		public function admin_enqueue_scripts( $hook )
+		public function admin_enqueue_scripts()
 		{
-			global $post;
-			$screen = get_current_screen();
-
 			//register the scripts
 			$scripts = $this->plugin_model->get_admin_scripts();
 			
