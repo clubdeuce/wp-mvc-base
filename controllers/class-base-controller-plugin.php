@@ -131,7 +131,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			$screen = get_current_screen();
 
 			//are there help tabs for this screen?
-			$tabs = $this->model->get_help_tabs();
+			$tabs = $this->plugin_model->get_help_tabs();
 			if ( ! empty ($tabs[ $screen->id ] ) ) {
 				foreach ( $tabs[ $screen->id ] as $tab ) {
 					$tab->add();
@@ -139,7 +139,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			}
 
 			//are there javascripts registered for this screen?
-			$admin_js = $this->model->get_admin_js();
+			$admin_js = $this->plugin_model->get_admin_scripts();
 			if ( ! empty( $admin_js[ $screen->id ] ) ) {
 				foreach ( $admin_js[ $screen->id ] as $script ) {
 					$script->enqueue();
@@ -148,7 +148,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			}
 
 			//are there styles registered for this screen?
-			$css = $this->model->get_admin_css();
+			$css = $this->plugin_model->get_admin_css();
 			if ( ! empty( $css[ $screen->id ] ) ):
 				Helper_Functions::enqueue_styles( $css[ $screen->id ] );
 			endif;
