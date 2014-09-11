@@ -64,6 +64,33 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		protected $settings_model;
 
 		/**
+		 * Help tabs for the plugin
+		 * 
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.3
+		 */
+		protected $help_tabs = array();
+
+		/**
+		 * Admin javascript for the plugin
+		 * 
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.3
+		 */
+		protected $admin_js = array();
+
+		/**
+		 * Admin css for the plugin
+		 * 
+		 * @var    array
+		 * @access protected
+		 * @since  WPMVCBase 0.3
+		 */
+		protected $admin_css = array();
+
+		/**
 		 * The nonce name to be used for plugin form submissions.
 		 *
 		 * @var    string
@@ -138,6 +165,42 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		public function get_version()
 		{
 			return $this->version;
+		}
+
+		/**
+		 * Get the help tabs
+		 * 
+		 * @return array          $help_tabs
+		 * @access public
+		 * @since  WPMVCBase 0.3
+		 */
+		public function get_help_tabs()
+		{
+			return $this->help_tabs;
+		}
+
+		/**
+		 * Get the admin javascript
+		 * 
+		 * @return array         $admin_js
+		 * @access public
+		 * @since  WPMVCBase 0.3
+		 */
+		public function get_admin_js()
+		{
+			return $this->admin_js;
+		}
+
+		/**
+		 * Get the help tabs
+		 * 
+		 * @return array         $admin_css
+		 * @access public
+		 * @since  WPMVCBase 0.3
+		 */
+		public function get_admin_css()
+		{
+			return $this->admin_css;
 		}
 	}
 endif;
