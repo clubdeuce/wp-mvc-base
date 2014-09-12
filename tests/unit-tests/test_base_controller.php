@@ -79,6 +79,7 @@ namespace WPMVCB\Testing
 
 		/**
 		 * @covers Base_Controller::add_shortcodes
+		 * @uses   Base_Controller::__construct
 		 * @depends testMethodExistsAddShortcodes
 		 */
 		public function testMethodAddShortcodes()
@@ -89,8 +90,9 @@ namespace WPMVCB\Testing
 		}
 
 		/**
-		 * @covers Base_Controller::add_shortcodes
-		 * @depends testMethodExistsAddShortcodes
+		 * @covers            Base_Controller::add_shortcodes
+		 * @uses              Base_Controller::__construct
+		 * @depends           testMethodExistsAddShortcodes
 		 * @expectedException PHPUnit_Framework_Error
 		 */
 		public function testMethodAddShortcodesNonArray()
@@ -100,6 +102,8 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Controller::add_meta_boxes
+		 * @uses   Base_Controller::__construct
+		 * @uses   Base_Controller::add_shortcodes
 		 */
 		public function testMethodAddMetaboxes()
 		{
@@ -141,6 +145,7 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Controller::add_meta_boxes
+		 * @uses   Base_Controller::__construct
 		 */
 		public function testMethodAddMetaboxesEmptyCallback()
 		{
@@ -208,6 +213,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testMethodExistsRenderMetabox
 		 * @covers Base_Controller::render_metabox
+		 * @uses   Base_Controller::__construct
 		 */
 		public function testRenderMetaboxNoViewSpecified()
 		{
@@ -234,6 +240,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testMethodExistsRenderMetabox
 		 * @covers Base_Controller::render_metabox
+		 * @uses   Base_Controller::__construct
 		 */
 		public function testRenderMetaboxViewNonexistent()
 		{
@@ -262,6 +269,7 @@ namespace WPMVCB\Testing
 		/**
 		 * @depends testMethodExistsRenderMetabox
 		 * @covers Base_Controller::render_metabox
+		 * @uses   Base_Controller::__construct
 		 */
 		public function testMethodRenderMetabox()
 		{
@@ -301,6 +309,7 @@ namespace WPMVCB\Testing
 		
 		/**
 		 * @covers Base_Controller::enqueue_scripts
+		 * @uses   Base_Controller::__construct
 		 */
 		public function testMethodEnqueueScripts()
 		{
@@ -353,6 +362,7 @@ namespace WPMVCB\Testing
 		 * In this test, we pass an non-array to the method.
 		 *
 		 * @covers Base_Controller::enqueue_scripts
+		 * @uses   Base_Controller::__construct
 		 * @expectedException PHPUnit_Framework_Error
 		 */
 		public function testMethodEnqueueScriptsNonArray()
@@ -364,6 +374,7 @@ namespace WPMVCB\Testing
 		 * In this test, we pass an array that does not contain Base_Model_JS_Objects.
 		 *
 		 * @covers Base_Controller::enqueue_scripts
+		 * @uses   Base_Controller::__construct
 		 */
 		public function testMethodEnqueueScriptsInvalidScriptObject()
 		{

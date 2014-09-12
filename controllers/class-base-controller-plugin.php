@@ -131,30 +131,32 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			$screen = get_current_screen();
 
 			//are there help tabs for this screen?
-			if ( isset( $this->help_tabs[ $screen->id ] ) ) {
-				foreach ( $this->help_tabs[ $screen->id ] as $tab ) {
+			$tabs = $this->plugin_model->get_help_tabs();
+			if ( ! empty ($tabs[ $screen->id ] ) ) {
+				foreach ( $tabs[ $screen->id ] as $tab ) {
 					$tab->add();
 				}
 			}
 
 			//are there javascripts registered for this screen?
-			if ( isset( $this->admin_js[ $screen->id ] ) ) {
-				foreach ( $this->admin_js[ $screen->id ] as $script ) {
+			$admin_js = $this->plugin_model->get_admin_scripts();
+			if ( ! empty( $admin_js[ $screen->id ] ) ) {
+				foreach ( $admin_js[ $screen->id ] as $script ) {
 					$script->enqueue();
 					$script->localize();
 				}
 			}
 
 			//are there styles registered for this screen?
-			if ( isset( $this->admin_css[ $screen->id ] ) ):
-				Helper_Functions::enqueue_styles( $this->admin_css[ $screen->id ] );
+			$css = $this->plugin_model->get_admin_css();
+			if ( ! empty( $css[ $screen->id ] ) ):
+				Helper_Functions::enqueue_styles( $css[ $screen->id ] );
 			endif;
 		}
 
 		/**
 		 * Enqueue scripts and styles for admin pages
 		 *
-		 * @param    string $hook The WP page hook.
 		 * @uses     Helper_Functions::enqueue_styles
 		 * @uses     Helper_Functions::enqueue_scripts
 		 * @uses     Base_Model_Plugin::get_admin_css
@@ -164,11 +166,8 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 * @since    WPMVCBase 0.1
 		 * @todo     modify this function to enqueue scripts based on wp_screen object
 		 */
-		public function admin_enqueue_scripts( $hook )
+		public function admin_enqueue_scripts()
 		{
-			global $post;
-			$screen = get_current_screen();
-
 			//register the scripts
 			$scripts = $this->plugin_model->get_admin_scripts();
 			

@@ -188,8 +188,8 @@ if ( ! class_exists( 'Base_Controller' ) ):
 					return;
 				}
 				
-				if ( file_exists( $this->_app_path . 'views/' . $metabox['args']['view'] ) ) {
-					include $this->_app_path . 'views/' . $metabox['args']['view'];
+				if ( file_exists( $this->app_path . 'views/' . $metabox['args']['view'] ) ) {
+					include $this->app_path . 'views/' . $metabox['args']['view'];
 					return;
 				}
 				

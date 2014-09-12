@@ -107,8 +107,8 @@ public static function enqueue_scripts( $scripts )
 		public static function get_local_directory_contents( $directory )
 		{	
 			if ( is_dir( $directory ) ) {
+				$contents = array();
 				if ( $files = scandir( $directory ) ) {
-					$contents = array();
 					foreach ( $files as $entry ) {
 						$filetype   = wp_check_filetype( $entry );
 						$contents[] = array(
@@ -204,6 +204,7 @@ public static function enqueue_scripts( $scripts )
 		 *
 		 * @internal
 		 * @since 0.2
+		 * @param string $deprecated
 		 * @param string $replacement
 		 */
 		public function deprecated( $deprecated, $replacement, $txtdomain = '' )

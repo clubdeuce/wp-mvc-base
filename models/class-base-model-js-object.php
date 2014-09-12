@@ -130,7 +130,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( $handle, $src = false, $deps = array(), $version = false, $in_footer = false, $localization_var = null, $localization_args = null )
+		public function __construct( $handle, $src = null, $deps = array(), $version = false, $in_footer = false, $localization_var = '', $localization_args = array() )
 		{
 			$this->handle            = $handle;
 			$this->src               = $src;
@@ -181,7 +181,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		public function localize()
 		{
-			if ( isset( $this->localization_var ) && isset( $this->localization_args ) ) {
+			if ( ! empty( $this->localization_var ) && ! empty( $this->localization_args ) ) {
 				return wp_localize_script( $this->handle, $this->localization_var, $this->localization_args );
 			}
 			
@@ -275,7 +275,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		function get_localization_var()
 		{
-			if ( isset( $this->localization_var ) ) {
+			if ( ! empty( $this->localization_var ) ) {
 				return $this->localization_var;
 			}
 			
@@ -290,7 +290,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 */
 		function get_localization_args()
 		{
-			if ( isset( $this->localization_args ) ) {
+			if ( ! empty( $this->localization_args ) ) {
 				return $this->localization_args;
 			}
 			
