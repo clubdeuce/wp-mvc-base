@@ -111,7 +111,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 						echo $notice->get_message();
 					}
 					
-					if ( 'all' == $screens ) {
+					if ( in_array( 'all', $screens ) ) {
 						echo $notice->get_message();
 					}
 				}

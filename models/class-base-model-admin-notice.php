@@ -65,7 +65,7 @@ if ( ! class_exists( 'Base_Model_Admin_Notice' ) ) {
 		{
 			$this->type    = $type;
 			$this->message = $message;
-			$this->screens = 'all';
+			$this->screens = array( 'all' );
 			
 			if ( isset( $screens ) ) {
 				$this->screens  = $screens;
