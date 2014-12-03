@@ -41,6 +41,7 @@ class WPMVCB
             'Base_Model_Plugin'        => 'models/class-base-model-plugin.php',
             'Base_Model_Settings'      => 'models/class-base-model-settings.php',
             'Base_Model_Taxonomy'      => 'models/class-base-model-taxonomy.php',
+            'Helper_Functions'         => 'helpers/class-base-helpers.php',
         );
 
         spl_autoload_register( array( __CLASS__, 'autoloader' ) );
