@@ -178,9 +178,9 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * Localize the script
 		 *
-		 * @link http://codex.wordpress.org/Function_Reference/wp_localize_script
+		 * @link   http://codex.wordpress.org/Function_Reference/wp_localize_script
 		 * @return bool TRUE on success, FALSE on failure
-		 * @since WPMVCBase 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function localize()
 		{
