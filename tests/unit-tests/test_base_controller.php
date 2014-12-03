@@ -1,7 +1,11 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once( WPMVCB_SRC_DIR . '/controllers/class-base-controller.php' );
+    use \Base_Controller;
+    use \Mockery;
+    use \org\bovigo\vfs\vfsStreamWrapper;
+    use \org\bovigo\vfs\vfsStreamDirectory;
+    use \org\bovigo\vfs\vfsStream;
 
 	/**
 	 * The test controller for Base_Controller_Plugin
@@ -12,22 +16,37 @@ namespace WPMVCB\Testing
 
 	class testBaseController extends WPMVCB_Test_Case
 	{
+        /**
+         * @var string
+         */
+        private $_mock_path;
+
+        /**
+         * @var string
+         */
+        private $_filesystem;
+
+        /**
+         * @var Stub_Controller
+         */
+        private $_controller;
+
 		public function setUp()
 		{
 			parent::setUp();
 
 			//set up the virtual filesystem
-			\org\bovigo\vfs\vfsStreamWrapper::register();
-			\org\bovigo\vfs\vfsStreamWrapper::setRoot( new \org\bovigo\vfs\vfsStreamDirectory( 'test_dir' ) );
-			$this->_mock_path = trailingslashit( \org\bovigo\vfs\vfsStream::url( 'test_dir' ) );
-			$this->_filesystem = \org\bovigo\vfs\vfsStreamWrapper::getRoot();
+			vfsStreamWrapper::register();
+			vfsStreamWrapper::setRoot( new vfsStreamDirectory( 'test_dir' ) );
+			$this->_mock_path = trailingslashit( vfsStream::url( 'test_dir' ) );
+			$this->_filesystem = vfsStreamWrapper::getRoot();
 
-			$this->_controller = new \Base_Controller(
-				'/home/foo/plugin.php',
-				'/home/foo/app',
-				'/home/foo/base',
-				'http://example.com/foo',
-				'footextdomain'
+			$this->_controller = new Stub_Controller(
+//                '/home/foo/plugin.php',
+//                '/home/foo/app',
+//				'/home/foo/base',
+//                'http://example.com/foo',
+//                'footextdomain'
 			);
 		}
 
@@ -390,4 +409,23 @@ namespace WPMVCB\Testing
 			);
 		}
 	}
+
+    /**
+     * Class Stub_Controller
+     *
+     * @package  WPMVCB\Testing
+     * @internal
+     */
+    class Stub_Controller extends Base_Controller
+    {
+        public function __construct( $args = array() )
+        {
+            $args = wp_parse_args( $args, array(
+                'model' => Mockery::mock( 'Base_Model' ),
+                'view'  => Mockery::mock( 'Base_View' ),
+            ) );
+
+            parent::__construct( $args );
+        }
+    }
 }

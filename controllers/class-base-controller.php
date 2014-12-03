@@ -24,8 +24,12 @@ if ( ! class_exists( 'Base_Controller' ) ):
 	 * @version  0.2
 	 * @since WPMVCBase 0.2
 	 */
-	class Base_Controller
+	abstract class Base_Controller
 	{
+        protected $model;
+        
+        protected $view;
+        
 		/**
 		 * The absolute path to the main plugin file. Ends with a slash.
 		 * 
@@ -63,25 +67,24 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		protected $uri;
 		
 		/**
-		 * The plugin text domain.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $txtdomain;
-		
-		/**
 		 * The class constructor
 		 *
-		 * @access protected
-		 * @since WPMVCBase 0.1
+		 * @access public
+		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct()
-		{	
-			add_action( 'wp_enqueue_scripts',    array( &$this, 'wp_enqueue_scripts' ) );
-			add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
-			add_action( 'add_meta_boxes',        array( &$this, 'add_meta_boxes' ) );
+		public function __construct( array $args = array() )
+		{
+            $args = wp_parse_args( $args, array(
+                $model = null,
+                $view  = null,
+            ) );
+
+            $this->model = $args['model'];
+            $this->view  = $args['view'];
+
+			add_action( 'wp_enqueue_scripts',    array( $this, 'wp_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+			add_action( 'add_meta_boxes',        array( $this, 'add_meta_boxes' ) );
 		}
 		
 		/**
@@ -116,7 +119,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 					add_meta_box( 
 						$metabox->get_id(),
 						$metabox->get_title(),
-						is_callable( $metabox->get_callback() ) ? $metabox->get_callback() : array( &$this, 'render_metabox' ),
+						is_callable( $metabox->get_callback() ) ? $metabox->get_callback() : array( $this, 'render_metabox' ),
 						$post_type,
 						$metabox->get_context(),
 						$metabox->get_priority(),
@@ -130,7 +133,7 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		 * Enqueue scripts.
 		 *
 		 * @param  array $scripts Array containing Base_Model_JS objects
-		 * @return WP_Error|null WP_Error object on failure.
+		 * @return WP_Error|null  WP_Error object on failure.
 		 * @since  WPMVCBase 0.3
 		 */
 		public function enqueue_scripts( array $scripts )
