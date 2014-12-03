@@ -376,7 +376,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the frontend CSS.
 		 *
-		 * @return array\bool $css if set, FALSE if not.
+		 * @return array|bool $css if set, FALSE if not.
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
