@@ -29,81 +29,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 	abstract class Base_Model
 	{
 		/**
-		 * The class version
-		 *
-		 * @var    string
-		 * @access private
-		 * @since WPMVCBase 0.2
-		 */
-		private $version = '0.2';
-		
-		/**
-		 * The plugin path.
-		 *
-		 * This is the base directory for the plugin ( e.g. /home/user/public_html/wp-content/plugins/my-plugin ).
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.1
-		 */
-		protected $path;
-
-		/**
-		 * The plugin app path.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.1
-		 */
-		protected $app_path;
-
-		/**
-		 * The base directory path.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.1
-		 */
-		protected $base_path;
-
-		/**
-		 * The absoulte path to the main plugin file.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.1
-		 */
-		protected $main_plugin_file;
-
-		/**
-		  * The plugin uri.
-		  *
-		  * @var    string
-		  * @access protected
-		  * @since  WPMVCBase 0.1
-		  */
-		protected $uri;
-
-		/**
-		 * The uri to the js assets.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.1
-		 */
-		protected $js_uri;
-
-		/**
-		 * The uri to the css assets.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.1
-		 */
-		protected $css_uri;
-		
-		/**
-		 * The plugin css files
+		 * The css files required by this model
 		 *
 		 * An array containing css used by the model.
 		 *
@@ -193,22 +119,30 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * The class constructor.
 		 *
-		 * @param  string $main_plugin_file
-		 * @param  string $app_path
-		 * @param  string $base_path
-		 * @param  string $uri
-		 * @param  string $txtdomain
-		 * @param string $plugin_path
+		 * @param  array $args
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct(  $main_plugin_file, $plugin_path, $app_path, $base_path, $uri )
+		public function __construct( $args )
 		{
-			$this->main_plugin_file = $main_plugin_file;
-			$this->path             = trailingslashit( $plugin_path );
-			$this->app_path         = trailingslashit( $app_path );
-			$this->base_path        = trailingslashit( $base_path );
-			$this->uri              = trailingslashit( $uri );
+			$args = wp_parse_args( $args, array(
+                'css'           => null,
+                'admin_css'     => null,
+                'scripts'       => null,
+                'admin_scripts' => null,
+                'metaboxes'     => null,
+                'help_tabs'     => null,
+                'shortcodes'    => null,
+                'admin_notices' => null,
+            ) );
+
+            $this->css = $args['css'];
+            $this->admin_css     = $args['admin_css'];
+            $this->scripts       = $args['scripts'];
+            $this->admin_scripts = $args['admin_scripts'];
+            $this->metaboxes     = $args['metaboxes'];
+            $this->help_tabs     = $args['help_tabs'];
+            $this->admin_notices = $args['admin_notices'];
 			
 			$this->init();
 		}
@@ -468,23 +402,6 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			}
 			
 			return false;
-		}
-
-		/**
-		 * Get the cpt help screen tabs.
-		 *
-		 * @return      array|FALSE $help_tabs if set, FALSE if not.
-		 * @access      public
-		 * @deprecated
-		 * @since       WPMVCBase 0.1
-		 */
-		public function get_help_screen()
-		{
-			//warn the user about deprecated function use
-			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', 'wpmvcb' );
-			
-			//and point to the replacement function
-			return $this->get_help_tabs();
 		}
 		
 		/**
