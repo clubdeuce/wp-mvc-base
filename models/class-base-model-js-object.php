@@ -122,23 +122,27 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 *
 		 * @param  string      $handle
 		 * @param  string      $src
-		 * @param  array       $deps
-		 * @param  string|bool $version
-		 * @param  bool        $in_footer
-		 * @param  string      $localization_var
-		 * @param  array       $localization_args
+		 * @param  array       $args   An array containing additional arguments
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( $handle, $src = null, $deps = array(), $version = false, $in_footer = false, $localization_var = '', $localization_args = array() )
+		public function __construct( $handle, $src = null, array $args = array() )
 		{
+            $args = wp_parse_args( $args, array(
+                'deps'              => array(),
+                'version'           => null,
+                'in_footer'         => false,
+                'localization_var'  => null,
+                'localization_args' => array(),
+            ) );
+
 			$this->handle            = $handle;
 			$this->src               = $src;
-			$this->deps              = $deps;
-			$this->version           = $version;
-			$this->in_footer         = $in_footer;
-			$this->localization_var  = $localization_var;
-			$this->localization_args = $localization_args;
+			$this->deps              = $args['deps'];
+			$this->version           = $args['version'];
+			$this->in_footer         = $args['in_footer'];
+			$this->localization_var  = $args['localization_var'];
+			$this->localization_args = $args['localization_args'];
 		}
 
 		/**
