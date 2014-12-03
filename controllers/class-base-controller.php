@@ -75,8 +75,8 @@ if ( ! class_exists( 'Base_Controller' ) ):
 		public function __construct( array $args = array() )
 		{
             $args = wp_parse_args( $args, array(
-                $model = null,
-                $view  = null,
+                'model' => null,
+                'view'  => null,
             ) );
 
             $this->model = $args['model'];
