@@ -379,7 +379,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		{
 
 			// verify if this is an auto save routine.
-			// If it is our form has not been submitted, so we dont want to do anything
+			// If it is our form has not been submitted, so we don't want to do anything
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				return;
 			}
