@@ -101,15 +101,6 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @since  WPMVCBase 0.1
 		 */
 		protected $css_uri;
-
-		/**
-		 * The plugin text domain
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.1
-		 */
-		protected $txtdomain;
 		
 		/**
 		 * The plugin css files
@@ -211,14 +202,13 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct(  $main_plugin_file, $plugin_path, $app_path, $base_path, $uri, $txtdomain = null )
+		public function __construct(  $main_plugin_file, $plugin_path, $app_path, $base_path, $uri )
 		{
 			$this->main_plugin_file = $main_plugin_file;
 			$this->path             = trailingslashit( $plugin_path );
 			$this->app_path         = trailingslashit( $app_path );
 			$this->base_path        = trailingslashit( $base_path );
 			$this->uri              = trailingslashit( $uri );
-			$this->txtdomain        = $txtdomain;
 			
 			$this->init();
 		}
@@ -246,7 +236,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		public function main_plugin_file()
 		{
 			$helper = new Helper_Functions();
-			$helper->deprecated( __FUNCTION__, 'get_main_plugin_file', $this->txtdomain );
+			$helper->deprecated( __FUNCTION__, 'get_main_plugin_file', 'wpmvcb' );
 
 			return $this->main_plugin_file;
 		}
@@ -382,18 +372,6 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		{
 			return $this->uri;
 		}
-
-		/**
-		 * Get the plugin text domain
-		 *
-		 * @return string $txtdomain
-		 * @access public
-		 * @since  WPMVCBase 0.1
-		 */
-		public function get_textdomain()
-		{
-			return $this->txtdomain;
-		}
 		
 		/**
 		 * Get the frontend CSS.
@@ -503,7 +481,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		public function get_help_screen()
 		{
 			//warn the user about deprecated function use
-			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', $this->txtdomain );
+			Helper_Functions::deprecated( __FUNCTION__, 'get_help_tabs', 'wpmvcb' );
 			
 			//and point to the replacement function
 			return $this->get_help_tabs();
