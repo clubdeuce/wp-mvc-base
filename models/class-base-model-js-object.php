@@ -167,8 +167,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		public function enqueue()
 		{
 			//apply filters
-			$this->src = apply_filters( 'ah_base_filter_script_src-' . $this->handle, $this->src );
-			$this->localization_args = apply_filters( 'ah_base_filter_script_localization_args-' . $this->handle, $this->localization_args );
+			$this->localization_args = apply_filters( 'wpmvcb_filter_script_localization_args-' . $this->handle, $this->localization_args );
 
 			wp_enqueue_script( $this->handle, $this->src, $this->deps, $this->version, $this->in_footer );
 			if ( isset( $this->localization_var ) && isset( $this->localization_args ) ) {
