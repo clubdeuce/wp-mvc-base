@@ -3,7 +3,7 @@ namespace WPMVCB\Testing
 {
     use Base_Model_JS_Object;
 
-	require_once( WPMVCB_SRC_DIR . '/models/class-base-model-js-object.php' );
+	//require_once( WPMVCB_SRC_DIR . '/models/class-base-model-js-object.php' );
 	
 	/**
 	 * The test controller for Base_Model_JS_Object.
