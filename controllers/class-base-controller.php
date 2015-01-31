@@ -100,34 +100,6 @@ if ( ! class_exists( 'Base_Controller' ) ):
 				add_shortcode( $key, $shortcode );
 			}
 		}
-
-		/**
-		 * The WP add_meta_boxes action callback
-		 *
-		 * @param    array $metaboxes Array containing Base_Model_Metabox objects.
-		 * @internal
-		 * @access   public
-		 * @since    WPMVCBase 0.1
-		 * @see      Base_Model_Metabox
-		 */
-		public function add_meta_boxes( array $metaboxes )
-		{
-			global $post;
-
-			foreach ( $metaboxes as $metabox ) {
-				foreach( $metabox->get_post_types() as $post_type ) {
-					add_meta_box( 
-						$metabox->get_id(),
-						$metabox->get_title(),
-						is_callable( $metabox->get_callback() ) ? $metabox->get_callback() : array( $this, 'render_metabox' ),
-						$post_type,
-						$metabox->get_context(),
-						$metabox->get_priority(),
-						$metabox->get_callback_args()
-					);
-				}
-			}
-		}
 		
 		/**
 		 * Enqueue scripts.
