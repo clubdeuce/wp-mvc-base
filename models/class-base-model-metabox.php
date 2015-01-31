@@ -365,7 +365,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 		 */
 		public function get_callback_args( $post )
 		{
-			return apply_filters( $this->slug, $this->callback_args, $post );
+			return apply_filters( $this->id, $this->callback_args, $post );
 		}
 
 		/**
