@@ -31,6 +31,7 @@ class WPMVCB
             'Base_Controller_CPT'      => 'controllers/class-base-controller-cpt.php',
             'Base_Controller_Plugin'   => 'controllers/class-base-controller-plugin.php',
             'Base_Controller_Settings' => 'controllers/class-base-controller-settings.php',
+            'WPMVCB_Metabox'           => 'controllers/class-metabox-base.php',
             'Base_Model'               => 'models/class-base-model.php',
             'Base_Model-Admin-Notice'  => 'models/class-base-model-admin-notice.php',
             'Base_Model_CPT'           => 'models/class-base-model-cpt.php',
