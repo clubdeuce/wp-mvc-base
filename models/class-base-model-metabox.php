@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Model_Metabox' ) ):
+if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 	/**
 	 * The base metabox object model.
 	 *
@@ -358,13 +358,25 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * get the metabox callback_args
 		 *
-		 * @return array $callback_args
+		 * @param  WP_Post $post
+		 * @return array   $callback_args
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
 		public function get_callback_args()
 		{
-			return $this->callback_args;
+			return apply_filters( $this->slug, $this->callback_args, $post );
+		}
+
+		/**
+		 * The default metabox callback
+		 */
+		public function default_callback()
+		{
+			printf( 
+				__( 'This is the default callback for the %s metabox. Please implement a callback function!', 'wpmvcb' ),
+				$this->slug
+			);
 		}
 	}
-endif;
+}
