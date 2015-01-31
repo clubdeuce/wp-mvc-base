@@ -170,27 +170,6 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 
 			if ( ! in_array( $priority, array( 'high', 'core', 'default', 'low' ) ) )
 				$this->priority = 'default';
-		}
-
-		/**
-		 * Add the metabox
-		 *
-		 * @return void
-		 * @access public
-		 * @since  WPMVCBase 0.1
-		 */
-		public function add()
-		{
-			foreach( $this->post_type as $post_type ) {
-				add_meta_box(
-					$this->id,
-					$this->title,
-					$this->callback,
-					$post_type,
-					$this->context,
-					$this->priority,
-					$this->callback_args
-				);
 			}
 		}
 
