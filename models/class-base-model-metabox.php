@@ -375,7 +375,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 		{
 			printf( 
 				__( 'This is the default callback for the %s metabox. Please implement a callback function!', 'wpmvcb' ),
-				$this->slug
+				$this->id
 			);
 		}
 	}
