@@ -144,31 +144,36 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * );
 		 * </code>
 		 *
-		 * @param  string $id
-		 * @param  string $title
-		 * @param  string $callback
-		 * @param  array  $post_type
-		 * @param  string $context
-		 * @param  string $priority
-		 * @param  array  $callback_args
+		 * @param  array  $args
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( $id, $title, $callback, array $post_type, $context, $priority, $callback_args = array() )
+		public function __construct( $args = array() )
 		{
-			$this->id            = $id;
-			$this->title         = $title;
-			$this->callback      = $callback;
-			$this->post_type     = $post_type;
-			$this->context       = $context;
-			$this->priority      = $priority;
-			$this->callback_args = $callback_args;
+			$args = wp_parse_args( $args, array(
+				'id'            => 'sample-metabox',
+				'title'         => __( 'Sample Metabox', 'wpmvcb' ),
+				'callback'      => array( $this, 'default_callback' ),
+				'post_type'     => array( 'post' ),
+				'context'       => 'normal',
+				'priority'      => 'default',
+				'callback_args' => array(),
+			) );
+
+			$this->id            = $args['id'];
+			$this->title         = $args['title'];
+			$this->callback      = $args['callback'];
+			$this->post_type     = $args['post_type'];
+			$this->context       = $args['context'];
+			$this->priority      = $args['priority'];
+			$this->callback_args = $args['callback_args'];
 
 			//check for valid values
-			if ( ! in_array( $context, array( 'normal', 'advanced', 'side' ) ) )
+			if ( ! in_array( $this->context, array( 'normal', 'advanced', 'side' ) ) ) {
 				$this->context = 'normal';
+			}
 
-			if ( ! in_array( $priority, array( 'high', 'core', 'default', 'low' ) ) )
+			if ( ! in_array( $this->priority, array( 'high', 'core', 'default', 'low' ) ) ) {
 				$this->priority = 'default';
 			}
 		}
