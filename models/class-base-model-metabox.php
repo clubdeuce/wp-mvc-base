@@ -363,7 +363,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function get_callback_args()
+		public function get_callback_args( $post )
 		{
 			return apply_filters( $this->slug, $this->callback_args, $post );
 		}
