@@ -3,10 +3,10 @@ namespace WPMVCB\Testing
 {
 	class WPMVCB_Test_Case extends \WP_UnitTestCase
 	{
-		public function __construct()
+		public function setUp()
 		{
 			parent::setUp(); 
-			$this->factory = new \WP_UnitTest_Factory;
+			$this->factory = new WPMVCB_Tests_Factory();
 		}
 		
 		public function getReflectionPropertyValue( $class, $property )

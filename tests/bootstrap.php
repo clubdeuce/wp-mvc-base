@@ -19,6 +19,11 @@ require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamFile.php' );
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamDirectory.php' );
 require_once( WPMVCB_TEST_DIR . '/includes/vfs/vfsStreamWrapper.php' );
 
+require_once 'framework/class-factory.php';
+require_once 'framework/class-factory-for-mock.php';
+require_once 'framework/class-factory-for-mock-thing.php';
+require_once 'framework/class-factory-for-mock-metabox.php';
+require_once 'framework/class-factory-for-mock-metabox-model.php';
 require_once 'framework/class-constraint-metabox-exists.php';
 require_once 'framework/class-constraint-script-registered.php';
 require_once 'framework/testcase.php';
