@@ -102,7 +102,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 		 * whatever parameters are passed through this variable.
 		 *
 		 * Example:
-
+		 *
 		 * Setting the callback args:
 		 * <code>
 		 * $sample_metabox->callback_args = array( 'foo' => 'this', "bar => 'that' );
