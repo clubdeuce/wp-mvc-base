@@ -47,6 +47,6 @@ after_script:
 notifications:
     email:
         recipients:
-          - daryl@actionhook.com
+          - daryl@clubduece.com
         on_success: change
         on_failure: always
