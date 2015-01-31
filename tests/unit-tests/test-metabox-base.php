@@ -71,18 +71,20 @@ class Test_WPMVCB_Metabox extends WPMVCB_Test_Case
 	 */
 	public function testMethodAdd()
 	{
-		$post = $this->factory->post->create();
+		$this->markTestIncomplete();
+		
+		$post = $this->factory->post->create_and_get();
 
-		$this->sut->add();
+		$this->sut->add( $post );
 		
 		$this->assertMetaboxExists(
 			array(
 				$this->model->get_id(),
 				$this->model->get_title(),
 				$this->model->get_callback(),
-				$this->model->get_post_types,
-				$this->model->get_priority,
-				$this->model->get_context,
+				'page',
+				$this->model->get_priority(),
+				$this->model->get_context(),
 				$this->model->get_callback_args( $post )
 			)
 		);
