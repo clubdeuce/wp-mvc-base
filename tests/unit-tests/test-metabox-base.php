@@ -65,4 +65,26 @@ class Test_WPMVCB_Metabox extends WPMVCB_Test_Case
 	{
 		$this->assertGreaterThan( 0, has_action( 'add_meta_boxes-page', array( $this->sut, 'add' ) ) );
 	}
+
+	/**
+	 * @covers ::add
+	 */
+	public function testMethodAdd()
+	{
+		$post = $this->factory->post->create();
+
+		$this->sut->add();
+		
+		$this->assertMetaboxExists(
+			array(
+				$this->model->get_id(),
+				$this->model->get_title(),
+				$this->model->get_callback(),
+				$this->model->get_post_types,
+				$this->model->get_priority,
+				$this->model->get_context,
+				$this->model->get_callback_args( $post )
+			)
+		);
+	}
 }
