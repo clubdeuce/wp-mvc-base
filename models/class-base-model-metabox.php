@@ -154,7 +154,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 				'id'            => 'sample-metabox',
 				'title'         => __( 'Sample Metabox', 'wpmvcb' ),
 				'callback'      => array( $this, 'default_callback' ),
-				'post_type'     => array( 'post' ),
+				'post_types'     => array( 'post' ),
 				'context'       => 'normal',
 				'priority'      => 'default',
 				'callback_args' => array(),
@@ -163,7 +163,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 			$this->id            = $args['id'];
 			$this->title         = $args['title'];
 			$this->callback      = $args['callback'];
-			$this->post_type     = $args['post_type'];
+			$this->post_type     = $args['post_types'];
 			$this->context       = $args['context'];
 			$this->priority      = $args['priority'];
 			$this->callback_args = $args['callback_args'];
