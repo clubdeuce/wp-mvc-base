@@ -8,9 +8,9 @@ require_once( WPMVCB_SRC_DIR . '/controllers/class-metabox-base.php' );
 /**
  * The tests for WPMVCB_Metabox_Base
  *
- * @package  WPMVCBase_Testing\Unit_Tests
- * @covers   WPMVCB_Metabox
- * @since    WPMVCBase 0.4
+ * @package             WPMVCB\Testing\Unit_Tests
+ * @coversDefaultClass  WPMVCB_Metabox
+ * @since               WPMVCBase 0.4
  * @internal
  */
 class Test_WPMVCB_Metabox extends WPMVCB_Test_Case
@@ -43,7 +43,7 @@ class Test_WPMVCB_Metabox extends WPMVCB_Test_Case
 	}
 
 	/**
-	 * @covers::__construct
+	 * @covers ::__construct
 	 */
 	public function testConstructorSetsModel()
 	{
@@ -51,7 +51,7 @@ class Test_WPMVCB_Metabox extends WPMVCB_Test_Case
 	}
 
 	/**
-	 * @covers::__construct
+	 * @covers ::__construct
 	 */
 	public function testConstructorSetsView()
 	{
@@ -59,7 +59,7 @@ class Test_WPMVCB_Metabox extends WPMVCB_Test_Case
 	}
 
 	/**
-	 * @covers::__construct
+	 * @covers ::__construct
 	 */
 	public function testConstructorAddsActions()
 	{
