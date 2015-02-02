@@ -25,7 +25,7 @@ class WPMVCB_Metabox extends Base_Controller
 		parent::__construct( $args );
 
 		foreach ( $this->model->get_post_types() as $post_type ) {
-			add_action( "add_meta_boxes-{$post_type}", array( $this, 'add' ) );
+			add_action( "add_meta_boxes_{$post_type}", array( $this, 'add' ) );
 		}
 	}
 
