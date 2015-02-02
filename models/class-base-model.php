@@ -273,38 +273,6 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		}
 
 		/**
-		 * Add a metabox.
-		 *
-		 * @param  string $handle The metabox handle.
-		 * @param  object $metabox A metabox object.
-		 * @return bool|object TRUE on success, WP_Error on failure.
-		 * @access public
-		 * @see    Base_Model_Metabox
-		 * @since  WPMVCBase 0.1
-		 */
-		public function add_metabox( $handle, $metabox )
-		{
-			if ( ! isset( $this->metaboxes) ) {
-				$this->metaboxes = array();
-			}
-						
-			if ( $metabox instanceOf Base_Model_Metabox ) {
-				$this->metaboxes = array_merge( $this->metaboxes, array( $handle => $metabox ) );
-				return true;
-			}
-			
-			return new WP_Error(
-				'fail',
-				sprintf( 
-					__( '%s::%s expects a Base_Model_Metabox object as the second parameter', 'wpmvcb' ),
-					__CLASS__,
-					__FUNCTION__
-				),
-				$metabox
-			);
-		}
-
-		/**
 		 * Add a help tab object.
 		 *
 		 * @param  string $handle The help tab handle.

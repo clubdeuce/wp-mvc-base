@@ -140,42 +140,6 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @covers Base_Model::add_metabox
-		 */
-		public function testMethodAddMetabox()
-		{
-			$this->assertClassHasAttribute( 'metaboxes', 'Base_Model' );
-			$this->assertTrue( method_exists( $this->model, 'add_metabox' ) );
-			$stub = $this->getMockBuilder( 'Base_Model_Metabox' )
-						 ->disableOriginalConstructor()
-						 ->getMock();
-						 
-			$this->model->add_metabox( 'foo', $stub );
-			$this->assertEquals(
-				array( 'foo' => $stub ),
-				$this->getReflectionPropertyValue( $this->model, 'metaboxes' )
-			);
-		}
-		
-		/**
-		 * @covers Base_Model::add_metabox
-		 */
-		public function testMethodAddMetaboxFail()
-		{
-			$foo = new \StdClass;
-			
-			$this->assertTrue( method_exists( $this->model, 'add_metabox') );
-			$this->assertEquals(
-				new WP_Error(
-					'fail',
-					'Base_Model::add_metabox expects a Base_Model_Metabox object as the second parameter',
-					$foo
-				),
-				$this->model->add_metabox( 'foo', $foo )
-			);
-		}
-		
-		/**
 		 * @covers Base_Model::get_metaboxes
 		 */
 		public function testMethodGetMetaboxes()
