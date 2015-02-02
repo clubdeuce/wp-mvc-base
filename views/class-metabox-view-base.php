@@ -16,41 +16,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 /**
- * WPMVCB_Metabox
+ * WPMVCB_Metabox_View_Base
+ *
+ * The metabox view base
  */
-class WPMVCB_Metabox extends Base_Controller
+abstract class WPMVCB_Metabox_View_Base
 {
+	/**
+	 * The arguments passed into this class
+	 *
+	 * @var array
+	 */
+	protected $args;
+
+	/**
+	 * The class constructor
+	 *
+	 * @param array $args
+	 */
 	public function __construct( $args = array() )
 	{
-		$args = wp_parse_args( $args, array(
-			'view' => new WPMVCB_Metabox_Default_View(),
-		) );
-
-		parent::__construct( $args );
-
-		foreach ( $this->model->get_post_types() as $post_type ) {
-			add_action( "add_meta_boxes_{$post_type}", array( $this, 'add' ) );
-		}
+		$this->args = $args;
 	}
 
 	/**
-	 * Add the metabox
+	 * Render the metabox
 	 *
-	 * @param  WP_Post $post
-	 * @return void
-	 * @access public
-	 * @since  WPMVCBase 0.1
+	 * @param WP_Post $post
+	 * @param array   $metabox
 	 */
-	public function add( $post )
-	{
-		add_meta_box(
-			$this->model->get_id(),
-			$this->model->get_title(),
-			array( $this->view, 'render' ),
-			$post->post_type,
-			$this->model->get_context(),
-			$this->model->get_priority(),
-			$this->model->get_callback_args( $post )
-		);
-	}	
+	abstract public function render( $post, $metabox );
 }
