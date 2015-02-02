@@ -200,7 +200,19 @@ namespace WPMVCB\Testing
 			$this->metabox->set_callback_args( array( 'flibbertygibbet' => 'mtzlplck' ) );
 			$this->assertEquals( array( 'flibbertygibbet' => 'mtzlplck' ), $this->metabox->get_callback_args( $post ) );
 		}
-		
+
+		/**
+		 * @covers ::default_callback()
+		 */
+		public function testDefaultCallback()
+		{
+			ob_start();
+			$this->metabox->default_callback();
+			$result = ob_get_clean();
+
+			$this->assertInternalType( 'string', $result );
+		}
+
 		/**
 		 * Test faulty metabox context assignment.
 		 *
