@@ -225,15 +225,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testInvalidContext()
 		{
-			$metabox = new \Base_Model_Metabox(
-				'my-super-cool-metabox',
-				'My Super Cool Metabox',
-				'my_super_cool_callback',
-				array( 'my_super_cool_posttype' ),
-				'flibbertygibbet',
-				'default',
-				array( 'foo' => 'bar' )
-			);
+			$metabox = new Base_Model_Metabox( array(
+				'id'            => 'my-super-cool-metabox',
+				'title'         => 'My Super Cool Metabox',
+				'callback'      => 'my_super_cool_callback',
+				'post_types'    => array( 'my_super_cool_posttype' ),
+				'context'       => 'flibbertygibbet',
+				'priority'      => 'default',
+				'callback_args' => array( 'foo' => 'bar' )
+			) );
 			
 			$this->assertEquals( 'normal', $metabox->get_context() );
 		}
@@ -250,15 +250,15 @@ namespace WPMVCB\Testing
 		 */
 		public function testInvalidPriority()
 		{
-			$metabox = new \Base_Model_Metabox(
-				'my-super-cool-metabox',
-				'My Super Cool Metabox',
-				'my_super_cool_callback',
-				array( 'my_super_cool_posttype' ),
-				'normal',
-				'flibbertygibbet',
-				array( 'foo' => 'bar' )
-			);
+			$metabox = new Base_Model_Metabox( array(
+				'id'            => 'my-super-cool-metabox',
+				'title'         => 'My Super Cool Metabox',
+				'callback'      => 'my_super_cool_callback',
+				'post_types'    => array( 'my_super_cool_posttype' ),
+				'context'       => 'normal',
+				'priority'      => 'flibbertygibbet',
+				'callback_args' => array( 'foo' => 'bar' )
+			) );
 			
 			$this->assertEquals( 'default', $metabox->get_priority() );
 		}
