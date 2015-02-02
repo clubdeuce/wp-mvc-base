@@ -26,6 +26,8 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 	 */
 	abstract class Base_Controller
 	{
+		protected $args;
+
         protected $model;
         
         protected $view;
@@ -79,6 +81,7 @@ if ( ! class_exists( 'Base_Controller' ) ) {
                 'view'  => null,
             ) );
 
+            $this->args  = $args;
             $this->model = $args['model'];
             $this->view  = $args['view'];
 
