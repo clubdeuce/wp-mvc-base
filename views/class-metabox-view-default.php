@@ -20,6 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 class WPMVCB_Metabox_Default_View extends WPMVCB_Metabox_View_Base
 {
+	/**
+	 * The class constructor
+	 *
+	 * @param  array $args
+	 * @return void
+	 */
+	public function __construct( $args = array() )
+	{
+		parent::__construct( $args );
+	}
+
+	/**
+	 * Render the derault metabox content
+	 *
+	 * @param  WP_Post $post
+	 * @param  array   $metabox
+	 * @return void
+	 */
 	public function render( $post, $metabox )
 	{
 		_e( 'This is the default metabox view. You should implement your own view for the metabox content.', 'wpmvcb' );
