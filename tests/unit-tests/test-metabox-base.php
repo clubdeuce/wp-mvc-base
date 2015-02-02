@@ -64,7 +64,7 @@ class Test_WPMVCB_Metabox extends WPMVCB_Test_Case
 	 */
 	public function testConstructorAddsActions()
 	{
-		$this->assertGreaterThan( 0, has_action( 'add_meta_boxes-page', array( $this->sut, 'add' ) ) );
+		$this->assertGreaterThan( 0, has_action( 'add_meta_boxes_page', array( $this->sut, 'add' ) ) );
 	}
 
 	/**
