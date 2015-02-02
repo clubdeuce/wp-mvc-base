@@ -7,6 +7,7 @@ namespace WPMVCB\Testing
 	 * The test controller for Base_Model_Metabox.
 	 *
 	 * @package             WPMVCBase_Testing\Unit_Tests
+	 * @group               Metabox
 	 * @coversDefaultClass  Base_Model_Metabox
 	 * @since               WPMVCBase 0.1
 	 * @internal

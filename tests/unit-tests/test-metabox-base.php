@@ -9,6 +9,7 @@ require_once( WPMVCB_SRC_DIR . '/controllers/class-metabox-base.php' );
  * The tests for WPMVCB_Metabox_Base
  *
  * @package             WPMVCB\Testing\Unit_Tests
+ * @group               Metabox
  * @coversDefaultClass  WPMVCB_Metabox
  * @since               WPMVCBase 0.4
  * @internal
