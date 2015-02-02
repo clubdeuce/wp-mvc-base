@@ -133,14 +133,14 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 		 *
 		 * Example:
 		 * <code>
-		 * $sample_metabox = new Base_Model_Metabox(
-		 *      'sample_metabox',
-		 *      __( 'Sample Metabox', 'mytextdomain' ),
-		 *      'my_callback', //set this to null to use default plugin render_metabox callback
-		 *      array( 'post', 'page', 'my-custom-cpt',
-		 *      'post',
-		 *      'normal',
-		 *      'default'
+		 * $sample_metabox = new Base_Model_Metabox( array(
+		 *      'id'            => 'sample_metabox',
+		 *      'title'         => __( 'Sample Metabox', 'mytextdomain' ),
+		 *      'callback'      => 'my_callback'
+		 *      'post_type'     => array( 'post', 'page', 'my-custom-cpt' ),
+		 *      'context'       => 'normal',
+		 *      'priority'      => 'default'
+		 *      'callback_args' => array( 'foo' => 'this', 'bar' => 'that' )
 		 * );
 		 * </code>
 		 *
