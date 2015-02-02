@@ -69,7 +69,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 		 * @access private
 		 * @since  WPMVCBase 0.1
 		 */
-		private $post_type = array( 'post' );
+		private $post_types = array( 'post' );
 
 		/**
 		 * the metabox context
@@ -163,7 +163,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 			$this->id            = $args['id'];
 			$this->title         = $args['title'];
 			$this->callback      = $args['callback'];
-			$this->post_type     = $args['post_types'];
+			$this->post_types    = $args['post_types'];
 			$this->context       = $args['context'];
 			$this->priority      = $args['priority'];
 			$this->callback_args = $args['callback_args'];
@@ -187,7 +187,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 		 */
 		public function remove()
 		{
-			foreach( $this->post_type as $post_type ) {
+			foreach( $this->post_types as $post_type ) {
 				remove_meta_box( $this->id, $post_type, $this->context );
 			}
 		}
@@ -241,7 +241,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 		 */
 		public function set_post_type( array $post_types )
 		{
-			$this->post_type = $post_types;
+			$this->post_types = $post_types;
 		}
 
 		/**
@@ -328,7 +328,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 		 */
 		public function get_post_types()
 		{
-			return $this->post_type;
+			return $this->post_types;
 		}
 
 		/**
