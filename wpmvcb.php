@@ -24,6 +24,11 @@ class WPMVCB
      */
     private static $autoload_classes;
 
+    /**
+     * Initialize the class
+     *
+     * @return void
+     */
     public static function init() {
         self::$autoload_classes = array(
             'Base_Controller'             => 'controllers/class-base-controller.php',
@@ -50,12 +55,29 @@ class WPMVCB
         spl_autoload_register( array( __CLASS__, 'autoloader' ) );
     }
 
+    /**
+     * Autoload classes
+     *
+     * $param string $class The class to be loaded
+     * @return void
+     */
     public static function autoloader( $class ) {
         if ( isset( self::$autoload_classes[ $classname ] ) ) {
             if ( file_exists( self::$autoload_classes[ $classname ] ) ) {
                 require_once self::$autoload_classes[ $classname ];
             }
         }
+    }
+
+    /**
+     * Get the main library directory
+     *
+     * @return string
+     */
+    public function get_source_dir() {
+
+        return __DIR__;
+
     }
 }
 
