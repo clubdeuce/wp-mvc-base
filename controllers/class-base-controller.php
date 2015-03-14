@@ -179,7 +179,7 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 			$message = sprintf( __( 'Method %s not found in class %s or its model or view', 'wpmvcb' ), $method, __CLASS__ );
 			$value   = new WP_Error( 400, $message );
 
-			foreach( array( $this->view, $this->model as $object ) ) {
+			foreach( array( $this->view, $this->model ) as $object ) ) {
 				if ( is_object( $object ) && method_exists( $object, $$method ) ) {
 					$value = call_user_func_array( array( $object, $method ), $args );
 				}
@@ -198,7 +198,7 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 			$message = sprintf( 'Property %s not found in %s or its model or view', $property, __CLASS__ );
 			$value   = new WP_Error( 400, $message );
 
-			foreach( array( $this->view, $this->model as $object ) ) {
+			foreach( array( $this->view, $this->model ) as $object ) ) {
 				if ( is_object( $object ) && property_exists( $object, $property ) ) {
 					$value = $object->{$property};
 				}
