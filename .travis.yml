@@ -6,12 +6,12 @@ php:
 - "5.5"
 
 env:
+- WP_VERSION=4.1.1 WP_MULTISITE=0
 - WP_VERSION=4.1 WP_MULTISITE=0
 - WP_VERSION=4.0.1 WP_MULTISITE=0
-- WP_VERSION=4.0 WP_MULTISITE=0
+- WP_VERSION=4.1.1 WP_MULTISITE=1
 - WP_VERSION=4.1 WP_MULTISITE=1
 - WP_VERSION=4.0.1 WP_MULTISITE=1
-- WP_VERSION=4.0 WP_MULTISITE=1
 
 before_script:
 - curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o php-cs-fixer.phar
