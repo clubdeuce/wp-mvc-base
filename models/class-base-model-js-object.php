@@ -221,7 +221,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * @return string $handle
 		 * @since WPMVCBase 0.3
 		 */
-		function get_handle()
+		public function get_handle()
 		{
 			return $this->handle;
 		}
@@ -232,7 +232,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * @return string $src
 		 * @since WPMVCBase 0.3
 		 */
-		function get_src()
+		public function get_src()
 		{
 			return $this->src;
 		}
@@ -243,7 +243,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * @return array $deps
 		 * @since WPMVCBase 0.3
 		 */
-		function get_deps()
+		public function get_deps()
 		{
 			return $this->deps;
 		}
@@ -254,7 +254,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * @return string $version
 		 * @since WPMVCBase 0.3
 		 */
-		function get_version()
+		public function get_version()
 		{
 			return $this->version;
 		}
@@ -265,7 +265,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * @return boolean $in_footer
 		 * @since WPMVCBase 0.3
 		 */
-		function get_in_footer()
+		public function get_in_footer()
 		{
 			return $this->in_footer;
 		}
@@ -276,7 +276,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * @return string|false $localization_var if set, FALSE if not.
 		 * @since WPMVCBase 0.3
 		 */
-		function get_localization_var()
+		public function get_localization_var()
 		{
 			if ( ! empty( $this->localization_var ) ) {
 				return $this->localization_var;
@@ -291,7 +291,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * @return string|bool $localization_args if set, FALSE if not.
 		 * @since WPMVCBase 0.3
 		 */
-		function get_localization_args()
+		public function get_localization_args()
 		{
 			if ( ! empty( $this->localization_args ) ) {
 				return $this->localization_args;
