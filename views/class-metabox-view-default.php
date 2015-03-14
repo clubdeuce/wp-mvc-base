@@ -24,7 +24,6 @@ class WPMVCB_Metabox_Default_View extends WPMVCB_Metabox_View_Base
 	 * The class constructor
 	 *
 	 * @param  array $args
-	 * @return void
 	 */
 	public function __construct( $args = array() )
 	{

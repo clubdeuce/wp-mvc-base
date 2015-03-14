@@ -173,7 +173,6 @@ if ( ! class_exists( 'Base_Model_Settings' ) ):
 		 * @param  string $uri The plugin base uri.
 		 * @param  string $path The plugin absoulte path.
 		 * @param  string $txtdomain The plugin text domain. Used to localize section/field headings, titles, etc.
-		 * @return void
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
