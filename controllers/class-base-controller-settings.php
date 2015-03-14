@@ -114,7 +114,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 							
 							$wp_error->add(
 								'failure',
-								sprintf( __( 'Unable to add submenu page: %s.', $this->txtdomain ), $key ),
+								sprintf( __( 'Unable to add submenu page: %s.', 'wpmvcb' ), $key ),
 								$page
 							);
 						}
