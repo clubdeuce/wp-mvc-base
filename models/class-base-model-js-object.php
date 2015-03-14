@@ -196,7 +196,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 *
 		 * @link http://codex.wordpress.org/Function_Reference/wp_dequeue_script
 		 * @return void
-		 * @since WPMVCBase 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function dequeue()
 		{
@@ -208,7 +208,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 *
 		 * @link http://codex.wordpress.org/Function_Reference/wp_deregister_script
 		 * @return void
-		 * @since WPMVCBase 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function deregister()
 		{
@@ -219,7 +219,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script handle.
 		 *
 		 * @return string $handle
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
 		public function get_handle()
 		{
@@ -230,7 +230,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script source.
 		 *
 		 * @return string $src
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
 		public function get_src()
 		{
@@ -241,7 +241,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script dependencies.
 		 *
 		 * @return array $deps
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
 		public function get_deps()
 		{
@@ -252,7 +252,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script version.
 		 *
 		 * @return string $version
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
 		public function get_version()
 		{
@@ -263,7 +263,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script placement.
 		 *
 		 * @return boolean $in_footer
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
 		public function get_in_footer()
 		{
@@ -274,7 +274,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script localization variable name.
 		 *
 		 * @return string|false $localization_var if set, FALSE if not.
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
 		public function get_localization_var()
 		{
@@ -289,7 +289,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script localization arguments.
 		 *
 		 * @return string|bool $localization_args if set, FALSE if not.
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
 		public function get_localization_args()
 		{
