@@ -22,11 +22,10 @@ class WPMVCB
      *
      * @var array
      */
-    private static $classes;
+    private static $autoload_classes;
 
-    public static function init()
-    {
-        self::$classes = array(
+    public static function init() {
+        self::$autoload_classes = array(
             'Base_Controller'             => 'controllers/class-base-controller.php',
             'Base_Controller_CPT'         => 'controllers/class-base-controller-cpt.php',
             'Base_Controller_Plugin'      => 'controllers/class-base-controller-plugin.php',
@@ -51,11 +50,10 @@ class WPMVCB
         spl_autoload_register( array( __CLASS__, 'autoloader' ) );
     }
 
-    public static function autoloader( $class )
-    {
-        foreach( self::$classes as $classname => $path ) {
-            if ( $class == $classname ) {
-                require_once $path;
+    public static function autoloader( $class ) {
+        if ( isset( self::$autoload_classes[ $classname ] ) ) {
+            if ( file_exists( self::$autoload_classes[ $classname ] ) ) {
+                require_once self::$autoload_classes[ $classname ];
             }
         }
     }
