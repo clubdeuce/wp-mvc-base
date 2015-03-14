@@ -31,42 +31,6 @@ if ( ! class_exists( 'Base_Controller' ) ) {
         protected $model;
         
         protected $view;
-        
-		/**
-		 * The absolute path to the main plugin file. Ends with a slash.
-		 * 
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $main_plugin_file;
-		
-		/**
-		 * The absolute path to the plugin app path. Ends with a slash.
-		 * 
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $app_path;
-		
-		/**
-		 * The absolute path to the WPMVC Base path. Ends with a slash.
-		 * 
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $base_path;
-		
-		/**
-		 * The uri to the plugin directory. Ends with a slash.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $uri;
 		
 		/**
 		 * The class constructor
