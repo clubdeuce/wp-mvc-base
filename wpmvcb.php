@@ -62,9 +62,9 @@ class WPMVCB
      * @return void
      */
     public static function autoloader( $class ) {
-        if ( isset( self::$autoload_classes[ $classname ] ) ) {
-            if ( file_exists( self::$autoload_classes[ $classname ] ) ) {
-                require_once self::$autoload_classes[ $classname ];
+        if ( isset( self::$autoload_classes[ $$class ] ) ) {
+            if ( file_exists( self::$autoload_classes[ $class ] ) ) {
+                require_once self::$autoload_classes[ $class ];
             }
         }
     }
