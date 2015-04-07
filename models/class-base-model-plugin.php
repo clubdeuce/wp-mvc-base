@@ -53,33 +53,6 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ) {
 		protected $post_types;
 
 		/**
-		 * The plugin settings model.
-		 *
-		 * @var    object
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $settings_model;
-
-		/**
-		 * The nonce name to be used for plugin form submissions.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $nonce_name;
-
-		/**
-		 * The nonce action to be used for plugin form submissions.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $nonce_action;
-
-		/**
 		 * The class constructor
 		 *
 		 * Example when called from the main plugin file:
@@ -94,21 +67,18 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ) {
 		 * }
 		 * </code>
 		 *
-		 * @param  array  $args
+		 * @param  string|array  $args
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
 		public function __construct( $args = array() )
 		{
 			$args = wp_parse_args( $args, array(
-				'metaboxes'  => array(),
 				'post_types' => array(),
 				'slug'       => __CLASS__,
-				'taxonomies' => array(),
 				'version'    => null,
 			) );
 
-			$this->metaboxes  = $args['metaboxes'];
 			$this->post_types = $args['post_types'];
 			$this->slug       = $args['slug'];
 			$this->version    = $args['version'];
