@@ -36,22 +36,21 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		/**
 		 * The class constructor.
 		 *
-		 * @param  object $model The plugin model.
+		 * @param  string|array  $args;
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( array $args = array() )
+		public function __construct( $args = array() )
 		{
+			$args = wp_parse_args( $args, array(
+				'model' => null,
+			) );
+
 			parent::__construct( $args );
 			
-			add_action( 'plugins_loaded',        array( $this, 'load_text_domain' ) );
-			add_action( 'admin_notices',         array( $this, 'admin_notice' ) );
-			
-			if ( method_exists( $this, 'init' ) ) {
-				$this->init();
-			}
-			
-			$this->init_help_tabs();
+			add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
+			add_action( 'admin_notices',  array( $this, 'admin_notice' ) );
+			add_action( 'init',           array( $this, 'register_post_types' ) );
 		}
 
 		/**
@@ -63,12 +62,19 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 */
 		public function load_text_domain()
 		{
-			if ( is_dir( $this->model->get_path() . '/languages/' ) ) {
-				load_plugin_textdomain(
-					$this->model->get_txtdomain(),
-					false,
-					$this->model->get_path() . '/languages/'
-				);
+			// if ( is_dir( $this->model->get_path() . '/languages/' ) ) {
+			// 	load_plugin_textdomain(
+			// 		$this->model->get_txtdomain(),
+			// 		false,
+			// 		$this->model->get_path() . '/languages/'
+			// 	);
+			// }
+		}
+
+		public function register_post_types()
+		{
+			foreach ( $this->model->get_post_types() as $slug => $args ) {
+				register_post_type( $slug, $args );
 			}
 		}
 
@@ -185,47 +191,27 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		}
 		
 		/**
-		 * Add metaboxes for the plugin model.
-		 *
-		 * @uses     Base_Model_plugin::get_metaboxes
-		 * @uses     Base_Controller::add_metaboxes
-		 * @internal
-		 * @access   public
-		 * @since    WPMVCBase 0.2
-		 */
-		public function add_meta_boxes()
-		{
-			global $post;
-			
-			$metaboxes = $this->model->get_metaboxes( $post );
-			
-			if ( is_array( $metaboxes ) ) {
-				parent::add_meta_boxes( $metaboxes );
-			}
-		}
-		
-		/**
 		 * Hook actions for the help tabs for the plugin model.
 		 *
 		 * @uses  Base_Model_Plugin::get_help_tabs
 		 * @uses  Base_Model_Help_Tab::get_screens
 		 * @since WPMVCBase 0.2
 		 */
-		protected function init_help_tabs()
-		{
-			// Get the help tabs defined for the plugin model
-			$tabs = $this->model->get_help_tabs();
+		// protected function init_help_tabs()
+		// {
+		// 	// Get the help tabs defined for the plugin model
+		// 	$tabs = $this->model->get_help_tabs();
 			
-			if ( isset( $tabs ) && is_array( $tabs ) ) {
-				foreach( $tabs as $tab ) {
-					//get the screens on which to display this tab
-					$screens = $tab->get_screens();
-					foreach( $screens as $screen ) {
-						add_action( $screen, array( &$this, 'render_help_tabs' ) );
-					}
-				}
-			}
-		}
+		// 	if ( isset( $tabs ) && is_array( $tabs ) ) {
+		// 		foreach( $tabs as $tab ) {
+		// 			//get the screens on which to display this tab
+		// 			$screens = $tab->get_screens();
+		// 			foreach( $screens as $screen ) {
+		// 				add_action( $screen, array( &$this, 'render_help_tabs' ) );
+		// 			}
+		// 		}
+		// 	}
+		// }
 		
 		/**
 		 * Render the help tabs for the plugin model.
