@@ -111,7 +111,6 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ) {
 			$this->metaboxes  = $args['metaboxes'];
 			$this->post_types = $args['post_types'];
 			$this->slug       = $args['slug'];
-			$this->taxonomies = $args['taxonomies'];
 			$this->version    = $args['version'];
 
 			parent::__construct( $args );
