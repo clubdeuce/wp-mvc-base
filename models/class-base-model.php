@@ -128,7 +128,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * The class constructor.
 		 *
-		 * @param  array $args
+		 * @param  string|array $args
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
