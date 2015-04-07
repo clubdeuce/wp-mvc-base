@@ -15,9 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-include_once 'class-base-model.php';
-
-if ( ! class_exists( 'Base_Model_Plugin' ) ):
+if ( ! class_exists( 'Base_Model_Plugin' ) ) {
 	/**
 	 * The base plugin model
 	 *
@@ -52,7 +50,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 * @access protected
 		 * @since  WPMVCBase 0.2
 		 */
-		protected $cpts;
+		protected $post_types;
 
 		/**
 		 * The plugin settings model.
@@ -96,24 +94,27 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 * }
 		 * </code>
 		 *
-		 * @param  string $slug         The plugin slug.
-		 * @param  string $version      The plugin version.
-		 * @param  string $file         The main plugin file absolute path.
-		 * @param  string $plugin_path  The plugin directory path.
-		 * @param  string $app_path     The plugin app path.
-		 * @param  string $base_path    The plugin base path.
-		 * @param  string $uri          The plugin directory uri.
-		 * @param  string $txtdomain    The plugin text domain.
+		 * @param  array  $args
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
-		public function __construct( $slug, $version, $file, $plugin_path, $app_path, $base_path, $uri, $txtdomain )
+		public function __construct( $args = array() )
 		{
-			parent::__construct( $file, $plugin_path, $app_path, $base_path, $uri, $txtdomain );
-			$this->slug             = $slug;
-			$this->version          = $version;
-			$this->js_uri           = $this->uri . 'js/';
-			$this->css_uri          = $this->uri . 'css/';
+			$args = wp_parse_args( $args, array(
+				'metaboxes'  => array(),
+				'post_types' => array(),
+				'slug'       => __CLASS__,
+				'taxonomies' => array(),
+				'version'    => null,
+			) );
+
+			$this->metaboxes  = $args['metaboxes'];
+			$this->post_types = $args['post_types'];
+			$this->slug       = $args['slug'];
+			$this->taxonomies = $args['taxonomies'];
+			$this->version    = $args['version'];
+
+			parent::__construct( $args );
 		}
 		
 		/**
@@ -139,5 +140,15 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		{
 			return $this->version;
 		}
+
+		public function get_post_types()
+		{
+			return $this->post_types;
+		}
+
+		public function add_post_type( $slug, $args )
+		{
+			$this->post_types[ $slug ] = $args;
+		}
 	}
-endif;
+}
