@@ -136,28 +136,15 @@ if ( ! class_exists( 'Base_Model' ) ) :
                 'admin_notices' => null,
             ) );
 
-            $this->css = $args['css'];
+			$this->args          = $args;
+            $this->css           = $args['css'];
             $this->admin_css     = $args['admin_css'];
             $this->scripts       = $args['scripts'];
             $this->admin_scripts = $args['admin_scripts'];
             $this->metaboxes     = $args['metaboxes'];
             $this->help_tabs     = $args['help_tabs'];
             $this->admin_notices = $args['admin_notices'];
-			
-			$this->init();
 		}
-		
-		/**
-		 * Initialize the child class.
-		 *
-		 * Use this function to set properties for your child class.
-		 *
-		 * @abstract
-		 * @return    void
-		 * @access    protected
-		 * @since     WPMVCBase 0.2
-		 */
-		abstract protected function init();
 
 		/**
 		 * Get the frontend CSS.
