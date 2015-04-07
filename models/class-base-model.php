@@ -29,6 +29,15 @@ if ( ! class_exists( 'Base_Model' ) ) :
 	abstract class Base_Model
 	{
 		/**
+		 * The args passed in to the model
+		 *
+		 * @var    array
+		 * @access protected
+		 * @since  WPMCVBase 0.4
+		 */
+		protected $args;
+
+		/**
 		 * The css files required by this model
 		 *
 		 * An array containing css used by the model.
