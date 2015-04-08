@@ -83,6 +83,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 			}
 			
 			return $this->cpt_models;
+			add_action( 'init',                  array( $this, 'register' ) );
+			add_filter( 'post_updated_messages', array( $this, 'post_updated_messages' ) );
 		}
 
 		/**
