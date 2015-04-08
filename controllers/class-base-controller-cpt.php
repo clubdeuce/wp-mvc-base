@@ -128,47 +128,43 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		public function post_updated_messages( $messages )
 		{
 			global $post;
-			
-			if ( isset( $this->cpt_models ) ) {
-				foreach ( $this->cpt_models as $cpt ) {
-					$messages[ $cpt->get_slug() ] = array(
-						0 => null, // Unused. Messages start at index 1.
-						1 => sprintf(
-							__( '%1$s updated. <a href="%3$s">View %2$s</a>', 'wpmvcb' ),
-							$cpt->get_singular(),
-							strtolower( $cpt->get_singular() ),
-							esc_url( get_permalink( $post->ID ) )
-						),
-						2 => __( 'Custom field updated.', 'wpmvcb' ),
-						3 => __( 'Custom field deleted.', 'wpmvcb' ),
-						4 => sprintf( __( '%s updated.', 'wpmvcb' ), $cpt->get_singular() ),
-						/* translators: %2$s: date and time of the revision */
-						5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %s', 'wpmvcb' ), $cpt->get_singular(), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-						6 => sprintf( __( '%1$s published. <a href="%2$s">View %1$s</a>', 'wpmvcb' ), $cpt->get_singular(), esc_url( get_permalink( $post->ID ) ) ),
-						7 => sprintf( __( '%s saved.', 'wpmvcb' ), $cpt->get_singular() ),
-						8 => sprintf(
-							__( '%1$s submitted. <a target="_blank" href="%3$s">Preview %2$s</a>', 'wpmvcb' ),
-							$cpt->get_singular(),
-							strtolower( $cpt->get_singular() ),
-							esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
-						),
-						9 => sprintf(
-							__( '%3$s scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview %4$s</a>', 'wpmvcb' ),
-							// translators: Publish box date format, see http://php.net/date
-							date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ),
-							esc_url( get_permalink( $post->ID ) ),
-							$cpt->get_singular(),
-							strtolower( $cpt->get_singular() )
-						),
-						10 => sprintf(
-							__( '%1$s draft updated. <a target="_blank" href="%3$s">Preview %2$s</a>', 'wpmvcb' ),
-							$cpt->get_singular(),
-							strtolower( $cpt->get_singular() ),
-							esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
-						)
-					);
-				}
-			}
+
+			$messages[ $this->model->get_slug() ] = array(
+				0 => null, // Unused. Messages start at index 1.
+				1 => sprintf(
+					__( '%1$s updated. <a href="%3$s">View %2$s</a>', 'wpmvcb' ),
+					$this->model->get_singular(),
+					strtolower( $this->model->get_singular() ),
+					esc_url( get_permalink( $post->ID ) )
+				),
+				2 => __( 'Custom field updated.', 'wpmvcb' ),
+				3 => __( 'Custom field deleted.', 'wpmvcb' ),
+				4 => sprintf( __( '%s updated.', 'wpmvcb' ), $this->model->get_singular() ),
+				/* translators: %2$s: date and time of the revision */
+				5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %s', 'wpmvcb' ), $this->model->get_singular(), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => sprintf( __( '%1$s published. <a href="%2$s">View %1$s</a>', 'wpmvcb' ), $this->model->get_singular(), esc_url( get_permalink( $post->ID ) ) ),
+				7 => sprintf( __( '%s saved.', 'wpmvcb' ), $this->model->get_singular() ),
+				8 => sprintf(
+					__( '%1$s submitted. <a target="_blank" href="%3$s">Preview %2$s</a>', 'wpmvcb' ),
+					$this->model->get_singular(),
+					strtolower( $this->model->get_singular() ),
+					esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
+				),
+				9 => sprintf(
+					__( '%3$s scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview %4$s</a>', 'wpmvcb' ),
+					// translators: Publish box date format, see http://php.net/date
+					date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ),
+					esc_url( get_permalink( $post->ID ) ),
+					$this->model->get_singular(),
+					strtolower( $this->model->get_singular() )
+				),
+				10 => sprintf(
+					__( '%1$s draft updated. <a target="_blank" href="%3$s">Preview %2$s</a>', 'wpmvcb' ),
+					$this->model->get_singular(),
+					strtolower( $this->model->get_singular() ),
+					esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
+				)
+			);
 
 			return $messages;
 		}
