@@ -16,7 +16,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 require_once 'class-base-controller.php';
 
-if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' ) ) :
+if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' ) ) {
 	/**
 	 * The base custom post type controller.
 	 *
@@ -25,16 +25,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 	 * @since   WPMVCBase 0.2
 	 */
 	class Base_Controller_CPT extends Base_Controller
-	{
-		/**
-		 * The attached custom post type models.
-		 *
-		 * @var    array
-		 * @access protected
-		 * @since  WPMVCBase 0.1
-		 */
-		protected $cpt_models;
-		
+	{	
 		/**
 		 * The class constructor.
 		 *
@@ -45,44 +36,6 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
         {
 			parent::__construct( $args );
 
-			add_action( 'init',                  array( &$this, 'register' ) );
-			add_filter( 'post_updated_messages', array( &$this, 'post_updated_messages' ) );
-		}
-
-		/**
-		 * Add a cpt model to this controller.
-		 *
-		 * @param  Base_Model_CPT         $model The Base_Model_CPT for this controller.
-		 * @return array          $_cpt_models
-		 * @access public
-		 * @since  WPMVCBase 0.2
-		 */
-		public function add_model( Base_Model_Cpt $model )
-		{	
-			$this->cpt_models[ $model->get_slug() ] = $model;
-			
-			//register a save_post action
-			if ( method_exists( $model, 'save_post' ) ) {
-				add_action( 'save_post', array( &$model, 'save_post' ) );
-			}
-			
-			//register the help tabs
-			$tabs = $model->get_help_tabs();
-			
-			if ( isset( $tabs ) && is_array( $tabs ) ) {
-				foreach( $tabs as $tab ) {
-					//get the screens on which to load the help tab
-					$screens = $tab->get_screens();
-					if ( isset( $screens ) && is_array( $screens ) ) {
-						//register the help tab for each screen
-						foreach( $screens as $screen ) {
-							add_action ( $screen, array( &$this, 'render_help_tabs' ) );
-						}
-					}
-				}
-			}
-			
-			return $this->cpt_models;
 			add_action( 'init',                  array( $this, 'register' ) );
 			add_filter( 'post_updated_messages', array( $this, 'post_updated_messages' ) );
 		}
@@ -97,24 +50,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 */
 		public function register()
 		{
-			$return = array();
-			
-			if ( isset( $this->cpt_models ) ) {
-				foreach ( $this->cpt_models as $cpt ) {
-					$return[ $cpt->get_slug() ] = register_post_type( $cpt->get_slug(), $cpt->get_args() );
-					
-					$taxonomies = $cpt->get_taxonomies();
-					if ( isset( $taxonomies ) ) {
-						foreach ( $taxonomies as $taxonomy ) {
-							if ( ! taxonomy_exists( $taxonomy->get_slug() ) ) {
-								register_taxonomy( $taxonomy->get_slug(), null, $taxonomy->get_args() );
-							}
-							register_taxonomy_for_object_type( $taxonomy->get_slug(), $cpt->get_slug() );
-						}
-					}
-				}
-			}
-			return $return;
+			return register_post_type( $this->model->get_slug(), $this->model->get_args() );
 		}
 
 		/**
@@ -170,97 +106,5 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 
 			return $messages;
 		}
-		
-		/**
-		 * Add the metaboxes necessary for the custom post types.
-		 *
-		 * @access public
-		 * @since  WPMVCBase 0.2
-		 */
-		public function add_meta_boxes()
-		{
-			global $post;
-			
-			if ( isset( $this->cpt_models ) && is_array( $this->cpt_models ) ) {
-				foreach ( $this->cpt_models as $cpt ) {
-					if ( $metaboxes = $cpt->get_metaboxes( $post, 'wpmvcb' ) ) {
-						parent::add_meta_boxes( $metaboxes );
-					}
-				}
-			}
-		}
-		
-		/**
-		 * The admin_enqueue_scripts_callback.
-		 *
-		 * @access public
-		 * @since  WPMVCBase 0.2
-		 */
-		public function admin_enqueue_scripts()
-		{
-			foreach( $this->cpt_models as $cpt ) {
-				$scripts = $cpt->get_admin_scripts();
-				
-				if ( isset( $scripts ) && is_array( $scripts ) ) {
-					foreach( $scripts as $script ) {
-						wp_register_script(
-							$script->get_handle(),
-							$script->get_src(),
-							$script->get_deps(),
-							$script->get_ver(),
-							$script->get_in_footer()
-						);
-					}
-				}
-			}
-		}
-		
-		/**
-		 * The wp_enqueue_scripts_callback.
-		 *
-		 * @access public
-		 * @since  WPMVCBase 0.2
-		 */
-		public function wp_enqueue_scripts()
-		{
-			foreach( $this->cpt_models as $cpt ) {
-				$scripts = $cpt->get_scripts();
-				
-				if ( isset( $scripts ) && is_array( $scripts ) ) {
-					foreach( $scripts as $script ) {
-						wp_register_script(
-							$script->get_handle(),
-							$script->get_src(),
-							$script->get_deps(),
-							$script->get_ver(),
-							$script->get_in_footer()
-						);
-					}
-				}
-			}
-		}
-		
-		/**
-		 * Render the help tabs for the attached cpts
-		 *
-		 * @access public
-		 * @since  WPMVCBase 0.2
-		 */
-		public function render_help_tabs()
-		{
-			$screen = get_current_screen();
-			
-			foreach( $this->cpt_models as $cpt ) {
-				if ( $screen->post_type == $cpt->get_slug() ) {
-					$tabs = $cpt->get_help_tabs();
-					
-					if ( isset( $tabs ) && is_array( $tabs ) ) {
-						foreach( $tabs as $tab ) {
-							parent::render_help_tab( $tab );
-						}
-					}
-				}
-			}
-		}
 	}
-endif;
+}
