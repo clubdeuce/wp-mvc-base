@@ -1,6 +1,6 @@
 {
 	"name": "clubduece/wpmvcbase",
-	"type": "library",
+	"type": "wordpress-muplugin",
 	"description": "MVC style framework for WordPress plugin development",
 	"keywords": ["wordpress","mvc","plugins"],
 	"homepage": "https://github.com/clubduece/wp-mvc-base",
