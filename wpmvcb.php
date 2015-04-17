@@ -55,6 +55,10 @@ class WPMVCB
         spl_autoload_register( array( __CLASS__, 'autoloader' ) );
     }
 
+    public static function register_autoload_class( array $classes ) {
+        self::$autoload_classes = array_merge( self::$autoload_classes, $classes );
+    }
+
     /**
      * Autoload classes
      *
