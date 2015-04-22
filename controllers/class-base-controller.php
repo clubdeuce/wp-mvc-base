@@ -180,7 +180,7 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 			$value   = new WP_Error( 400, $message );
 
 			foreach( array( $this->view, $this->model ) as $object ) {
-				if ( is_object( $object ) && method_exists( $object, $$method ) ) {
+				if ( is_object( $object ) && method_exists( $object, $method ) ) {
 					$value = call_user_func_array( array( $object, $method ), $args );
 				}
 			}
