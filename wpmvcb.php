@@ -60,7 +60,7 @@ class WPMVCB  {
             'Base_Model_Plugin'           => __DIR__ . '/models/class-base-model-plugin.php',
             'Base_Model_Settings'         => __DIR__ . '/models/class-base-model-settings.php',
             'Base_Model_Taxonomy'         => __DIR__ . '/models/class-base-model-taxonomy.php',
-            'WPMVCB_View_Base'            => __DIR__ . '/views/class-view-base.php',
+            'WPMVCB_Post_View_Base'       => __DIR__ . '/views/class-post-view-base.php',
             'WPMVCB_Metabox_View_Base'    => __DIR__ . '/views/class-metabox-view-base.php',
             'WPMVCB_Metabox_Default_View' => __DIR__ . '/views/class-metabox-view-default.php',
             'Helper_Functions'            => __DIR__ . '/helpers/class-base-helpers.php',
