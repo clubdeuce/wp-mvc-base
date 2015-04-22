@@ -40,8 +40,6 @@ class WPMVCB  {
 
     /**
      * Initialize the class
-     *
-     * @return void
      */
     public function __construct() {
 
