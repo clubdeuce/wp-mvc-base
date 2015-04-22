@@ -1,3 +1,4 @@
+
 <?php
  /*
 This program is free software; you can redistribute it and/or
@@ -15,8 +16,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-require_once 'class-base-model.php';
-
 if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	/**
 	 * The base CPT object model.
@@ -28,15 +27,26 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	abstract class Base_Model_CPT extends Base_Model
 	{
 		/**
-		 * The class constructor.
-		 *
-		 * @access public
-		 * @since  WPMVCBase 0.1
+		 * @var WP_Post $post
 		 */
-		public function __construct( $args ) {
+		protected $post;
+
+		/**
+		 * @var WP_Post|int $post
+		 * @var array       $args
+		 */
+		public function __construct( $post, $args = array() ) {
+
+			if( is_int( $post ) ) {
+				$post = get_post( $post );
+			}
+
+			if( is_a( $post, 'WP_Post' ) ) {
+				$this->post = $post;
+			}
 
 			parent::__construct( $args );
-
+			
 		}
-
+	}
 endif;
