@@ -14,8 +14,6 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-require_once 'class-base-controller.php';
-
 if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' ) ) {
 	/**
 	 * The base custom post type controller.
@@ -61,51 +59,41 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		protected static $post_type_args = array();
 
 		/**
-		 * The class constructor.
-		 *
-		 * @access public
-		 * @since  WPMVCBase 0.1
-		 */
-		public function __construct( array $args = array() )
-        {
-			parent::__construct( $args );
-
-			add_filter( 'post_updated_messages', array( $this, 'post_updated_messages' ) );
-		}
-
-		/**
 		 * Filter to ensure the CPT labels are displayed when user updates the CPT
 		 *
-		 * @param    array $messages The existing messages array.
+		 * @param    string $class The existing messages array.
 		 * @return   array $messages The updated messages array.
 		 * @internal
 		 * @access   public
 		 * @since    WPMVCBase 0.1
 		 * @link     http://codex.wordpress.org/Plugin_API/Filter_Reference
 		 */
-		public function post_updated_messages( $messages )
-		{
+		public static function post_updated_messages( $messages ) {
+
 			global $post;
 
-			$messages[ self::$post_type ] = array(
+			$post_type_object = get_post_type_object( $post->post_type );
+			$singular         = $post_type_object->labels->singular_name;
+
+			$messages[ $post->post_type ] = array(
 				0 => null, // Unused. Messages start at index 1.
 				1 => sprintf(
 					__( '%1$s updated. <a href="%3$s">View %2$s</a>', 'wpmvcb' ),
-					self::$singular,
-					strtolower( self::$singular ),
+					$singular,
+					strtolower( $singular ),
 					esc_url( get_permalink( $post->ID ) )
 				),
 				2 => __( 'Custom field updated.', 'wpmvcb' ),
 				3 => __( 'Custom field deleted.', 'wpmvcb' ),
-				4 => sprintf( __( '%s updated.', 'wpmvcb' ), self::$singular ),
+				4 => sprintf( __( '%s updated.', 'wpmvcb' ), $singular ),
 				/* translators: %2$s: date and time of the revision */
-				5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %s', 'wpmvcb' ), self::$singular, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __( '%1$s published. <a href="%2$s">View %1$s</a>', 'wpmvcb' ), self::$singular, esc_url( get_permalink( $post->ID ) ) ),
-				7 => sprintf( __( '%s saved.', 'wpmvcb' ), self::$singular ),
+				5 => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %s', 'wpmvcb' ), $singular, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => sprintf( __( '%1$s published. <a href="%2$s">View %1$s</a>', 'wpmvcb' ), $singular, esc_url( get_permalink( $post->ID ) ) ),
+				7 => sprintf( __( '%s saved.', 'wpmvcb' ), $singular ),
 				8 => sprintf(
 					__( '%1$s submitted. <a target="_blank" href="%3$s">Preview %2$s</a>', 'wpmvcb' ),
-					self::$singular,
-					strtolower( self::$singular ),
+					$singular,
+					strtolower( $singular ),
 					esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
 				),
 				9 => sprintf(
@@ -113,28 +101,30 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 					// translators: Publish box date format, see http://php.net/date
 					date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ),
 					esc_url( get_permalink( $post->ID ) ),
-					self::$singular,
-					strtolower( self::$singular )
+					$singular,
+					strtolower( $singular )
 				),
 				10 => sprintf(
 					__( '%1$s draft updated. <a target="_blank" href="%3$s">Preview %2$s</a>', 'wpmvcb' ),
-					self::$singular,
-					strtolower( self::$singular ),
+					$singular,
+					strtolower( $singular ),
 					esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) )
 				)
 			);
-
+		
 			return $messages;
 		}
 
 		/**
 		 * Initialize the CPT labels property.
 		 *
+		 * @param  string     $singular The singular post type name
+		 * @param  sring      $plural   The plural post type name
 		 * @access protected
 		 * @since  WPMVCBase 0.1
 		 */
-		protected static function init_labels( $singular = __CLASS__, $plural = __CLASS__ )
-		{
+		protected static function init_labels( $singular = __CLASS__, $plural = __CLASS__ ) {
+
 			return array(
 				'name'                => $plural,
 				'singular_name'       => $singular,
@@ -150,8 +140,16 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 				'not_found'           => sprintf( __( 'No %s found', 'wpmvcb' ), strtolower( $plural ) ),
 				'not_found_in_trash'  => sprintf( __( 'No %s found in Trash', 'wpmvcb' ), strtolower( $plural ) ),
 			);
+
+		}
+
+		public static function on_load() {
+
+			add_filter( 'post_updated_messages', array(  __CLASS__, 'post_updated_messages' ) );
+
 		}
 
 	}
 
 }
+Base_Controller_CPT::on_load();
