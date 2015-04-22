@@ -61,8 +61,8 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		/**
 		 * Filter to ensure the CPT labels are displayed when user updates the CPT
 		 *
-		 * @param    string $class The existing messages array.
-		 * @return   array $messages The updated messages array.
+		 * @param    string $messages The existing messages array.
+		 * @return   array  $messages The updated messages array.
 		 * @internal
 		 * @access   public
 		 * @since    WPMVCBase 0.1
