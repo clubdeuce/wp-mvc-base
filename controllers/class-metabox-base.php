@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 /**
  * WPMVCB_Metabox
  */
-class WPMVCB_Metabox extends Base_Controller
-{
+class WPMVCB_Metabox extends Base_Controller {
+
 	public function __construct( $args = array() )
 	{
 		$args = wp_parse_args( $args, array(
@@ -41,8 +41,8 @@ class WPMVCB_Metabox extends Base_Controller
 	 * @access public
 	 * @since  WPMVCBase 0.1
 	 */
-	public function add( $post )
-	{
+	public function add( $post ) {
+
 		add_meta_box(
 			$this->model->get_id(),
 			$this->model->get_title(),
@@ -52,5 +52,7 @@ class WPMVCB_Metabox extends Base_Controller
 			$this->model->get_priority(),
 			$this->model->get_callback_args( $post )
 		);
-	}	
+
+	}
+
 }
