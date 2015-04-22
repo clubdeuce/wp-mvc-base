@@ -125,18 +125,29 @@ class WPMVCB  {
 
     }
 
+    /**
+     * Register the post type slug and its post type arguments
+     *
+     * @link http://codex.wordpress.org/Function_Reference/register_post_type
+     */
     public function register_post_type_args( $slug, $args = array() ) {
 
         $this->post_type_args[ $slug ] = $args;
 
     }
 
+    /**
+     * The WP init action callback
+     */
     public function init() {
 
         $this->register_post_types();
 
     }
 
+    /**
+     * Register the post types stored in self::$post_type_args
+     */
     private function register_post_types() {
 
         foreach( $this->post_type_args as $slug => $args ) {
