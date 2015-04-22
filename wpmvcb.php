@@ -50,6 +50,7 @@ class WPMVCB  {
             'Base_Controller_CPT'         => __DIR__ . '/controllers/class-base-controller-cpt.php',
             'Base_Controller_Plugin'      => __DIR__ . '/controllers/class-base-controller-plugin.php',
             'Base_Controller_Settings'    => __DIR__ . '/controllers/class-base-controller-settings.php',
+            'Base_Controller_Taxonomy'    => __DIR__ . '/controllers/class-base-controller-taxonomy.php',
             'WPMVCB_Metabox'              => __DIR__ . '/controllers/class-metabox-base.php',
             'Base_Model'                  => __DIR__ . '/models/class-base-model.php',
             'Base_Model-Admin-Notice'     => __DIR__ . '/models/class-base-model-admin-notice.php',
