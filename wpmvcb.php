@@ -44,6 +44,7 @@ class WPMVCB  {
      * @return void
      */
     public function __construct() {
+
         $this->autoload_classes = array(
             'Base_Controller'             => __DIR__ . '/controllers/class-base-controller.php',
             'Base_Controller_CPT'         => __DIR__ . '/controllers/class-base-controller-cpt.php',
@@ -70,6 +71,7 @@ class WPMVCB  {
 
         add_action( 'init', array( $this, 'init' ) );
         add_action( 'muplugins_loaded', array( $this, 'load_mustloads' ) );
+
     }
 
     /**
@@ -78,7 +80,9 @@ class WPMVCB  {
      * @param array $classes
      */
     public function register_autoload_classes( array $classes ) {
+
         $this->autoload_classes = array_merge( $this->autoload_classes, $classes );
+
     }
 
     /**
@@ -88,11 +92,13 @@ class WPMVCB  {
      * @return void
      */
     public function autoloader( $class ) {
+
         if ( isset( $this->autoload_classes[ $class ] ) ) {
             if ( file_exists( $this->autoload_classes[ $class ] ) ) {
                 require_once $this->autoload_classes[ $class ];
             }
         }
+
     }
 
     /**
