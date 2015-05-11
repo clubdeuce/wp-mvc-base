@@ -15,7 +15,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Model' ) ) :
+if ( ! class_exists( 'Base_Model' ) ) {
+
 	/**
 	 * The base model.
 	 *
@@ -26,8 +27,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 	 * @internal
 	 * @since    WPMVCBase 0.1
 	 */
-	abstract class Base_Model
-	{
+	abstract class Base_Model {
+
 		/**
 		 * The args passed in to the model
 		 *
@@ -132,8 +133,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( $args )
-		{
+		public function __construct( $args ) {
 			$args = wp_parse_args( $args, array(
                 'css'           => null,
                 'admin_css'     => null,
@@ -153,6 +153,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
             $this->metaboxes     = $args['metaboxes'];
             $this->help_tabs     = $args['help_tabs'];
             $this->admin_notices = $args['admin_notices'];
+
 		}
 
 		/**
@@ -162,13 +163,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function get_css()
-		{
+		public function get_css() {
+
 			if ( isset( $this->css ) ) {
 				return $this->css;
 			}
 			
 			return false;
+
 		}
 
 		/**
@@ -178,8 +180,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function get_admin_css()
-		{
+		public function get_admin_css() {
+
 			if ( isset( $this->admin_css ) ) {
 				return $this->admin_css;
 			}
@@ -194,13 +196,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function get_scripts()
-		{
+		public function get_scripts() {
+
 			if ( isset( $this->scripts ) ) {
 				return $this->scripts;
 			}
 			
 			return false;
+
 		}
 
 		/**
@@ -210,13 +213,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function get_admin_scripts()
-		{
+		public function get_admin_scripts() {
+
 			if ( isset( $this->admin_scripts ) ) {
 				return $this->admin_scripts;
 			}
 			
 			return false;
+
 		}
 
 		/**
@@ -227,13 +231,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @since  WPMVCBase 0.1
 		 * @see    WP_Metabox
 		 */
-		public function get_metaboxes()
-		{	
+		public function get_metaboxes() {
+
 			if ( isset( $this->metaboxes ) ) {
 				return $this->metaboxes;
 			}
 				
 			return false;
+
 		}
 
 		/**
@@ -273,11 +278,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @since  WPMVCBase 0.2
 		 * @see    Base_Model_Help_Tab
 		 */
-		public function add_help_tab( $handle, $help_tab )
-		{
-			if ( ! is_array( $this->help_tabs ) ) {
-				$this->help_tabs = array();
-			}
+		public function add_help_tab( $handle, $help_tab ) {
 			
 			if ( $help_tab instanceOf Base_Model_Help_Tab ) {
 				$this->help_tabs = array_merge( $this->help_tabs, array( $handle => $help_tab ) );
@@ -290,6 +291,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				sprintf( __( '%s::%s expects a Base_Model_Help_Tab object as the second parameter', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
 				$help_tab
 			);
+
 		}
 		
 		/**
@@ -301,8 +303,8 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function add_shortcode( $shortcode, $callback )
-		{
+		public function add_shortcode( $shortcode, $callback ) {
+
 			if ( ! isset( $this->shortcodes ) ) {
 				$this->shortcodes = array();
 			}
@@ -317,6 +319,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 				sprintf( __( '%s::%s expects a valid callback.', 'wpmvcb' ), __CLASS__, __FUNCTION__ ),
 				$callback
 			);
+
 		}
 		
 		/**
@@ -334,8 +337,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access   public
 		 * @since    WPMVCBase 0.1
 		 */
-		public function authenticate_post( $post_id, $post_type, $post_data, $nonce_name, $nonce_action )
-		{
+		public function authenticate_post( $post_id, $post_type, $post_data, $nonce_name, $nonce_action ) {
 
 			// verify if this is an auto save routine.
 			// If it is our form has not been submitted, so we don't want to do anything
@@ -360,6 +362,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 			}
 
 			return true;
+
 		}
 		
 		/**
@@ -369,14 +372,16 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
-		public function get_admin_notices()
-		{
+		public function get_admin_notices() {
+
 			if ( isset( $this->admin_notices ) ) {
 				return $this->admin_notices;
 			}
 			
 			return false;
+			
 		}
 
 	}
-endif;
+
+}
