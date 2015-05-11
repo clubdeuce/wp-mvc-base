@@ -36,7 +36,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 * @access protected
 		 * @since  WPMCVBase 0.4
 		 */
-		protected $args;
+		protected $args = array();
 
 		/**
 		 * The css files required by this model
@@ -47,7 +47,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 * @access protected
 		 * @since  WPMVCBase 0.1
 		 */
-		protected $css;
+		protected $css = array();
 
 		/**
 		 * The plugin admin css files.
@@ -58,7 +58,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 * @access protected
 		 * @since  WPMVCBase 0.1
 		 */
-		protected $admin_css;
+		protected $admin_css = array();
 
 		/**
 		 * The model javascript files
@@ -70,7 +70,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 * @since  WPMVCBase 0.1
 		 * @see    WPMVCBase\Models\Base Model JS Object
 		 */
-		protected $scripts;
+		protected $scripts = array();
 
 		/**
 		 * The model admin javascript files
@@ -81,7 +81,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 * @access protected
 		 * @since  WPMVCBase 0.1
 		 */
-		protected $admin_scripts;
+		protected $admin_scripts = array();
 
 		/**
 		 * Metaboxes required by this model.
@@ -91,7 +91,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 * @since  WPMVCBase 0.1
 		 * @see    WPMVCBase\Models\Base_Model_Metabox
 		 */
-		protected $metaboxes;
+		protected $metaboxes = array();
 
 		/**
 		 * The model's help tabs.
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 * @since  WPMVCBase 0.2
 		 * @see    Base_Model_Admin_Notice
 		 */
-		protected $admin_notices;
+		protected $admin_notices = array();
 		
 		/**
 		 * The class constructor.
@@ -165,11 +165,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 */
 		public function get_css() {
 
-			if ( isset( $this->css ) ) {
-				return $this->css;
-			}
-			
-			return false;
+			return $this->css;
 
 		}
 
@@ -182,11 +178,8 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 */
 		public function get_admin_css() {
 
-			if ( isset( $this->admin_css ) ) {
-				return $this->admin_css;
-			}
-			
-			return false;
+			return $this->admin_css;
+
 		}
 
 		/**
@@ -198,12 +191,8 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 */
 		public function get_scripts() {
 
-			if ( isset( $this->scripts ) ) {
-				return $this->scripts;
-			}
-			
-			return false;
-
+			return $this->scripts;
+		
 		}
 
 		/**
@@ -215,11 +204,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 */
 		public function get_admin_scripts() {
 
-			if ( isset( $this->admin_scripts ) ) {
-				return $this->admin_scripts;
-			}
-			
-			return false;
+			return $this->admin_scripts;
 
 		}
 
@@ -233,11 +218,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 */
 		public function get_metaboxes() {
 
-			if ( isset( $this->metaboxes ) ) {
-				return $this->metaboxes;
-			}
-				
-			return false;
+			return $this->metaboxes;
 
 		}
 
@@ -304,10 +285,6 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 * @since  WPMVCBase 0.1
 		 */
 		public function add_shortcode( $shortcode, $callback ) {
-
-			if ( ! isset( $this->shortcodes ) ) {
-				$this->shortcodes = array();
-			}
 			
 			if ( is_callable( $callback ) ) {
 				$this->shortcodes = array_merge( $this->shortcodes, array( $shortcode => $callback ) );
@@ -374,12 +351,8 @@ if ( ! class_exists( 'Base_Model' ) ) {
 		 */
 		public function get_admin_notices() {
 
-			if ( isset( $this->admin_notices ) ) {
-				return $this->admin_notices;
-			}
-			
-			return false;
-			
+			return $this->admin_notices;
+
 		}
 
 	}
