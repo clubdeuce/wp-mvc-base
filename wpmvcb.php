@@ -146,11 +146,33 @@ class WPMVCB  {
 
     /**
      * Register the post types stored in self::$post_type_args
+     *
+     * This method also adds rewrite rules for date based archives, if the post type itself supports archives.
      */
     private function register_post_types() {
 
         foreach( $this->post_type_args as $slug => $args ) {
+
             register_post_type( $slug, $args );
+
+            $post_type = get_post_type_object( $slug );
+
+            if ( $post_type && $post_type->has_archive ) {
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/([0-9]{2})/([0-9]{2})/feed/(feed|rdf|rss|rss2|atom)/?$", 'index.php?post_type=' . $slug . '&m=$matches[1]$matches[2]$matches[3]&feed=$matches[4]','top');
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/([0-9]{2})/([0-9]{2})/(feed|rdf|rss|rss2|atom)/?$",      'index.php?post_type=' . $slug . '&m=$matches[1]$matches[2]$matches[3]&feed=$matches[4]','top');
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/([0-9]{2})/([0-9]{2})/page/?([0-9]{1,})/?$",             'index.php?post_type=' . $slug . '&m=$matches[1]$matches[2]$matches[3]&paged=$matches[4]','top');
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/([0-9]{2})/([0-9]{1,2})/?$",                             'index.php?post_type=' . $slug . '&m=$matches[1]$matches[2]$matches[3]', 'top' );
+                //Monthly archive
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/([0-9]{2})/feed/(feed|rdf|rss|rss2|atom)/?$", 'index.php?post_type=' . $slug . '&m=$matches[1]$matches[2]&feed=$matches[3]','top');
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/([0-9]{2})/(feed|rdf|rss|rss2|atom)/?$",      'index.php?post_type=' . $slug . '&m=$matches[1]$matches[2]&feed=$matches[3]','top');
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/([0-9]{2})/page/?([0-9]{1,})/?$",             'index.php?post_type=' . $slug . '&m=$matches[1]$matches[2]&paged=$matches[3]','top');
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/([0-9]{2})/?$",                               'index.php?post_type=' . $slug . '&m=$matches[1]$matches[2]', 'top' );
+                //Yearly archive
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/feed/(feed|rdf|rss|rss2|atom)/?$", 'index.php?post_type=' . $slug . '&m=$matches[1]&feed=$matches[2]','top');
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/(feed|rdf|rss|rss2|atom)/?$",      'index.php?post_type=' . $slug . '&m=$matches[1]&feed=$matches[2]','top');
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/page/?([0-9]{1,})/?$",             'index.php?post_type=' . $slug . '&m=$matches[1]&paged=$matches[2]','top');
+                add_rewrite_rule( "{$post_type->rewrite['slug']}/([0-9]{4})/?$",                               'index.php?post_type=' . $slug . '&m=$matches[1]', 'top' );
+            }
         }
         
     }
