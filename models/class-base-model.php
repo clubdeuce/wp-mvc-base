@@ -102,7 +102,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @since  WPMVCBase 0.2
 		 * @see    Base_Model_Help_Tabs
 		 */
-		protected $help_tabs;
+		protected $help_tabs = array();
 
 		/**
 		 * The model's shortcodes.
@@ -237,19 +237,17 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		}
 
 		/**
-		 * Get the cpt help screen tabs.
+		 * Get the model help screen tabs.
 		 *
-		 * @return array|bool $help_tabs if set, FALSE if not.
+		 * @return Base_Model_Help_Tab[]
 		 * @access public
 		 * @since  WPMVCBase 0.1
+		 * @see    Base_Model_Help_Tab
 		 */
-		public function get_help_tabs()
-		{	
-			if ( isset( $this->help_tabs ) ) {
-				return $this->help_tabs;
-			}
-			
-			return false;
+		public function get_help_tabs()		{	
+
+			return $this->help_tabs;
+
 		}
 		
 		/**
