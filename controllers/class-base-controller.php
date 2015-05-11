@@ -200,6 +200,15 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 
 		}
 
+		/**
+		 * Implement magic __call method
+		 *
+		 * @param  string $method The method name
+		 * @param  array  $args   Parameters passed to the method called
+		 * @return mixed
+		 * @access public
+		 * @since  0.4
+		 */
 		public function __call( $method, $args ) {
 
 			$message = sprintf( __( 'Method %s not found in class %s or its model or view', 'wpmvcb' ), $method, get_called_class() );
@@ -219,6 +228,14 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 
 		}
 
+		/**
+		 * Implement magic __get method
+		 *
+		 * @param  string $property The property name
+		 * @return mixed
+		 * @access public
+		 * @since  0.4
+		 */
 		public function __get( $property ) {
 
 			$message = sprintf( 'Property %s not found in %s or its model or view', $property, get_called_class() );
