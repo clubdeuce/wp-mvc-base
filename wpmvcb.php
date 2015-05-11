@@ -18,6 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 class WPMVCB  {
 
     /**
+     * The class version number
+     *
+     * @var    string
+     * @access private
+     * @since  0.4
+     */
+    private $version = '0.4';
+
+    /**
      * A list of files that must be loaded at plugin initialization
      *
      * @var array
@@ -185,6 +194,15 @@ class WPMVCB  {
     public function get_source_dir() {
 
         return __DIR__;
+
+    }
+
+    /**
+     * Get the base version number
+     */
+    public function get_version() {
+
+        return $this->version;
 
     }
 }
