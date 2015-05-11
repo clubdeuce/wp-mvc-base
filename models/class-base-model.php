@@ -111,7 +111,7 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		 * @access protected
 		 * @since  WPMVCBase 0.2
 		 */
-		protected $shortcodes;
+		protected $shortcodes = array();
 		
 		/**
 		 * The model's admin notices.
@@ -253,17 +253,14 @@ if ( ! class_exists( 'Base_Model' ) ) :
 		/**
 		 * Get the model's shortcodes.
 		 *
-		 * @return array|bool $shortcodes if set, FALSE if not.
+		 * @return array
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function get_shortcodes()
-		{
-			if ( isset( $this->shortcodes ) ) {
-				return $this->shortcodes;
-			}
-			
-			return false;
+		public function get_shortcodes() {
+
+			return $this->shortcodes;
+
 		}
 
 		/**
