@@ -24,12 +24,33 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 	 * @version  0.2
 	 * @since WPMVCBase 0.2
 	 */
-	abstract class Base_Controller
-	{
+	abstract class Base_Controller {
+
+		/**
+		 * The args passed to the constructor
+		 *
+		 * @var    array
+		 * @access protected
+		 * @since  0.4
+		 */
 		protected $args;
 
+		/**
+		 * The model for this controller
+		 *
+		 * @var    object
+		 * @access protected
+		 * @since  0.4
+		 */
         protected $model;
         
+        /**
+         * The view for this controller
+         *
+         * @var    object
+         * @access protected
+         * @since  0.4
+         */
         protected $view;
 		
 		/**
@@ -38,8 +59,8 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( array $args = array() )
-		{
+		public function __construct( array $args = array() ) {
+
             $args = wp_parse_args( $args, array(
                 'model' => null,
                 'view'  => null,
@@ -52,6 +73,7 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 			add_action( 'wp_enqueue_scripts',    array( $this, 'wp_enqueue_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'add_meta_boxes',        array( $this, 'add_meta_boxes' ) );
+
 		}
 		
 		/**
@@ -61,11 +83,12 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 		 * @return WP_Error|null
 		 * @since  WPMVCBase 0.1
 		 */
-		public function add_shortcodes( array $shortcodes )
-		{	
+		public function add_shortcodes( array $shortcodes ) {
+
 			foreach ( $shortcodes as $key => $shortcode ) {
 				add_shortcode( $key, $shortcode );
 			}
+
 		}
 		
 		/**
@@ -75,8 +98,8 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 		 * @return WP_Error|null  WP_Error object on failure.
 		 * @since  WPMVCBase 0.3
 		 */
-		public function enqueue_scripts( array $scripts )
-		{	
+		public function enqueue_scripts( array $scripts ) {
+
 			foreach ( $scripts as $key => $script ) {
 				if( is_a( $script, 'Base_Model_JS_Object' ) ) {
 					wp_enqueue_script(
@@ -105,6 +128,7 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 			if( isset( $wp_error ) ) {
 				return $wp_error;
 			}
+
 		}
 		
 		/**
@@ -119,8 +143,8 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 		 * @since    WPMVCBase 0.1
 		 * @todo     move the filter into the add function
 		 */
-		public function render_metabox( WP_Post $post, $metabox )
-		{
+		public function render_metabox( WP_Post $post, $metabox ) {
+
 			//Is a view file specified for this metabox?
 			if ( isset( $metabox['args']['view'] ) ) {
 				if ( file_exists( $metabox['args']['view'] ) ) {
@@ -152,6 +176,7 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 				);
 				return;
 			}
+
 		}
 		
 		/**
@@ -161,8 +186,8 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 		 * access public
 		 * @since 1.0
 		 */
-		public function render_help_tab( Base_Model_Help_Tab $tab )
-		{
+		public function render_help_tab( Base_Model_Help_Tab $tab ) {
+
 			$screen = get_current_screen();
 			
 			$screen->add_help_tab( 
@@ -172,6 +197,7 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 					'content' => $tab->get_content()
 				)
 			);
+
 		}
 
 		public function __call( $method, $args ) {
