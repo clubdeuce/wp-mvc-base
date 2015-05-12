@@ -41,13 +41,7 @@ namespace WPMVCB\Testing
 			$this->_mock_path = trailingslashit( vfsStream::url( 'test_dir' ) );
 			$this->_filesystem = vfsStreamWrapper::getRoot();
 
-			$this->_controller = new Stub_Controller(
-//                '/home/foo/plugin.php',
-//                '/home/foo/app',
-//				'/home/foo/base',
-//                'http://example.com/foo',
-//                'footextdomain'
-			);
+			$this->_controller = new Stub_Controller();
 		}
 
 		public function tearDown()
@@ -119,107 +113,107 @@ namespace WPMVCB\Testing
 				$this->_controller->add_shortcodes( 'foo' );
 		}
 		
-		public function testMethodExistsRenderMetabox()
-		{
-			$this->assertTrue( method_exists( $this->_controller, 'render_metabox' ) );
-		}
+		// public function testMethodExistsRenderMetabox()
+		// {
+		// 	$this->assertTrue( method_exists( $this->_controller, 'render_metabox' ) );
+		// }
 
-		/**
-		 * @depends testMethodExistsRenderMetabox
-		 * @covers Base_Controller::render_metabox
-		 * @uses   Base_Controller::__construct
-		 */
-		public function testRenderMetaboxNoViewSpecified()
-		{
-			$metabox = array(
-				'id' => 'test-metabox',
-				'args' => array()
-			);
+		// /**
+		//  * @depends testMethodExistsRenderMetabox
+		//  * @covers Base_Controller::render_metabox
+		//  * @uses   Base_Controller::__construct
+		//  */
+		// public function testRenderMetaboxNoViewSpecified()
+		// {
+		// 	$metabox = array(
+		// 		'id' => 'test-metabox',
+		// 		'args' => array()
+		// 	);
 			
-			//set up a post object 
-			$factory = new \WP_UnitTest_Factory;
+		// 	//set up a post object 
+		// 	$factory = new \WP_UnitTest_Factory;
 			
-			$post_id = $factory->post->create_object(
-				array(
-					'post_title'  => 'Test Render Metabox',
-					'post_type'   => 'post',
-					'post_status' => 'publish'
-				)
-			);
+		// 	$post_id = $factory->post->create_object(
+		// 		array(
+		// 			'post_title'  => 'Test Render Metabox',
+		// 			'post_type'   => 'post',
+		// 			'post_status' => 'publish'
+		// 		)
+		// 	);
 			
-			$this->expectOutputString( 'No view specified in the callback arguments for metabox id test-metabox' );
-			$this->_controller->render_metabox( get_post( $post_id ), $metabox );
-		}
+		// 	$this->expectOutputString( 'No view specified in the callback arguments for metabox id test-metabox' );
+		// 	$this->_controller->render_metabox( get_post( $post_id ), $metabox );
+		// }
 
-		/**
-		 * @depends testMethodExistsRenderMetabox
-		 * @covers Base_Controller::render_metabox
-		 * @uses   Base_Controller::__construct
-		 */
-		public function testRenderMetaboxViewNonexistent()
-		{
-			$metabox = array(
-				'id' => 'test-metabox',
-				'args' => array(
-					'view' => 'foo.php'
-				)
-			);
+		// /**
+		//  * @depends testMethodExistsRenderMetabox
+		//  * @covers Base_Controller::render_metabox
+		//  * @uses   Base_Controller::__construct
+		//  */
+		// public function testRenderMetaboxViewNonexistent()
+		// {
+		// 	$metabox = array(
+		// 		'id' => 'test-metabox',
+		// 		'args' => array(
+		// 			'view' => 'foo.php'
+		// 		)
+		// 	);
 			
-			//set up a post object 
-			$factory = new \WP_UnitTest_Factory;
+		// 	//set up a post object 
+		// 	$factory = new \WP_UnitTest_Factory;
 			
-			$post_id = $factory->post->create_object(
-				array(
-					'post_title'  => 'Test Render Metabox',
-					'post_type'   => 'post',
-					'post_status' => 'publish'
-				)
-			);
+		// 	$post_id = $factory->post->create_object(
+		// 		array(
+		// 			'post_title'  => 'Test Render Metabox',
+		// 			'post_type'   => 'post',
+		// 			'post_status' => 'publish'
+		// 		)
+		// 	);
 			
-			$this->expectOutputString( 'The view file foo.php for metabox id test-metabox does not exist' );
-			$this->_controller->render_metabox( get_post( $post_id ), $metabox );
-		}
+		// 	$this->expectOutputString( 'The view file foo.php for metabox id test-metabox does not exist' );
+		// 	$this->_controller->render_metabox( get_post( $post_id ), $metabox );
+		// }
 
-		/**
-		 * @depends testMethodExistsRenderMetabox
-		 * @covers Base_Controller::render_metabox
-		 * @uses   Base_Controller::__construct
-		 */
-		public function testMethodRenderMetabox()
-		{
-			//create our mock view directory
-			mkdir( $this->_mock_path . 'app/views', 0755, true );
-			$this->assertTrue( $this->_filesystem->hasChild( 'app/views' ) );
+		// /**
+		//  * @depends testMethodExistsRenderMetabox
+		//  * @covers Base_Controller::render_metabox
+		//  * @uses   Base_Controller::__construct
+		//  */
+		// public function testMethodRenderMetabox()
+		// {
+		// 	//create our mock view directory
+		// 	mkdir( $this->_mock_path . 'app/views', 0755, true );
+		// 	$this->assertTrue( $this->_filesystem->hasChild( 'app/views' ) );
 
-			//create our mock View file
-			$handle = fopen( $this->_mock_path . 'app/views/foo.php', 'w' );
-			fwrite( $handle, 'This is foo.' );
-			fclose( $handle );
-			$this->assertFileExists( $this->_mock_path . 'app/views/foo.php' );
+		// 	//create our mock View file
+		// 	$handle = fopen( $this->_mock_path . 'app/views/foo.php', 'w' );
+		// 	fwrite( $handle, 'This is foo.' );
+		// 	fclose( $handle );
+		// 	$this->assertFileExists( $this->_mock_path . 'app/views/foo.php' );
 			
-			//set up a metabx
-			$metabox = array(
-				'id' => 'test-metabox',
-				'args' => array(
-					'view' =>  $this->_mock_path . 'app/views/foo.php'
-				)
-			);
+		// 	//set up a metabx
+		// 	$metabox = array(
+		// 		'id' => 'test-metabox',
+		// 		'args' => array(
+		// 			'view' =>  $this->_mock_path . 'app/views/foo.php'
+		// 		)
+		// 	);
 			
-			//set up a post object 
-			$factory = new \WP_UnitTest_Factory;
+		// 	//set up a post object 
+		// 	$factory = new \WP_UnitTest_Factory;
 			
-			$post_id = $factory->post->create_object(
-				array(
-					'post_title'  => 'Test Render Metabox',
-					'post_type'   => 'post',
-					'post_status' => 'publish'
-				)
-			);
+		// 	$post_id = $factory->post->create_object(
+		// 		array(
+		// 			'post_title'  => 'Test Render Metabox',
+		// 			'post_type'   => 'post',
+		// 			'post_status' => 'publish'
+		// 		)
+		// 	);
 			
-			$this->expectOutputString( 'This is foo.' );
+		// 	$this->expectOutputString( 'This is foo.' );
 
-			$this->_controller->render_metabox( get_post( $post_id ), $metabox, 'foo', 'bar', 'baz' );
-		}
+		// 	$this->_controller->render_metabox( get_post( $post_id ), $metabox, 'foo', 'bar', 'baz' );
+		// }
 		
 		/**
 		 * @covers Base_Controller::enqueue_scripts
@@ -303,6 +297,70 @@ namespace WPMVCB\Testing
 				$this->_controller->enqueue_scripts( array( 'fooscript' => $script ) )
 			);
 		}
+
+		/**
+		 * @covers Base_Controller::__call
+		 */
+		public function testMethodCallonModel() {
+
+			$stub = new Stub_Controller(array('model' => new Stub_Model));
+
+			$this->assertEquals('bar', $stub->foo());
+		}
+
+		/**
+		 * @covers Base_Controller::__call
+		 */
+		public function testMethodCallOnView() {
+
+			$stub = new Stub_Controller( array('view' => new Stub_View));
+
+			$this->assertEquals('bar', $stub->foo());
+
+		}
+
+		/**
+		 * @covers Base_Controller::__call
+		 */
+		public function testMethodCallError() {
+
+			$result = @$this->_controller->foo();
+			$this->assertInstanceOf('WP_Error', $result);
+			$this->assertNotEmpty($result->get_error_message());
+
+		}
+
+		/**
+		 * @covers Base_Controller::__get
+		 */
+		public function testMethodGetOnModel() {
+			
+			$stub = new Stub_Controller(array('model' => new Stub_Model));
+
+			$this->assertEquals('bar', $stub->foo);
+		}
+
+		/**
+		 * @covers Base_Controller::__get
+		 */
+		public function testMethodGetOnView() {
+
+			$stub = new Stub_Controller(array('view' => new Stub_View));
+
+			$this->assertEquals('bar', $stub->foo);
+
+		}
+
+		/**
+		 * @covers Base_Controller::__get
+		 */
+		public function testMethodGetOnModelError() {
+
+			$result = @$this->_controller->foo;
+			$this->assertInstanceOf('WP_Error', $result);
+			$this->assertNotEmpty($result->get_error_message());
+
+		}
 	}
 
     /**
@@ -313,14 +371,41 @@ namespace WPMVCB\Testing
      */
     class Stub_Controller extends Base_Controller
     {
-        public function __construct( $args = array() )
-        {
-            $args = wp_parse_args( $args, array(
-                'model' => Mockery::mock( 'Base_Model' ),
-                'view'  => Mockery::mock( 'Base_View' ),
-            ) );
+    }
 
-            parent::__construct( $args );
-        }
+    /**
+     * Class Stub_Model
+     *
+     * @package  WPMVCB\Testing
+     * @internal
+     */
+    class Stub_Model {
+
+    	public $foo = 'bar';
+
+    	public function foo() {
+
+    		return $this->foo;
+
+    	}
+
+    }
+
+    /**
+     * Class Stub_View
+     *
+     * @package  WPMVCB\Testing
+     * @internal
+     */
+    class Stub_View {
+
+    	public $foo = 'bar';
+
+    	public function foo() {
+
+    		return $this->foo;
+
+    	}
+
     }
 }

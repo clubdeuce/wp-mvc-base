@@ -29,6 +29,8 @@ require_once 'framework/class-constraint-script-registered.php';
 require_once 'framework/testcase.php';
 require_once WPMVCB_SRC_DIR . '/wpmvcb.php';
 
+$wpmvcb = new WPMVCB;
+
 echo 'Welcome to the WP MVC Base Test Suite' . PHP_EOL;
 echo 'Version 1.0' . PHP_EOL;
 echo 'Author: Daryl Lozupone <daryl@clubduece.com>' . PHP_EOL;
