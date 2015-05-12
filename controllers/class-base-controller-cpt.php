@@ -70,7 +70,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 		 */
 		public static function post_updated_messages( $messages ) {
 
-			global $post;
+			$post = get_post();
 
 			$post_type_object = get_post_type_object( $post->post_type );
 			$singular         = $post_type_object->labels->singular_name;
@@ -143,6 +143,9 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 
 		}
 
+		/**
+		 * Register necessary actions, filters, etc. when loading the class
+		 */
 		public static function on_load() {
 
 			add_filter( 'post_updated_messages', array(  __CLASS__, 'post_updated_messages' ) );
@@ -152,4 +155,5 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 	}
 
 }
+
 Base_Controller_CPT::on_load();
