@@ -39,8 +39,8 @@
 	"require-dev": {
 	    "satooshi/php-coveralls": "dev-master",
 	    "sebastianbergmann/phpcov": "1.1.0",
-	    "mikey179/vfsStream": "1.4.0",
-        "phpunit/phpunit": "4.4.4",
+	    "mikey179/vfsStream": "1.5.0",
+        "phpunit/phpunit": "4.6.6",
         "mockery/mockery": "0.9.2",
         "phpmd/phpmd": "2.2.0"
 	}
