@@ -1,6 +1,7 @@
 <?php
-namespace WPMVCB\Testing
-{
+namespace WPMVCB\Testing\UnitTests {
+
+	use \WPMVCB\Testing\WPMVCB_Test_Case;
     use \Base_Controller;
     use \Mockery;
     use \org\bovigo\vfs\vfsStreamWrapper;
@@ -10,7 +11,9 @@ namespace WPMVCB\Testing
 	/**
 	 * The test controller for Base_Controller_Plugin
 	 *
-	 * @since WPMVCBase 0.1
+	 * @group    Base
+	 * @group    Controllers
+	 * @since    WPMVCBase 0.1
 	 * @internal
 	 */
 
@@ -408,4 +411,5 @@ namespace WPMVCB\Testing
     	}
 
     }
+    
 }
