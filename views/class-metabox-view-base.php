@@ -40,10 +40,45 @@ abstract class WPMVCB_Metabox_View_Base
 	}
 
 	/**
-	 * Render the metabox
+	 * Render a metabox.
 	 *
-	 * @param WP_Post $post
-	 * @param array   $metabox
+	 * This function serves as the callback for a metabox.
+	 *
+	 * @param    WP_Post $post    The WP post object.
+	 * @param    object  $metabox The WP_Metabox object to be rendered.
+	 * @internal
+	 * @access   public
+	 * @since    WPMVCBase 0.4
 	 */
-	abstract public function render( $post, $metabox );
+	public function render( $post, $metabox ) {
+
+		//Is a view file specified for this metabox?
+		if ( isset( $metabox['args']['view'] ) ) {
+			if ( file_exists( $metabox['args']['view'] ) ) {
+
+				//include view for this metabox
+				include $metabox['args']['view'];
+				return;
+			}
+
+			if ( ! file_exists( $metabox['args']['view'] ) ) {
+				printf(
+					__( 'The view file %s for metabox id %s does not exist', 'wpmvcb' ),
+					$metabox['args']['view'],
+					$metabox['id']
+				);
+				return;
+			}
+		}
+
+		if ( ! isset( $metabox['args']['view'] ) ) {
+			printf(
+				__( 'No view specified in the callback arguments for metabox id %s', 'wpmvcb' ),
+				$metabox['id']
+			);
+			return;
+		}
+
+	}
+
 }

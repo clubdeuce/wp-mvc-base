@@ -130,55 +130,9 @@ if ( ! class_exists( 'WPMVC_Controller_Base' ) ) {
 			}
 
 		}
-		
-		/**
-		 * Render a metabox.
-		 *
-		 * This function serves as the callback for a metabox.
-		 *
-		 * @param    object $post The WP post object.
-		 * @param    object $metabox The WP_Metabox object to be rendered.
-		 * @internal
-		 * @access   public
-		 * @since    WPMVCBase 0.1
-		 * @todo     move the filter into the add function
-		 */
-		public function render_metabox( WP_Post $post, $metabox ) {
 
-			//Is a view file specified for this metabox?
-			if ( isset( $metabox['args']['view'] ) ) {
-				if ( file_exists( $metabox['args']['view'] ) ) {
-				
-					//include view for this metabox
-					include $metabox['args']['view'];
-					return;
-				}
-				
-				if ( file_exists( $this->app_path . 'views/' . $metabox['args']['view'] ) ) {
-					include $this->app_path . 'views/' . $metabox['args']['view'];
-					return;
-				}
-				
-				if ( ! file_exists( $metabox['args']['view'] ) ) {
-					printf(
-						__( 'The view file %s for metabox id %s does not exist', 'wpmvcb' ),
-						$metabox['args']['view'],
-						$metabox['id']
-					);
-					return;
-				}
-			}
-			
-			if ( ! isset( $metabox['args']['view'] ) ) {
-				printf(
-					__( 'No view specified in the callback arguments for metabox id %s', 'wpmvcb' ),
-					$metabox['id']
-				);
-				return;
-			}
 
-		}
-		
+
 		/**
 		 * Render a help tab.
 		 *
