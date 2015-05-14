@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Model' ) ) {
+if ( ! class_exists( 'WPMVCB_Model_Base' ) ) {
 
 	/**
 	 * The base model.
@@ -27,7 +27,7 @@ if ( ! class_exists( 'Base_Model' ) ) {
 	 * @internal
 	 * @since    WPMVCBase 0.1
 	 */
-	abstract class Base_Model {
+	abstract class WPMVCB_Model_Base {
 
 		/**
 		 * The args passed in to the model

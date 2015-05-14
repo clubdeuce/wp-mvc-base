@@ -27,7 +27,7 @@ if ( ! class_exists( 'Base_Model_Taxonomy' ) ) {
 	 * @filesource models/class-base-model-taxonomy.php
 	 * @since      WPMVCB 0.3
 	 */
-	abstract class Base_Model_Taxonomy extends Base_Model
+	abstract class Base_Model_Taxonomy extends WPMVCB_Model_Base
 	{
 		/**
 		 * The taxonomy slug.

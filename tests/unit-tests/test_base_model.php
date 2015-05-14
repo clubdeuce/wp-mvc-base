@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-    use Base_Model;
+    use WPMVCB_Model_Base;
     use WP_Error;
     
 	//require_once WPMVCB_SRC_DIR . '/helpers/class-base-helpers.php';
@@ -459,7 +459,7 @@ namespace WPMVCB\Testing
 		{
 			$this->setReflectionPropertyValue( $this->model, 'admin_notices', array( 'foo', 'bar' ) );
 			
-			$this->assertTrue( method_exists( 'Base_Model', 'get_admin_notices' ) );
+			$this->assertTrue( method_exists( 'WPMVCB_Model_Base', 'get_admin_notices' ) );
 			$this->assertEquals( array( 'foo', 'bar' ), $this->model->get_admin_notices() );
 		}
 		
@@ -468,12 +468,12 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetAdminNoticesEmpty()
 		{	
-			$this->assertTrue( method_exists( 'Base_Model', 'get_admin_notices' ), 'Method get_admin_notices does not exist' );
+			$this->assertTrue( method_exists( 'WPMVCB_Model_Base', 'get_admin_notices' ), 'Method get_admin_notices does not exist' );
 			$this->assertFalse( $this->model->get_admin_notices() );
 		}
 	}
 
-    class Stub_Model extends Base_Model
+    class Stub_Model extends WPMVCB_Model_Base
     {
         public function __construct( array $args = array() )
         {

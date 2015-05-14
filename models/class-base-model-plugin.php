@@ -23,7 +23,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ) {
 	 * @version 0.2
 	 * @since   WPMVCBase 0.2
 	 */
-	abstract class Base_Model_Plugin extends Base_Model
+	abstract class Base_Model_Plugin extends WPMVCB_Model_Base
 	{
 		/**
 		 * The plugin slug.
