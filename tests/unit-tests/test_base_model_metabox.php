@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	use \Base_Model_Metabox;
+	use \WPMVCB_Metabox_Model_Base;
 	
 	/**
 	 * The test controller for Base_Model_Metabox.
@@ -18,7 +18,7 @@ namespace WPMVCB\Testing
 		public function setUp()
 		{
 			parent::setUp();
-			$this->metabox      = new Base_Model_Metabox( array(
+			$this->metabox      = new WPMVCB_Metabox_Model_Base( array(
 				'id'            => 'my-super-cool-metabox',
 				'title'         => 'My Super Cool Metabox',
 				'callback'      => 'my_super_cool_callback',
@@ -225,7 +225,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testInvalidContext()
 		{
-			$metabox = new Base_Model_Metabox( array(
+			$metabox = new WPMVCB_Metabox_Model_Base( array(
 				'id'            => 'my-super-cool-metabox',
 				'title'         => 'My Super Cool Metabox',
 				'callback'      => 'my_super_cool_callback',
@@ -250,7 +250,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testInvalidPriority()
 		{
-			$metabox = new Base_Model_Metabox( array(
+			$metabox = new WPMVCB_Metabox_Model_Base( array(
 				'id'            => 'my-super-cool-metabox',
 				'title'         => 'My Super Cool Metabox',
 				'callback'      => 'my_super_cool_callback',

@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Controller' ) ) {
+if ( ! class_exists( 'WPMVC_Controller_Base' ) ) {
 	/**
 	 * The base controller.
 	 *
@@ -24,7 +24,7 @@ if ( ! class_exists( 'Base_Controller' ) ) {
 	 * @version  0.2
 	 * @since WPMVCBase 0.2
 	 */
-	abstract class Base_Controller {
+	abstract class WPMVC_Controller_Base {
 
 		/**
 		 * The args passed to the constructor

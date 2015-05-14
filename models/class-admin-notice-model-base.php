@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Model_Admin_Notice' ) ) {
+if ( ! class_exists( 'WPMVCB_Admin_Notice_Model_Base' ) ) {
 	/**
 	 * The base admin notice object model.
 	 *
@@ -23,7 +23,7 @@ if ( ! class_exists( 'Base_Model_Admin_Notice' ) ) {
 	 * @version 0.2
 	 * @since   WPMVCBase 0.2
 	 */
-	class Base_Model_Admin_Notice
+	class WPMVCB_Admin_Notice_Model_Base
 	{
 		/**
 		 * The notice type ( updated or error ).

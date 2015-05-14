@@ -1,8 +1,8 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once WPMVCB_SRC_DIR . '/controllers/class-base-controller-settings.php';
-	require_once WPMVCB_SRC_DIR . '/models/class-base-model-settings.php';
+	require_once WPMVCB_SRC_DIR . '/controllers/class-settings-base.php';
+	require_once WPMVCB_SRC_DIR . '/models/class-settings-model-base.php';
 	/**
 	 * The test controller for Base_Controller_Plugin
 	 *
@@ -77,7 +77,7 @@ namespace WPMVCB\Testing
 
 		public function testMethodConstructSetModel()
 		{
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$this->assertSame( $this->model, $this->getReflectionPropertyValue( $controller, 'model' ) );
 			$this->tearDown( $controller );
 		}
@@ -89,7 +89,7 @@ namespace WPMVCB\Testing
 				->method( 'get_settings_sections' )
 				->will( $this->returnValue( array() ) );
 
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$this->assertFalse( false === has_action( 'admin_init', array( $controller, 'add_settings_sections' ) ) );
 			$this->tearDown( $controller );
 		}
@@ -101,7 +101,7 @@ namespace WPMVCB\Testing
 				->method( 'get_settings_fields' )
 				->will( $this->returnValue( array() ) );
 
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$this->assertFalse( false === has_action( 'admin_init', array( $controller, 'add_settings_fields' ) ) );
 			$this->tearDown( $controller );
 		}
@@ -113,7 +113,7 @@ namespace WPMVCB\Testing
 				->method( 'get_options' )
 				->will( $this->returnValue( array() ) );
 
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$this->assertFalse( false === has_action( 'admin_init', array( $controller, 'register_options' ) ) );
 			$this->tearDown( $controller );
 		}
@@ -125,7 +125,7 @@ namespace WPMVCB\Testing
 				->method( 'get_pages' )
 				->will( $this->returnValue( array() ) );
 
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$this->assertFalse( false === has_action( 'admin_menu', array( $controller, 'add_menu_pages' ) ) );
 			$this->tearDown( $controller );
 		}
@@ -145,7 +145,7 @@ namespace WPMVCB\Testing
 				->method( 'get_options' )
 				->will( $this->returnValue( array( 'foo' => array( 'option_group' => 'bar', 'option_name' => 'baz' ) ) ) );
 
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$this->assertTrue( method_exists( $controller, 'register_options' ) );
 			$controller->register_options();
 
@@ -181,7 +181,7 @@ namespace WPMVCB\Testing
 				->will( $this->returnValue( $section ) );
 
 			//create a new controller
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$controller->add_settings_sections();
 
 			$this->assertArrayHasKey( 'foopage', $wp_settings_sections );
@@ -221,7 +221,7 @@ namespace WPMVCB\Testing
 				->method( 'get_settings_fields' )
 				->will( $this->returnValue( $fields ) );
 
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$controller->add_settings_fields();
 
 			$this->assertArrayHasKey( 'foopage', $wp_settings_fields );
@@ -248,9 +248,9 @@ namespace WPMVCB\Testing
 			$this->assertTrue( method_exists( $this->controller, 'add_menu_pages' ) );
 
 			//set up a page object stub
-			require_once WPMVCB_SRC_DIR . '/models/class-base-model-menu-page.php';
+			require_once WPMVCB_SRC_DIR . '/models/class-menu-page-model-base.php';
 
-			$page = new \Base_Model_Menu_Page();
+			$page = new \WPMVCB_Menu_Page_Model_Base();
 			$this->setReflectionPropertyValue( $page, 'page_title', 'foo_title' );
 			$this->setReflectionPropertyValue( $page, 'menu_title', 'Foo Title' );
 			$this->setReflectionPropertyValue( $page, 'capability', 'manage_options' );
@@ -268,7 +268,7 @@ namespace WPMVCB\Testing
 			wp_set_current_user( 0 );
 			
 			//create the settings controller
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$this->assertTrue( $controller->add_menu_pages() );
 
 			//get a reflection of the model pages property
@@ -288,9 +288,9 @@ namespace WPMVCB\Testing
 			$this->assertTrue( method_exists( $this->controller, 'add_menu_pages' ) );
 
 			//set up a page object stub
-			require_once WPMVCB_SRC_DIR . '/models/class-base-model-menu-page.php';
+			require_once WPMVCB_SRC_DIR . '/models/class-menu-page-model-base.php';
 
-			$page = new \Base_Model_Menu_Page();
+			$page = new \WPMVCB_Menu_Page_Model_Base();
 			$this->setReflectionPropertyValue( $page, 'parent_slug', 'general' );
 			$this->setReflectionPropertyValue( $page, 'page_title', 'foo_title' );
 			$this->setReflectionPropertyValue( $page, 'menu_title', 'Foo Title' );
@@ -309,7 +309,7 @@ namespace WPMVCB\Testing
 			wp_set_current_user( 0 );
 			
 			//create the settings controller
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			
 			$this->assertEquals(
 				new \WP_Error(
@@ -344,7 +344,7 @@ namespace WPMVCB\Testing
 				->method( 'get_pages' )
 				->will( $this->returnValue( $pages ) );
 
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 			$this->assertFileExists( WPMVCB_SRC_DIR . '/views/base_options_page.php' );
 			
 			$page = $pages['foopage'];
@@ -394,7 +394,7 @@ namespace WPMVCB\Testing
 				->method( 'get_pages' )
 				->will( $this->returnValue( $pages ) );
 
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 
 			//get the actual output
 			ob_start();
@@ -431,7 +431,7 @@ namespace WPMVCB\Testing
 				->will( $this->returnValue( $section ) );
 
 			//create a new controller
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 
 			ob_start();
 			$controller->render_settings_section( array( 'id' => 'foosection' ) );
@@ -476,7 +476,7 @@ namespace WPMVCB\Testing
 				->will( $this->returnValue( $section ) );
 
 			//create a new controller
-			$controller = new \Base_Controller_Settings( $this->model );
+			$controller = new \WPMVCB_Settings_Base( $this->model );
 
 			//get the expected output
 			ob_start();

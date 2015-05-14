@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-include_once 'class-base-controller.php';
+include_once 'class-controller-base.php';
 
 if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 	/**
@@ -26,7 +26,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 	 * @version  0.2
 	 * @since    WPMVCBase 0.1
 	 */
-	abstract class Base_Controller_Plugin extends Base_Controller
+	abstract class Base_Controller_Plugin extends WPMVC_Controller_Base
 	{
         /**
          * @var Base_Model_Plugin

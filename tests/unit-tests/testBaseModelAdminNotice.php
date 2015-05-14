@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once WPMVCB_SRC_DIR . '/models/class-base-model-admin-notice.php';
+	require_once WPMVCB_SRC_DIR . '/models/class-admin-notice-model-base.php';
 
 	/**
 	 * The tests for Base_Model_Admin_Notice
@@ -13,7 +13,7 @@ namespace WPMVCB\Testing
 	{
 		public function setUp()
 		{
-			$this->admin_notice = new \Base_Model_Admin_Notice( 'updated', 'foo message', array( 'post' ) );
+			$this->admin_notice = new \WPMVCB_Admin_Notice_Model_Base( 'updated', 'foo message', array( 'post' ) );
 		}
 		
 		public function tearDown()
@@ -41,7 +41,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetType()
 		{
-			$this->assertTrue( method_exists( 'Base_Model_Admin_Notice', 'get_type' ), 'Method get_type does not exist' );
+			$this->assertTrue( method_exists( 'WPMVCB_Admin_Notice_Model_Base', 'get_type' ), 'Method get_type does not exist' );
 			$this->assertEquals( 'updated', $this->admin_notice->get_type() );
 		}
 		
@@ -50,7 +50,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetMessage()
 		{
-			$this->assertTrue( method_exists( 'Base_Model_Admin_Notice', 'get_message' ), 'Method get_message does not exist' );
+			$this->assertTrue( method_exists( 'WPMVCB_Admin_Notice_Model_Base', 'get_message' ), 'Method get_message does not exist' );
 			$this->assertEquals( 'foo message', $this->admin_notice->get_message() );
 		}
 		
@@ -59,7 +59,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetScreens()
 		{
-			$this->assertTrue( method_exists( 'Base_Model_Admin_Notice', 'get_screens' ), 'Method get_screens does not exist' );
+			$this->assertTrue( method_exists( 'WPMVCB_Admin_Notice_Model_Base', 'get_screens' ), 'Method get_screens does not exist' );
 			$this->assertEquals( array( 'post' ), $this->admin_notice->get_screens() );
 		}
 		
@@ -68,9 +68,9 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodGetScreensEmptyScreens()
 		{
-			$this->assertTrue( method_exists( 'Base_Model_Admin_Notice', 'get_screens' ), 'Method get_screens does not exist' );
+			$this->assertTrue( method_exists( 'WPMVCB_Admin_Notice_Model_Base', 'get_screens' ), 'Method get_screens does not exist' );
 			
-			$notice = new \Base_Model_Admin_Notice( 'error', 'Foo' );
+			$notice = new \WPMVCB_Admin_Notice_Model_Base( 'error', 'Foo' );
 			$this->assertEquals( 'all', $notice->get_screens() );
 		}
 	}

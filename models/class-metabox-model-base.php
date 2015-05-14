@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Model_Metabox' ) ) {
+if ( ! class_exists( 'WPMVCB_Metabox_Model_Base' ) ) {
 	/**
 	 * The base metabox object model.
 	 *
@@ -23,7 +23,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ) {
 	 * @version 0.1
 	 * @since WPMVCBase 0.1
 	 */
-	class Base_Model_Metabox
+	class WPMVCB_Metabox_Model_Base
 	{
 		/**
 		 * The metabox id

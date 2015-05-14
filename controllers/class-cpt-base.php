@@ -14,7 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' ) ) {
+if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base' ) ) {
 	/**
 	 * The base custom post type controller.
 	 *
@@ -22,7 +22,7 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 	 * @version 0.2
 	 * @since   WPMVCBase 0.2
 	 */
-	class Base_Controller_CPT extends Base_Controller
+	class WPMVCB_Cpt_Base extends WPMVC_Controller_Base
 	{
 		/**
 		 * The post type slug
@@ -156,4 +156,4 @@ if ( ! class_exists( 'Base_Controller_CPT' ) && class_exists( 'Base_Controller' 
 
 }
 
-Base_Controller_CPT::on_load();
+WPMVCB_Cpt_Base::on_load();

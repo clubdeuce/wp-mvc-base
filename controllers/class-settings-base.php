@@ -15,8 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Controller_Settings' ) ) {
-	include_once 'class-base-controller.php';
+if ( ! class_exists( 'WPMVCB_Settings_Base' ) ) {
 
 	/**
 	 * The base settings controller class.
@@ -25,7 +24,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 	 * @version 0.2
 	 * @since   WPMVCBase 0.2
 	 */
-	class Base_Controller_Settings extends Base_Controller
+	class WPMVCB_Settings_Base extends WPMVC_Controller_Base
 	{
 		/**
 		 * The settings model.
@@ -38,11 +37,12 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		/**
 		 * The class constructor.
 		 *
-		 * @param  Base_Model_Settings $model The Base_Model_Settings object.
-		 * @access public
+		 * @param  WPMVCB_Settings_Model_Base $model The Base_Model_Settings object.
+		 *
+		 *@access public
 		 * @since  WPMVCBase 0.2
 		 */
-		public function __construct( Base_Model_Settings $model )
+		public function __construct( WPMVCB_Settings_Model_Base $model )
 		{
 			$this->model = $model;
 
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 
 			if ( is_array( $menu_pages ) ) {
 				foreach ( $menu_pages as $key => $page ) {
-					if ( is_a( $page, 'Base_Model_Menu_Page' ) ) {
+					if ( is_a( $page, 'WPMVCB_Menu_Page_Model_Base' ) ) {
 						if ( ! $page->get_callback() ) {
 							$page->set_callback( array( $this, 'render_options_page' ) );
 						}

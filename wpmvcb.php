@@ -53,26 +53,26 @@ class WPMVCB  {
     public function __construct() {
 
         $this->autoload_classes = array(
-            'Base_Controller'             => __DIR__ . '/controllers/class-base-controller.php',
-            'Base_Controller_CPT'         => __DIR__ . '/controllers/class-base-controller-cpt.php',
-            'Base_Controller_Plugin'      => __DIR__ . '/controllers/class-base-controller-plugin.php',
-            'Base_Controller_Settings'    => __DIR__ . '/controllers/class-base-controller-settings.php',
-            'Base_Controller_Taxonomy'    => __DIR__ . '/controllers/class-base-controller-taxonomy.php',
-            'WPMVCB_Metabox'              => __DIR__ . '/controllers/class-metabox-base.php',
-            'Base_Model'                  => __DIR__ . '/models/class-base-model.php',
-            'Base_Model-Admin-Notice'     => __DIR__ . '/models/class-base-model-admin-notice.php',
-            'Base_Model_CPT'              => __DIR__ . '/models/class-base-model-cpt.php',
-            'Base_Model_Help_Tab'         => __DIR__ . '/models/class-base-model-help-tab.php',
-            'Base_Model_JS_Object'        => __DIR__ . '/models/class-base-model-js-object.php',
-            'Base_Model_Menu_Page'        => __DIR__ . '/models/class-base-model-menu-page.php',
-            'Base_Model_Metabox'          => __DIR__ . '/models/class-base-model-metabox.php',
-            'Base_Model_Plugin'           => __DIR__ . '/models/class-base-model-plugin.php',
-            'Base_Model_Settings'         => __DIR__ . '/models/class-base-model-settings.php',
-            'Base_Model_Taxonomy'         => __DIR__ . '/models/class-base-model-taxonomy.php',
-            'WPMVCB_Post_View_Base'       => __DIR__ . '/views/class-post-view-base.php',
-            'WPMVCB_Metabox_View_Base'    => __DIR__ . '/views/class-metabox-view-base.php',
-            'WPMVCB_Metabox_Default_View' => __DIR__ . '/views/class-metabox-view-default.php',
-            'Helper_Functions'            => __DIR__ . '/helpers/class-base-helpers.php',
+            'WPMVC_Controller_Base'          => __DIR__ . '/controllers/class-controller-base.php',
+            'WPMVCB_Cpt_Base'                => __DIR__ . '/controllers/class-cpt-base.php',
+            'Base_Controller_Plugin'         => __DIR__ . '/controllers/class-base-controller-plugin.php',
+            'WPMVCB_Settings_Base'           => __DIR__ . '/controllers/class-settings-base.php',
+            'WPMVCB_Taxonomy_Base'           => __DIR__ . '/controllers/class-taxonomy-base.php',
+            'WPMVCB_Metabox'                 => __DIR__ . '/controllers/class-metabox-base.php',
+            'WPMVCB_Model_Base'              => __DIR__ . '/models/class-model-base.php',
+            'WPMVCB_Admin_Notice_Model_Base' => __DIR__ . '/models/class-admin-notice-model-base.php',
+            'WPMVCB_Cpt_Model_Base'          => __DIR__ . '/models/class-cpt-model-base.php',
+            'Base_Model_Help_Tab'            => __DIR__ . '/models/class-base-model-help-tab.php',
+            'Base_Model_JS_Object'           => __DIR__ . '/models/class-base-model-js-object.php',
+            'WPMVCB_Menu_Page_Model_Base'    => __DIR__ . '/models/class-menu-page-model-base.php',
+            'WPMVCB_Metabox_Model_Base'      => __DIR__ . '/models/class-metabox-model-base.php',
+            'Base_Model_Plugin'              => __DIR__ . '/models/class-base-model-plugin.php',
+            'WPMVCB_Settings_Model_Base'     => __DIR__ . '/models/class-settings-model-base.php',
+            'WPMVCB_Taxonomy_Model_Base'     => __DIR__ . '/models/class-base-model-taxonomy.php',
+            'WPMVCB_Post_View_Base'          => __DIR__ . '/views/class-post-view-base.php',
+            'WPMVCB_Metabox_View_Base'       => __DIR__ . '/views/class-metabox-view-base.php',
+            'WPMVCB_Metabox_Default_View'    => __DIR__ . '/views/class-metabox-view-default.php',
+            'Helper_Functions'               => __DIR__ . '/helpers/class-base-helpers.php',
         );
 
         spl_autoload_register( array( $this, 'autoloader' ) );
@@ -205,4 +205,5 @@ class WPMVCB  {
         return $this->version;
 
     }
+
 }

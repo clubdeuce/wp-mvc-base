@@ -15,14 +15,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
+if ( ! class_exists( 'WPMVCB_Menu_Page_Model_Base' ) ) {
 	/**
 	 * The base options page model.
 	 *
 	 * @package WPMVCBase\Models
 	 * @since WPMVCBase 0.2
 	 */
-	class Base_Model_Menu_Page
+	class WPMVCB_Menu_Page_Model_Base
 	{
 		/**
 		 * The The slug name for the parent menu item.

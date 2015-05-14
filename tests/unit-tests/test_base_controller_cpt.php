@@ -1,12 +1,12 @@
 <?php
 namespace WPMVCB\Testing\UnitTests {
 
-	use \Base_Controller_CPT;
+	use \WPMVCB_Cpt_Base;
 	use \WPMVCB\Testing\WPMVCB_Test_Case;
 
-	require_once WPMVCB_SRC_DIR . '/models/class-base-model-cpt.php';
-	require_once WPMVCB_SRC_DIR . '/controllers/class-base-controller.php';
-	require_once WPMVCB_SRC_DIR . '/controllers/class-base-controller-cpt.php';
+	require_once WPMVCB_SRC_DIR . '/models/class-cpt-model-base.php';
+	require_once WPMVCB_SRC_DIR . '/controllers/class-controller-base.php';
+	require_once WPMVCB_SRC_DIR . '/controllers/class-cpt-base.php';
 
 	/**
 	 * The test controller for Base_Controller_Plugin.
@@ -22,14 +22,14 @@ namespace WPMVCB\Testing\UnitTests {
 		/**
 		 * The system under test
 		 *
-		 * @var Base_Controller_CPT
+		 * @var WPMVCB_Cpt_Base
 		 */
 		private $_controller;
 
 		public function setUp() {
 
 			parent::setUp();
-			$this->_controller = new Base_Controller_CPT();
+			$this->_controller = new WPMVCB_Cpt_Base();
 
 		}
 
@@ -106,7 +106,7 @@ namespace WPMVCB\Testing\UnitTests {
 		 */
 		public function testActionPostUpdatedMessagesExists()
 		{
-			$this->assertFalse( false === has_filter( 'post_updated_messages', array( 'Base_Controller_CPT', 'post_updated_messages' ) ) );
+			$this->assertFalse( false === has_filter( 'post_updated_messages', array( 'WPMVCB_Cpt_Base', 'post_updated_messages' ) ) );
 		}
 
 	}

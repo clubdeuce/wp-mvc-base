@@ -2,7 +2,7 @@
 namespace WPMVCB\Testing\UnitTests {
 
 	use \WPMVCB\Testing\WPMVCB_Test_Case;
-    use \Base_Controller;
+    use \WPMVC_Controller_Base;
     use \Mockery;
     use \org\bovigo\vfs\vfsStreamWrapper;
     use \org\bovigo\vfs\vfsStreamDirectory;
@@ -372,7 +372,7 @@ namespace WPMVCB\Testing\UnitTests {
      * @package  WPMVCB\Testing
      * @internal
      */
-    class Stub_Controller extends Base_Controller
+    class Stub_Controller extends WPMVC_Controller_Base
     {
     }
 

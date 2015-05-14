@@ -10,7 +10,7 @@ namespace WPMVCB\Testing
 	 * @since 0.2
 	 * @internal
 	 */
-	class Test_Stub_CPT extends \Base_Model_CPT
+	class Test_Stub_CPT extends \WPMVCB_Cpt_Model_Base
 	{
 		protected $slug = 'tbc-cpt';
 		public $help_tabs = array();

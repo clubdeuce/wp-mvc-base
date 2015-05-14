@@ -1,7 +1,7 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require( WPMVCB_SRC_DIR . '/models/class-base-model-menu-page.php' );
+	require( WPMVCB_SRC_DIR . '/models/class-menu-page-model-base.php' );
 
 	/**
 	 * Base Model Options Page tests.
@@ -17,7 +17,7 @@ namespace WPMVCB\Testing
 			parent::setUp();
 
 			//set up the test class
-			$this->options_page = new \Base_Model_Menu_Page();
+			$this->options_page = new \WPMVCB_Menu_Page_Model_Base();
 		}
 
 		public function testPropertyParentSlugExists()
@@ -102,7 +102,7 @@ namespace WPMVCB\Testing
 
 		public function testMethodGetParentSlugExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Menu_Page', 'get_parent_slug' ) );
+			$this->assertTrue( method_exists( '\WPMVCB_Menu_Page_Model_Base', 'get_parent_slug' ) );
 		}
 
 		/**
@@ -135,7 +135,7 @@ namespace WPMVCB\Testing
 
 		public function testMethodGetPageTitleExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Menu_Page', 'get_page_title' ) );
+			$this->assertTrue( method_exists( '\WPMVCB_Menu_Page_Model_Base', 'get_page_title' ) );
 		}
 
 		/**
@@ -507,7 +507,7 @@ namespace WPMVCB\Testing
 		 */
 		public function testMethodAddTopLevelPage()
 		{
-			$page = new \Base_Model_Menu_Page;
+			$page = new \WPMVCB_Menu_Page_Model_Base;
 			$page->set_page_title( 'My Page Title' );
 			$page->set_menu_title( 'My Menu Title' );
 			$page->set_capability( 'manage_options' );
@@ -546,7 +546,7 @@ namespace WPMVCB\Testing
 			//set the current user to admin
 			wp_set_current_user( 1 );
 
-			$page = new \Base_Model_Menu_Page;
+			$page = new \WPMVCB_Menu_Page_Model_Base;
 			$page->set_parent_slug( 'options-general.php' );
 			$page->set_page_title( 'My Page Title' );
 			$page->set_menu_title( 'My Menu Title' );

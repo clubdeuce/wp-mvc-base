@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 /**
  * WPMVCB_Metabox
  */
-class WPMVCB_Metabox extends Base_Controller {
+class WPMVCB_Metabox extends WPMVC_Controller_Base {
 
 	public function __construct( $args = array() )
 	{

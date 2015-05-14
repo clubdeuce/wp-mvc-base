@@ -5,7 +5,7 @@ namespace WPMVCB\Testing
     use WP_Error;
     
 	//require_once WPMVCB_SRC_DIR . '/helpers/class-base-helpers.php';
-	//require_once WPMVCB_SRC_DIR . '/models/class-base-model.php';
+	//require_once WPMVCB_SRC_DIR . '/models/class-model-base.php';
 		
 	/**
 	 * Base Model Test Class

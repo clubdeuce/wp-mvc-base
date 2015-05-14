@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
+if ( ! class_exists( 'WPMVCB_Cpt_Model_Base' ) && class_exists( 'Base_Model' ) ):
 	/**
 	 * The base CPT object model.
 	 *
@@ -23,7 +23,7 @@ if ( ! class_exists( 'Base_Model_CPT' ) && class_exists( 'Base_Model' ) ):
 	 * @version 0.2
 	 * @since   WPMVCBase 0.1
 	 */
-	abstract class Base_Model_CPT extends Base_Model
+	abstract class WPMVCB_Cpt_Model_Base extends Base_Model
 	{
 		/**
 		 * @var WP_Post $post

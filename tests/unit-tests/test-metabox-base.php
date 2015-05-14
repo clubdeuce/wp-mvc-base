@@ -3,6 +3,7 @@ namespace WPMVCB\Testing\UnitTests;
 	use \WPMVCB\Testing\WPMVCB_Test_Case;
     use \WPMVCB_Metabox;
 
+require_once( WPMVCB_SRC_DIR . '/controllers/class-controller-base.php' );
 require_once( WPMVCB_SRC_DIR . '/controllers/class-metabox-base.php' );
 
 /**

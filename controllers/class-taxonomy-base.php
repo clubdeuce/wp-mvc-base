@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @since WPMVCBase 0.4
  */
-class Base_Controller_Taxonomy extends Base_Controller {
+class WPMVCB_Taxonomy_Base extends WPMVC_Controller_Base {
 
 	/**
 	 * The taxonomy slug
@@ -105,4 +105,4 @@ class Base_Controller_Taxonomy extends Base_Controller {
 
 }
 
-Base_Controller_Taxonomy::on_load();
+WPMVCB_Taxonomy_Base::on_load();
