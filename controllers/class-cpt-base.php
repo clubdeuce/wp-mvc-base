@@ -1,19 +1,8 @@
 <?php
-/*
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+/**
+ * @license GPLv2.0 or later
+ */
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
 if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base' ) ) {
 	/**
 	 * The base custom post type controller.
@@ -116,10 +105,11 @@ if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base
 		}
 
 		/**
-		 * Initialize the CPT labels property.
+		 * Initialize the CPT labels
 		 *
 		 * @param  string     $singular The singular post type name
-		 * @param  sring      $plural   The plural post type name
+		 * @param  string     $plural   The plural post type name
+		 * @return string[]             The post type labels
 		 * @access protected
 		 * @since  WPMVCBase 0.1
 		 */
