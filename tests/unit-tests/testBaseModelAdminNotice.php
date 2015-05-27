@@ -7,7 +7,7 @@ namespace WPMVCB\Testing\UnitTests {
 	/**
 	 * The tests for WPMVCB_Admin_Notice_Model_Base
 	 *
-	 * @group     admin_notices
+	 * @group     AdminNotices
 	 * @covers    WPMVCB_Admin_Notice_Model_Base
 	 * @since WPMVCBase 0.1
 	 * @internal
