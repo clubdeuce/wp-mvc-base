@@ -47,6 +47,16 @@ if ( ! class_exists( 'WPMVCB_Cpt_Model_Base' ) && class_exists( 'WPMVCB_Model_Ba
 			parent::__construct( $args );
 
 		}
+
+		/**
+		 * @return WP_Post
+		 */
+		public function get_post() {
+
+			return $this->post;
+
+		}
+
 	}
 
 }

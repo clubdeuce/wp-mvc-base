@@ -1,8 +1,9 @@
 <?php
-namespace WPMVCB\Testing
-{
-    use WPMVCB_Model_Base;
-    use WP_Error;
+namespace WPMVCB\Testing\UnitTests {
+
+	use \WPMVCB\Testing\WPMVCB_Test_Case;
+    use \WPMVCB_Model_Base;
+    use \WP_Error;
     
 	//require_once WPMVCB_SRC_DIR . '/helpers/class-base-helpers.php';
 	//require_once WPMVCB_SRC_DIR . '/models/class-model-base.php';
@@ -10,18 +11,20 @@ namespace WPMVCB\Testing
 	/**
 	 * Base Model Test Class
 	 *
+	 * @coversDefaultClass WPMVCB_Model_Base
+	 * @group              Base
 	 * @internal
 	 * @since 0.1
 	 */
 	class testBaseModel extends WPMVCB_Test_Case
 	{
         /**
-         * @var Stub_Model
+         * @var Stub_Base_Model
          */
         private $model;
 
-		public function SetUp()
-		{
+		public function setUp() {
+
 			parent::setUp();
 			
 			$args = array(
@@ -34,20 +37,22 @@ namespace WPMVCB\Testing
 			);
 			
 			//create the model
-			$this->model = new Stub_Model;
+			$this->model = new Stub_Base_Model( $args );
+
 		}
 		
-		public function tearDown()
-		{
+		public function tearDown() {
+
 			unset( $this->model );
+
 		}
 
 		/**
-		 * @covers Base_Model::get_css
+		 * @covers ::get_css
 		 */
-		public function testMethodGetCss()
-		{
-			$this->assertClassHasAttribute( 'css', 'Base_Model' );
+		public function testMethodGetCss() {
+
+			$this->assertClassHasAttribute( 'css', 'WPMVCB_Model_Base' );
 			$this->assertTrue( method_exists( $this->model, 'get_css' ) );
 			$this->setReflectionPropertyValue( $this->model, 'css', array( 'foo_css' => array( 'handle' => 'bar_css' ) ) );
 			
@@ -55,23 +60,25 @@ namespace WPMVCB\Testing
 				array( 'foo_css' => array( 'handle' => 'bar_css' ) ),
 				$this->model->get_css( 'http://my-super-cool-site' )
 			);
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_css
+		 * @covers ::get_css
 		 */
-		public function testMethodGetCssEmpty()
-		{
+		public function testMethodGetCssEmpty() {
+
 			$this->assertTrue( method_exists( $this->model, 'get_css' ) );
-			$this->assertFalse( $this->model->get_css() );
+			$this->assertEmpty( $this->model->get_css() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_admin_css
+		 * @covers ::get_admin_css
 		 */
-		public function testMethodGetAdminCss()
-		{
-			$this->assertClassHasAttribute( 'admin_css', 'Base_Model' );
+		public function testMethodGetAdminCss() {
+
+			$this->assertClassHasAttribute( 'admin_css', 'WPMVCB_Model_Base' );
 			$this->assertTrue( method_exists( $this->model, 'get_admin_css' ) );
 			$this->setReflectionPropertyValue( $this->model, 'admin_css', array( 'foo_admin_css' => array( 'handle' => 'bar_admin_css' ) ) );
 			$this->assertEquals(
@@ -81,20 +88,21 @@ namespace WPMVCB\Testing
 		}
 		
 		/**
-		 * @covers Base_Model::get_admin_css
+		 * @covers ::get_admin_css
 		 */
-		public function testMethodGetAdminCssEmpty()
-		{
+		public function testMethodGetAdminCssEmpty() {
+
 			$this->assertTrue( method_exists( $this->model, 'get_admin_css' ) );
-			$this->assertFalse( $this->model->get_admin_css() );
+			$this->assertEmpty( $this->model->get_admin_css() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_scripts
+		 * @covers ::get_scripts
 		 */
-		public function testMethodGetScripts()
-		{
-			$this->assertClassHasAttribute( 'scripts', 'Base_Model' );
+		public function testMethodGetScripts() {
+
+			$this->assertClassHasAttribute( 'scripts', 'WPMVCB_Model_Base' );
 			$this->assertTrue( method_exists( $this->model, 'get_scripts' ) );
 			//global $post;
 			
@@ -103,23 +111,25 @@ namespace WPMVCB\Testing
 				array ( 'foo_scripts' => 'bar_scripts' ),
 				$this->model->get_scripts()
 			);
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_scripts
+		 * @covers ::get_scripts
 		 */
-		public function testMethodGetScriptsEmpty()
-		{
+		public function testMethodGetScriptsEmpty() {
+
 			$this->assertTrue( method_exists( $this->model, 'get_scripts' ) );
-			$this->assertFalse( $this->model->get_scripts() );
+			$this->assertEmpty( $this->model->get_scripts() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_admin_scripts
+		 * @covers ::get_admin_scripts
 		 */
-		public function testMethodGetAdminScripts()
-		{
-			$this->assertClassHasAttribute( 'admin_scripts', 'Base_Model' );
+		public function testMethodGetAdminScripts() {
+
+			$this->assertClassHasAttribute( 'admin_scripts', 'WPMVCB_Model_Base' );
 			$this->assertTrue( method_exists( $this->model, 'get_admin_scripts' ) );
 			
 			//global $post;
@@ -128,48 +138,52 @@ namespace WPMVCB\Testing
 				array( 'foo_admin_scripts' => 'bar_admin_scripts' ),
 				$this->model->get_admin_scripts()
 			);
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_admin_scripts
+		 * @covers ::get_admin_scripts
 		 */
-		public function testMethodGetAdminScriptsEmpty()
-		{
+		public function testMethodGetAdminScriptsEmpty() {
+
 			$this->assertTrue( method_exists( $this->model, 'get_admin_scripts' ) );
-			$this->assertFalse( $this->model->get_admin_scripts() );
+			$this->assertEmpty( $this->model->get_admin_scripts() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_metaboxes
+		 * @covers ::get_metaboxes
 		 */
-		public function testMethodGetMetaboxes()
-		{
-			$this->assertClassHasAttribute( 'metaboxes', 'Base_Model' );
+		public function testMethodGetMetaboxes() {
+
+			$this->assertClassHasAttribute( 'metaboxes', 'WPMVCB_Model_Base' );
 			$this->assertTrue( method_exists( $this->model, 'get_metaboxes' ) );
 			
-			$stub = $this->getMockBuilder( 'Base_Model_Metabox' )
+			$stub = $this->getMockBuilder( 'WPMVCB_Model_Base_Metabox' )
 						 ->disableOriginalConstructor()
 						 ->getMock();
 			$this->setReflectionPropertyValue( $this->model, 'metaboxes', array( 'foo' => $stub ) );
 			
 			$this->assertEquals( array( 'foo' => $stub ), $this->model->get_metaboxes( 'bar', 'baz') );
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_metaboxes
+		 * @covers ::get_metaboxes
 		 */
-		public function testMethodGetmetaboxesEmpty()
-		{
+		public function testMethodGetmetaboxesEmpty() {
+
 			$this->assertTrue( method_exists( $this->model, 'get_metaboxes' ) );
-			$this->assertFalse( $this->model->get_metaboxes() );
+			$this->assertEmpty( $this->model->get_metaboxes() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::add_help_tab
+		 * @covers ::add_help_tab
 		 */
-		public function testMethodAddHelpTab()
-		{
-			$this->assertClassHasAttribute( 'help_tabs', 'Base_Model' );
+		public function testMethodAddHelpTab() {
+
+			$this->assertClassHasAttribute( 'help_tabs', 'WPMVCB_Model_Base' );
 			$this->assertTrue( method_exists( $this->model, 'add_help_tab' ) );
 			//set up our mock help tab object
 			$stub = $this->getMockBuilder( 'Base_Model_Help_Tab' )
@@ -180,35 +194,36 @@ namespace WPMVCB\Testing
 			
 			$this->assertEquals( 
 				array( 'foo' => $stub ),
-				$this->getReflectionPropertyValue( $this->model, 'help_tabs' )
+				$this->getReflectionPropertyValue( $this->model, 'help_tabs' ),
+				'Help tab not properly set'
 			);
+
 		}
 		
 		/**
-		 * Pass an object not of type Base_Model_Help_Tab. Test should fail.
-		 * @covers Base_Model::add_help_tab
+		 * Pass an object not of type WPMVCB_Model_Base_Help_Tab. Verify WP_Error object is returned
+		 * and that error object data equals the passed in tab object
+		 * 
+		 * @covers ::add_help_tab
 		 */
-		public function testMethodAddHelpTabFail()
-		{
+		public function testMethodAddHelpTabFail() {
+
 			$this->assertTrue( method_exists( $this->model, 'add_help_tab' ) );
 			
 			$tab = new \StdClass;
-			
-			$this->assertEquals(
-				new WP_Error(
-					'invalid object type',
-					'Base_Model::add_help_tab expects a Base_Model_Help_Tab object as the second parameter',
-					$tab
-				),
-				$this->model->add_help_tab( 'foo', $tab )
-			);
+
+			$result = $this->model->add_help_tab( 'foo', $tab );
+
+			$this->assertInstanceOf( 'WP_Error', $result );
+			$this->assertEquals( $tab, $result->get_error_data() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_help_tabs
+		 * @covers ::get_help_tabs
 		 */
-		public function testMethodGetHelpTabs()
-		{
+		public function testMethodGetHelpTabs() {
+
 			$this->assertTrue( method_exists( $this->model, 'get_help_tabs' ) );
 			
 			$this->setReflectionPropertyValue( $this->model, 'help_tabs', array( 'foo' => 1 , 'bar' => 2 ) );
@@ -217,50 +232,50 @@ namespace WPMVCB\Testing
 				array( 'foo' => 1, 'bar' => 2 ),
 				$this->model->get_help_tabs()
 			);
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_help_tabs
+		 * @covers ::get_help_tabs
 		 */
-		public function testMethodGetHelpTabsEmpty()
-		{
+		public function testMethodGetHelpTabsEmpty() {
+
 			$this->assertTrue( method_exists( $this->model, 'get_help_tabs' ) );
-			$this->assertFalse( $this->model->get_help_tabs() );
+			$this->assertEmpty( $this->model->get_help_tabs() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::add_shortcode
+		 * @covers ::add_shortcode
 		 */
-		public function testMethodAddShortcode()
-		{
-			$this->assertClassHasAttribute( 'shortcodes', 'Base_Model' );
+		public function testMethodAddShortcode() {
+
+			$this->assertClassHasAttribute( 'shortcodes', 'WPMVCB_Model_Base' );
 			$this->assertTrue( method_exists( $this->model, 'add_shortcode' ) );
 			
 			$this->assertTrue( $this->model->add_shortcode( 'foo', array( &$this, 'testMethodGetHelpTabs' ) ) );
+
 		}
 		
 		/**
-		 * @covers Base_Model::add_shortcode
+		 * @covers ::add_shortcode
 		 */
-		public function testMethodAddShortcodeFail()
-		{
+		public function testMethodAddShortcodeFail() {
+
 			$this->assertTrue( method_exists( $this->model, 'add_shortcode' ) );
-			
-			$this->assertEquals(
-				new WP_Error(
-					'not callable',
-					'Base_Model::add_shortcode expects a valid callback.',
-					'foocallback'
-				),
-				$this->model->add_shortcode( 'fooshortcode', 'foocallback' )
-			);	
+
+			$result = $this->model->add_shortcode( 'fooshortcode', 'foocallback' );
+
+			$this->assertInstanceOf( 'WP_Error', $result );
+			$this->assertEquals( 'foocallback', $result->get_error_data() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_shortcodes
+		 * @covers ::get_shortcodes
 		 */
-		public function testMethodGetShortcodes()
-		{
+		public function testMethodGetShortcodes() {
+
 			$this->assertTrue( method_exists( $this->model, 'get_shortcodes' ) );
 			$this->setReflectionPropertyValue(
 				$this->model,
@@ -269,22 +284,24 @@ namespace WPMVCB\Testing
 			);
 			
 			$this->assertEquals( array( 'fooshortcode' => array( &$this, 'testMethodAddShortcode' ) ), $this->model->get_shortcodes() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_shortcodes
+		 * @covers ::get_shortcodes
 		 */
-		public function testMethodGetShortcodesEmpty()
-		{
+		public function testMethodGetShortcodesEmpty() {
+
 			$this->assertTrue( method_exists( $this->model, 'get_shortcodes' ) );
-			$this->assertFalse( $this->model->get_shortcodes() );
+			$this->assertEmpty( $this->model->get_shortcodes() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::authenticate_post
+		 * @covers ::authenticate_post
 		 */
-		public function testMethodAuthenticatePostForPost()
-		{
+		public function testMethodAuthenticatePostForPost() {
+
 			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
 
@@ -307,13 +324,14 @@ namespace WPMVCB\Testing
 					'foo_action'
 				)
 			);
+
 		}
 
 		/**
-		 * @covers Base_Model::authenticate_post
+		 * @covers ::authenticate_post
 		 */
-		public function testMethodAuthenticatePostForPage()
-		{
+		public function testMethodAuthenticatePostForPage() {
+
 			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
 
@@ -336,13 +354,14 @@ namespace WPMVCB\Testing
 					'foo_action'
 				)
 			);
+
 		}
 
 		/**
-		 * @covers Base_Model::authenticate_post
+		 * @covers ::authenticate_post
 		 */
-		public function testMethodAuthenticatePostUserCannotEditPage()
-		{
+		public function testMethodAuthenticatePostUserCannotEditPage() {
+
 			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
 
@@ -365,13 +384,14 @@ namespace WPMVCB\Testing
 					'foo_action'
 				)
 			);
+
 		}
 
 		/**
-		 * @covers Base_Model::authenticate_post
+		 * @covers ::authenticate_post
 		 */
-		public function testMethodAuthenticatePostUserCannotEditPost()
-		{
+		public function testMethodAuthenticatePostUserCannotEditPost() {
+
 			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
 			$factory = new \WP_UnitTest_Factory;
 
@@ -394,13 +414,14 @@ namespace WPMVCB\Testing
 					'foo_action'
 				)
 			);
+
 		}
 
 		/**
-		 * @covers Base_Model::authenticate_post
+		 * @covers ::authenticate_post
 		 */
-		public function testMethodAuthenticatePostNoNonce()
-		{
+		public function testMethodAuthenticatePostNoNonce() {
+
 			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
 
 			$post_id = $this->factory->post->create(
@@ -422,13 +443,14 @@ namespace WPMVCB\Testing
 					'foo_action'
 				)
 			);
+
 		}
 
 		/**
-		 * @covers Base_Model::authenticate_post
+		 * @covers ::authenticate_post
 		 */
-		public function testMethodAuthenticatePostDoingAutosave()
-		{
+		public function testMethodAuthenticatePostDoingAutosave() {
+
 			$this->assertTrue( method_exists( $this->model, 'authenticate_post' ) );
 
             $post_id = $this->factory->post->create(
@@ -450,39 +472,41 @@ namespace WPMVCB\Testing
 					'foo_action'
 				)
 			);
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_admin_notices
+		 * @covers ::get_admin_notices
 		 */
-		public function testMethodGetAdminNotices()
-		{
+		public function testMethodGetAdminNotices() {
+
 			$this->setReflectionPropertyValue( $this->model, 'admin_notices', array( 'foo', 'bar' ) );
 			
 			$this->assertTrue( method_exists( 'WPMVCB_Model_Base', 'get_admin_notices' ) );
 			$this->assertEquals( array( 'foo', 'bar' ), $this->model->get_admin_notices() );
+
 		}
 		
 		/**
-		 * @covers Base_Model::get_admin_notices
+		 * @covers ::get_admin_notices
 		 */
-		public function testMethodGetAdminNoticesEmpty()
-		{	
+		public function testMethodGetAdminNoticesEmpty() {
+
 			$this->assertTrue( method_exists( 'WPMVCB_Model_Base', 'get_admin_notices' ), 'Method get_admin_notices does not exist' );
-			$this->assertFalse( $this->model->get_admin_notices() );
+			$this->assertEmpty( $this->model->get_admin_notices() );
+
 		}
+
 	}
 
-    class Stub_Model extends WPMVCB_Model_Base
-    {
-        public function __construct( array $args = array() )
-        {
-            parent::__construct( $args );
+    class Stub_Base_Model extends WPMVCB_Model_Base {
+
+        protected function init() {
+
+            //implemented, but does nothing
+
         }
 
-        protected function init()
-        {
-            //implemented, but does nothing
-        }
     }
+
 }

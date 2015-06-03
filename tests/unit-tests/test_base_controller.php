@@ -11,9 +11,10 @@ namespace WPMVCB\Testing\UnitTests {
 	/**
 	 * The test controller for Base_Controller_Plugin
 	 *
-	 * @group    Base
-	 * @group    Controllers
-	 * @since    WPMVCBase 0.1
+	 * @group              Base
+	 * @group              Controllers
+	 * @coversDefaultClass WPMVCB_Controller_Base
+	 * @since              WPMVCBase 0.1
 	 * @internal
 	 */
 
@@ -56,7 +57,7 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 		
 		/**
-		 * @covers Base_Controller::__construct
+		 * @covers ::__construct
 		 */
 		public function testActionExistsWpEnqueueScripts()
 		{
@@ -67,7 +68,7 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 		
 		/**
-		 * @covers Base_Controller::__construct
+		 * @covers ::__construct
 		 */
 		public function testActionExistsAddMetaBoxes()
 		{
@@ -78,7 +79,7 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 		
 		/**
-		 * @covers Base_Controller::__construct
+		 * @covers ::__construct
 		 */
 		public function testActionExistsAdminEnqueueScripts()
 		{
@@ -94,8 +95,8 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 
 		/**
-		 * @covers Base_Controller::add_shortcodes
-		 * @uses   Base_Controller::__construct
+		 * @covers ::add_shortcodes
+		 * @uses   ::__construct
 		 * @depends testMethodExistsAddShortcodes
 		 */
 		public function testMethodAddShortcodes()
@@ -106,8 +107,8 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 
 		/**
-		 * @covers            Base_Controller::add_shortcodes
-		 * @uses              Base_Controller::__construct
+		 * @covers            ::add_shortcodes
+		 * @uses              ::__construct
 		 * @depends           testMethodExistsAddShortcodes
 		 * @expectedException PHPUnit_Framework_Error
 		 */
@@ -123,8 +124,8 @@ namespace WPMVCB\Testing\UnitTests {
 
 		// /**
 		//  * @depends testMethodExistsRenderMetabox
-		//  * @covers Base_Controller::render_metabox
-		//  * @uses   Base_Controller::__construct
+		//  * @covers ::render_metabox
+		//  * @uses   ::__construct
 		//  */
 		// public function testRenderMetaboxNoViewSpecified()
 		// {
@@ -150,8 +151,8 @@ namespace WPMVCB\Testing\UnitTests {
 
 		// /**
 		//  * @depends testMethodExistsRenderMetabox
-		//  * @covers Base_Controller::render_metabox
-		//  * @uses   Base_Controller::__construct
+		//  * @covers ::render_metabox
+		//  * @uses   ::__construct
 		//  */
 		// public function testRenderMetaboxViewNonexistent()
 		// {
@@ -179,8 +180,8 @@ namespace WPMVCB\Testing\UnitTests {
 
 		// /**
 		//  * @depends testMethodExistsRenderMetabox
-		//  * @covers Base_Controller::render_metabox
-		//  * @uses   Base_Controller::__construct
+		//  * @covers ::render_metabox
+		//  * @uses   ::__construct
 		//  */
 		// public function testMethodRenderMetabox()
 		// {
@@ -219,8 +220,8 @@ namespace WPMVCB\Testing\UnitTests {
 		// }
 		
 		/**
-		 * @covers Base_Controller::enqueue_scripts
-		 * @uses   Base_Controller::__construct
+		 * @covers ::enqueue_scripts
+		 * @uses   ::__construct
 		 */
 		public function testMethodEnqueueScripts()
 		{
@@ -272,8 +273,8 @@ namespace WPMVCB\Testing\UnitTests {
 		/**
 		 * In this test, we pass an non-array to the method.
 		 *
-		 * @covers Base_Controller::enqueue_scripts
-		 * @uses   Base_Controller::__construct
+		 * @covers ::enqueue_scripts
+		 * @uses   ::__construct
 		 * @expectedException PHPUnit_Framework_Error
 		 */
 		public function testMethodEnqueueScriptsNonArray()
@@ -284,8 +285,8 @@ namespace WPMVCB\Testing\UnitTests {
 		/**
 		 * In this test, we pass an array that does not contain Base_Model_JS_Objects.
 		 *
-		 * @covers Base_Controller::enqueue_scripts
-		 * @uses   Base_Controller::__construct
+		 * @covers ::enqueue_scripts
+		 * @uses   ::__construct
 		 */
 		public function testMethodEnqueueScriptsInvalidScriptObject()
 		{
@@ -302,7 +303,7 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 
 		/**
-		 * @covers Base_Controller::__call
+		 * @covers ::__call
 		 */
 		public function testMethodCallonModel() {
 
@@ -312,7 +313,7 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 
 		/**
-		 * @covers Base_Controller::__call
+		 * @covers ::__call
 		 */
 		public function testMethodCallOnView() {
 
@@ -323,7 +324,7 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 
 		/**
-		 * @covers Base_Controller::__call
+		 * @covers ::__call
 		 */
 		public function testMethodCallError() {
 
@@ -334,7 +335,7 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 
 		/**
-		 * @covers Base_Controller::__get
+		 * @covers ::__get
 		 */
 		public function testMethodGetOnModel() {
 			
@@ -344,7 +345,7 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 
 		/**
-		 * @covers Base_Controller::__get
+		 * @covers ::__get
 		 */
 		public function testMethodGetOnView() {
 
@@ -355,7 +356,7 @@ namespace WPMVCB\Testing\UnitTests {
 		}
 
 		/**
-		 * @covers Base_Controller::__get
+		 * @covers ::__get
 		 */
 		public function testMethodGetOnModelError() {
 

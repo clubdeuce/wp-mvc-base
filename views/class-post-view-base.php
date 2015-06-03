@@ -24,4 +24,12 @@ class WPMVCB_Post_View_Base {
 
 	}
 
+	public function the_template( $template ) {
+
+		if( file_exists( $template ) ) {
+			require $template;
+		}
+
+	}
+
 }

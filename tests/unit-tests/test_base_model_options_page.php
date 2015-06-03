@@ -1,88 +1,96 @@
 <?php
-namespace WPMVCB\Testing
-{
-	require( WPMVCB_SRC_DIR . '/models/class-menu-page-model-base.php' );
+namespace WPMVCB\Testing\UnitTests {
+
+	use \WPMVCB\Testing\WPMVCB_Test_Case;
+	use \WPMVCB_Menu_Page_Model_Base;
 
 	/**
 	 * Base Model Options Page tests.
 	 *
-	 * @package WPMVCBase_Testing\Unit_Tests
-	 * @since WPMVCBase 0.1
+	 * @package            WPMVCBase_Testing\UnitTests
+	 * @group              Settings
+	 * @coversDefaultClass WPMVCB_Menu_Page_Model_Base
+	 * @since WPMVCBase    0.1
 	 * @internal
 	 */
 	class TestBaseModelOptionsPage extends WPMVCB_Test_Case
 	{
+		/**
+		 * @var WPMVCB_Menu_Page_Model_Base
+		 */
+		private $options_page;
+
 		public function setUp()
 		{
 			parent::setUp();
 
 			//set up the test class
-			$this->options_page = new \WPMVCB_Menu_Page_Model_Base();
+			$this->options_page = new WPMVCB_Menu_Page_Model_Base();
 		}
 
 		public function testPropertyParentSlugExists()
 		{
-			$this->assertClassHasAttribute( 'parent_slug', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'parent_slug', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyPageTitleExists()
 		{
-			$this->assertClassHasAttribute( 'page_title', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'page_title', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyMenuTitleExists()
 		{
-			$this->assertClassHasAttribute( 'menu_title', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'menu_title', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyCapabilityExists()
 		{
-			$this->assertClassHasAttribute( 'capability', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'capability', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyMenuSlugExists()
 		{
-			$this->assertClassHasAttribute( 'menu_slug', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'menu_slug', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyCallbackExists()
 		{
-			$this->assertClassHasAttribute( 'callback', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'callback', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyIconUrlExists()
 		{
-			$this->assertClassHasAttribute( 'icon_url', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'icon_url', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyPositionExists()
 		{
-			$this->assertClassHasAttribute( 'position', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'position', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyAdminScriptsExists()
 		{
-			$this->assertClassHasAttribute( 'admin_scripts', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'admin_scripts', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyAdminCssExists()
 		{
-			$this->assertClassHasAttribute( 'admin_css', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'admin_css', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyHelpTabsExists()
 		{
-			$this->assertClassHasAttribute( 'help_tabs', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'help_tabs', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyViewExists()
 		{
-			$this->assertClassHasAttribute( 'view', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'view', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testPropertyHookSuffixExists()
 		{
-			$this->assertClassHasAttribute( 'hook_suffix', '\Base_Model_Menu_Page' );
+			$this->assertClassHasAttribute( 'hook_suffix', '\WPMVCB_Menu_Page_Model_Base' );
 		}
 
 		public function testMethodSetParentSlugExists()
@@ -532,7 +540,7 @@ namespace WPMVCB\Testing
 		/**
 		 * Test the addition of a sub menu page with appropriate user capability.
 		 *
-		 * @covers Base_Model_Menu_Page::add
+		 * @covers WPMVCB_Menu_Page_Model_Base::add
 		 * @depends testMethodSetParentSlugExists
 		 * @depends testMethodSetPageTitleExists
 		 * @depends testMethodSetMenuTitleExists

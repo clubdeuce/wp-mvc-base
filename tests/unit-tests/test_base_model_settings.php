@@ -1,9 +1,10 @@
 <?php
-namespace WPMVCB\Testing
-{	
-	require( WPMVCB_SRC_DIR . '/models/class-settings-model-base.php' );
+namespace WPMVCB\Testing\UnitTests {
+
+	use \WPMVCB\Testing\WPMVCB_Test_Case;
+	use \WPMVCB_Settings_Model_Base;
 	
-	class foo extends \WPMVCB_Settings_Model_Base
+	class Stub_Settings_Model extends WPMVCB_Settings_Model_Base
 	{
 		protected function init( $uri, $path, $txtdomain )
 		{
@@ -11,11 +12,11 @@ namespace WPMVCB\Testing
 		}
 	}
 	
-	class testBaseModelSettings extends WPMVCB_Test_Case
+	class testSettingsModelBase extends WPMVCB_Test_Case
 	{
 		public function setUp()
 		{
-			$this->_settings_model = new foo( 'http://example.com', 'foopath', 'footxtdomain');
+			$this->_settings_model = new Stub_Settings_Model( 'http://example.com', 'foopath', 'footxtdomain');
 			parent::setUp();
 		}
 		

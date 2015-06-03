@@ -135,14 +135,14 @@ if ( ! class_exists( 'WPMVCB_Model_Base' ) ) {
 		 */
 		public function __construct( $args ) {
 			$args = wp_parse_args( $args, array(
-                'css'           => null,
-                'admin_css'     => null,
-                'scripts'       => null,
-                'admin_scripts' => null,
-                'metaboxes'     => null,
-                'help_tabs'     => null,
-                'shortcodes'    => null,
-                'admin_notices' => null,
+                'css'           => array(),
+                'admin_css'     => array(),
+                'scripts'       => array(),
+                'admin_scripts' => array(),
+                'metaboxes'     => array(),
+                'help_tabs'     => array(),
+                'shortcodes'    => array(),
+                'admin_notices' => array(),
             ) );
 
 			$this->args          = $args;
@@ -159,7 +159,7 @@ if ( ! class_exists( 'WPMVCB_Model_Base' ) ) {
 		/**
 		 * Get the frontend CSS.
 		 *
-		 * @return array|bool $css if set, FALSE if not.
+		 * @return array
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
@@ -172,7 +172,7 @@ if ( ! class_exists( 'WPMVCB_Model_Base' ) ) {
 		/**
 		 * Get the admin CSS.
 		 *
-		 * @return array|bool $admin_css if set, FALSE if not.
+		 * @return array
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
@@ -185,7 +185,7 @@ if ( ! class_exists( 'WPMVCB_Model_Base' ) ) {
 		/**
 		 * Get the front end javascripts.
 		 *
-		 * @return array $scripts if set, FALSE if not.
+		 * @return array
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
@@ -198,7 +198,7 @@ if ( ! class_exists( 'WPMVCB_Model_Base' ) ) {
 		/**
 		 * Get the admin javascripts.
 		 *
-		 * @return array|bool $admin_scripts if set, FALSE if not.
+		 * @return array
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
@@ -211,7 +211,7 @@ if ( ! class_exists( 'WPMVCB_Model_Base' ) ) {
 		/**
 		 * Get the model's metaboxes.
 		 *
-		 * @return array|bool $metaboxes if set, FALSE if not.
+		 * @return array
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 * @see    WP_Metabox
@@ -254,7 +254,7 @@ if ( ! class_exists( 'WPMVCB_Model_Base' ) ) {
 		 *
 		 * @param  string $handle The help tab handle.
 		 * @param  object $help_tab The Base_Model_Help_Tab object.
-		 * @return bool|object TRUE on success, WP_Error on failure.
+		 * @return bool|WP_Error TRUE on success, WP_Error on failure.
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 * @see    Base_Model_Help_Tab
@@ -280,7 +280,7 @@ if ( ! class_exists( 'WPMVCB_Model_Base' ) ) {
 		 *
 		 * @param  string $shortcode The shortcode name.
 		 * @param  string $callback The shortcode callback handler.
-		 * @return void
+		 * @return void|WP_Error
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
