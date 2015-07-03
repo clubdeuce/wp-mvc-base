@@ -104,6 +104,9 @@ class WPMVCB  {
         if ( isset( $this->autoload_classes[ $class ] ) ) {
             if ( file_exists( $this->autoload_classes[ $class ] ) ) {
                 require_once $this->autoload_classes[ $class ];
+                if ( is_callable( "{$class}::on_load" ) ) {
+                    call_user_func( array( $class, 'on_load' ) );
+                }
             }
         }
 
@@ -125,9 +128,12 @@ class WPMVCB  {
      */
     public function load_mustloads() {
 
-        foreach( $this->mustload_files as $file ) {
+        foreach( $this->mustload_files as $key => $file ) {
             if( file_exists( $file ) ) {
                 require_once $file;
+                if ( is_callable( "{$key}::on_load" ) ) {
+                    call_user_func( array( $key, 'on_load' ) );
+                }
             }
         }
 
