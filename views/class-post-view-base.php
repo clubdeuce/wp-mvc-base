@@ -16,6 +16,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 class WPMVCB_Post_View_Base {
 
+	/**
+	 * @var WPMVCB_Cpt_Model_Base
+	 */
 	protected $item;
 
 	public function __construct( $item ) {
@@ -24,10 +27,23 @@ class WPMVCB_Post_View_Base {
 
 	}
 
-	public function the_template( $template ) {
+	public function the_template( $template, $args = array() ) {
+
+		$item = $this->item;
+
+		extract( $args );
 
 		if( file_exists( $template ) ) {
+			printf( '<!-- Template: %1$s -->', str_replace( WP_CONTENT_DIR, 'CONTENT_DIR', $template ) );
 			require $template;
+		}
+
+	}
+
+	public function the_image( $size = 'full', $args = array() ) {
+
+		if ( is_callable( array( $this->item, 'get_image' ) ) ) {
+			echo $this->item->get_image( $size, $args );
 		}
 
 	}

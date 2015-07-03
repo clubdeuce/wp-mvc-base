@@ -159,7 +159,7 @@ if ( ! class_exists( 'WPMVC_Controller_Base' ) ) {
 		 *
 		 * @param  string $method The method name
 		 * @param  array  $args   Parameters passed to the method called
-		 * @return mixed
+		 * @return mixed|WP_Error
 		 * @access public
 		 * @since  0.4
 		 */
@@ -168,13 +168,17 @@ if ( ! class_exists( 'WPMVC_Controller_Base' ) ) {
 			$message = sprintf( __( 'Method %s not found in class %s or its model or view', 'wpmvcb' ), $method, get_called_class() );
 			$value   = new WP_Error( 400, $message );
 
+			// try the model and view first
 			foreach( array( $this->view, $this->model ) as $object ) {
-				if ( is_object( $object ) && method_exists( $object, $method ) ) {
-					$value = call_user_func_array( array( $object, $method ), $args );
+				if ( is_object( $object ) ) {
+					if ( method_exists( $object, $method ) ) {
+						$value = call_user_func_array( array( $object, $method ), $args );
+					}
 				}
 			}
 
 			if ( is_wp_error( $value ) ) {
+				// there is no match
 				trigger_error( $message );
 			}
 

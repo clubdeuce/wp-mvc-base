@@ -49,11 +49,85 @@ if ( ! class_exists( 'WPMVCB_Cpt_Model_Base' ) && class_exists( 'WPMVCB_Model_Ba
 		}
 
 		/**
+		 * @return bool
+		 */
+		public function has_post() {
+
+			$has_post = false;
+
+			if( isset( $this->post ) && is_a( $this->post, 'WP_Post' ) ) {
+				$has_post = true;
+			}
+
+			return $has_post;
+
+		}
+
+		/**
 		 * @return WP_Post
 		 */
 		public function get_post() {
 
 			return $this->post;
+
+		}
+
+
+		/**
+		 * @param $size
+		 * @param array $attr
+		 * @return mixed|null|void
+		 */
+		public function get_image( $size, $attr = array() ) {
+
+			$value = null;
+
+			if( has_post_thumbnail( $this->post->ID ) ) {
+				$value =  get_the_post_thumbnail( $this->post->ID, $size, $args );
+			}
+
+			return $value;
+		}
+
+		/**
+		 * @return int
+		 */
+		public function get_id() {
+
+			$id = 0;
+
+			if ( isset( $this->post ) && is_a( $this->post, 'WP_Post' ) ) {
+				$id = $this->post->ID;
+			}
+
+			return $id;
+
+		}
+
+		/**
+		 * @return string
+		 */
+		public function get_title() {
+
+			$title = '';
+
+			if ( isset( $this->post ) && is_a( $this->post, 'WP_Post' ) ) {
+				$title = get_the_title( $this->post->ID );
+			}
+
+			return $title;
+
+		}
+
+		public function get_permalink() {
+
+			$permalink = '';
+
+			if ( isset( $this->post ) && is_a( $this->post, 'WP_Post' ) ) {
+				$permalink = get_permalink( $this->post->ID );
+			}
+
+			return $permalink;
 
 		}
 

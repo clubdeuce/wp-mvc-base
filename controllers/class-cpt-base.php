@@ -142,6 +142,39 @@ if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base
 
 		}
 
+		/**
+		 * @param string $method
+		 * @param array  $args
+		 *
+		 * @return mixed|WP_Error
+		 */
+		public function __call( $method, $args ) {
+
+			$value = parent::__call( $method, $args );
+
+			// has a method been called that matches a global WP function ?
+			if( ( is_wp_error( $value ) ) ) {
+				if ( function_exists( $method ) && $this->model->has_post() ) {
+					global $post;
+					$original_post   = $post;
+					$post = $this->model->get_post();
+					setup_postdata( $post );
+
+					$value = call_user_func_array( $method, $args );
+
+					$post = $original_post;
+					setup_postdata( $post );
+				}
+			}
+
+			if ( is_wp_error( $value ) ) {
+				// there is no match
+				trigger_error( $message );
+			}
+
+			return $value;
+		}
+
 	}
 
 }
