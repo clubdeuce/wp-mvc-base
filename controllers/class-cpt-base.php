@@ -48,6 +48,69 @@ if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base
 		protected static $post_type_args = array();
 
 		/**
+		 * @param  WP_Post|int $post
+		 * @return bool|mixed
+		 */
+		public static function get_instance( $post ) {
+
+			$item    = false;
+			$post_id = 0;
+			$class   = get_called_class();
+
+			if ( is_a( $post, 'WP_Post') ) {
+				$post_id = $post->ID;
+			}
+
+			if ( is_int( $post ) ) {
+				$post_id = $post;
+				$post    = get_post( $post );
+			}
+
+			$cache_key = sprintf( '%1$s_%2$s', $class::$post_type, $post_id );
+
+			if ( ! 0 == $post_id && ! $item = get_transient( $cache_key ) ) {
+				$item = new $class( $post );
+				set_transient( $cache_key, $item, 0 );
+			}
+
+			return $item;
+
+		}
+
+		/**
+		 * @param  mixed|WP_Post|int $post
+		 * @return bool|string
+		 */
+		public static function get_cache_key( $post ) {
+
+			$cache_key = false;
+			$post_id   = 0;
+
+			if ( is_object( $post ) ) {
+				if ( is_a( $post, 'WP_Post' ) ) {
+					$post_id = $post->ID;
+				}
+
+				if ( is_callable( array( $post, 'get_id' ) ) ) {
+					$post_id = $post::get_id();
+				}
+			}
+
+
+			if ( is_int( $post ) ) {
+				$post_id = $post;
+			}
+
+			$class = get_called_class();
+
+			if ( ! 0 == $post_id ) {
+				$cache_key = sprintf( '%1$s-%2$s', $class::$post_type, $post_id );
+			}
+
+			return $cache_key;
+
+		}
+		/**
 		 * Filter to ensure the CPT labels are displayed when user updates the CPT
 		 *
 		 * @param    string $messages The existing messages array.
@@ -157,7 +220,7 @@ if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base
 				if ( function_exists( $method ) && $this->model->has_post() ) {
 					global $post;
 					$original_post   = $post;
-					$post = $this->model->get_post();
+					$post            = $this->model->get_post();
 					setup_postdata( $post );
 
 					$value = call_user_func_array( $method, $args );
