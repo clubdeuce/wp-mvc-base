@@ -51,26 +51,32 @@ if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base
 		 * @param  WP_Post|int $post
 		 * @return bool|mixed
 		 */
-		public static function get_instance( $post ) {
+		public static function get_instance( $post = null ) {
 
-			$item    = false;
 			$post_id = 0;
 			$class   = get_called_class();
 
-			if ( is_a( $post, 'WP_Post') ) {
-				$post_id = $post->ID;
+			if ( is_string( $post ) ) {
+				$post = get_post( (int)$post );
+			}
+
+			if ( is_null( $post ) ) {
+				$post = get_post();
 			}
 
 			if ( is_int( $post ) ) {
-				$post_id = $post;
-				$post    = get_post( $post );
+				$post = get_post( $post );
 			}
 
-			$cache_key = sprintf( '%1$s_%2$s', $class::$post_type, $post_id );
+			$item    = new WP_Error('', "Could not get post." );
 
-			if ( ! 0 == $post_id && ! $item = get_transient( $cache_key ) ) {
-				$item = new $class( $post );
-				set_transient( $cache_key, $item, 0 );
+			$cache_key = $class::get_cache_key( $post );
+
+			if ( is_a( $post, 'WP_Post') && ! $item = get_transient( $cache_key ) ) {
+				if ( $class::$post_type == get_post_type( $post ) ) {
+					$item = new $class( $post );
+					set_transient( $cache_key, $item, 0 );
+				}
 			}
 
 			return $item;
@@ -104,7 +110,7 @@ if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base
 			$class = get_called_class();
 
 			if ( ! 0 == $post_id ) {
-				$cache_key = sprintf( '%1$s-%2$s', $class::$post_type, $post_id );
+				$cache_key = sprintf( '%1$s_%2$s', $class::$post_type, $post_id );
 			}
 
 			return $cache_key;
