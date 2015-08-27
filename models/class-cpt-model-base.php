@@ -72,6 +72,19 @@ if ( ! class_exists( 'WPMVCB_Cpt_Model_Base' ) && class_exists( 'WPMVCB_Model_Ba
 
 		}
 
+		/**
+		 * @return bool
+		 */
+		public function has_image() {
+
+			$value = false;
+
+			if ( $this->has_post() ) {
+				$value = has_post_thumbnail( $this->post->ID );
+			}
+
+			return $value;
+		}
 
 		/**
 		 * @param $size
@@ -82,11 +95,28 @@ if ( ! class_exists( 'WPMVCB_Cpt_Model_Base' ) && class_exists( 'WPMVCB_Model_Ba
 
 			$value = null;
 
-			if( has_post_thumbnail( $this->post->ID ) ) {
+			if( $this->has_image() ) {
 				$value =  get_the_post_thumbnail( $this->post->ID, $size, $args );
 			}
 
 			return $value;
+		}
+
+		/**
+		 * @return int
+		 */
+		public function get_image_id() {
+
+			$value = 0;
+
+			if ( $this->has_post() ) {
+				if ( $this->has_image() ) {
+					$value  = get_post_thumbnail_id( $this->post->ID );
+				}
+			}
+
+			return $value;
+
 		}
 
 		/**
