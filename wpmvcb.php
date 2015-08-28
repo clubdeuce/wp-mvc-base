@@ -61,7 +61,7 @@ class WPMVCB  {
             'WPMVCB_Metabox'                 => __DIR__ . '/controllers/class-metabox-base.php',
             'WPMVCB_Model_Base'              => __DIR__ . '/models/class-model-base.php',
             'WPMVCB_Admin_Notice_Model_Base' => __DIR__ . '/models/class-admin-notice-model-base.php',
-            'WPMVCB_Cpt_Model_Base'          => __DIR__ . '/models/class-cpt-model-base.php',
+            'WPMVCB_Post_Model_Base'         => __DIR__ . '/models/class-post-model-base.php',
             'Base_Model_Help_Tab'            => __DIR__ . '/models/class-base-model-help-tab.php',
             'Base_Model_JS_Object'           => __DIR__ . '/models/class-base-model-js-object.php',
             'WPMVCB_Menu_Page_Model_Base'    => __DIR__ . '/models/class-menu-page-model-base.php',

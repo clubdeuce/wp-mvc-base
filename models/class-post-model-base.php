@@ -24,7 +24,7 @@ if ( ! class_exists( 'WPMVCB_Cpt_Model_Base' ) && class_exists( 'WPMVCB_Model_Ba
 	 * @version 0.2
 	 * @since   WPMVCBase 0.1
 	 */
-	abstract class WPMVCB_Cpt_Model_Base extends WPMVCB_Model_Base {
+	abstract class WPMVCB_Post_Model_Base extends WPMVCB_Model_Base {
 		/**
 		 * @var WP_Post $post
 		 */
