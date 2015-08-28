@@ -19,13 +19,15 @@ class PHPUnit_Framework_Constraint_MetaboxExists extends \PHPUnit_Framework_Cons
 	{
 		global $wp_meta_boxes;
 
-		$metabox_id    = $args[0];
-		$title         = $args[1];
-		$callback      = $args[2];
-		$post_type     = $args[3];
-		$context       = $args[4];
-		$priority      = $args[5];
-		$callback_args = $args[6];
+		if( ! empty( $args ) ) {
+			$metabox_id    = $args[0];
+			$title         = $args[1];
+			$callback      = $args[2];
+			$post_type     = $args[3];
+			$context       = $args[4];
+			$priority      = $args[5];
+			$callback_args = $args[6];
+		}
 
 		if ( ! isset( $wp_meta_boxes ) ) {
 			return false;

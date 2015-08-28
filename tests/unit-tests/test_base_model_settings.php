@@ -1,9 +1,10 @@
 <?php
-namespace WPMVCB\Testing
-{	
-	require( WPMVCB_SRC_DIR . '/models/class-base-model-settings.php' );
+namespace WPMVCB\Testing\UnitTests {
+
+	use \WPMVCB\Testing\WPMVCB_Test_Case;
+	use \WPMVCB_Settings_Model_Base;
 	
-	class foo extends \Base_Model_Settings
+	class Stub_Settings_Model extends WPMVCB_Settings_Model_Base
 	{
 		protected function init( $uri, $path, $txtdomain )
 		{
@@ -11,11 +12,11 @@ namespace WPMVCB\Testing
 		}
 	}
 	
-	class testBaseModelSettings extends WPMVCB_Test_Case
+	class testSettingsModelBase extends WPMVCB_Test_Case
 	{
 		public function setUp()
 		{
-			$this->_settings_model = new foo( 'http://example.com', 'foopath', 'footxtdomain');
+			$this->_settings_model = new Stub_Settings_Model( 'http://example.com', 'foopath', 'footxtdomain');
 			parent::setUp();
 		}
 		
@@ -46,7 +47,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodInitSettings()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'init_settings' ), 'Method does not exist' );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'init_settings' ), 'Method does not exist' );
 			
 			$this->setReflectionPropertyValue( $this->_settings_model, 'options', array( 'foo', 'bar', 'baz' ) );
 			$this->reflectionMethodInvoke( $this->_settings_model, 'init_settings' );
@@ -55,7 +56,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodGetOptions()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'get_options' ), 'Method does not exist' );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'get_options' ), 'Method does not exist' );
 			
 			$this->setReflectionPropertyValue( $this->_settings_model, 'options', array( 'foo', 'bar', 'baz' ) );
 			
@@ -64,7 +65,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodGetPages()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'get_pages' ), 'Method does not exist' );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'get_pages' ), 'Method does not exist' );
 			
 			$this->setReflectionPropertyValue( $this->_settings_model, 'pages', array( 'foo', 'bar', 'baz' )
 			);
@@ -74,7 +75,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodGetSettingsSectionsExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'get_settings_sections' ), 'Method does not exist' );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'get_settings_sections' ), 'Method does not exist' );
 		}
 		
 		/**
@@ -143,7 +144,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodGetSettingsFields()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'get_settings_fields' ), 'Method does not exist' );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'get_settings_fields' ), 'Method does not exist' );
 			
 			$this->setReflectionPropertyValue( $this->_settings_model, 'settings_fields', array( 'foo', 'bar', 'baz' )
 			);
@@ -153,7 +154,7 @@ namespace WPMVCB\Testing
 		
 		public function testEditPageExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'edit_page' ) );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'edit_page' ) );
 		}
 		
 		/**
@@ -179,7 +180,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodEditSettingsSectionExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'edit_settings_section' ) );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'edit_settings_section' ) );
 		}
 		
 		/**
@@ -205,7 +206,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodGetSettingsExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'get_settings' ), 'Method does not exist' );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'get_settings' ), 'Method does not exist' );
 		}
 		
 		/**
@@ -399,7 +400,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodAddOptionExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'add_option' ) );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'add_option' ) );
 		}
 		
 		/**
@@ -439,7 +440,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodAddSettingsSectionExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'add_settings_section' ) );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'add_settings_section' ) );
 		}
 		
 		/**
@@ -486,7 +487,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodAddSettingsFieldExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'add_settings_field' ) );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'add_settings_field' ) );
 		}
 		
 		/**
@@ -533,7 +534,7 @@ namespace WPMVCB\Testing
 		
 		public function testMethodSanitizeInputExists()
 		{
-			$this->assertTrue( method_exists( '\Base_Model_Settings', 'sanitize_input' ) );
+			$this->assertTrue( method_exists( '\WPMVCB_Settings_Model_Base', 'sanitize_input' ) );
 		}
 		
 		/**

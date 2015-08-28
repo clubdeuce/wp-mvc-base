@@ -4,3 +4,6 @@ composer.phar
 php-cs-fixer.phar
 test_base_controller_plugin.php.bak
 wp-tests
+phpunit.xml
+node_modules
+.idea

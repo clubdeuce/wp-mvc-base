@@ -15,14 +15,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
+if ( ! class_exists( 'WPMVCB_Menu_Page_Model_Base' ) ) {
 	/**
 	 * The base options page model.
 	 *
 	 * @package WPMVCBase\Models
 	 * @since WPMVCBase 0.2
 	 */
-	class Base_Model_Menu_Page
+	class WPMVCB_Menu_Page_Model_Base
 	{
 		/**
 		 * The The slug name for the parent menu item.
@@ -379,7 +379,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Set the admin_scripts property.
 		 *
-		 * @param  string $admin_scripts
+		 * @param  array $admin_scripts
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
@@ -391,7 +391,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the admin_scripts property.
 		 *
-		 * @return string
+		 * @return array
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
@@ -405,7 +405,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Set the admin_css property.
 		 *
-		 * @param  string $admin_css
+		 * @param  array $admin_css
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
@@ -417,7 +417,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the admin_css property.
 		 *
-		 * @return string
+		 * @return array
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
@@ -431,7 +431,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Set the help_tabs property.
 		 *
-		 * @param string $help_tabs
+		 * @param array $help_tabs
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
@@ -443,7 +443,7 @@ if ( ! class_exists( 'Base_Model_Menu_Page' ) ) {
 		/**
 		 * Get the help_tabs property.
 		 *
-		 * @return string|null
+		 * @return array|null
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */

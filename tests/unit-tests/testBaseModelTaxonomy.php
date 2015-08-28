@@ -66,17 +66,6 @@ namespace WPMVCB\Testing\UnitTests
 			$this->assertEquals('foo args', $this->model->get_args());
 		}
 		
-		/**
-		 * @covers Base_Model_Taxonomy::get_labels
-		 */
-		public function testMethodGetLabels()
-		{
-			$this->assertTrue(method_exists($this->model, 'get_labels'), 'Method get_labels() does not exist');
-			
-			$this->markTestIncomplete();
-			$labels = $this->reflectionMethodInvokeArgs($this->model, 'get_labels', array('footxtdomain'));
-			$this->assertEquals('foo slug', $labels);
-		}
 	}
 	
 	class stubTaxonomy extends \Base_Model_Taxonomy

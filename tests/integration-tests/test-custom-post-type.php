@@ -1,9 +1,9 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once WPMVCB_SRC_DIR . '/models/class-base-model-metabox.php';
-	require_once WPMVCB_SRC_DIR . '/models/class-base-model-cpt.php';
-	require_once WPMVCB_SRC_DIR . '/controllers/class-base-controller-cpt.php';
+	require_once WPMVCB_SRC_DIR . '/models/class-metabox-model-base.php';
+	require_once WPMVCB_SRC_DIR . '/models/class-cpt-model-base.php';
+	require_once WPMVCB_SRC_DIR . '/controllers/class-cpt-base.php';
 	
 	/**
 	 * The custom post type model.
@@ -11,7 +11,7 @@ namespace WPMVCB\Testing
 	 * @since 1.0
 	 * @internal
 	 */
-	class testStubCptModel extends \Base_Model_Cpt
+	class testStubCptModel extends \WPMVCB_Cpt_Model_Base
 	{
 		protected function init()
 		{
@@ -21,7 +21,7 @@ namespace WPMVCB\Testing
 		protected function init_metaboxes()
 		{
 			$this->metaboxes = array(
-				'book_metabox' => new \Base_Model_Metabox(
+				'book_metabox' => new \WPMVCB_Metabox_Model_Base(
 					'book_metabox',
 					__( 'Book Metabox', $txtdomain ),
 					null,
@@ -71,7 +71,7 @@ namespace WPMVCB\Testing
 				'footxtdomain' );
 			
 			//create a new controller
-			$this->controller = new \Base_Controller_CPT( $this->model );
+			$this->controller = new \WPMVCB_Cpt_Base( $this->model );
 		}
 
 		public function tearDown()
@@ -99,7 +99,7 @@ namespace WPMVCB\Testing
 			$this->markTestIncomplete();
 			
 			$expected = array(
-				'book_metabox' => new \Base_Model_Metabox(
+				'book_metabox' => new \WPMVCB_Metabox_Model_Base(
 					'book_metabox',
 					'Book Metabox',
 					null,

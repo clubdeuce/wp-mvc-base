@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Model_Metabox' ) ):
+if ( ! class_exists( 'WPMVCB_Metabox_Model_Base' ) ) {
 	/**
 	 * The base metabox object model.
 	 *
@@ -23,7 +23,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 	 * @version 0.1
 	 * @since WPMVCBase 0.1
 	 */
-	class Base_Model_Metabox
+	class WPMVCB_Metabox_Model_Base
 	{
 		/**
 		 * The metabox id
@@ -69,7 +69,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * @access private
 		 * @since  WPMVCBase 0.1
 		 */
-		private $post_type = array( 'post' );
+		private $post_types = array( 'post' );
 
 		/**
 		 * the metabox context
@@ -102,7 +102,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 * whatever parameters are passed through this variable.
 		 *
 		 * Example:
-
+		 *
 		 * Setting the callback args:
 		 * <code>
 		 * $sample_metabox->callback_args = array( 'foo' => 'this', "bar => 'that' );
@@ -133,64 +133,48 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 *
 		 * Example:
 		 * <code>
-		 * $sample_metabox = new Base_Model_Metabox(
-		 *      'sample_metabox',
-		 *      __( 'Sample Metabox', 'mytextdomain' ),
-		 *      'my_callback', //set this to null to use default plugin render_metabox callback
-		 *      array( 'post', 'page', 'my-custom-cpt',
-		 *      'post',
-		 *      'normal',
-		 *      'default'
+		 * $sample_metabox = new Base_Model_Metabox( array(
+		 *      'id'            => 'sample_metabox',
+		 *      'title'         => __( 'Sample Metabox', 'mytextdomain' ),
+		 *      'callback'      => 'my_callback'
+		 *      'post_type'     => array( 'post', 'page', 'my-custom-cpt' ),
+		 *      'context'       => 'normal',
+		 *      'priority'      => 'default'
+		 *      'callback_args' => array( 'foo' => 'this', 'bar' => 'that' )
 		 * );
 		 * </code>
 		 *
-		 * @param  string $id
-		 * @param  string $title
-		 * @param  string $callback
-		 * @param  array  $post_type
-		 * @param  string $context
-		 * @param  string $priority
-		 * @param  array  $callback_args
+		 * @param  array  $args
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( $id, $title, $callback, array $post_type, $context, $priority, $callback_args = array() )
+		public function __construct( $args = array() )
 		{
-			$this->id            = $id;
-			$this->title         = $title;
-			$this->callback      = $callback;
-			$this->post_type     = $post_type;
-			$this->context       = $context;
-			$this->priority      = $priority;
-			$this->callback_args = $callback_args;
+			$args = wp_parse_args( $args, array(
+				'id'            => 'sample-metabox',
+				'title'         => __( 'Sample Metabox', 'wpmvcb' ),
+				'callback'      => array( $this, 'default_callback' ),
+				'post_types'     => array( 'post' ),
+				'context'       => 'normal',
+				'priority'      => 'default',
+				'callback_args' => array(),
+			) );
+
+			$this->id            = $args['id'];
+			$this->title         = $args['title'];
+			$this->callback      = $args['callback'];
+			$this->post_types    = $args['post_types'];
+			$this->context       = $args['context'];
+			$this->priority      = $args['priority'];
+			$this->callback_args = $args['callback_args'];
 
 			//check for valid values
-			if ( ! in_array( $context, array( 'normal', 'advanced', 'side' ) ) )
+			if ( ! in_array( $this->context, array( 'normal', 'advanced', 'side' ) ) ) {
 				$this->context = 'normal';
+			}
 
-			if ( ! in_array( $priority, array( 'high', 'core', 'default', 'low' ) ) )
+			if ( ! in_array( $this->priority, array( 'high', 'core', 'default', 'low' ) ) ) {
 				$this->priority = 'default';
-		}
-
-		/**
-		 * Add the metabox
-		 *
-		 * @return void
-		 * @access public
-		 * @since  WPMVCBase 0.1
-		 */
-		public function add()
-		{
-			foreach( $this->post_type as $post_type ) {
-				add_meta_box(
-					$this->id,
-					$this->title,
-					$this->callback,
-					$post_type,
-					$this->context,
-					$this->priority,
-					$this->callback_args
-				);
 			}
 		}
 
@@ -203,7 +187,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 */
 		public function remove()
 		{
-			foreach( $this->post_type as $post_type ) {
+			foreach( $this->post_types as $post_type ) {
 				remove_meta_box( $this->id, $post_type, $this->context );
 			}
 		}
@@ -257,7 +241,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 */
 		public function set_post_type( array $post_types )
 		{
-			$this->post_type = $post_types;
+			$this->post_types = $post_types;
 		}
 
 		/**
@@ -344,7 +328,7 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		 */
 		public function get_post_types()
 		{
-			return $this->post_type;
+			return $this->post_types;
 		}
 
 		/**
@@ -374,13 +358,25 @@ if ( ! class_exists( 'Base_Model_Metabox' ) ):
 		/**
 		 * get the metabox callback_args
 		 *
-		 * @return array $callback_args
+		 * @param  WP_Post $post
+		 * @return array   $callback_args
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function get_callback_args()
+		public function get_callback_args( $post )
 		{
-			return $this->callback_args;
+			return apply_filters( $this->id, $this->callback_args, $post );
+		}
+
+		/**
+		 * The default metabox callback
+		 */
+		public function default_callback()
+		{
+			printf( 
+				__( 'This is the default callback for the %s metabox. Please implement a callback function!', 'wpmvcb' ),
+				$this->id
+			);
 		}
 	}
-endif;
+}

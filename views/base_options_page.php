@@ -3,8 +3,6 @@
  * The base options page view.
  *
  * @package WP Models\Views
- * @author Daryl Lozupone <daryl@actionhook.com>
- * @version 0.1
  * @since WP Base 0.1
  */
 ?>
@@ -21,7 +19,7 @@
             ?>
         <fieldset>
             <?php do_settings_sections( $page['menu_slug'] ); ?>
-            <input name='Submit' type='submit' value='<?php echo _x( 'Save Changes', 'text for the options page submit button', $this->txtdomain ); ?>' />
+            <input name='Submit' type='submit' value='<?php esc_attr_e( _x( 'Save Changes', 'text for the options page submit button', 'wpmvcb' ) ); ?>' />
         </fieldset>
     </form>
 </div>

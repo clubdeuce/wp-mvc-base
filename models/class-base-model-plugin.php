@@ -15,9 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-include_once 'class-base-model.php';
-
-if ( ! class_exists( 'Base_Model_Plugin' ) ):
+if ( ! class_exists( 'Base_Model_Plugin' ) ) {
 	/**
 	 * The base plugin model
 	 *
@@ -25,7 +23,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 	 * @version 0.2
 	 * @since   WPMVCBase 0.2
 	 */
-	abstract class Base_Model_Plugin extends Base_Model
+	abstract class Base_Model_Plugin extends WPMVCB_Model_Base
 	{
 		/**
 		 * The plugin slug.
@@ -52,34 +50,7 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 * @access protected
 		 * @since  WPMVCBase 0.2
 		 */
-		protected $cpts;
-
-		/**
-		 * The plugin settings model.
-		 *
-		 * @var    object
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $settings_model;
-
-		/**
-		 * The nonce name to be used for plugin form submissions.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $nonce_name;
-
-		/**
-		 * The nonce action to be used for plugin form submissions.
-		 *
-		 * @var    string
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $nonce_action;
+		protected $post_types;
 
 		/**
 		 * The class constructor
@@ -96,24 +67,23 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		 * }
 		 * </code>
 		 *
-		 * @param  string $slug         The plugin slug.
-		 * @param  string $version      The plugin version.
-		 * @param  string $file         The main plugin file absolute path.
-		 * @param  string $plugin_path  The plugin directory path.
-		 * @param  string $app_path     The plugin app path.
-		 * @param  string $base_path    The plugin base path.
-		 * @param  string $uri          The plugin directory uri.
-		 * @param  string $txtdomain    The plugin text domain.
+		 * @param  string|array  $args
 		 * @access public
 		 * @since  WPMVCBase 0.2
 		 */
-		public function __construct( $slug, $version, $file, $plugin_path, $app_path, $base_path, $uri, $txtdomain )
+		public function __construct( $args = array() )
 		{
-			parent::__construct( $file, $plugin_path, $app_path, $base_path, $uri, $txtdomain );
-			$this->slug             = $slug;
-			$this->version          = $version;
-			$this->js_uri           = $this->uri . 'js/';
-			$this->css_uri          = $this->uri . 'css/';
+			$args = wp_parse_args( $args, array(
+				'post_types' => array(),
+				'slug'       => __CLASS__,
+				'version'    => null,
+			) );
+
+			$this->post_types = $args['post_types'];
+			$this->slug       = $args['slug'];
+			$this->version    = $args['version'];
+
+			parent::__construct( $args );
 		}
 		
 		/**
@@ -139,5 +109,15 @@ if ( ! class_exists( 'Base_Model_Plugin' ) ):
 		{
 			return $this->version;
 		}
+
+		public function get_post_types()
+		{
+			return $this->post_types;
+		}
+
+		public function add_post_type( $slug, $args )
+		{
+			$this->post_types[ $slug ] = $args;
+		}
 	}
-endif;
+}

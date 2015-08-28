@@ -122,23 +122,27 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 *
 		 * @param  string      $handle
 		 * @param  string      $src
-		 * @param  array       $deps
-		 * @param  string|bool $version
-		 * @param  bool        $in_footer
-		 * @param  string      $localization_var
-		 * @param  array       $localization_args
+		 * @param  array       $args   An array containing additional arguments
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( $handle, $src = null, $deps = array(), $version = false, $in_footer = false, $localization_var = '', $localization_args = array() )
+		public function __construct( $handle, $src = null, array $args = array() )
 		{
+            $args = wp_parse_args( $args, array(
+                'deps'              => array(),
+                'version'           => null,
+                'in_footer'         => false,
+                'localization_var'  => null,
+                'localization_args' => array(),
+            ) );
+
 			$this->handle            = $handle;
 			$this->src               = $src;
-			$this->deps              = $deps;
-			$this->version           = $version;
-			$this->in_footer         = $in_footer;
-			$this->localization_var  = $localization_var;
-			$this->localization_args = $localization_args;
+			$this->deps              = $args['deps'];
+			$this->version           = $args['version'];
+			$this->in_footer         = $args['in_footer'];
+			$this->localization_var  = $args['localization_var'];
+			$this->localization_args = $args['localization_args'];
 		}
 
 		/**
@@ -163,8 +167,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		public function enqueue()
 		{
 			//apply filters
-			$this->src = apply_filters( 'ah_base_filter_script_src-' . $this->handle, $this->src );
-			$this->localization_args = apply_filters( 'ah_base_filter_script_localization_args-' . $this->handle, $this->localization_args );
+			$this->localization_args = apply_filters( 'wpmvcb_filter_script_localization_args-' . $this->handle, $this->localization_args );
 
 			wp_enqueue_script( $this->handle, $this->src, $this->deps, $this->version, $this->in_footer );
 			if ( isset( $this->localization_var ) && isset( $this->localization_args ) ) {
@@ -175,9 +178,9 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		/**
 		 * Localize the script
 		 *
-		 * @link http://codex.wordpress.org/Function_Reference/wp_localize_script
+		 * @link   http://codex.wordpress.org/Function_Reference/wp_localize_script
 		 * @return bool TRUE on success, FALSE on failure
-		 * @since WPMVCBase 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function localize()
 		{
@@ -193,7 +196,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 *
 		 * @link http://codex.wordpress.org/Function_Reference/wp_dequeue_script
 		 * @return void
-		 * @since WPMVCBase 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function dequeue()
 		{
@@ -205,7 +208,7 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 *
 		 * @link http://codex.wordpress.org/Function_Reference/wp_deregister_script
 		 * @return void
-		 * @since WPMVCBase 0.1
+		 * @since  WPMVCBase 0.1
 		 */
 		public function deregister()
 		{
@@ -216,9 +219,9 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script handle.
 		 *
 		 * @return string $handle
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
-		function get_handle()
+		public function get_handle()
 		{
 			return $this->handle;
 		}
@@ -227,9 +230,9 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script source.
 		 *
 		 * @return string $src
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
-		function get_src()
+		public function get_src()
 		{
 			return $this->src;
 		}
@@ -238,9 +241,9 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script dependencies.
 		 *
 		 * @return array $deps
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
-		function get_deps()
+		public function get_deps()
 		{
 			return $this->deps;
 		}
@@ -249,9 +252,9 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script version.
 		 *
 		 * @return string $version
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
-		function get_version()
+		public function get_version()
 		{
 			return $this->version;
 		}
@@ -260,9 +263,9 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script placement.
 		 *
 		 * @return boolean $in_footer
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
-		function get_in_footer()
+		public function get_in_footer()
 		{
 			return $this->in_footer;
 		}
@@ -271,9 +274,9 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script localization variable name.
 		 *
 		 * @return string|false $localization_var if set, FALSE if not.
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
-		function get_localization_var()
+		public function get_localization_var()
 		{
 			if ( ! empty( $this->localization_var ) ) {
 				return $this->localization_var;
@@ -286,9 +289,9 @@ if ( ! class_exists( 'Base_Model_JS_Object' ) ):
 		 * Get the script localization arguments.
 		 *
 		 * @return string|bool $localization_args if set, FALSE if not.
-		 * @since WPMVCBase 0.3
+		 * @since  WPMVCBase 0.3
 		 */
-		function get_localization_args()
+		public function get_localization_args()
 		{
 			if ( ! empty( $this->localization_args ) ) {
 				return $this->localization_args;

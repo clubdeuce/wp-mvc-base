@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-require_once 'class-base-model.php';
+require_once 'class-model-base.php';
 
 if ( ! class_exists( 'Base_Model_Taxonomy' ) ) {
 	/**
@@ -27,7 +27,7 @@ if ( ! class_exists( 'Base_Model_Taxonomy' ) ) {
 	 * @filesource models/class-base-model-taxonomy.php
 	 * @since      WPMVCB 0.3
 	 */
-	abstract class Base_Model_Taxonomy extends Base_Model
+	abstract class Base_Model_Taxonomy extends WPMVCB_Model_Base
 	{
 		/**
 		 * The taxonomy slug.
@@ -111,29 +111,5 @@ if ( ! class_exists( 'Base_Model_Taxonomy' ) ) {
 			return $this->args;
 		}
 		
-		/**
-		 * Get the labels.
-		 * 
-		 * @access private
-		 * @param  string  $txtdomain The text domain used for translations.
-		 * @return array              An array containint key/value pairs for the taxonomy labels.
-		 * @since  0.3
-		 */
-		protected function get_labels( $txtdomain )
-		{
-			return array(
-				'name'              => $this->plural,
-				'singular_name'     => $this->singular,
-				'search_items'      => sprintf( __( 'Search %s', $txtdomain ), $this->plural ),
-				'all_items'         => sprintf( __( 'All %s', $txtdomain ), $this->plural ),
-				'parent_item'       => sprintf( __( 'Parent %s', $txtdomain ), $this->singular ),
-				'parent_item_colon' => sprintf( __( 'Parent %s:', $txtdomain ), $this->singular ),
-				'edit_item'         => sprintf( __( 'Edit %s', $txtdomain ), $this->singular ),
-				'update_item'       => sprintf( __( 'Update %s', $txtdomain ), $this->singular ),
-				'add_new_item'      => sprintf( __( 'Add New %s', $txtdomain ), $this->singular ),
-				'new_item_name'     => sprintf( __( 'New %s Name', $txtdomain ), $this->singular ),
-				'menu_name'         => $this->plural,
-			);
-		}
 	}
 }

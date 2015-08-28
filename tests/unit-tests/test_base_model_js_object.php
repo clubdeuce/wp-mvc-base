@@ -1,7 +1,9 @@
 <?php
 namespace WPMVCB\Testing
 {
-	require_once( WPMVCB_SRC_DIR . '/models/class-base-model-js-object.php' );
+    use Base_Model_JS_Object;
+
+	//require_once( WPMVCB_SRC_DIR . '/models/class-base-model-js-object.php' );
 	
 	/**
 	 * The test controller for Base_Model_JS_Object.
@@ -12,19 +14,24 @@ namespace WPMVCB\Testing
 	 */
 	class testBaseModelJsObject extends WPMVCB_Test_Case
 	{
+        /**
+         * @var Base_Model_JS_Object
+         */
 		private $script;
 		
 		public function setUp()
 		{
 			parent::setUp();
-			$this->script = new \Base_Model_JS_Object(
+			$this->script = new Base_Model_JS_Object(
 				'my-super-cool-script',
 				'http://my-super-cool-site.com/wp-content/plugins/js/my-super-cool-script.js',
-				array( 'jquery', 'my-super-cool-framework' ),
-				true,
-				true,
-				'mySuperCoolL10n',
-				array( 'foo' => 'bar' )
+                array(
+                    'deps'              => array( 'jquery', 'my-super-cool-framework' ),
+                    'version'           => true,
+                    'in_footer'         => true,
+                    'localization_var'  => 'mySuperCoolL10n',
+                    'localization_args' => array( 'foo' => 'bar' ),
+                )
 			);
 		}
 		
@@ -187,7 +194,7 @@ namespace WPMVCB\Testing
 		{
 			$this->assertTrue( method_exists( 'Base_Model_JS_Object', 'localize' ) );
 			
-			$baz = new \Base_Model_JS_Object( 'baz', 'http://example.com/baz.js', null, false, false );
+			$baz = new \Base_Model_JS_Object( 'baz', 'http://example.com/baz.js' );
 			
 			wp_register_script( 'baz', 'http://example.com/baz.js', null, false, false );
 			$this->assertFalse( $baz->localize() );

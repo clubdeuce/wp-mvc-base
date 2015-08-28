@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-include_once 'class-base-controller.php';
+include_once 'class-controller-base.php';
 
 if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 	/**
@@ -26,51 +26,31 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 	 * @version  0.2
 	 * @since    WPMVCBase 0.1
 	 */
-	abstract class Base_Controller_Plugin extends Base_Controller
+	abstract class Base_Controller_Plugin extends WPMVC_Controller_Base
 	{
-		/**
-		 * The plugin model.
-		 *
-		 * @var    object
-		 * @access protected
-		 * @since  WPMVCBase 0.2
-		 */
-		protected $plugin_model;
+        /**
+         * @var Base_Model_Plugin
+         */
+        protected $model;
 
 		/**
 		 * The class constructor.
 		 *
-		 * @param  object $model The plugin model.
+		 * @param  string|array  $args;
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function __construct( $model )
+		public function __construct( $args = array() )
 		{
-			if ( ! is_a( $model, 'Base_Model_Plugin' ) ) {
-				trigger_error(
-					sprintf( __( '%s expects an instance of Base_Model_Plugin', 'wpmvcb' ), __FUNCTION__ ),
-					E_USER_WARNING
-				);
-			}
+			$args = wp_parse_args( $args, array(
+				'model' => null,
+			) );
+
+			parent::__construct( $args );
 			
-			parent::__construct(
-				$model->get_main_plugin_file(),
-				$model->get_app_path(),
-				$model->get_base_path(),
-				$model->get_uri(),
-				$model->get_textdomain()
-			);
-			
-			$this->plugin_model = $model;
-			
-			add_action( 'plugins_loaded',        array( &$this, 'load_text_domain' ) );
-			add_action( 'admin_notices',         array( &$this, 'admin_notice' ) );
-			
-			if ( method_exists( $this, 'init' ) ) {
-				$this->init();
-			}
-			
-			$this->init_help_tabs();
+			add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
+			add_action( 'admin_notices',  array( $this, 'admin_notice' ) );
+			add_action( 'init',           array( $this, 'register_post_types' ) );
 		}
 
 		/**
@@ -82,12 +62,19 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 */
 		public function load_text_domain()
 		{
-			if ( is_dir( $this->plugin_model->get_path() . '/languages/' ) ) {
-				load_plugin_textdomain(
-					$this->plugin_model->get_txtdomain(),
-					false,
-					$this->plugin_model->get_path() . '/languages/'
-				);
+			// if ( is_dir( $this->model->get_path() . '/languages/' ) ) {
+			// 	load_plugin_textdomain(
+			// 		$this->model->get_txtdomain(),
+			// 		false,
+			// 		$this->model->get_path() . '/languages/'
+			// 	);
+			// }
+		}
+
+		public function register_post_types()
+		{
+			foreach ( $this->model->get_post_types() as $slug => $args ) {
+				register_post_type( $slug, $args );
 			}
 		}
 
@@ -101,7 +88,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		public function admin_notice()
 		{
 			$current_screen = get_current_screen();
-			$notices = $this->plugin_model->get_admin_notices();
+			$notices = $this->model->get_admin_notices();
 			
 			if ( isset ( $notices ) && is_array( $notices ) ) {
 				foreach ( $notices as $notice ) {
@@ -111,7 +98,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 						echo $notice->get_message();
 					}
 					
-					if ( 'all' == $screens ) {
+					if ( in_array( 'all', $screens ) ) {
 						echo $notice->get_message();
 					}
 				}
@@ -131,7 +118,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			$screen = get_current_screen();
 
 			//are there help tabs for this screen?
-			$tabs = $this->plugin_model->get_help_tabs();
+			$tabs = $this->model->get_help_tabs();
 			if ( ! empty ($tabs[ $screen->id ] ) ) {
 				foreach ( $tabs[ $screen->id ] as $tab ) {
 					$tab->add();
@@ -139,7 +126,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			}
 
 			//are there javascripts registered for this screen?
-			$admin_js = $this->plugin_model->get_admin_scripts();
+			$admin_js = $this->model->get_admin_scripts();
 			if ( ! empty( $admin_js[ $screen->id ] ) ) {
 				foreach ( $admin_js[ $screen->id ] as $script ) {
 					$script->enqueue();
@@ -148,7 +135,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 			}
 
 			//are there styles registered for this screen?
-			$css = $this->plugin_model->get_admin_css();
+			$css = $this->model->get_admin_css();
 			if ( ! empty( $css[ $screen->id ] ) ):
 				Helper_Functions::enqueue_styles( $css[ $screen->id ] );
 			endif;
@@ -169,7 +156,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		public function admin_enqueue_scripts()
 		{
 			//register the scripts
-			$scripts = $this->plugin_model->get_admin_scripts();
+			$scripts = $this->model->get_admin_scripts();
 			
 			if ( isset( $scripts ) && is_array( $scripts ) ) {
 				foreach ( $scripts as $script ) {
@@ -196,30 +183,10 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		public function wp_enqueue_scripts()
 		{
 			//add the global javascripts
-			$scripts = $this->plugin_model->get_scripts();
+			$scripts = $this->model->get_scripts();
 			
 			if ( isset( $scripts ) && is_array( $scripts ) ) {
 				parent::enqueue_scripts( $scripts );
-			}
-		}
-		
-		/**
-		 * Add metaboxes for the plugin model.
-		 *
-		 * @uses     Base_Model_plugin::get_metaboxes
-		 * @uses     Base_Controller::add_metaboxes
-		 * @internal
-		 * @access   public
-		 * @since    WPMVCBase 0.2
-		 */
-		public function add_meta_boxes()
-		{
-			global $post;
-			
-			$metaboxes = $this->plugin_model->get_metaboxes( $post );
-			
-			if ( is_array( $metaboxes ) ) {
-				parent::add_meta_boxes( $metaboxes );
 			}
 		}
 		
@@ -230,21 +197,21 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 * @uses  Base_Model_Help_Tab::get_screens
 		 * @since WPMVCBase 0.2
 		 */
-		protected function init_help_tabs()
-		{
-			// Get the help tabs defined for the plugin model
-			$tabs = $this->plugin_model->get_help_tabs();
+		// protected function init_help_tabs()
+		// {
+		// 	// Get the help tabs defined for the plugin model
+		// 	$tabs = $this->model->get_help_tabs();
 			
-			if ( isset( $tabs ) && is_array( $tabs ) ) {
-				foreach( $tabs as $tab ) {
-					//get the screens on which to display this tab
-					$screens = $tab->get_screens();
-					foreach( $screens as $screen ) {
-						add_action( $screen, array( &$this, 'render_help_tabs' ) );
-					}
-				}
-			}
-		}
+		// 	if ( isset( $tabs ) && is_array( $tabs ) ) {
+		// 		foreach( $tabs as $tab ) {
+		// 			//get the screens on which to display this tab
+		// 			$screens = $tab->get_screens();
+		// 			foreach( $screens as $screen ) {
+		// 				add_action( $screen, array( &$this, 'render_help_tabs' ) );
+		// 			}
+		// 		}
+		// 	}
+		// }
 		
 		/**
 		 * Render the help tabs for the plugin model.
@@ -255,7 +222,7 @@ if ( ! class_exists( 'Base_Controller_Plugin' ) ) {
 		 */
 		public function render_help_tabs()
 		{
-			$tabs   = $this->plugin_model->get_help_tabs();
+			$tabs   = $this->model->get_help_tabs();
 			$screen = get_current_screen();
 			
 			foreach( $tabs as $tab ) {

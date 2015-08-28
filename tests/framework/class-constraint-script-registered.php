@@ -29,7 +29,7 @@ class PHPUnit_Framework_Constraint_ScriptRegistered extends \PHPUnit_Framework_C
 	{
 		global $wp_scripts;
 
-		if ( ! isset( $wp_scripts ) ) {
+		if ( ! isset( $wp_scripts ) || empty( $script ) ) {
 			return false;
 		}
 		

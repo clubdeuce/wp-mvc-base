@@ -15,8 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-if ( ! class_exists( 'Base_Controller_Settings' ) ) {
-	include_once 'class-base-controller.php';
+if ( ! class_exists( 'WPMVCB_Settings_Base' ) ) {
 
 	/**
 	 * The base settings controller class.
@@ -25,7 +24,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 	 * @version 0.2
 	 * @since   WPMVCBase 0.2
 	 */
-	class Base_Controller_Settings extends Base_Controller
+	class WPMVCB_Settings_Base extends WPMVC_Controller_Base
 	{
 		/**
 		 * The settings model.
@@ -38,11 +37,12 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		/**
 		 * The class constructor.
 		 *
-		 * @param  Base_Model_Settings $model The Base_Model_Settings object.
-		 * @access public
+		 * @param  WPMVCB_Settings_Model_Base $model The Base_Model_Settings object.
+		 *
+		 *@access public
 		 * @since  WPMVCBase 0.2
 		 */
-		public function __construct( Base_Model_Settings $model )
+		public function __construct( WPMVCB_Settings_Model_Base $model )
 		{
 			$this->model = $model;
 
@@ -66,22 +66,22 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		/**
 		 * Register options.
 		 *
-		 * @internal
 		 * @access   public
 		 * @since    WPMVCBase 0.2
 		 */
-		public function register_options()
-		{
+		public function register_options() {
+
 			$options = $this->model->get_options();
 
 			if ( is_array( $options ) ) {
 				foreach ( $options as $option ) {
-					if ( is_null( $option['callback'] ) ) {
+					if ( ! isset( $option['callback'] ) ) {
 						$option['callback'] = array( $this->model, 'sanitize_input' );
 					}
 					register_setting( $option['option_group'], $option['option_name'], $option['callback'] );
 				}
 			}
+
 		}
 
 		/**
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 
 			if ( is_array( $menu_pages ) ) {
 				foreach ( $menu_pages as $key => $page ) {
-					if ( is_a( $page, 'Base_Model_Menu_Page' ) ) {
+					if ( is_a( $page, 'WPMVCB_Menu_Page_Model_Base' ) ) {
 						if ( ! $page->get_callback() ) {
 							$page->set_callback( array( $this, 'render_options_page' ) );
 						}
@@ -114,7 +114,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 							
 							$wp_error->add(
 								'failure',
-								sprintf( __( 'Unable to add submenu page: %s.', $this->txtdomain ), $key ),
+								sprintf( __( 'Unable to add submenu page: %s.', 'wpmvcb' ), $key ),
 								$page
 							);
 						}
@@ -188,7 +188,6 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 * the options page template defined in the page object if it exists, otherwise it will use a generic
 		 * template included in this package (views/base_options_page.php).
 		 *
-		 * @internal
 		 * @access   public
 		 * @since    WPMVCBase 0.1
 		 * @link     http://codex.wordpress.org/Function_Reference/add_menu_page
@@ -269,15 +268,23 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 		 * @access public
 		 * @since  WPMVCBase 0.1
 		 */
-		public function render_settings_field( $args, $echo = 'echo' )
-		{
+		public function render_settings_field( $args, $echo = 'echo' ) {
+
+			$args = wp_parse_args( $args, array(
+				'type' => null,
+				'id'   => null,
+				'name' => null,
+				/* translators: input field placeholder text */
+				'placeholder' => __( 'Enter value here', 'wpmvcb' ),
+			) );
+
 			$html = ''; 
 			
 			if ( ! isset( $args['type'] ) || ! isset( $args['id'] ) || ! isset( $args['name'] ) ) {
 				trigger_error( __( 'The settings field type, id and name must be set', 'wpmvcb' ), E_USER_WARNING );
 			}
 
-			include_once dirname( dirname( __FILE__ ) ) . '/helpers/render_fields.php';
+			//include_once dirname( dirname( __FILE__ ) ) . '/helpers/render_fields.php';
 
 			switch ( $args['type'] ) {
 				case 'checkbox':
@@ -286,7 +293,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 				case 'select':
 					if ( ! isset( $args['options'] ) ) {
 						trigger_error(
-							__( 'The options must be set to render a select field.', 'wpmvcb' ),
+							__( 'The options must be set in order to render a select field.', 'wpmvcb' ),
 							E_USER_WARNING
 						);
 					}
@@ -306,6 +313,7 @@ if ( ! class_exists( 'Base_Controller_Settings' ) ) {
 			}
 			
 			echo $html;
+
 		}
 	}
 }
