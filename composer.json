@@ -1,14 +1,14 @@
 {
-	"name": "clubduece/wpmvcbase",
+	"name": "clubdeuce/wpmvcbase",
 	"type": "wordpress-muplugin",
 	"description": "MVC style framework for WordPress plugin development",
 	"keywords": ["wordpress","mvc","plugins"],
-	"homepage": "https://github.com/clubduece/wp-mvc-base",
+	"homepage": "https://github.com/clubdeuce/wp-mvc-base",
 	"license": "GPLv2.0",
 	"authors": [
 		{
-			"name": "ClubDuece",
-			"email": "daryl@clubduece.com",
+			"name": "ClubDeuce",
+			"email": "daryl@clubdeuce.ninja",
 			"role": "Developer"
     	}
 	],
