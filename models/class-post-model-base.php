@@ -91,12 +91,12 @@ if ( ! class_exists( 'WPMVCB_Cpt_Model_Base' ) && class_exists( 'WPMVCB_Model_Ba
 		 * @param array $attr
 		 * @return mixed|null|void
 		 */
-		public function get_image( $size, $attr = array() ) {
+		public function get_image( $size = 'full', $attr = array() ) {
 
 			$value = null;
 
 			if( $this->has_image() ) {
-				$value =  get_the_post_thumbnail( $this->post->ID, $size, $args );
+				$value =  get_the_post_thumbnail( $this->post->ID, $size, $attr );
 			}
 
 			return $value;
