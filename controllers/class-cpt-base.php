@@ -251,18 +251,24 @@ if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base
 		 * @return bool
 		 * @since  0.3.4
 		 */
-		public static function okay_to_save( $args = array() ) {
+		public static function okay_to_save( $post_id, $args = array() ) {
 
 			$okay = true;
 			$args = wp_parse_args( $args, array(
 				'post_type' => 'post',
 			) );
 
+			//do not respond to inline-save (aka Quick Edit)
+			$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
+			if( 'inline-save' == $action ) {
+				$okay = false;
+			}
+
 			if ( ! current_user_can( 'edit_posts' ) ) {
 				$okay = false;
 			}
 
-			if ( ! ( get_post_type() == $args['post_type'] ) ) {
+			if ( ! ( get_post_type( $post_id ) == $args['post_type'] ) ) {
 				$okay = false;
 			}
 
