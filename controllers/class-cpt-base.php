@@ -244,8 +244,36 @@ if ( ! class_exists( 'WPMVCB_Cpt_Base' ) && class_exists( 'WPMVC_Controller_Base
 			return $value;
 		}
 
+		/**
+		 * Verify it is okay to save the post
+		 *
+		 * @param array $args
+		 * @return bool
+		 * @since  0.3.4
+		 */
+		public static function okay_to_save( $args = array() ) {
+
+			$okay = true;
+			$args = wp_parse_args( $args, array(
+				'post_type' => 'post',
+			) );
+
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				$okay = false;
+			}
+
+			if ( ! ( get_post_type() == $args['post_type'] ) ) {
+				$okay = false;
+			}
+
+			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+				$okay = false;
+			}
+
+			return $okay;
+
+		}
+
 	}
 
 }
-
-WPMVCB_Cpt_Base::on_load();
