@@ -113,7 +113,7 @@ class Post_Type_Base {
 	/**
 	 * Filter to ensure the CPT labels are displayed when user updates the CPT
 	 *
-	 * @param    string $messages The existing messages array.
+	 * @param    array $messages The existing messages array.
 	 * @return   array  $messages The updated messages array.
 	 * @internal
 	 * @access   public
