@@ -34,7 +34,7 @@ class RoboFile extends \Robo\Tasks
 	 */
 	function phpunit($config = 'tests/phpunit.xml.dist')
 	{
-		$this->taskPhpUnit('www/content/vendor/bin/phpunit')
+		$this->taskPhpUnit('vendor/bin/phpunit')
 		     ->configFile($config)
 		     ->envVars(array('WP_TESTS_DIR' => 'wp-tests'))
 		     ->run();
