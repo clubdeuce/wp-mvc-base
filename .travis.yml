@@ -11,32 +11,13 @@ env:
 - WP_VERSION=4.9.0 WP_MULTISITE=1
 
 before_script:
-- curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o php-cs-fixer.phar
-- curl -s http://getcomposer.org/installer | php
 - php composer.phar install --dev --no-interaction --prefer-source
 #Coveralls support
 - mkdir -p build/logs
 - mkdir -p build/cov
-#phpUnit setup
-#- mkdir -p tmp
-# Initialize the WP core directory
-- export WP_CORE_DIR=/tmp/wordpress/
-- wget -nv -O /tmp/wordpress.tar.gz https://github.com/WordPress/WordPress/tarball/$WP_VERSION
-- mkdir -p $WP_CORE_DIR
-- tar --strip-components=1 -zxmf /tmp/wordpress.tar.gz -C $WP_CORE_DIR
-# Initialize the WP unit test directory
-- export WP_TESTS_DIR=/tmp/wordpress-tests/
-- svn co http://develop.svn.wordpress.org/tags/$WP_VERSION /tmp/wordpress-tests/
-# Set up the database access
-- cp /tmp/wordpress-tests/wp-tests-config-sample.php /tmp/wordpress-tests/wp-tests-config.php
-- sed -i "s:dirname( __FILE__ ) . '/wordpress/':'$WP_CORE_DIR':" /tmp/wordpress-tests/wp-tests-config.php
-- sed -i "s/youremptytestdbnamehere/wordpress_test/" /tmp/wordpress-tests/wp-tests-config.php
-- sed -i "s/yourusernamehere/root/" /tmp/wordpress-tests/wp-tests-config.php
-- sed -i "s/yourpasswordhere//" /tmp/wordpress-tests/wp-tests-config.php
-- mysql -e 'CREATE DATABASE wordpress_test;' -uroot
 
 script:
-- phpunit -c tests/phpunit.xml/dist
+- ./vendor/bin/robo tests
 
 after_script:
 #- php vendor/bin/coveralls -v --dry-run
