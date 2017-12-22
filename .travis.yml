@@ -1,17 +1,14 @@
 language: php
 
 php:
-- "5.3"
-- "5.4"
-- "5.5"
+- "7.0"
+- "7.1"
 
 env:
-- WP_VERSION=4.1.1 WP_MULTISITE=0
-- WP_VERSION=4.1 WP_MULTISITE=0
-- WP_VERSION=4.0.1 WP_MULTISITE=0
-- WP_VERSION=4.1.1 WP_MULTISITE=1
-- WP_VERSION=4.1 WP_MULTISITE=1
-- WP_VERSION=4.0.1 WP_MULTISITE=1
+- WP_VERSION=4.9.1 WP_MULTISITE=0
+- WP_VERSION=4.9.0 WP_MULTISITE=0
+- WP_VERSION=4.9.1 WP_MULTISITE=1
+- WP_VERSION=4.9.0 WP_MULTISITE=1
 
 before_script:
 - curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o php-cs-fixer.phar
@@ -39,14 +36,14 @@ before_script:
 - mysql -e 'CREATE DATABASE wordpress_test;' -uroot
 
 script:
-- phpunit
+- phpunit -c tests/phpunit.xml/dist
 
 after_script:
-- php vendor/bin/coveralls -v --dry-run
+#- php vendor/bin/coveralls -v --dry-run
 
 notifications:
     email:
         recipients:
-          - daryl@clubduece.com
+          - daryl@clubduece.net
         on_success: change
         on_failure: always
