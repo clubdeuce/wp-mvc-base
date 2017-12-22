@@ -17,7 +17,7 @@ before_script:
 - mkdir -p build/cov
 
 script:
-- ./vendor/bin/robo tests
+- ./vendor/bin/robo tests $WP_VERSION
 
 after_script:
 #- php vendor/bin/coveralls -v --dry-run
