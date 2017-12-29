@@ -27,7 +27,9 @@ class testPostModelBase extends testCase  {
 	 */
 	public function setUp() {
 		$this->_post  = $this->factory()->post->create_and_get();
+
 		update_post_meta($this->_post->ID, 'bar', 'baz');
+
 		$this->_model = new Post_Model_Base($this->_post, array('foo' => 'bar'));
 
 		parent::setUp();
@@ -98,6 +100,8 @@ class testPostModelBase extends testCase  {
 
 	/**
 	 * @covers ::__call
+	 * @covers \WPMVCB\Base::__construct
+	 * @covers \WPMVCB\Base::__call
 	 */
 	public function testPost() {
 		$this->assertEquals($this->_post, $this->_model->post());
@@ -125,5 +129,13 @@ class testPostModelBase extends testCase  {
 	 */
 	public function testGetPermalink() {
 		$this->assertEquals(get_the_permalink($this->_post->ID), $this->_model->get_permalink());
+	}
+
+	/**
+	 * @covers ::get_image_id
+	 */
+	public function testGetImageId() {
+		update_post_meta($this->_post->ID, '_thumbnail_id', 22);
+		$this->assertEquals(22, $this->_model->get_image_id());
 	}
 }

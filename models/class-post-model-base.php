@@ -11,6 +11,7 @@ namespace WPMVCB;
  *
  * @method \WP_Post post()
  * @method int      ID()
+ * @method int[]    ancestors()
  * @method int      post_author()
  * @method string   post_category()
  * @method string   post_content()
@@ -38,7 +39,7 @@ class Post_Model_Base extends Model_Base {
 		}
 
 		if ( is_a( $post, 'WP_Post' ) ) {
-			$this->_post = $post;
+			$args['post'] = $post;
 		}
 
 		parent::__construct( $args );

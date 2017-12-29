@@ -34,4 +34,10 @@ class testBase extends testCase {
 		$this->assertEquals('bar', $this->_sut->foo());
 	}
 
+	/**
+	 * @covers ::__call
+	 */
+	public function testCallIsNull() {
+		$this->assertNull($this->_sut->bar());
+	}
 }

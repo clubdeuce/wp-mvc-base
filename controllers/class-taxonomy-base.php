@@ -1,33 +1,22 @@
 <?php
-/*
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+namespace WPMVCB;
 
 /**
- * Class Base_Controller_Taxnomy
+ * Class Taxonomy_Base
  *
  * @since WPMVCBase 0.4
  */
-class WPMVCB_Taxonomy_Base extends WPMVC_Controller_Base {
+class Taxonomy_Base {
 
 	/**
 	 * The taxonomy slug
-	 *
-	 * @var   string
 	 */
-	public static $taxonomy = null;
+	const TAXONOMY = null;
+
+	/**
+	 * The term class
+	 */
+	const INSTANCE_CLASS = null;
 	
 	/**
 	 * The post type slugs to which this taxonomy is assigned
@@ -42,7 +31,14 @@ class WPMVCB_Taxonomy_Base extends WPMVC_Controller_Base {
 	protected static $taxonomy_args = array();
 
 	/**
-	 * Register a taxonomy
+	 *
+	 */
+	public static function get_term() {
+
+	}
+
+	/**
+	 * Register this taxonomy
 	 *
 	 * @param string $slug
 	 * @param array  $object_types
@@ -105,4 +101,4 @@ class WPMVCB_Taxonomy_Base extends WPMVC_Controller_Base {
 
 }
 
-WPMVCB_Taxonomy_Base::on_load();
+Taxonomy_Base::on_load();
