@@ -4,9 +4,12 @@ namespace WPMVCB;
 /**
  * Class Taxonomy_Base
  *
+ * @method static array    taxonomy_args()
+ * @method static string[] object_types()
+ *
  * @since WPMVCBase 0.4
  */
-class Taxonomy_Base {
+class Taxonomy_Base extends Base {
 
 	/**
 	 * The taxonomy slug
@@ -23,12 +26,12 @@ class Taxonomy_Base {
 	 *
 	 * @var array
 	 */
-	protected static $object_types = array();
+	protected static $_object_types = array();
 
 	/**
 	 * The taxonomy slug and arguments stored as key/value pairs
 	 */
-	protected static $taxonomy_args = array();
+	protected static $_taxonomy_args = array();
 
 	/**
 	 *
@@ -37,19 +40,20 @@ class Taxonomy_Base {
 
 	}
 
+	public static function register_object_types( $types = array() ) {
+
+		self::$_object_types = $types;
+
+	}
+
 	/**
-	 * Register this taxonomy
+	 * Register the taxonomy arguments
 	 *
-	 * @param string $slug
-	 * @param array  $object_types
 	 * @param array  $args
 	 */
-	public static function register_taxonomy_args( $slug, $object_types, $args ) {
+	public static function register_taxonomy_args( $args ) {
 
-		self::$taxonomy_args[ $slug ] = array(
-			'object_types' => $object_types,
-			'args'         => $args,
-		);
+		self::$_taxonomy_args = $args;
 
 	}
 
@@ -58,9 +62,7 @@ class Taxonomy_Base {
 	 */
 	public static function init() {
 
-		foreach( self::$taxonomy_args as $slug => $taxonomy ) {
-			register_taxonomy( $slug, $taxonomy['object_types'], $taxonomy['args'] );
-		} 
+		register_taxonomy( static::TAXONOMY, static::object_types(), static::taxonomy_args() );
 
 	}
 
@@ -100,5 +102,3 @@ class Taxonomy_Base {
 	}
 
 }
-
-Taxonomy_Base::on_load();

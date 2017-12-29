@@ -63,6 +63,26 @@ abstract class Base {
 	}
 
 	/**
+	 * @param string $method
+	 * @param array  $args
+	 *
+	 * @return null|mixed
+	 */
+	public static function __callStatic( $method, $args ) {
+
+		do {
+			if ( property_exists( static::class, $property = "_{$method}" ) ) {
+				$value = static::${$property};
+				break;
+			}
+
+			$value = null;
+		} while ( false );
+
+		return $value;
+	}
+
+	/**
 	 * @param string $method_name
 	 * @param string $replacement
 	 */

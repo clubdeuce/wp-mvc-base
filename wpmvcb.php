@@ -61,7 +61,7 @@ class WPMVCB  {
 	        __NAMESPACE__ . '\Post_Base'                      => __DIR__ . '/controllers/class-post-base.php',
 //            'Base_Controller_Plugin'         => __DIR__ . '/controllers/class-base-controller-plugin.php',
 //            'WPMVCB_Settings_Base'           => __DIR__ . '/controllers/class-settings-base.php',
-//            'WPMVCB_Taxonomy_Base'           => __DIR__ . '/controllers/class-taxonomy-base.php',
+            __NAMESPACE__ . '\Taxonomy_Base'                  => __DIR__ . '/controllers/class-taxonomy-base.php',
 //            'WPMVCB_Metabox'                 => __DIR__ . '/controllers/class-metabox-base.php',
             __NAMESPACE__ . '\Model_Base'              => __DIR__ . '/models/class-model-base.php',
 //            'WPMVCB_Admin_Notice_Model_Base' => __DIR__ . '/models/class-admin-notice-model-base.php',
@@ -108,7 +108,7 @@ class WPMVCB  {
         if ( isset( $this->autoload_classes[ $class ] ) ) {
             if ( file_exists( $this->autoload_classes[ $class ] ) ) {
                 require_once $this->autoload_classes[ $class ];
-                if ( is_callable( "{$class}::on_load" ) ) {
+                if ( is_callable( array( $class, 'on_load') ) ) {
                     call_user_func( array( $class, 'on_load' ) );
                 }
             }
