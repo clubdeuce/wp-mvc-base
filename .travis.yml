@@ -6,9 +6,7 @@ php:
 
 env:
 - WP_VERSION=4.9.1 WP_MULTISITE=0
-- WP_VERSION=4.9.0 WP_MULTISITE=0
-- WP_VERSION=4.9.1 WP_MULTISITE=1
-- WP_VERSION=4.9.0 WP_MULTISITE=1
+- WP_VERSION=4.9 WP_MULTISITE=0
 
 before_script:
 - composer install --dev --no-interaction
